@@ -1,0 +1,14 @@
+
+*.aux
+
+writing/Cubert/Cubert manuscript.pdf
+
+*.toc
+
+*.log
+
+*.dvi
+
+*.blg
+
+*.bbl
