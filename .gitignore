@@ -12,3 +12,5 @@ writing/Cubert/Cubert manuscript.pdf
 *.blg
 
 *.bbl
+
+*.results
