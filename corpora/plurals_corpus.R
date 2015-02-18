@@ -1,6 +1,6 @@
 ## WSJ
 
-d = read.table("/Users/Greg/git/CoCoLab/CollectivePredication/Corpus/wsj.tab",sep="\t",header=T,quote="")
+d = read.table("/Users/Greg/Documents/git/CoCoLab/collective/corpora/wsj.tab",sep="\t",header=T,quote="")
 summary(d)
 
 ggplot(d, aes(x=Noun)) +
@@ -20,7 +20,7 @@ d[d$SubjectLength > 2,]
 
 ## BNC
 
-d = read.table("/Users/Greg/Documents/git/CoCoLab/CollectivePredication/corpus/bnc.tab",sep="\t",header=T,quote="")
+d = read.table("/Users/Greg/Documents/git/CoCoLab/collective/corpora/bnc.tab",sep="\t",header=T,quote="")
 summary(d)
 
 ggplot(d, aes(x=Noun)) +
@@ -39,4 +39,12 @@ summary(d[d$SubjectLength > 2,])
 
 sort(table(d$Noun),decreasing=TRUE)[1:22]
 sort(table(d$Predicate),decreasing=TRUE)[1:24]
+
+# just "the" determiner
+t = d[d$Determiner=="the",]
+
+t$Sentence = paste(t$Noun,t$Predicate,sep=" ")
+
+#find the most common sentences
+sort(table(t$Sentence),decreasing=TRUE)[1:50]
 
