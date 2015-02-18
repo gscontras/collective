@@ -120,6 +120,8 @@ d2$workerid = paste(d2$workerid,"v2",sep="")
 
 n = read.csv("~/Documents/git/CoCoLab/CollectivePredication/experiments/1-corpus-based/nouns.csv",header=T)
 
+p = read.csv("~/Documents/git/CoCoLab/CollectivePredication/experiments/1-corpus-based/predicates.csv",header=T)
+
 d = rbind(d1,d2)
 
 # counts and raw values
@@ -130,6 +132,7 @@ d$individuation = n$individuation[match(d$noun,n$noun)]
 d$SGPL_RATIO = n$SGPL_RATIO[match(d$noun,n$noun)]
 
 
+
 ## Predicate analysis (collapsing over animacy)
 
 pred_casted = dcast(data=d, predicate+sense~ sentence_type, value.var="response",mean)
@@ -138,7 +141,9 @@ pred_casted$CI.YMin.dist = pred_casted$dist - dcast(data=d, predicate+sense~ sen
 pred_casted$CI.YMax.coll = pred_casted$coll + dcast(data=d, predicate+sense~ sentence_type, value.var="response",ci.high)$coll
 pred_casted$CI.YMax.dist = pred_casted$dist + dcast(data=d, predicate+sense~ sentence_type, value.var="response",ci.high)$dist
 
-pred_word_plot <- ggplot(pred_casted[pred_casted$sense=="Yes",], aes(x=coll,y=dist)) +
+pred_casted$pred_frequency = p$string_frequency[match(pred_casted$predicate,p$predicate)]
+
+pred_word_plot <- ggplot(pred_casted[pred_casted$sense=="Yes",], aes(x=coll,y=dist,color=pred_frequency)) +
   #  geom_point() +
   #  geom_smooth() +
   geom_errorbar(alpha=.3,aes(ymin=CI.YMin.dist,ymax=CI.YMax.dist)) +
@@ -150,7 +155,7 @@ pred_word_plot <- ggplot(pred_casted[pred_casted$sense=="Yes",], aes(x=coll,y=di
   ylim(0,1) +
   xlim(0,1)
 
-ggsave(filename='pred_word_plot.png',plot=pred_word_plot,width=8, height=8)
+ggsave(filename='pred_word_plot.png',plot=pred_word_plot,width=9, height=8)
 
 
 ## Animacy analysis
