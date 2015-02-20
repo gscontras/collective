@@ -113,9 +113,170 @@ theme_blackDisplay <- function(base_size = 12, base_family = "Helvetica") {
   )
 }
 
-d2 = read.table("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/Submiterator-master/2-corpus-based-trials.tsv",sep="\t",header=T)
+setwd("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/")
+
+sub = read.table("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/Submiterator-master/2-corpus-based-subject_information.tsv",sep="\t",header=T)
+
+d = read.table("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/Submiterator-master/2-corpus-based-trials.tsv",sep="\t",header=T)
 
 # counts and raw values
 
 head(d)
+
+table(d$predicate,d$noun)
+
+# trim to just those sentences that make sense
+
+d = d[!is.na(d$sense)&d$sense=="Yes",]
+
+summary(d)
+
+# just attested sentences
+
+a = d[d$attested=="True",]
+
+## Attested Predicate analysis (collapsing over animacy)
+
+a_pred_casted = dcast(data=a, predicate~ sentence_type, value.var="response",mean)
+a_pred_casted$CI.YMin.coll = a_pred_casted$coll - dcast(data=a, predicate~ sentence_type, value.var="response",ci.low)$coll
+a_pred_casted$CI.YMin.dist = a_pred_casted$dist - dcast(data=a, predicate~ sentence_type, value.var="response",ci.low)$dist
+a_pred_casted$CI.YMax.coll = a_pred_casted$coll + dcast(data=a, predicate~ sentence_type, value.var="response",ci.high)$coll
+a_pred_casted$CI.YMax.dist = a_pred_casted$dist + dcast(data=a, predicate~ sentence_type, value.var="response",ci.high)$dist
+
+a_pred_word_plot <- ggplot(a_pred_casted, aes(x=coll,y=dist)) +
+  #  geom_point() +
+  #  geom_smooth() +
+  geom_errorbar(alpha=.3,aes(ymin=CI.YMin.dist,ymax=CI.YMax.dist)) +
+  geom_errorbarh(alpha=.3,aes(xmin=CI.YMin.coll,xmax=CI.YMax.coll)) +  
+  geom_abline(intercept=0,slope=1) +
+  geom_text(size=2,alpha=.75,aes(label=predicate)) +
+  ylab("distributive paraphrase endorsement") +
+  xlab("collective paraphrase endorsement") +
+  ylim(0,1) +
+  xlim(0,1)
+
+ggsave(filename='attested_pred_word_plot.png',plot=a_pred_word_plot,width=8, height=8)
+
+## Attested Predicate analysis (looking at animacy)
+
+a_pred_animacy_casted = dcast(data=a, predicate+animate~ sentence_type, value.var="response",mean)
+a_pred_animacy_casted$CI.YMin.coll = a_pred_animacy_casted$coll - dcast(data=a, predicate+animate~ sentence_type, value.var="response",ci.low)$coll
+a_pred_animacy_casted$CI.YMin.dist = a_pred_animacy_casted$dist - dcast(data=a, predicate+animate~ sentence_type, value.var="response",ci.low)$dist
+a_pred_animacy_casted$CI.YMax.coll = a_pred_animacy_casted$coll + dcast(data=a, predicate+animate~ sentence_type, value.var="response",ci.high)$coll
+a_pred_animacy_casted$CI.YMax.dist = a_pred_animacy_casted$dist + dcast(data=a, predicate+animate~ sentence_type, value.var="response",ci.high)$dist
+
+a_pred_animacy_plot <- ggplot(a_pred_animacy_casted, aes(x=coll,y=dist,color=animate)) +
+  #  geom_point() +
+  #  geom_smooth() +
+  geom_errorbar(alpha=.3,aes(ymin=CI.YMin.dist,ymax=CI.YMax.dist)) +
+  geom_errorbarh(alpha=.3,aes(xmin=CI.YMin.coll,xmax=CI.YMax.coll)) +  
+  geom_abline(intercept=0,slope=1) +
+  geom_text(size=2,alpha=.75,aes(label=predicate)) +
+  ylab("distributive paraphrase endorsement") +
+  xlab("collective paraphrase endorsement") +
+  ylim(0,1) +
+  xlim(0,1)
+
+ggsave(filename='attested_pred_animacy_plot.png',plot=a_pred_animacy_plot,width=9, height=8)
+
+
+## Attested Noun analysis (looking at animacy)
+
+a_noun_casted = dcast(data=a, noun+animate~ sentence_type, value.var="response",mean)
+a_noun_casted$CI.YMin.coll = a_noun_casted$coll - dcast(data=a, noun+animate~ sentence_type, value.var="response",ci.low)$coll
+a_noun_casted$CI.YMin.dist = a_noun_casted$dist - dcast(data=a, noun+animate~ sentence_type, value.var="response",ci.low)$dist
+a_noun_casted$CI.YMax.coll = a_noun_casted$coll + dcast(data=a, noun+animate~ sentence_type, value.var="response",ci.high)$coll
+a_noun_casted$CI.YMax.dist = a_noun_casted$dist + dcast(data=a, noun+animate~ sentence_type, value.var="response",ci.high)$dist
+
+a_noun_word_plot <- ggplot(a_noun_casted, aes(x=coll,y=dist,color=animate)) +
+  #  geom_point() +
+  #  geom_smooth() +
+  geom_errorbar(alpha=.3,aes(ymin=CI.YMin.dist,ymax=CI.YMax.dist)) +
+  geom_errorbarh(alpha=.3,aes(xmin=CI.YMin.coll,xmax=CI.YMax.coll)) +  
+  geom_abline(intercept=0,slope=1) +
+  geom_text(size=2,alpha=.75,aes(label=noun)) +
+  ylab("distributive paraphrase endorsement") +
+  xlab("collective paraphrase endorsement") +
+  ylim(0,1) +
+  xlim(0,1)
+
+ggsave(filename='attested_noun_word_plot.png',plot=a_noun_word_plot,width=9, height=8)
+
+
+
+
+
+
+
+
+
+# just unattested sentences
+
+u = d[d$attested=="False",]
+
+## Unattested Predicate analysis (collapsing over animacy)
+
+u_pred_casted = dcast(data=u, predicate~ sentence_type, value.var="response",mean)
+u_pred_casted$CI.YMin.coll = u_pred_casted$coll - dcast(data=u, predicate~ sentence_type, value.var="response",ci.low)$coll
+u_pred_casted$CI.YMin.dist = u_pred_casted$dist - dcast(data=u, predicate~ sentence_type, value.var="response",ci.low)$dist
+u_pred_casted$CI.YMax.coll = u_pred_casted$coll + dcast(data=u, predicate~ sentence_type, value.var="response",ci.high)$coll
+u_pred_casted$CI.YMax.dist = u_pred_casted$dist + dcast(data=u, predicate~ sentence_type, value.var="response",ci.high)$dist
+
+u_pred_word_plot <- ggplot(u_pred_casted, aes(x=coll,y=dist)) +
+  #  geom_point() +
+  #  geom_smooth() +
+  geom_errorbar(alpha=.3,aes(ymin=CI.YMin.dist,ymax=CI.YMax.dist)) +
+  geom_errorbarh(alpha=.3,aes(xmin=CI.YMin.coll,xmax=CI.YMax.coll)) +  
+  geom_abline(intercept=0,slope=1) +
+  geom_text(size=2,alpha=.75,aes(label=predicate)) +
+  ylab("distributive paraphrase endorsement") +
+  xlab("collective paraphrase endorsement") +
+  ylim(0,1) +
+  xlim(0,1)
+
+ggsave(filename='unattested_pred_word_plot.png',plot=u_pred_word_plot,width=8, height=8)
+
+## Unattested Predicate analysis (looking at animacy)
+
+u_pred_animacy_casted = dcast(data=u, predicate+animate~ sentence_type, value.var="response",mean)
+u_pred_animacy_casted$CI.YMin.coll = u_pred_animacy_casted$coll - dcast(data=u, predicate+animate~ sentence_type, value.var="response",ci.low)$coll
+u_pred_animacy_casted$CI.YMin.dist = u_pred_animacy_casted$dist - dcast(data=u, predicate+animate~ sentence_type, value.var="response",ci.low)$dist
+u_pred_animacy_casted$CI.YMax.coll = u_pred_animacy_casted$coll + dcast(data=u, predicate+animate~ sentence_type, value.var="response",ci.high)$coll
+u_pred_animacy_casted$CI.YMax.dist = u_pred_animacy_casted$dist + dcast(data=u, predicate+animate~ sentence_type, value.var="response",ci.high)$dist
+
+u_pred_animacy_plot <- ggplot(u_pred_animacy_casted, aes(x=coll,y=dist,color=animate)) +
+  #  geom_point() +
+  #  geom_smooth() +
+  geom_errorbar(alpha=.3,aes(ymin=CI.YMin.dist,ymax=CI.YMax.dist)) +
+  geom_errorbarh(alpha=.3,aes(xmin=CI.YMin.coll,xmax=CI.YMax.coll)) +  
+  geom_abline(intercept=0,slope=1) +
+  geom_text(size=2,alpha=.75,aes(label=predicate)) +
+  ylab("distributive paraphrase endorsement") +
+  xlab("collective paraphrase endorsement") +
+  ylim(0,1) +
+  xlim(0,1)
+
+ggsave(filename='unattested_pred_animacy_plot.png',plot=u_pred_animacy_plot,width=9, height=8)
+
+## Unattested Noun analysis (looking at animacy)
+
+u_noun_casted = dcast(data=u, noun+animate~ sentence_type, value.var="response",mean)
+u_noun_casted$CI.YMin.coll = u_noun_casted$coll - dcast(data=u, noun+animate~ sentence_type, value.var="response",ci.low)$coll
+u_noun_casted$CI.YMin.dist = u_noun_casted$dist - dcast(data=u, noun+animate~ sentence_type, value.var="response",ci.low)$dist
+u_noun_casted$CI.YMax.coll = u_noun_casted$coll + dcast(data=u, noun+animate~ sentence_type, value.var="response",ci.high)$coll
+u_noun_casted$CI.YMax.dist = u_noun_casted$dist + dcast(data=u, noun+animate~ sentence_type, value.var="response",ci.high)$dist
+
+u_noun_word_plot <- ggplot(u_noun_casted, aes(x=coll,y=dist,color=animate)) +
+  #  geom_point() +
+  #  geom_smooth() +
+  geom_errorbar(alpha=.3,aes(ymin=CI.YMin.dist,ymax=CI.YMax.dist)) +
+  geom_errorbarh(alpha=.3,aes(xmin=CI.YMin.coll,xmax=CI.YMax.coll)) +  
+  geom_abline(intercept=0,slope=1) +
+  geom_text(size=2,alpha=.75,aes(label=noun)) +
+  ylab("distributive paraphrase endorsement") +
+  xlab("collective paraphrase endorsement") +
+  ylim(0,1) +
+  xlim(0,1)
+
+ggsave(filename='unattested_noun_word_plot.png',plot=u_noun_word_plot,width=9, height=8)
 
