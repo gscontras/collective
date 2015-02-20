@@ -548,29 +548,27 @@ In more detail, the pragmatic listener \emph{L}$_{1}$ computes the probability o
 \ex. \emph{The pragmatic listener}:\\
 $P_{L_{1}}(s|u) \propto P_{S_{1}}(u|s) \cdot P(s)$
 
-The speaker  computes the probability of an utterance \emph{u} given some state \emph{s}. 
-The speaker \emph{S}$_{1}$ wants to choose an utterance \emph{u} that would most effectively communicate some state \emph{s} to a literal listener \emph{L}$_{0}$. In other words, \emph{S}$_{1}$ wants to minimize the effort \emph{L}$_{0}$ would need to arrive at \emph{s} from \emph{u}, all while being efficient. \emph{S}$_{1}$ thus seeks to minimize the surprisal of \emph{s} given \emph{u} for the literal listener \emph{L}$_{0}$, while bearing in mind the cost of \emph{u} (\emph{C}(\emph{u})). In \Next, we formalize the speaker's utility function \emph{U}$_{S_{1}}$: utterances are more useful at communicating about some state as surprisal and utterance cost decrease.
+The speaker \emph{S}$_{1}$ wants to choose an utterance \emph{u} that would most effectively communicate some state \emph{s} to a hypothesized literal listener \emph{L}$_{0}$. In other words, \emph{S}$_{1}$ wants to minimize the effort \emph{L}$_{0}$ would need to arrive at \emph{s} from \emph{u}, all while being efficient at communicating. \emph{S}$_{1}$ thus seeks to minimize the surprisal of \emph{s} given \emph{u} for the literal listener \emph{L}$_{0}$, while bearing in mind the utterance cost, \emph{C}(\emph{u}). In \Next, we formalize the speaker's utility function \emph{U}$_{S_{1}}$: utterances are more useful at communicating about some state as surprisal and utterance cost decrease.
 
 \ex. \emph{The speaker's utility function}:\\
 $U_{S_{1}}(u|s) = \textrm{log}L_{0}(s|u) - C(u)$
 
-With this utility function in mind, $S_{1}$ computes the probability of an utterance $u$ given some state $s$ in proportion to the speaker's utility function. The term \emph{lambda} controls the speaker's optimality, that is, the speaker's rationality in choosing utterances.
+With this utility function in mind, $S_{1}$ computes the probability of an utterance $u$ given some state $s$ in proportion to the speaker's utility function. The term $\lambda$ controls the speaker's optimality, that is, the speaker's rationality in choosing utterances.
 
 \ex. \emph{The pragmatic speaker}:\\
 $P_{S_{1}}(u|s) \propto \textrm{exp}(\lambda\textrm{ln}P_{L_{0}}(s|u))$
 
-The naive, or literal listener $L_{0}$ interprets an utterance according to its meaning. That is, the compute the likelihood of $s$ given $u$ according to the semantics of $u$ and the prior probability of $s$.
+The naive, or literal listener $L_{0}$ interprets an utterance according to its meaning. That is, $L_{0}$ computes the likelihood of $s$ given $u$ according to the semantics of $u$ and the prior probability of $s$.
 
 \ex. \emph{The literal listener}:\\
 $P_{L_{0}}(s|u) \propto \sem{u}(s) \cdot P(s)$
 
-Within the RSA framework, communication is thus modeled as in Fig.~\ref{RSA}, where $L_{1}$ reasons about $S_{1}$'s reasoning about $L_{0}$.
+Within the RSA framework, communication is thus modeled as in Fig.~\ref{RSA}, where $L_{1}$ reasons about $S_{1}$'s reasoning about a hypothetical $L_{0}$.
 
 \begin{figure}[h]
 	%\psset{rowsep=20pt,colsep=50pt,nodesep=4pt} 
 	\begin{center}
-		\psset{arrows=->,rowsep=10pt,colsep=10pt,nodesep=2pt} 
-		\hspace{80pt}\begin{psmatrix}
+		\psset{arrows=->,rowsep=10pt,colsep=10pt,nodesep=2pt} \begin{psmatrix}
 			\rnode[b]{l1}{$L_{1}$} & \emph{pragmatic listener} & $P_{L_{1}}(s|u) \propto P_{S_{1}}(u|s) \cdot P(s)$\\
 			\rnode[c]{s1}{$S_{1}$} & \emph{pragmatic speaker}
 			& $P_{S_{1}}(u|s) \propto \textrm{exp}(\lambda\textrm{ln}P_{L_{0}}(s|u))$ \\

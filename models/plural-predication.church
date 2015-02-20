@@ -23,7 +23,7 @@
                             (0.5 2 3 2 0.5)))
 
      ;; Prior on state
-     (define (state-prior) (uniform-draw '(
+     (define (state-prior) (uniform-draw '( ; list of possible four object states
                                            (  575 575 575 575 )
                                            (  575 575 575 818 )
                                            (  575 575 818 818 )
@@ -88,10 +88,11 @@
           (flip 0.95)
           (flip 0.05))))
      (define distributive-interpretation 
-       (lambda (state dist-theta) (if
-                                   (all (map (lambda (d) (> d dist-theta)) state))
-                                   (flip 0.95)
-                                   (flip 0.05))))
+       (lambda (state dist-theta) 
+        (if
+         (all (map (lambda (d) (> d dist-theta)) state))
+         (flip 0.95)
+         (flip 0.05))))
 
      ;; meaning functions
      (define (meaning utterance state dist-theta coll-theta collective? collective-noise)
