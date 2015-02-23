@@ -135,6 +135,32 @@ summary(d)
 
 a = d[d$attested=="True",]
 
+## Attested sentence analysis (collapsing over animacy)
+
+a$sentence = paste(a$noun,a$predicate,sep=" ")
+
+a_sent_casted = dcast(data=a, sentence~ sentence_type, value.var="response",mean,na.rm=T)
+a_sent_casted$CI.YMin.coll = a_sent_casted$coll - dcast(data=a, sentence~ sentence_type, value.var="response",ci.low,na.rm=T)$coll
+a_sent_casted$CI.YMin.dist = a_sent_casted$dist - dcast(data=a, sentence~ sentence_type, value.var="response",ci.low,na.rm=T)$dist
+a_sent_casted$CI.YMax.coll = a_sent_casted$coll + dcast(data=a, sentence~ sentence_type, value.var="response",ci.high,na.rm=T)$coll
+a_sent_casted$CI.YMax.dist = a_sent_casted$dist + dcast(data=a, sentence~ sentence_type, value.var="response",ci.high,na.rm=T)$dist
+
+a_sent_word_plot <- ggplot(a_sent_casted, aes(x=coll,y=dist)) +
+  #  geom_point() +
+  # geom_smooth() +
+  #geom_errorbar(alpha=.3,aes(ymin=CI.YMin.dist,ymax=CI.YMax.dist)) +
+  #geom_errorbarh(alpha=.3,aes(xmin=CI.YMin.coll,xmax=CI.YMax.coll)) +  
+  geom_abline(intercept=0,slope=1) +
+  geom_text(size=2,alpha=.5,aes(label=sentence),angle=45) +
+  ylab("distributive paraphrase endorsement") +
+  xlab("collective paraphrase endorsement") +
+  ylim(0,1) +
+  xlim(0,1)
+
+ggsave(filename='attested_sentence_plot.png',plot=a_sent_word_plot,width=8, height=8)
+
+
+
 ## Attested Predicate analysis (collapsing over animacy)
 
 a_pred_casted = dcast(data=a, predicate~ sentence_type, value.var="response",mean)
@@ -162,7 +188,7 @@ ggsave(filename='attested_pred_word_plot.png',plot=a_pred_word_plot,width=8, hei
 a_pred_casted$coll_dist_ratio = a_pred_casted$coll/a_pred_casted$dist
 
 a_pred_ranking_plot = ggplot(a_pred_casted,aes(x=0,y=coll_dist_ratio)) +
-  geom_text(size=2,alpha=.75,aes(label=predicate))  +
+  geom_text(size=2,alpha=.75,aes(label=predicate),angle=45,position=position_dodge(width=.9))  +
   ylab("collective endorsement / distirbutive endorsement") +
   xlab("predicate") +
   scale_x_discrete(breaks=NULL) +
