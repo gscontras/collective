@@ -145,7 +145,7 @@ a_pred_casted$CI.YMax.dist = a_pred_casted$dist + dcast(data=a, predicate~ sente
 
 a_pred_word_plot <- ggplot(a_pred_casted, aes(x=coll,y=dist)) +
   #  geom_point() +
-  #  geom_smooth() +
+    geom_smooth() +
   geom_errorbar(alpha=.3,aes(ymin=CI.YMin.dist,ymax=CI.YMax.dist)) +
   geom_errorbarh(alpha=.3,aes(xmin=CI.YMin.coll,xmax=CI.YMax.coll)) +  
   geom_abline(intercept=0,slope=1) +
@@ -156,6 +156,19 @@ a_pred_word_plot <- ggplot(a_pred_casted, aes(x=coll,y=dist)) +
   xlim(0,1)
 
 ggsave(filename='attested_pred_word_plot.png',plot=a_pred_word_plot,width=8, height=8)
+
+## Attested predicate collectivity ranking
+
+a_pred_casted$coll_dist_ratio = a_pred_casted$coll/a_pred_casted$dist
+
+a_pred_ranking_plot = ggplot(a_pred_casted,aes(x=0,y=coll_dist_ratio)) +
+  geom_text(size=2,alpha=.75,aes(label=predicate))  +
+  ylab("collective endorsement / distirbutive endorsement") +
+  xlab("predicate") +
+  scale_x_discrete(breaks=NULL) +
+  ylim(.4,1.8)
+
+ggsave(filename='attested_pred_ranking_plot.png',plot=a_pred_ranking_plot,width=3, height=8)
 
 ## Attested Predicate analysis (looking at animacy)
 
