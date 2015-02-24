@@ -16,3 +16,5 @@ writing/Cubert/Cubert manuscript.pdf
 *.results
 
 notes/Grimm 2012 notes.md
+
+*.Rhistory
