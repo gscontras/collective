@@ -159,6 +159,18 @@ a_sent_word_plot <- ggplot(a_sent_casted, aes(x=coll,y=dist)) +
 
 ggsave(filename='attested_sentence_plot.png',plot=a_sent_word_plot,width=8, height=8)
 
+## Attested sentence collectivity ranking
+
+a_sent_casted$dist_coll_ratio = a_sent_casted$dist/a_sent_casted$coll
+
+a_sent_ranking_plot = ggplot(a_sent_casted,aes(x=0,y=dist_coll_ratio)) +
+  geom_text(size=2,alpha=.5,aes(label=sentence))  +
+  ylab("distirbutive endorsement / collective endorsement") +
+  xlab("sentence") +
+  scale_x_discrete(breaks=NULL) +
+  ylim(.4,1.8)
+
+ggsave(filename='attested_sentence_ranking_plot.png',plot=a_sent_ranking_plot,width=3, height=12)
 
 
 ## Attested Predicate analysis (collapsing over animacy)
