@@ -10,7 +10,7 @@
   (mem
    (lambda (noise)
 
-     (define QUDs (list 'null 'max))
+     (define QUDs (list 'null 'sum))
      (define (QUD-prior) (multinomial QUDs '(1 1)))
 
      ;; QUDs for "move", "inspect", and null
