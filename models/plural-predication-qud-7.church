@@ -1,5 +1,5 @@
 ;; speaker rationality?
-(define alpha 30)
+(define alpha 20)
 
 ;; Helper function
 (define (power lst alpha) (map (lambda (x) (expt x alpha)) lst))
@@ -10,7 +10,7 @@
   (mem
    (lambda (noise)
 
-     (define QUDs (list 'null 'sum))
+     (define QUDs (list 'null 'min))
      (define (QUD-prior) (multinomial QUDs '(1 3)))
 
      ;; QUDs for "move", "inspect", and null
