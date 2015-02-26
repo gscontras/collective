@@ -119,6 +119,8 @@ sub = read.table("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/
 
 d = read.table("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/Submiterator-master/2-corpus-based-trials.tsv",sep="\t",header=T)
 
+s = read.csv("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/bnc.sentences.csv",header=T)
+
 # counts and raw values
 
 head(d)
@@ -139,13 +141,15 @@ a = d[d$attested=="True",]
 
 a$sentence = paste(a$noun,a$predicate,sep=" ")
 
-a_sent_casted = dcast(data=a, sentence~ sentence_type, value.var="response",mean,na.rm=T)
-a_sent_casted$CI.YMin.coll = a_sent_casted$coll - dcast(data=a, sentence~ sentence_type, value.var="response",ci.low,na.rm=T)$coll
-a_sent_casted$CI.YMin.dist = a_sent_casted$dist - dcast(data=a, sentence~ sentence_type, value.var="response",ci.low,na.rm=T)$dist
-a_sent_casted$CI.YMax.coll = a_sent_casted$coll + dcast(data=a, sentence~ sentence_type, value.var="response",ci.high,na.rm=T)$coll
-a_sent_casted$CI.YMax.dist = a_sent_casted$dist + dcast(data=a, sentence~ sentence_type, value.var="response",ci.high,na.rm=T)$dist
+a$faultless = s$Faultless[match(a$sentence,s$Sentence)]
 
-a_sent_word_plot <- ggplot(a_sent_casted, aes(x=coll,y=dist)) +
+a_sent_casted = dcast(data=a, sentence + faultless~ sentence_type, value.var="response",mean,na.rm=T)
+a_sent_casted$CI.YMin.coll = a_sent_casted$coll - dcast(data=a, sentence+ faultless~ sentence_type, value.var="response",ci.low,na.rm=T)$coll
+a_sent_casted$CI.YMin.dist = a_sent_casted$dist - dcast(data=a, sentence+ faultless~ sentence_type, value.var="response",ci.low,na.rm=T)$dist
+a_sent_casted$CI.YMax.coll = a_sent_casted$coll + dcast(data=a, sentence+ faultless~ sentence_type, value.var="response",ci.high,na.rm=T)$coll
+a_sent_casted$CI.YMax.dist = a_sent_casted$dist + dcast(data=a, sentence+ faultless~ sentence_type, value.var="response",ci.high,na.rm=T)$dist
+
+a_sent_word_plot <- ggplot(a_sent_casted, aes(x=coll,y=dist,color=faultless)) +
   #  geom_point() +
   # geom_smooth() +
   #geom_errorbar(alpha=.3,aes(ymin=CI.YMin.dist,ymax=CI.YMax.dist)) +
