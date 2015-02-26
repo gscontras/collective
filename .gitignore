@@ -20,3 +20,5 @@ notes/Grimm 2012 notes.md
 *.Rhistory
 
 experiments/2-corpus-based/.Rhistory
+
+*.pdf
