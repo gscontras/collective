@@ -1,5 +1,5 @@
 ;; speaker rationality?
-(define alpha 20)
+(define alpha 30)
 
 ;; Helper function
 (define (power lst alpha) (map (lambda (x) (expt x alpha)) lst))
@@ -303,10 +303,20 @@
 
 
 ;; RESULTS 
+; alpha 20
 ;     (define QUDs (list 'null 'max))
 ;     (define (QUD-prior) (multinomial QUDs '(1 1)))
 ;(low ((#f #t) (0.7830657612199683 0.2169342387800317)) 
 ; mid ((#f #t) (0.8006512456223229 0.19934875437767707)) 
 ; high ((#f #t) (0.811275935957221 0.18872406404277894)));
-
+; alpha 20
+;     (define QUDs (list 'null 'sum))
+;     (define (QUD-prior) (multinomial QUDs '(1 1)))
+; (low ((#f #t) (0.6909908375806906 0.3090091624193094)) mid ((#f #t) (0.7024442181598981 0.29755578184010184)) high ((#f #t) (0.6886498888377763 0.3113501111622236)))
+; alpha 30
+;     (define QUDs (list 'null 'sum))
+;     (define (QUD-prior) (multinomial QUDs '(1 1)))
+;(low ((#f #t) (0.700757804330157 0.29924219566984306)) 
+; mid ((#f #t) (0.7111073584605327 0.28889264153946714)) 
+; high ((#f #t) (0.6894935540602181 0.3105064459397819)))
 
