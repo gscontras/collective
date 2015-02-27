@@ -10,7 +10,7 @@
   (mem
    (lambda (noise)
 
-     (define QUDs (list 'null 'min))
+     (define QUDs (list 'null 'sum))
      (define (QUD-prior) (multinomial QUDs '(3 1)))
 
      ;; QUDs for "move", "inspect", and null
@@ -194,7 +194,8 @@
                                 (lambda () (multinomial '(.5 1 1.5) 
                                                         '(1 3 1)))) ;; middle
                                (('high)
-                                (lambda () (uniform-draw '(.5 1 1.5) ))) ;; high
+                                (lambda () (multinomial '(.5 1 1.5) 
+                                                        '(1 1 1)))) ;; high
                                )) 
 
      ;; truth conditions
@@ -327,3 +328,14 @@
 ;(low ((#f #t) (0.6915339730681066 0.3084660269318934)) 
 ; mid ((#f #t) (0.7130689002320478 0.2869310997679522)) 
 ; high ((#f #t) (0.7331149495563137 0.26688505044368616)))
+; alpha 20
+;     (define QUDs (list 'null 'sum))
+;     (define (QUD-prior) (multinomial QUDs '(3 1)))
+;(('high)
+;  (lambda () (multinomial '(.5 1 1.5) 
+;                          '(1 1.5 1))))
+;(low ((#f #t) (0.71124127099205 0.28875872900794997)) 
+; mid ((#f #t) (0.7334360686726489 0.2665639313273512)) 
+; high ((#f #t) (0.7333192272145811 0.2666807727854188)))
+
+
