@@ -539,7 +539,7 @@ It bears noting that we also replicated the scenario manipulation effect for \em
 
 \section{Modeling plural predication}
 
-We have seen that disambiguating plural predication depends not only on local linguistic context (i.e., the predicate, its subject, and any disambiguating particles), but also on the broader discourse context. Moreover, we showed how properties of the broader context stand to explain the effect certain predicates have on disambiguating plural predication: Complaisantly collective predicates like \emph{heavy} name collective properties that are stable and predictable on the basis of context; stubbornly distributive predicates like \emph{big} name collective properties that are unstable and unpredictable on the basis of context. The less predictable the collective property, the noisier the collective interpretation. A noisy interpretation is less useful at communicating its intended message, and therefore less likely. To formalize the effect of contextual predictability and interpretation noise in plural predication, we adopt a lifted variable variant of the Bayesian Rational Speech Act model.
+We have seen that disambiguating plural predication depends not only on local linguistic context (e.g., the predicate, its subject, and disambiguating particles like \emph{each} or \emph{together}), but also on the broader discourse context. Moreover, we showed how properties of the broader context stand to explain the effect certain predicates have on disambiguating plural predication: Complaisantly collective predicates like \emph{heavy} name collective properties that are stable and predictable on the basis of context; stubbornly distributive predicates like \emph{big} name collective properties that are unstable and unpredictable on the basis of context. The less predictable the collective property, the noisier the collective interpretation. A noisy interpretation is less useful at communicating its intended message, and therefore less likely. To formalize the effect of contextual predictability and interpretation noise in plural predication, we adopt a lifted variable variant of the Bayesian Rational Speech Act model.
 
 The Rational Speech Act (RSA) framework views communication as recursive reasoning between a speaker and a listener. The listener interprets the speaker's utterance by reasoning about a cooperative speaker trying to inform a naive listener about some state of affairs. Using Bayesian inference, the listener infers what the state of the world is likely to be given that a speaker produced some utterance, knowing that the speaker is reasoning about how a listener is most likely to interpret that utterance. Thus, we have at least three levels of inference. At the top, the pragmatic listener, \emph{L}$_{1}$, reasons about the speaker, \emph{S}$_{1}$, and infers the state of the world \emph{s} given that the speaker chose to produce the utterance \emph{u}. The speaker chooses \emph{u} by maximizing the likelihood that a naive listener, \emph{L}$_{0}$, would correctly infer the state of the world \emph{s} given the literal meaning of \emph{u}.
 
@@ -548,7 +548,7 @@ In more detail, the pragmatic listener \emph{L}$_{1}$ computes the probability o
 \ex. \emph{The pragmatic listener}:\\
 $P_{L_{1}}(s|u) \propto P_{S_{1}}(u|s) \cdot P(s)$
 
-The speaker \emph{S}$_{1}$ wants to choose an utterance \emph{u} that would most effectively communicate some state \emph{s} to a hypothesized literal listener \emph{L}$_{0}$. In other words, \emph{S}$_{1}$ wants to minimize the effort \emph{L}$_{0}$ would need to arrive at \emph{s} from \emph{u}, all while being efficient at communicating. \emph{S}$_{1}$ thus seeks to minimize the surprisal of \emph{s} given \emph{u} for the literal listener \emph{L}$_{0}$, while bearing in mind the utterance cost, \emph{C}(\emph{u}). In \Next, we formalize the speaker's utility function \emph{U}$_{S_{1}}$: Utterances are more useful at communicating about some state as surprisal and utterance cost decrease.
+The speaker \emph{S}$_{1}$ wants to choose an utterance \emph{u} that would most effectively communicate some state \emph{s} to a hypothesized literal listener \emph{L}$_{0}$.  In other words, \emph{S}$_{1}$ wants to minimize the effort \emph{L}$_{0}$ would need to arrive at \emph{s} from \emph{u}, all while being efficient at communicating. This trade-off between efficacy and efficiency is not trivial: Speakers could always use minimal ambiguity, but unambiguous utterances tend toward the unwieldy, and, very often, unnecessary. \emph{S}$_{1}$ thus seeks to minimize the surprisal of \emph{s} given \emph{u} for the literal listener \emph{L}$_{0}$, while bearing in mind the utterance cost, \emph{C}(\emph{u}). In \Next, we formalize the speaker's utility function \emph{U}$_{S_{1}}$: Utterances are more useful at communicating about some state as surprisal and utterance cost decrease.
 
 \ex. \emph{The speaker's utility function}:\\
 $U_{S_{1}}(u|s) = \textrm{log}L_{0}(s|u) - C(u)$
@@ -558,7 +558,7 @@ With this utility function in mind, $S_{1}$ computes the probability of an utter
 \ex. \emph{The pragmatic speaker}:\\
 $P_{S_{1}}(u|s) \propto \textrm{exp}(\alpha\textrm{ln}P_{L_{0}}(s|u))$
 
-The naive, or literal listener $L_{0}$ interprets an utterance according to its meaning. That is, $L_{0}$ computes the likelihood of $s$ given $u$ according to the semantics of $u$ and the prior probability of $s$.
+At the base of this reasoning, the naive, or literal listener $L_{0}$ interprets an utterance according to its meaning. That is, $L_{0}$ computes the probability of $s$ given $u$ according to the semantics of $u$ and the prior probability of $s$. A standard view of the semantic content of an utterance suffices: a mapping from states of the world to truth values.
 
 \ex. \emph{The literal listener}:\\
 $P_{L_{0}}(s|u) \propto \sem{u}(s) \cdot P(s)$
@@ -581,6 +581,16 @@ Within the RSA framework, communication is thus modeled as in Fig.~\ref{RSA}, wh
 	\caption{Graphical representation of the Bayesian RSA model.}\label{RSA}
 \end{figure}
 
+In its initial formulation, \citet{frankgoodman2012} use the basic RSA framework to model referent choice in efficient communication. Imagine referential communication game with three objects, as in Fig.~\ref{refgame}. Suppose a speaker wants to signal an object, but only has a single word with which to do so.
+Applying the RSA model schematized in Fig.~\ref{RSA} to the communication scenario in Fig.~\ref{refgame}, the speaker $S_{1}$ chooses a word $u$ to best signal an object $s$ to a literal listener $L_{0}$, who interprets $u$ in proportion to the probability of naming objects in the scenario (i.e., to the objects' salience). The pragmatic listener $L_{1}$ reasons about the speaker's reasoning, and interprets $u$ accordingly. By formalizing the contributions of salience and  efficiency, the RSA framework provides an information-theoretic definition of informativeness in pragmatic inference. This definition will prove crucial in understanding the contribution of contextual predictability of collective properties in the interpretation of plural predication.
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=.4\linewidth]{images/communication-game.eps}
+		\vspace{-25pt}
+		\caption{Example referential communication scenario from \citet{frankgoodman2012}. Speakers choose a single word, $u$, to signal an object, $s$.}\label{refgame}
+	\end{center}
+\end{figure}
 
 To successfully model ambiguity resolution in plural predication, we need to adopt a variant of the RSA approach wherein speakers and listeners reason not merely over utterances and meanings, but also over variables that contribute to those meanings. This sort of ``lifted variable'' (also called ``lexical uncertainty'') RSA model has proven useful in accounts of adjective semantics (where the lifted variable is the adjective's degree threshold; \citealp{lassitergoodman2013}), specificity implicatures (where the lifted variable determines the choice of lexica; \citealp{bergenetal2012}), and non-literal meaning (where the lifted variable concerns the dimension along which the speaker intends to communicate; \citealp{kaoetal2014}), to name just a few applications (see also XXX). Here, the lifted variably about which speakers and listeners reason determines the interpretation of an ambiguous plural predication: whether an utterance is interpreted collectively or distributively.
 
