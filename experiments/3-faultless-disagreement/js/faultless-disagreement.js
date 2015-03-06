@@ -24,7 +24,7 @@ function make_slides(f) {
 
   slides.multi_slider = slide({
     name : "multi_slider",
-    present : (stimuli), // the number of random entries from the corpus specified
+    present : _.shuffle(stimuli),
     present_handle : function(stim) {
       $(".err").hide();
       $('input[name="sense"]:checked').attr('checked',false);
@@ -52,14 +52,14 @@ function make_slides(f) {
 
       //$(".woman2").html(man2);
 
-      $(".utterance1").html("\""+woman1+"\'s "+ stim.noun + " were more "  + stim.pred + " than " + woman2 + "\'s " + stim.noun +".\"");
+      $(".utterance1").html("\""+woman1+"\'s "+ stim.Noun + " were "  + stim.Comparative + " than " + woman2 + "\'s " + stim.Noun +".\"");
 
-      $(".utterance2").html("\"No, "+woman2+"\'s "+ stim.noun + " were more "  + stim.pred + " than " + woman1 + "\'s " + stim.noun +".\"");
+      $(".utterance2").html("\"No, "+woman2+"\'s "+ stim.Noun + " were "  + stim.Comparative + " than " + woman1 + "\'s " + stim.Noun +".\"");
 
-      this.sentence_types = _.shuffle(["coll","dist"]);
+      this.sentence_types = _.shuffle(["yes","no"]);
       var sentences = {
-        "coll": "The "+ stim.noun  + " together were "+stim.pred+".",
-        "dist": "The "+ stim.noun  + " each were "+stim.pred+".",
+        "yes": "Yes, it's a matter of opinion.",
+        "no": "No, somebody must be wrong.",
       };
 
       this.n_sliders = this.sentence_types.length;
@@ -67,7 +67,7 @@ function make_slides(f) {
       for (var i=0; i<this.n_sliders; i++) {
         var sentence_type = this.sentence_types[i];
         var sentence = sentences[sentence_type];
-        $("#multi_slider_table").append('<tr class="slider_row"><td class="slider_target" id="sentence' + i + '">' + "<font size='5'>" + sentence + "</font>" + '</td><td colspan="2"><div id="slider' + i + '" class="slider">-------[ ]--------</div></td></tr>');
+        $("#multi_slider_table").append('<tr class="slider_row"><td class="slider_target" id="sentence' + i + '">' + "<font size='4'>" + sentence + "</font>" + '</td><td colspan="2"><div id="slider' + i + '" class="slider">-------[ ]--------</div></td></tr>');
         utils.match_row_height("#multi_slider_table", ".slider_target");
       }
 
@@ -99,14 +99,12 @@ function make_slides(f) {
       for (var i=0; i<this.sentence_types.length; i++) {
         var sentence_type = this.sentence_types[i];
         exp.data_trials.push({
-          "sentence_type" : sentence_type,
+          "faultless" : sentence_type,
           "response" : exp.sliderPost[i],
-          "noun" : this.stim.noun,
-          "predicate" : this.stim.pred,
-          "animate" : this.stim.animate,
-          "attested" : this.stim.attested,
-          "sense" : $('input[name="sense"]:checked').val(),
-          //"ID" : this.stim.Item_ID,
+          "noun" : this.stim.Noun,
+          "predicate" : this.stim.Predicate,
+          "sentence" : this.stim.Sentence,
+          "sense" : $('input[name="sense"]:checked').val(),        
           "slide_number" : exp.phase
         });
       }
