@@ -137,31 +137,41 @@ summary(d)
 
 a = d[d$attested=="True",]
 
+# add in faultless ratings
+
+f = read.table("~/Documents/git/cocolab/collective/experiments/3-faultless-disagreement/Submiterator-master/faultless-disagreement-trials.tsv",sep="\t",header=T)
+head(f)
+
+f = f[d$sense=="Yes",]
+
+faultless_casted = dcast(data=f, sentence ~ faultless, value.var="response",mean)
+faultless_casted$faultless = (faultless_casted$yes/faultless_casted$no)
+
 ## Attested sentence analysis (collapsing over animacy)
 
 a$sentence = paste(a$noun,a$predicate,sep=" ")
 
 a$faultless = s$Faultless[match(a$sentence,s$Sentence)]
 
-a_sent_casted = dcast(data=a, sentence + faultless~ sentence_type, value.var="response",mean,na.rm=T)
-a_sent_casted$CI.YMin.coll = a_sent_casted$coll - dcast(data=a, sentence+ faultless~ sentence_type, value.var="response",ci.low,na.rm=T)$coll
-a_sent_casted$CI.YMin.dist = a_sent_casted$dist - dcast(data=a, sentence+ faultless~ sentence_type, value.var="response",ci.low,na.rm=T)$dist
-a_sent_casted$CI.YMax.coll = a_sent_casted$coll + dcast(data=a, sentence+ faultless~ sentence_type, value.var="response",ci.high,na.rm=T)$coll
-a_sent_casted$CI.YMax.dist = a_sent_casted$dist + dcast(data=a, sentence+ faultless~ sentence_type, value.var="response",ci.high,na.rm=T)$dist
+a_sent_casted = dcast(data=a, animate + sentence + faultless~ sentence_type, value.var="response",mean,na.rm=T)
+a_sent_casted$faultless = faultless_casted$faultless[match(a_sent_casted$sentence,faultless_casted$sentence)]
+a_sent_casted$collective = (a_sent_casted$coll/a_sent_casted$dist)
+a_sent_casted$collective_norm = (a_sent_casted$collective/max(a_sent_casted$collective))
+a_sent_casted$faultless_norm = (a_sent_casted$faultless/max(a_sent_casted$faultless))
 
-a_sent_word_plot <- ggplot(a_sent_casted, aes(x=coll,y=dist,color=faultless)) +
+faultless_collective_plot <- ggplot(a_sent_casted, aes(x=collective,y=faultless,color=animate)) +
   #  geom_point() +
   # geom_smooth() +
   #geom_errorbar(alpha=.3,aes(ymin=CI.YMin.dist,ymax=CI.YMax.dist)) +
   #geom_errorbarh(alpha=.3,aes(xmin=CI.YMin.coll,xmax=CI.YMax.coll)) +  
   geom_abline(intercept=0,slope=1) +
   geom_text(size=2,alpha=.5,aes(label=sentence),angle=45) +
-  ylab("distributive paraphrase endorsement") +
-  xlab("collective paraphrase endorsement") +
+  ylab("faultless?") +
+  xlab("collective?")+
   ylim(0,1) +
   xlim(0,1)
 
-ggsave(filename='attested_sentence_plot.png',plot=a_sent_word_plot,width=8, height=8)
+ggsave(filename='faultless_collective_plot.png',plot=faultless_collective_plot,width=8, height=8)
 
 ## Attested sentence collectivity ranking
 
