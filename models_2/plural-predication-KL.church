@@ -1,26 +1,3 @@
-(define (naive-list-equals? as bs)
-  (if (not (= (length as) (length bs)))
-      false
-      (all (map equal? as bs))))
-
-;; gets position of an element x in a haystack lst
-;; where every element in lst is itself a simple list
-(define (position* lst x) 
-  (if (null? lst) 
-      -Infinity
-      (if (naive-list-equals? (first lst) x)
-          0
-          (+ 1 (position* (rest lst) x)))))
-
-(define max-support 
-  (lambda (dist maximal-support)
-    (map 
-     (lambda (x)
-       (if (> (position* (first dist) x) -1)
-           (list-ref (second dist) (position* (first dist) x))
-           0))
-     (first maximal-support))))
-
 (define (KL P Q)
   (sum (map (lambda (xp xq)
               (if (= xp 0)
@@ -29,7 +6,7 @@
                    xp
                    (log (/ xp
                            xq)))))
-            P Q)))
+            (second P) (second Q))))
 
 ;; Helper function
 (define (power lst alpha) (map (lambda (x) (expt x alpha)) lst))
@@ -49,13 +26,13 @@
                       ))
   (define (utterance-prior) (multinomial utterances 
                                          '(
-                                           4 
-                                           3 
                                            1 
-                                           2 
+                                           1 
+                                           1 
+                                           1 
                                            )))
 
-  (define object-prior '((3 4 5 6) (1 1 1 1)))
+  (define object-prior '((3 4) (1 1)))
 
   (define (state-prior) 
     (repeat number-of-objects (lambda () (apply multinomial object-prior) ;;the degree
@@ -70,13 +47,13 @@
                             (('no)
                              (lambda () 1)) ;; no noise                            
                             (('low)
-                             (lambda () (multinomial '(.5 1 1.5) 
+                             (lambda () (multinomial '(.75 1 1.25) 
                                                      '(1 6 1)))) ;; low
                             (('mid) 
-                             (lambda () (multinomial '(.5 1 1.5) 
+                             (lambda () (multinomial '(.75 1 1.25) 
                                                      '(1 3 1)))) ;; middle
                             (('high)
-                             (lambda () (multinomial '(.5 1 1.5) 
+                             (lambda () (multinomial '(.75 1 1.25) 
                                                      '(1 1 1)))) ;; high
                             )) 
   ; 
@@ -84,18 +61,18 @@
     (lambda (state coll-theta collective-noise) 
       (if
        (> (* collective-noise (sum state))  coll-theta) ; noise as multiplier
-;;               (flip 0.95)
-;;               (flip 0.05))))
-       #t
-       #f)))
+;;        (flip 0.95)
+;;        (flip 0.05))))
+   #t
+   #f)))
   (define distributive-interpretation 
     (lambda (state dist-theta) 
       (if
        (all (map (lambda (d) (> d dist-theta)) state))
-;;                      (flip 0.95)
-;;                      (flip 0.05))))
-       #t
-       #f)))
+;;        (flip 0.95)
+;;        (flip 0.05))))
+   #t
+   #f)))
 
   (define (meaning utterance state dist-theta coll-theta collective? collective-noise)
     (case utterance
@@ -125,15 +102,7 @@
         (define coll-theta (coll-theta-prior)) ; coll-theta independent
 
         (list collective? state)
-        ; collective?
-        ;;         state
-        ;;         (list dist-theta coll-theta)
-
-
-        ;;                         (apply multinomial 
-        ;;                                (topower (speaker collective? state dist-theta coll-theta speakerknows)
-        ;;                                         alpha))
-
+    
         (condition (equal? utterance 
                            (apply multinomial 
                                   (topower (speaker collective? state dist-theta coll-theta speakerknows)
@@ -143,42 +112,26 @@
   ;; Speaker
   (define speakers-belief
     (mem
-     (lambda (state knowledge)
-       (define (obs s) (if knowledge s (sum s)))
-       (enumeration-query
-        (define bstate (state-prior))
-        bstate
-        (equal? (obs bstate) (obs state))
-        ))))
-
+       (lambda (state knowledge)
+         (define (obs s) (if knowledge s (sum s)))
+         (enumeration-query
+          (define bstate (state-prior))
+          bstate
+          (equal? (obs bstate) (obs state))
+          ))))
+  
   (define speaker 
     (mem
-     (lambda (collective? state dist-theta coll-theta knowstate)
-       (enumeration-query
-        (define utterance (utterance-prior))
-        ;;         (define listeners-world (apply multinomial 
-        ;;                                        (listener utterance collective? dist-theta coll-theta
-        ;;                                                  ))) 
+    (lambda (collective? state dist-theta coll-theta knowstate)
+    (enumeration-query
+     (define utterance (utterance-prior))
+     
+     (define bstate (speakers-belief state knowstate))
 
-        (define bstate-distribution (speakers-belief state knowstate))
-        (define listener-dist (listener utterance collective? dist-theta coll-theta))
-        (define speaker-dist 
-          (max-support bstate-distribution listener-dist))
+     utterance
 
-
-        utterance
-        ;;         (list speaker-dist listener-dist)
-        ;;           (list  bstate-distribution speaker-dist)
-        ;;              (listener utterance collective? dist-theta coll-theta)
-        ;;              (KL bstate-distribution (listener utterance collective? dist-theta coll-theta) )
-
-        ;;              (equal? listeners-world state )
-        ;;         (factor (- (KL bstate-distribution (listener utterance collective? dist-theta coll-theta) )))
-
-        (factor (- (KL speaker-dist (second listener-dist)
-                       )))
-
-        ))))
+     (factor (- (KL bstate (listener utterance collective? dist-theta coll-theta) )))
+     ))))
 
   ;; Literal listener
   (define listener
@@ -192,16 +145,12 @@
         ))))
 
   (prag-listener 'amb knowledge)
-  ;;   (KL (speakers-belief '(3 3) true) (listener 'amb true 3 6))
-  ;;   (listener 'amb true 3 6)
-  ;;     (speaker #t '(3 4) 3 6 knowledge)
-  ;;   (speakers-belief '(3 4) true)
-  ;;   (bstate-distribution)
+  ;;(listener 'amb true 3 7)
 
   )
 
 ;; speaker rationality
-(define alpha 2)
+(define alpha 1)
 
 ; (multiviz
 ;  (barplot (plural-predication 2 'no false) "no noise")
@@ -231,8 +180,8 @@
 
 
 (define noises '(high mid low no))
-(define numbers-of-objects '(3))
-(define knowledges '(true false))
+(define numbers-of-objects '(2))
+(define knowledges '(false))
 
 (define (unpack m)
   (apply map (append (list (lambda (state-etc probability)
@@ -262,4 +211,4 @@
 
 (display data)
 
-(write-csv data "plural-predication.csv")
+(write-csv data "plural-predication-KL.csv")

@@ -69,36 +69,36 @@ ggsave("plots/plural-predication-state-4-23.pdf",height=5,width=150,limitsize=FA
 
 
 #4 objects infer thetas
-a = read.csv("plural-predication-noah-KL.csv",header=F)
+a = read.csv("plural-predication.csv",header=F)
 a$KL = 1
-b = read.csv("plural-predication-noah.csv",header=F)
+b = read.csv("plural-predication.csv",header=F)
 b$KL = 0
-d = rbind(a,b)
-#d <- b
-colnames(d) <- c("noise","numobjs","collective","obj1","obj2","p","KL")
-#colnames(d) <- c("noise","numobjs","collective","obj1","obj2","obj3","p","KL")
+#d = rbind(a,b)
+d <- b
+colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","p")
+#colnames(d) <- c("noise","numobjs","collective","obj1","obj2","obj3","obj4","p")
 head(d)
 
 
-d$noise <-factor(d$noise,levels=c("low",'mid','high'))
+d$noise <-factor(d$noise,levels=c("no","low",'mid','high'))
 d$numobjs <- factor(d$numobjs)
-#d$state = paste(d$obj1,d$obj2,d$obj3)
-d$state = paste(d$obj1,d$obj2)
+d$state = paste(d$obj1,d$obj2,d$obj3,d$obj4)
+#d$state = paste(d$obj1,d$obj2)
 d$state <- factor(d$state)
-d$KL <- factor(d$KL)
+#d$KL <- factor(d$KL)
 d$p <- as.numeric(as.character(d$p))
 
 # check effect direction for inferred thetas
 
-agg <- aggregate(p~noise*KL,d[d$collective=="true",],sum)
+agg <- aggregate(p~noise*knowledge,d[d$collective=="true",],sum)
 
 p <- ggplot(agg,aes(x=noise,y=p)) +
-  geom_bar(stat='identity',position=position_dodge(),aes(fill=as.factor(KL))) +
+  geom_bar(stat='identity',position=position_dodge(),aes(fill=as.factor(knowledge))) +
   ylab("P(collective)") +
   theme(axis.text.x = element_text(size=10,angle=90))#+
   #facet_grid(dist_theta~coll_theta)
 p
-ggsave("plots/plural-predication-noah.pdf",height=3,width=8)
+ggsave("plots/plural-predication.pdf",height=3,width=8)
 
 # check state distribution for inferred thetas
 
@@ -108,9 +108,9 @@ state <- ggplot(t,aes(x=state,y=p,fill=noise)) +
   geom_bar(stat='identity',position=position_dodge()) +
   ylab("P(collective)") +
   theme(axis.text.x = element_text(size=15,angle=90))+
-  facet_grid(KL~.)
+  facet_grid(knowledge~.)
 state
-ggsave("plots/plural-predication-state-noah.pdf",height=5,width=10,limitsize=FALSE)
+ggsave("plots/plural-predication-state.pdf",height=5,width=10,limitsize=FALSE)
 
 
 
