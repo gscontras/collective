@@ -206,8 +206,8 @@
 (define numbers-of-objects '(3))
 ; (define dist-thresholds '(2 3 4)) ; 3 4 
 ; (define coll-thresholds '(11 12 13 14 15 16)) ; 4 objects
-(define dist-thresholds '(2 3 4 5)) ; 3 4 5
-(define coll-thresholds '(11 12 13 14 15)) ; 4 objects
+(define dist-thresholds '(2 3 4 5 6)) ; 3 4 5
+(define coll-thresholds '(8 9 10 11 12 13 14 15 16 17 18)) ; 4 objects
 ; (define dist-thresholds '(2 3 4 5 6 7)) ; 3 4 5 6 7
 ; (define coll-thresholds '(8 9 10 11 12 13 14 15 16 17 18 19 20 21)) ; 3 objects
 ; (define dist-thresholds '(X))

@@ -1,0 +1,437 @@
+(define (KL P Q)
+  (sum (map (lambda (xp xq)
+              (*
+               xp
+               (log (/ xp
+                       xq))))
+            (second P) (second Q))))
+
+;; Helper function
+(define (power lst alpha) (map (lambda (x) (expt x alpha)) lst))
+
+(define (plural-predication number-of-objects
+                            noise
+                            ; coll-theta
+                            ; dist-theta
+                            )
+
+  (define utterances (list  
+                            'null 
+                            'amb 
+                             'collective 
+                             'distributive 
+                            ; 'not-amb
+                              ))
+  (define (utterance-prior) (multinomial utterances 
+                            '(
+                              4 
+                              3 
+                              1 
+                              2 
+                              ; 3
+                              )))
+
+  (define object-prior '((3 4) (1 1)))
+
+  (define (state-prior) 
+    (repeat number-of-objects (lambda () (apply multinomial object-prior) ;;the degree
+                                )))
+  ;; Prior on theta
+  (define (dist-theta-prior) (apply multinomial object-prior))
+  (define (coll-theta-prior) (sum (state-prior)))
+
+
+  ;;  collective measurement noise
+  (define noise-prior (case noise
+                            (('low)
+                             (lambda () (multinomial '(.5 1 1.5) 
+                                                     '(1 6 1)))) ;; low
+                            (('mid) 
+                             (lambda () (multinomial '(.5 1 1.5) 
+                                                     '(1 3 1)))) ;; middle
+                            (('high)
+                             (lambda () (multinomial '(.5 1 1.5) 
+                                                     '(1 1 1)))) ;; high
+                            )) 
+; 
+  (define collective-interpretation 
+    (lambda (state coll-theta collective-noise) 
+      (if
+       (> (sum state) (* collective-noise coll-theta)) ; noise as multiplier
+       (flip 0.95)
+       (flip 0.05))))
+  (define distributive-interpretation 
+    (lambda (state dist-theta) 
+      (if
+       (all (map (lambda (d) (> d dist-theta)) state))
+       (flip 0.95)
+       (flip 0.05))))
+
+  (define (meaning utterance state dist-theta coll-theta collective? collective-noise)
+    (case utterance
+          (('null)
+           #t)
+          (('amb)
+           (if collective?
+               (collective-interpretation state coll-theta collective-noise)
+               (distributive-interpretation state dist-theta)))
+          (('not-amb)
+           (if collective?
+               (not (collective-interpretation state coll-theta collective-noise))
+               (not (distributive-interpretation state dist-theta))))
+          (('distributive)
+           (distributive-interpretation state dist-theta))
+          (('collective)
+           (collective-interpretation state coll-theta collective-noise))))
+
+  ;; Pragmatic listener
+  (define prag-listener
+    (mem
+     (lambda (utterance)
+       (enumeration-query
+        ;;         (define number-of-objects (number-of-objects-prior))
+        (define state (state-prior))
+        (define collective? (case utterance 
+                                  (('amb) (flip 0.2))))
+                 (define dist-theta (dist-theta-prior))
+                        (define coll-theta (coll-theta-prior)) ; coll-theta independent
+        ;;         (define coll-theta dist-theta) ; coll-theta is the same as dist-theta
+                   ; (define coll-theta (* dist-theta number-of-objects))
+        ;;              (list collective? dist-theta coll-theta)
+                (list collective? state)
+        ; collective?
+
+        ;;         (condition (equal? (apply multinomial 
+        ;;                                   (speaker collective? state dist-theta coll-theta)) utterance))
+
+
+        ; (condition (equal? utterance 
+        ;                    (apply multinomial 
+        ;                           (list (first (speaker collective? (sum state) dist-theta coll-theta))
+        ;                                 (power (second (speaker collective? (sum state) dist-theta coll-theta))
+        ;                                        alpha)))))      
+                        (condition (equal? utterance 
+                                           (apply multinomial 
+                                                  (list (first (speaker collective? state dist-theta coll-theta))
+                                                        (power (second (speaker collective? state dist-theta coll-theta))
+                                                               alpha)))))                                
+        ))))
+
+  ;; Speaker
+  (define (speaker collective? sum-state dist-theta coll-theta)
+    (enumeration-query
+     (define utterance (utterance-prior))
+     ;;      (define listeners-world (apply multinomial 
+     ;;                                     (list (first (listener utterance collective? dist-theta coll-theta
+     ;;                                                            )) 
+     ;;                                           (power (second (listener utterance collective? dist-theta coll-theta)) 
+     ;;                                                  alpha))))
+     (define listeners-world (apply multinomial 
+                                    (listener utterance collective? dist-theta coll-theta
+                                              ))) 
+     ; (define speakers-state
+     ;   (lambda (s-state)
+     ;     (enumeration-query
+     ;      (define state (state-prior))
+     ;      state
+     ;      (equal? (sum state) s-state)
+     ;      )))
+
+     utterance
+
+          (equal? listeners-world sum-state )
+
+     ;;      (flip (exp (* -1 (KL (speakers-state sum-state) (listener utterance collective? dist-theta coll-theta) ))))
+
+          ; (factor (- (KL (speakers-state sum-state) (listener utterance collective? dist-theta coll-theta) )))
+
+;;      (factor (- (KL (listener utterance collective? dist-theta coll-theta) (speakers-state sum-state) )))
+
+
+     ))
+
+  ;; Literal listener
+  (define listener
+    (mem
+     (lambda (utterance collective? dist-theta coll-theta)
+       (enumeration-query
+        (define collective-noise (noise-prior))
+        (define state (state-prior))
+        state
+        (condition (meaning utterance state dist-theta coll-theta collective? collective-noise))
+        ))))
+
+  (prag-listener 'amb)
+
+  )
+
+
+
+;; speaker rationality
+(define alpha 4)
+
+;; wrapper for the plural predication model
+; (define model
+;   (mem
+;   (lambda (noise)
+;     (display (string-append "beginning model with noise=" noise))
+;      (define likelihood 
+;           (plural-predication 2 noise 8 2))
+;      (list  noise 
+;           likelihood))))
+
+;; possible values for noise
+; (define noises '(low mid high))
+
+
+
+(define model
+  (mem
+     (lambda (number-of-objects 
+          noise 
+          ; coll-threshold
+          ; dist-threshold 
+          )     
+       (display (string-append "beginning model with noise=" noise))  
+       (define likelihood (plural-predication 
+                  number-of-objects 
+                  noise 
+                  ; coll-threshold 
+                  ; dist-threshold
+                  ))
+       (list  noise 
+            number-of-objects 
+            ; dist-threshold 
+            ; coll-threshold 
+            likelihood))))
+
+
+(define noises '(high mid low))
+(define numbers-of-objects '(2))
+; (define dist-thresholds '(2 3 4 5))
+; (define coll-thresholds '(11 12 13 14 15 16 17 18 19 20))
+; (define dist-thresholds '(X))
+; (define coll-thresholds '(Y))
+
+
+
+(define (unpack m)
+  (apply map (append (list (lambda (state-etc probability)
+                             (append
+                              (list (first m)
+                                    (second m)
+                                    ; (third m)
+                                    ; (fourth m)
+                                    (first state-etc))
+                              (second state-etc)
+                              (list probability))))
+                 (last m))))
+
+
+
+        
+
+
+(define data
+; (apply append
+; (apply append
+(apply append
+(apply append       
+      ; (map (lambda (dist-threshold)
+        ; (map (lambda (coll-threshold)
+          (map (lambda (noise)
+            (map (lambda (number-of-objects)
+                   (define m (model number-of-objects noise))
+                   (unpack m))
+                  ; (model number-of-objects noise))
+             numbers-of-objects)) 
+          noises))
+        ; coll-thresholds))
+      ; dist-thresholds))
+))
+
+
+
+
+
+
+;; pair noise level with likelihood of collective interpretation for ambiguous utterance
+; (define data
+;   (apply append
+;     (map (lambda (noise)
+;       (model noise))
+;        noises)))
+
+(display data)
+
+
+
+
+; ;; speaker rationality
+; (define alpha 4)
+
+; ;; wrapper for the plural predication model
+; ; (define model
+; ;   (mem
+; ;   (lambda (noise)
+; ;     (display (string-append "beginning model with noise=" noise))
+; ;      (define likelihood 
+; ;           (plural-predication 2 noise 8 2))
+; ;      (list  noise 
+; ;           likelihood))))
+
+; ;; possible values for noise
+; ; (define noises '(low mid high))
+
+
+
+; ; (define model
+; ;   (mem
+; ;      (lambda (number-of-objects 
+; ;           noise 
+; ;           coll-threshold
+; ;           dist-threshold )     
+; ;        (display (string-append "beginning model with noise=" noise))  
+; ;        (define likelihood (plural-predication 
+; ;                   number-of-objects 
+; ;                   noise 
+; ;                   coll-threshold 
+; ;                   dist-threshold))
+; ;        (list  noise 
+; ;             number-of-objects 
+; ;             dist-threshold 
+; ;             coll-threshold 
+; ;             likelihood))))
+
+
+; ; (define noises '(high mid low))
+; ; (define numbers-of-objects '(3))
+; ; ; (define dist-thresholds '(2 3 4)) ; 3 4 
+; ; ; (define coll-thresholds '(11 12 13 14 15 16)) ; 4 objects
+; ; (define dist-thresholds '(2 3 4 5 6)) ; 3 4 5 6
+; ; (define coll-thresholds '(8 9 10 11 12 13 14 15 16 17 18)) ; 3 objects
+; ; ; (define dist-thresholds '(2 3 4 5 6 7)) ; 3 4 5 6 7
+; ; ; (define coll-thresholds '(8 9 10 11 12 13 14 15 16 17 18 19 20 21)) ; 3 objects
+; ; ; (define dist-thresholds '(X))
+; ; ; (define coll-thresholds '(Y))
+
+
+
+; ; (define (unpack m)
+; ;   (apply map (append (list (lambda (state-etc probability)
+; ;                              (append
+; ;                               (list (first m)
+; ;                                     (second m)
+; ;                                     (third m)
+; ;                                     (fourth m)
+; ;                                     (first state-etc))
+; ;                               (second state-etc)
+; ;                               (list probability))))
+; ;                  (last m))))
+
+
+
+        
+
+
+; ; (define data
+; ; (apply append
+; ; (apply append
+; ; (apply append
+; ; (apply append       
+; ;       (map (lambda (dist-threshold)
+; ;         (map (lambda (coll-threshold)
+; ;           (map (lambda (noise)
+; ;             (map (lambda (number-of-objects)
+; ;                    (define m (model number-of-objects noise coll-threshold dist-threshold))
+; ;                    (unpack m))
+; ;                   ; (model number-of-objects noise coll-threshold dist-threshold))
+; ;             numbers-of-objects)) 
+; ;           noises))
+; ;         coll-thresholds))
+; ;       dist-thresholds))
+; ; ))))
+
+; (define model
+;   (mem
+;      (lambda (number-of-objects 
+;           noise 
+;           ; coll-threshold
+;           ; dist-threshold 
+;           )     
+;        (display (string-append "beginning model with noise=" noise))  
+;        (define likelihood (plural-predication 
+;                   number-of-objects 
+;                   noise 
+;                   ; coll-threshold 
+;                   ; dist-threshold
+;                   ))
+;        (list  noise 
+;             number-of-objects 
+;             ; dist-threshold 
+;             ; coll-threshold 
+;             likelihood))))
+
+
+; (define noises '(high mid low))
+; (define numbers-of-objects '(2))
+; ; (define dist-thresholds '(2 3 4 5))
+; ; (define coll-thresholds '(11 12 13 14 15 16 17 18 19 20))
+; ; (define dist-thresholds '(X))
+; ; (define coll-thresholds '(Y))
+
+
+
+; (define (unpack m)
+;   (apply map (append (list (lambda (state-etc probability)
+;                              (append
+;                               (list (first m)
+;                                     (second m)
+;                                     ; (third m)
+;                                     ; (fourth m)
+;                                     (first state-etc))
+;                               (second state-etc)
+;                               (list probability))))
+;                  (last m))))
+
+
+
+        
+
+
+; (define data
+; ; (apply append
+; ; (apply append
+; (apply append
+; (apply append       
+;       ; (map (lambda (dist-threshold)
+;         ; (map (lambda (coll-threshold)
+;           (map (lambda (noise)
+;             (map (lambda (number-of-objects)
+;                    (define m (model number-of-objects noise))
+;                    (unpack m))
+;                   ; (model number-of-objects noise))
+;              numbers-of-objects)) 
+;           noises))
+;         ; coll-thresholds))
+;       ; dist-thresholds))
+; ))
+
+
+
+
+
+
+; ;; pair noise level with likelihood of collective interpretation for ambiguous utterance
+; ; (define data
+; ;   (apply append
+; ;     (map (lambda (noise)
+; ;       (model noise))
+; ;        noises)))
+
+; (display data)
+
+(write-csv data "plural-predication-4-26.csv")
+
+
+;; RESULTS 

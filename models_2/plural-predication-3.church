@@ -31,7 +31,7 @@
                               ; 3
                               )))
 
-  (define object-prior '((3 4 5) (1 1 1)))
+  (define object-prior '((3 4) (1 1)))
 
   (define (state-prior) 
     (repeat number-of-objects (lambda () (apply multinomial object-prior) ;;the degree
@@ -205,7 +205,7 @@
 
 
 (define noises '(high mid low))
-(define numbers-of-objects '(3))
+(define numbers-of-objects '(2))
 ; (define dist-thresholds '(2 3 4 5))
 ; (define coll-thresholds '(11 12 13 14 15 16 17 18 19 20))
 ; (define dist-thresholds '(X))
@@ -262,7 +262,7 @@
 
 (display data)
 
-(write-csv data "plural-predication-3-7.csv")
+(write-csv data "plural-predication-3-21.csv")
 
 
 ;; RESULTS 

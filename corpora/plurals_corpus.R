@@ -43,8 +43,8 @@ sort(table(d$Predicate),decreasing=TRUE)[1:24]
 # just "the" determiner
 t = d[d$Determiner=="the",]
 
-t$Sentence = paste(t$Noun,t$Predicate,sep=" ")
+t$noun_verb = paste(t$Noun,t$Predicate,sep=" ")
 
 #find the most common sentences
-sort(table(t$Sentence),decreasing=TRUE)[1:50]
+sort(table(t$noun_verb),decreasing=TRUE)[1:50]
 
