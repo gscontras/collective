@@ -42,20 +42,20 @@
                             )
 
   (define utterances (list  
-                      'null 
+;;                       'null 
                       'amb 
                       'collective 
                       'distributive 
                       ))
   (define (utterance-prior) (multinomial utterances 
                                          '(
-                                           4 
-                                           3 
+;;                                            1 
                                            1 
-                                           2 
+                                           1 
+                                           1 
                                            )))
 
-  (define object-prior '((3 4 5 6) (1 1 1 1)))
+  (define object-prior '((3 4 5) (1 1 1)))
 
   (define (state-prior) 
     (repeat number-of-objects (lambda () (apply multinomial object-prior) ;;the degree
@@ -70,30 +70,30 @@
                             (('no)
                              (lambda () 1)) ;; no noise                            
                             (('low)
-                             (lambda () (multinomial '(.5 1 1.5) 
+                             (lambda () (multinomial '(.9 1 1.1) 
                                                      '(1 6 1)))) ;; low
                             (('mid) 
-                             (lambda () (multinomial '(.5 1 1.5) 
+                             (lambda () (multinomial '(.7 1 1.3) 
                                                      '(1 3 1)))) ;; middle
                             (('high)
                              (lambda () (multinomial '(.5 1 1.5) 
                                                      '(1 1 1)))) ;; high
-                            )) 
+                            ))
   ; 
   (define collective-interpretation 
     (lambda (state coll-theta collective-noise) 
       (if
        (> (* collective-noise (sum state))  coll-theta) ; noise as multiplier
-;;               (flip 0.95)
-;;               (flip 0.05))))
+              ; (flip 0.95)
+              ; (flip 0.05))))
        #t
        #f)))
   (define distributive-interpretation 
     (lambda (state dist-theta) 
       (if
        (all (map (lambda (d) (> d dist-theta)) state))
-;;                      (flip 0.95)
-;;                      (flip 0.05))))
+                     ; (flip 0.95)
+                     ; (flip 0.05))))
        #t
        #f)))
 
@@ -231,7 +231,7 @@
 
 
 (define noises '(high mid low no))
-(define numbers-of-objects '(3))
+(define numbers-of-objects '(4))
 (define knowledges '(true false))
 
 (define (unpack m)
