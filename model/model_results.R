@@ -1,6 +1,6 @@
 library(ggplot2)
 
-setwd("~/Documents/git/cocolab/collective/models_2/")
+setwd("~/Documents/git/cocolab/collective/model/")
 
 
 ###################################
