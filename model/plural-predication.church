@@ -42,17 +42,17 @@
                             )
 
   (define utterances (list  
-;;                       'null 
+                      'null 
                       'amb 
-                      'collective 
-                      'distributive 
+                      ; 'collective 
+                      ; 'distributive 
                       ))
   (define (utterance-prior) (multinomial utterances 
                                          '(
 ;;                                            1 
                                            1 
                                            1 
-                                           1 
+                                           ; 1 
                                            )))
 
   (define object-prior '((3 4 5) (1 1 1)))
@@ -84,16 +84,16 @@
     (lambda (state coll-theta collective-noise) 
       (if
        (> (* collective-noise (sum state))  coll-theta) ; noise as multiplier
-              ; (flip 0.95)
-              ; (flip 0.05))))
+              ; (flip 0.99)
+              ; (flip 0.01))))
        #t
        #f)))
   (define distributive-interpretation 
     (lambda (state dist-theta) 
       (if
        (all (map (lambda (d) (> d dist-theta)) state))
-                     ; (flip 0.95)
-                     ; (flip 0.05))))
+                     ; (flip 0.99)
+                     ; (flip 0.01))))
        #t
        #f)))
 
@@ -231,7 +231,7 @@
 
 
 (define noises '(high mid low no))
-(define numbers-of-objects '(4))
+(define numbers-of-objects '(3))
 (define knowledges '(true false))
 
 (define (unpack m)
@@ -262,4 +262,4 @@
 
 (display data)
 
-(write-csv data "plural-predication.csv")
+(write-csv data "plural-predication-20.csv")
