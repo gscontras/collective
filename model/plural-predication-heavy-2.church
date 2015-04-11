@@ -50,12 +50,12 @@
   (define (utterance-prior) (multinomial utterances 
                                          '(
 ;;                                            1 
-                                           1 
+                                           1
                                            1 
                                            1 
                                            )))
 
-  (define object-prior '((3 4) (1 1)))
+  (define object-prior '((1 2 3 4) (1 1 1 1)))
 
   (define (state-prior) 
     (repeat number-of-objects (lambda () (apply multinomial object-prior) ;;the degree
@@ -67,20 +67,17 @@
 
   ;;  collective measurement noise
   (define noise-prior (case noise
-                            ; (('no)
-                            ;  (lambda () 1)) ;; no noise                            
-                            (('low)
-                             (lambda () (multinomial '(.925 1 1.075) 
-                                                     '(1 6 1)))) ;; low
-                            (('mid)
-                             (lambda () (multinomial '(.85 1 1.15) 
-                                                     '(1 6 1)))) ;; low
-                            ; (('mid) 
-                            ;  (lambda () (multinomial '(.7 1 1.3) 
-                            ;                          '(1 3 1)))) ;; middle
+                            (('no)
+                             (lambda () 1)) ;; no noise                            
+                            ; (('mid)
+                            ;  (lambda () (multinomial '(.75 1 1.25) 
+                            ;                          '(1 1 1)))) ;; low
+                            (('mid) 
+                             (lambda () (multinomial '(.6 1 1.4) 
+                                                     '(1.2 1 1.2)))) ;; middle
                             ; (('high)
                             ;  (lambda () (multinomial '(.5 1 1.5) 
-                                                     ; '(1 1 1)))) ;; high
+                            ;                          '(1 1 1)))) ;; high
                             ))
   ; 
   (define collective-interpretation 
@@ -123,7 +120,7 @@
      (lambda (utterance speakerknows)
        (enumeration-query
         (define state (state-prior))
-        (define collective? (flip 0.88))
+        (define collective? (flip 0.8))
         (define dist-theta (dist-theta-prior))
         (define coll-theta (coll-theta-prior)) ; coll-theta independent
 
@@ -204,7 +201,7 @@
   )
 
 ;; speaker rationality
-(define alpha 2)
+(define alpha 1.4)
 
 ; (multiviz
 ;  (barplot (plural-predication 2 'no false) "no noise")
@@ -233,7 +230,7 @@
             likelihood))))
 
 
-(define noises '(low mid))
+(define noises '(no))
 (define numbers-of-objects '(4))
 (define knowledges '(true false))
 
@@ -265,4 +262,4 @@
 
 (display data)
 
-(write-csv data "plural-predication-heavy-3.csv")
+(write-csv data "plural-predication-heavy-2.csv")
