@@ -2,7 +2,7 @@
 % Kai von Fintel, Christopher Potts, and Chung-chieh Shan
 
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesClass{sp}[2013/08/11 v.2.1 Class for Semantics & Pragmatics]
+\ProvidesClass{sp}[2012/01/06 v.2.01 Class for Semantics & Pragmatics]
 
 % OUTLINE OF THIS CLASS FILE
 %   option declarations 
@@ -87,11 +87,6 @@
   \else\relax
 \fi
 
-% Strong widow and orphan control
-
-\clubpenalty10000
-\widowpenalty10000
-
 %=====================================================================
 %========================= required packages =========================
 
@@ -103,14 +98,14 @@
   \RequirePackage[final,protrusion={true,compatibility}]{microtype}
 }{}
 \RequirePackage{ifthen}
-\RequirePackage[hyphens]{url}
 
 \if@biblatex
 	\RequirePackage[backend=biber,
-			bibstyle=biblatex-sp-unified,
+			bibstyle=sp-biblatex,
 			citestyle=sp-authoryear-comp,
 			maxcitenames=3,
 			maxbibnames=99]{biblatex}
+	\setlength{\bibitemsep}{0pt}
 \else
 	\RequirePackage{natbib}
 	\bibpunct[: ]{(}{)}{,}{a}{}{,}
@@ -130,7 +125,7 @@
     \newcommand{\seccitet}[2]{\citeauthor{#1} (\citeyear{#1}:~$\S$#2)}
 \fi	
 
-\RequirePackage[usenames,dvipsnames]{xcolor}
+\RequirePackage[usenames]{color}
 \definecolor{splinkcolor}{rgb}{.0,.2,.4}
 \RequirePackage[colorlinks,breaklinks,
                 linkcolor=splinkcolor, 
@@ -267,8 +262,8 @@
 % it is elsewhere in the headers so that we have a chance of fitting
 % the whole license on the page.
 \newcommand{\cctext}{{\footnotesize This is an open-access article
-    distributed under the terms of a Creative Commons Attribution License
-    (\http{http://creativecommons.org/licenses/by/3.0/}).}}
+    distributed under the terms of a Creative Commons Non-Commercial License
+    (\http{creativecommons.org/licenses/by-nc/3.0}).}}
 
 % This boolean switch lets the user control whether the logo is
 % included even when the requisite image file is present.  (If it is
