@@ -55,7 +55,7 @@
                                            1 
                                            )))
 
-  (define object-prior '((3 4 5) (1 1 1)))
+  (define object-prior '((3 4) (1 1)))
 
   (define (state-prior) 
     (repeat number-of-objects (lambda () (apply multinomial object-prior) ;;the degree
@@ -120,7 +120,7 @@
      (lambda (utterance speakerknows)
        (enumeration-query
         (define state (state-prior))
-        (define collective? (flip 0.7))
+        (define collective? (flip 0.5))
         (define dist-theta (dist-theta-prior))
         (define coll-theta (coll-theta-prior)) ; coll-theta independent
 
@@ -231,7 +231,7 @@
 
 
 (define noises '(high mid low no))
-(define numbers-of-objects '(3))
+(define numbers-of-objects '(4))
 (define knowledges '(true false))
 
 (define (unpack m)
@@ -262,4 +262,4 @@
 
 (display data)
 
-(write-csv data "plural-predication-heavy.csv")
+(write-csv data "plural-predication.csv")

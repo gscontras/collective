@@ -120,30 +120,31 @@ ggsave("plots/plural-predication-20-state.pdf",height=5,width=40,limitsize=FALSE
 
 ### heavy plots
 
+setwd("~/Documents/git/CoCoLab/collective/model/")
 
-d = read.csv("plural-predication-heavy.csv",header=F)
+d = read.csv("plural-predication-big.csv",header=F)
 #colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","p")
-colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","p")
-#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","obj4","p")
+#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","p")
+colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","obj4","p")
 head(d)
 
 
-d$noise <-factor(d$noise,levels=c("mid",'no'))
+#d$noise <-factor(d$noise,levels=c("low","mid","high"))
 #d$k <-factor(d$k,levels=c("partial","full"))
 d$numobjs <- factor(d$numobjs)
 #d$state = paste(d$obj1,d$obj2)
-d$state = paste(d$obj1,d$obj2,d$obj3)
-#d$state = paste(d$obj1,d$obj2,d$obj3,d$obj4)
+#d$state = paste(d$obj1,d$obj2,d$obj3)
+d$state = paste(d$obj1,d$obj2,d$obj3,d$obj4)
 d$state <- factor(d$state)
 #d$KL <- factor(d$KL)
 d$p <- as.numeric(as.character(d$p))
-d$k = "partial"
-d[d$knowledge=="true",]$k = "full"
+#d$k = "partial"
+#d[d$knowledge=="true",]$k = "full"
 head(d)
 
 # check effect direction for inferred thetas
 
-agg <- aggregate(p~noise*k,d[d$collective=="true",],sum)
+agg <- aggregate(p~noise,d[d$collective=="true",],sum)
 agg
 
 
@@ -152,8 +153,9 @@ agg
 # a=1.75  .1462
 # a=1.6   .1488
 # a=1.5   .1501
+# a-1.45  .1505
 # a=1.4   .1507
-# a=1.375 .
+# a=1.375 .1507
 # a=1.35  .1507
 # a=1.3   .1504
 
