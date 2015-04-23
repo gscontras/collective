@@ -66,21 +66,13 @@
 
 
   ;;  collective measurement noise
-  (define noise-prior (case noise
-                            ; (('no)
-                            ;  (lambda () 1)) ;; no noise                            
+  (define noise-prior (case noise                   
                             (('low)
                              (lambda () (multinomial '(.925 1 1.075) 
-                                                     '(1 6 1)))) ;; low
+                                                     '(1 6 1)))) ;; low (big; regular)
                             (('mid)
                              (lambda () (multinomial '(.85 1 1.15) 
-                                                     '(1 6 1)))) ;; low
-                            ; (('mid) 
-                            ;  (lambda () (multinomial '(.7 1 1.3) 
-                            ;                          '(1 3 1)))) ;; middle
-                            ; (('high)
-                            ;  (lambda () (multinomial '(.5 1 1.5) 
-                                                     ; '(1 1 1)))) ;; high
+                                                     '(1 6 1)))) ;; low (big; random)
                             ))
   ; 
   (define collective-interpretation 

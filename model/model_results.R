@@ -64,10 +64,10 @@ ggsave("plots/plural-predication-state.pdf",height=5,width=40,limitsize=FALSE)
 ### test plots
 
 
-d = read.csv("plural-predication-1.csv",header=F)
+d = read.csv("plural-predication.csv",header=F)
 #colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","p")
-colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","p")
-#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","obj4","p")
+#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","p")
+colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","obj4","p")
 head(d)
 
 
@@ -75,8 +75,8 @@ d$noise <-factor(d$noise,levels=c("high","mid",'low','no'))
 #d$k <-factor(d$k,levels=c("partial","full"))
 d$numobjs <- factor(d$numobjs)
 #d$state = paste(d$obj1,d$obj2)
-d$state = paste(d$obj1,d$obj2,d$obj3)
-#d$state = paste(d$obj1,d$obj2,d$obj3,d$obj4)
+#d$state = paste(d$obj1,d$obj2,d$obj3)
+d$state = paste(d$obj1,d$obj2,d$obj3,d$obj4)
 d$state <- factor(d$state)
 #d$KL <- factor(d$KL)
 d$p <- as.numeric(as.character(d$p))

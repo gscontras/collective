@@ -69,7 +69,7 @@ a$faultless_norm = f_casted$faultless_rating_norm[match(a$sentence,f_casted$sent
 ## look just at small
 
 s <- a[a$predicate=="small",]
-s$noun <- factor(s$noun,levels=c("classes","rooms","children","numbers"))
+s$noun <- factor(s$noun,levels=c("numbers","rooms","children","classes"))
 
 s_model = lmer(response~noun+slide_number+(1|workerid),data=s[s$sentence_type=="coll",])
 summary(s_model)
@@ -86,9 +86,9 @@ s_casted$se.YMax.dist = s_casted$dist + dcast(data=s, noun ~ sentence_type, valu
 
 
 
-small_coll_plot <- ggplot(s_casted, aes(x=noun,y=coll,fill=noun)) +
+small_coll_plot <- ggplot(s_casted, aes(x=noun,y=coll)) +
   #geom_point(size=2,alpha=0.35) +
-  geom_bar(stat="identity",position=position_dodge())+
+  geom_bar(stat="identity",position=position_dodge(),fill="red")+
   #geom_smooth() +
   geom_errorbar(aes(ymin=CI.YMin.coll, ymax=CI.YMax.coll, x=noun, width=0.1),position=position_dodge(width=0.9)) +
   #geom_errorbar(alpha=.8,aes(ymin=CI.YMin.coll,ymax=CI.YMax.coll)) +
@@ -97,8 +97,8 @@ small_coll_plot <- ggplot(s_casted, aes(x=noun,y=coll,fill=noun)) +
   #geom_errorbarh(alpha=.8,aes(xmin=se.YMin.coll,xmax=se.YMax.coll))   
   #geom_abline(intercept=0,slope=1) +
   #geom_text(size=3,alpha=.5,aes(label=sentence),angle=45) +
-  ylab("collective endorsement") +
-  #xlab("collective?")+
+  ylab("collective endorsement\n") +
+  xlab("\nsubject noun")+
   ylim(0,1)
   #xlim(0,1)
 ggsave("small_coll_plot.pdf")
