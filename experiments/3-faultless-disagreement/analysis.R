@@ -2,42 +2,6 @@ library(ggplot2)
 library(reshape2)
 library(lme4)
 
-summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
-                      conf.interval=.95, .drop=TRUE) {
-  require(plyr)
-  
-  # New version of length which can handle NA's: if na.rm==T, don't count them
-  length2 <- function (x, na.rm=FALSE) {
-    if (na.rm) sum(!is.na(x))
-    else       length(x)
-  }
-  
-  # This does the summary. For each group's data frame, return a vector with
-  # N, mean, and sd
-  datac <- ddply(data, groupvars, .drop=.drop,
-                 .fun = function(xx, col) {
-                   c(N    = length2(xx[[col]], na.rm=na.rm),
-                     mean = mean   (xx[[col]], na.rm=na.rm),
-                     sd   = sd     (xx[[col]], na.rm=na.rm)
-                   )
-                 },
-                 measurevar
-  )
-  
-  # Rename the "mean" column    
-  datac <- rename(datac, c("mean" = measurevar))
-  
-  datac$se <- datac$sd / sqrt(datac$N)  # Calculate standard error of the mean
-  
-  # Confidence interval multiplier for standard error
-  # Calculate t-statistic for confidence interval: 
-  # e.g., if conf.interval is .95, use .975 (above/below), and use df=N-1
-  ciMult <- qt(conf.interval/2 + .5, datac$N-1)
-  datac$ci <- datac$se * ciMult
-  
-  return(datac)
-}
-
 setwd("~/Documents/git/cocolab/collective/experiments/3-faultless-disagreement/Submiterator-master")
 
 f = read.table("faultless-disagreement-trials.tsv",sep="\t",header=T)
@@ -45,7 +9,17 @@ head(f)
 
 f = f[f$sense=="Yes",]
 
-f_casted = dcast(data=f, sentence ~ faultless, value.var="response",mean)
+f_casted = dcast(data=f, predicate + sense ~ faultless, value.var="response",mean)
+
+# compute comparison score (based on sense ratings)
+
+c_score <- as.data.frame.matrix(table(f$sentence,f$sense))
+head(c_score)
+c_score$c_ratio = (c_score$Yes/c_score$No)
+summary(c_score)
+head(c_score)
+write.csv(c_score,"sentence-comp-score.csv")
+
 f_casted$faultless_rating = (f_casted$yes/f_casted$no)
 f_casted$faultless_rating_norm = (f_casted$yes/(f_casted$no+f_casted$yes))
 

@@ -5,114 +5,6 @@ library(coin)
 library(ggplot2)
 library(reshape2)
 
-myCenter <- function(x) {
-  if (is.numeric(x)) { return(x - mean(x)) }
-  if (is.factor(x)) {
-    x <- as.numeric(x)
-    return(x - mean(x))
-  }
-  if (is.data.frame(x) || is.matrix(x)) {
-    m <- matrix(nrow=nrow(x), ncol=ncol(x))
-    colnames(m) <- paste("c", colnames(x), sep="")
-    for (i in 1:ncol(x)) {
-      if (is.factor(x[,i])) {
-        y <- as.numeric(x[,i])
-        m[,i] <- y - mean(y, na.rm=T)
-      }
-      if (is.numeric(x[,i])) {
-        m[,i] <- x[,i] - mean(x[,i], na.rm=T)
-      }
-    }
-    return(as.data.frame(m))
-  }
-}
-bootsSummary <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
-                         conf.interval=.95, .drop=TRUE, n_boots_samps=10) {
-  require(plyr)
-  
-  # New version of length which can handle NA's: if na.rm==T, don't count them
-  length2 <- function (x, na.rm=FALSE) {
-    if (na.rm) sum(!is.na(x))
-    else       length(x)
-  }
-  
-  # This does the summary. For each group's data frame, return a vector with
-  # N, mean, and sd
-  datac <- ddply(data, groupvars, .drop=.drop,
-                 .fun = function(xx, col) {
-                   c(N    = length2(xx[[col]], na.rm=na.rm),
-                     mean = mean   (xx[[col]], na.rm=na.rm),
-                     bootsci_high = quantile( #doesn't play nice with na.rm
-                       replicate(n_boots_samps, mean(sample(xx[[col]], replace = TRUE))),
-                       c(0.025, 0.975))[["97.5%"]],
-                     bootsci_low = quantile( #doesn't play nice with na.rm
-                       replicate(n_boots_samps, mean(sample(xx[[col]], replace = TRUE))),
-                       c(0.025, 0.975))[["2.5%"]]
-                   )
-                 },
-                 measurevar
-  )
-  
-  # Rename the "mean" column    
-  datac <- rename(datac, c("mean" = measurevar))
-  
-  return(datac)
-}
-theme_blackDisplay <- function(base_size = 12, base_family = "Helvetica") {
-  require(grid)
-  theme(
-    line =               element_line(colour = "white", size = 0.5, linetype = 1,
-                                      lineend = "butt"),
-    rect =               element_rect(fill = "black", colour = "black", size = 0.5, linetype = 1),
-    text =               element_text(family = base_family, face = "plain",
-                                      colour = "white", size = base_size,
-                                      hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9),
-    axis.text =          element_text(size = 30, colour = "white"),
-    strip.text =         element_text(size = 30, colour = "white"),
-    
-    axis.line =          element_blank(),
-    axis.text.x =        element_text(vjust = 1),
-    axis.text.y =        element_text(hjust = 1),
-    axis.ticks =         element_line(colour = "white", size = 0.2),
-    axis.title =         element_text(size=32,colour = "white"),
-    axis.title.x =       element_text(vjust = 1),
-    axis.title.y =       element_text(angle = 90),
-    axis.ticks.length =  unit(0.3, "lines"),
-    axis.ticks.margin =  unit(0.5, "lines"),
-    
-    legend.background =  element_rect(colour = "black"),
-    legend.margin =      unit(0.2, "cm"),
-    legend.key =         element_rect(fill = "black", colour = "white"),
-    legend.key.size =    unit(1.2, "lines"),
-    legend.key.height =  NULL,
-    legend.key.width =   NULL,
-    legend.text =        element_text(size = 26, colour = "white"),
-    legend.text.align =  NULL,
-    legend.title =       element_text(size = 26, face = "bold", hjust = 0, colour = "white"),
-    legend.title.align = NULL,
-    legend.position =    "right",
-    legend.direction =   "vertical",
-    legend.justification = "center",
-    legend.box =         NULL,
-    
-    panel.background =   element_rect(fill = "black", colour = NA),
-    panel.border =       element_rect(fill = NA, colour = "white"),
-    panel.grid.major =   element_line(colour = "grey20", size = 0.2),
-    panel.grid.minor =   element_line(colour = "grey5", size = 0.5),
-    panel.margin =       unit(0.25, "lines"),
-    
-    strip.background =   element_rect(fill = "grey30", colour = "grey10"),
-    strip.text.x =       element_text(),
-    strip.text.y =       element_text(angle = -90),
-    
-    plot.background =    element_rect(colour = "black", fill = "black"),
-    plot.title =         element_text(size = rel(1.2)),
-    plot.margin =        unit(c(1, 1, 0.5, 0.5), "lines"),
-    
-    complete = TRUE
-  )
-}
-
 setwd("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/")
 
 sub = read.table("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/Submiterator-master/2-corpus-based-subject_information.tsv",sep="\t",header=T)
@@ -137,41 +29,80 @@ summary(d)
 
 a = d[d$attested=="True",]
 
-# add in faultless ratings
-
-f = read.table("~/Documents/git/cocolab/collective/experiments/3-faultless-disagreement/Submiterator-master/faultless-disagreement-trials.tsv",sep="\t",header=T)
-head(f)
-
-f = f[d$sense=="Yes",]
-
-faultless_casted = dcast(data=f, sentence ~ faultless, value.var="response",mean)
-faultless_casted$faultless = (faultless_casted$yes/faultless_casted$no)
-
 ## Attested sentence analysis (collapsing over animacy)
 
 a$sentence = paste(a$noun,a$predicate,sep=" ")
 
-a$faultless = s$Faultless[match(a$sentence,s$Sentence)]
-
-a_sent_casted = dcast(data=a, animate + sentence + faultless~ sentence_type, value.var="response",mean,na.rm=T)
-a_sent_casted$faultless = faultless_casted$faultless[match(a_sent_casted$sentence,faultless_casted$sentence)]
+a_sent_casted = dcast(data=a, animate + sentence + predicate + noun + workerid ~ sentence_type, value.var="response",mean,na.rm=T)
 a_sent_casted$collective = (a_sent_casted$coll/a_sent_casted$dist)
-a_sent_casted$collective_norm = (a_sent_casted$collective/max(a_sent_casted$collective))
-a_sent_casted$faultless_norm = (a_sent_casted$faultless/max(a_sent_casted$faultless))
+a_sent_casted$coll_diff = (a_sent_casted$coll-a_sent_casted$dist)
 
-faultless_collective_plot <- ggplot(a_sent_casted, aes(x=collective,y=faultless,color=animate)) +
-  #  geom_point() +
-  # geom_smooth() +
-  #geom_errorbar(alpha=.3,aes(ymin=CI.YMin.dist,ymax=CI.YMax.dist)) +
-  #geom_errorbarh(alpha=.3,aes(xmin=CI.YMin.coll,xmax=CI.YMax.coll)) +  
-  geom_abline(intercept=0,slope=1) +
-  geom_text(size=2,alpha=.5,aes(label=sentence),angle=45) +
-  ylab("faultless?") +
-  xlab("collective?")+
+a_sent_casted <- na.omit(a_sent_casted)
+
+# noun plot
+
+noun_s = bootsSummary(data=a_sent_casted, measurevar="coll", groupvars=c("noun","animate"))
+noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
+noun_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll,mean),y=coll)) +
+  geom_bar(stat="identity",position=position_dodge()) +
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,response,is.ordered=T), width=0.1),position=position_dodge(width=0.9))+
+  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
+  ylab("collective endorsement") +
+  xlab("noun")+
   ylim(0,1) +
-  xlim(0,1)
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
+noun_plot
 
-ggsave(filename='faultless_collective_plot.png',plot=faultless_collective_plot,width=8, height=8)
+ggsave('results/noun_plot.pdf',width=6.25,height=3)
+
+# noun by pred plot
+
+pred_s = bootsSummary(data=a_sent_casted, measurevar="coll", groupvars=c("noun","predicate"))
+pred_s$noun <- factor(pred_s$noun,ordered=is.ordered(pred_s$noun))
+pred_plot <- ggplot(pred_s, aes(x=reorder(noun,-coll,mean),y=coll)) +
+  geom_bar(stat="identity",position=position_dodge()) +
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,response,is.ordered=T), width=0.1),position=position_dodge(width=0.9))+
+  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
+  ylab("collective endorsement") +
+  xlab("")+
+  ylim(0,1) +
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1)) +
+  facet_wrap(~predicate,scales="free_x")
+pred_plot
+
+ggsave('results/pred_plot.pdf',width=6,height=6.5)
+
+## just predicates with multiple nouns
+
+head(a_sent_casted)
+p_n <- a_sent_casted[a_sent_casted$predicate=="bright"|
+                       a_sent_casted$predicate=="closed"|
+                       a_sent_casted$predicate=="friendly"|
+                       a_sent_casted$predicate=="full"|
+                       a_sent_casted$predicate=="guilty"|
+                       a_sent_casted$predicate=="open"|
+                       a_sent_casted$predicate=="quiet"|
+                       a_sent_casted$predicate=="small",]
+summary(p_n)
+n_pred_s = bootsSummary(data=p_n, measurevar="coll", groupvars=c("noun","predicate"))
+n_pred_s$noun <- factor(n_pred_s$noun,ordered=is.ordered(pred_s$noun))
+n_pred_plot <- ggplot(n_pred_s, aes(x=reorder(noun,-coll,mean),y=coll)) +
+  geom_bar(stat="identity",position=position_dodge()) +
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,response,is.ordered=T), width=0.1),position=position_dodge(width=0.9))+
+  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
+  ylab("collective endorsement\n") +
+  xlab("")+
+  ylim(0,1) +
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1)) +
+  facet_wrap(~predicate,nrow=2,scales="free_x")
+n_pred_plot
+
+ggsave('results/noun_pred_plot.pdf',width=5,height=3.25)
+
+
+
+
+
 
 ## Attested sentence collectivity ranking
 
