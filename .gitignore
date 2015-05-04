@@ -23,6 +23,5 @@ experiments/2-corpus-based/.Rhistory
 
 *.pdf
 
-corpora/are/
-corpora/were/
-corpora/test/
+corpora/searches/
+corpora/results/
