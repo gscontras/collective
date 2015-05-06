@@ -76,120 +76,15 @@ all_plot <- ggplot(all_s, aes(x=reorder(noun,coll,mean),y=coll)) +
   ylab("collective endorsement\n") +
   xlab("\nsubject noun")+
   ylim(0,1) +
-  #theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
-  facet_wrap(~predicate,ncol=1,scale="free_x")
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
+  facet_wrap(~predicate,ncol=3,scale="free_x")
 all_plot
-ggsave("results/attested.pdf",width=4.5)
+ggsave("results/attested.pdf",width=6,height=2.7)
 
 
-## big plot
-
-big = a_sent_casted[a_sent_casted$predicate=="big",]
-
-noun_s = bootsSummary(data=big, measurevar="coll", groupvars=c("noun"))
-noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-big_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll,mean),y=coll)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,-coll,mean), width=0.1),position=position_dodge(width=0.9))+
-  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("") +
-  xlab("")+
-  ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-big_plot
-
-## heavy plot
-
-heavy = a_sent_casted[a_sent_casted$predicate=="heavy",]
-
-noun_s = bootsSummary(data=heavy, measurevar="coll", groupvars=c("noun"))
-noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-heavy_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll,mean),y=coll)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,-coll,mean), width=0.1),position=position_dodge(width=0.9))+
-  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("collective endorsement") +
-  xlab("")+
-  ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-heavy_plot
-
-## tall plot
-
-tall = a_sent_casted[a_sent_casted$predicate=="tall",]
-
-noun_s = bootsSummary(data=tall, measurevar="coll", groupvars=c("noun"))
-noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-tall_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll,mean),y=coll)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,-coll,mean), width=0.1),position=position_dodge(width=0.9))+
-  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("") +
-  xlab("noun")+
-  ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-tall_plot
-
-pdf("results/attested.pdf")
-grid.arrange(big_plot, heavy_plot, tall_plot)
-dev.off()
-
-
-
-
-
-### coll_diff plots
-
-## big plot
-
-big = a_sent_casted[a_sent_casted$predicate=="big",]
-
-noun_s = bootsSummary(data=big, measurevar="coll_diff", groupvars=c("noun"))
-noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-big_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll_diff,mean),y=coll_diff)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,-coll_diff,mean), width=0.1),position=position_dodge(width=0.9))+
-  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("") +
-  xlab("")+
-  #ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-big_plot
-
-## heavy plot
-
-heavy = a_sent_casted[a_sent_casted$predicate=="heavy",]
-
-noun_s = bootsSummary(data=heavy, measurevar="coll_diff", groupvars=c("noun"))
-noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-heavy_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll_diff,mean),y=coll_diff)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,-coll_diff,mean), width=0.1),position=position_dodge(width=0.9))+
-  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("coll - diff") +
-  xlab("")+
-  #ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-heavy_plot
-
-## tall plot
-
-tall = a_sent_casted[a_sent_casted$predicate=="tall",]
-
-noun_s = bootsSummary(data=tall, measurevar="coll_diff", groupvars=c("noun"))
-noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-tall_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll_diff,mean),y=coll_diff)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,-coll_diff,mean), width=0.1),position=position_dodge(width=0.9))+
-  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("") +
-  xlab("noun")+
-  #ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-tall_plot
-
-pdf("results/all_diff.pdf")
-grid.arrange(big_plot, heavy_plot, tall_plot)
-dev.off()
-
-
+b = lmer(coll~noun+(1|workerid),data=a_sent_casted[a_sent_casted$predicate=="big",])
+summary(b)
+h = lmer(coll~noun+(1|workerid),data=a_sent_casted[a_sent_casted$predicate=="heavy",])
+summary(h)
+t = lmer(coll~noun+(1|workerid),data=a_sent_casted[a_sent_casted$predicate=="tall",])
+summary(t)

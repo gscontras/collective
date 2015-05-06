@@ -101,7 +101,7 @@ n_pred_plot <- ggplot(n_pred_s, aes(x=reorder(noun,coll,mean),y=coll)) +
   facet_wrap(~predicate,nrow=2,scales="free_x")
 n_pred_plot
 
-ggsave('results/noun_pred_plot.pdf',width=5.9,height=3.6)
+ggsave('results/noun_pred_plot.pdf',width=5.9,height=4)
 
 
 
