@@ -69,12 +69,12 @@ head(a_sent_casted)
 all <- a_sent_casted 
 all_s = bootsSummary(data=all, measurevar="coll", groupvars=c("noun",'predicate'))
 all_s$noun <- factor(all_s$noun,ordered=is.ordered(all_s$noun))
-all_plot <- ggplot(all_s, aes(x=reorder(noun,-coll,mean),y=coll)) +
+all_plot <- ggplot(all_s, aes(x=reorder(noun,coll,mean),y=coll)) +
   geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,-coll,mean), width=0.1),position=position_dodge(width=0.9))+
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,coll,mean), width=0.1),position=position_dodge(width=0.9))+
   #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
   ylab("collective endorsement\n") +
-  xlab("\nnoun")+
+  xlab("\nsubject noun")+
   ylim(0,1) +
   #theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
   facet_wrap(~predicate,ncol=1,scale="free_x")

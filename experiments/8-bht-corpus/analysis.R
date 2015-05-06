@@ -6,7 +6,7 @@ library(ggplot2)
 library(reshape2)
 library(gridExtra)
 
-setwd("~/Documents/git/CoCoLab/collective/experiments/7-bht-corpus/")
+setwd("~/Documents/git/CoCoLab/collective/experiments/8-bht-corpus/")
 
 sub = read.table("Submiterator-master/bht-corpus-subject_information.tsv",sep="\t",header=T)
 sub
@@ -14,7 +14,7 @@ sub
 d = read.table("Submiterator-master/bht-corpus-trials.tsv",sep="\t",header=T)
 
 #only native English
-d <- d[d$workerid!=16&d$workerid!=17&d$workerid!=18&d$workerid!=27,]
+#d <- d[d$workerid!=16&d$workerid!=17&d$workerid!=18&d$workerid!=27,]
 
 # sense rates
 d$sentence = paste(d$noun,d$predicate,sep=" ")
@@ -30,7 +30,7 @@ summary(s)
 d$sense_rate <- s$sense[match(d$sentence,s$sentence)]
 head(d)
 # trim on the basis of sense rate
-d <- d[d$sense_rate<0.05,]
+#d <- d[d$sense_rate<0.05,]
 
 # counts and raw values
 
@@ -46,11 +46,11 @@ summary(d)
 
 # just attested sentences
 
-#a = d[d$attested=="True",]
+a = d[d$attested=="True",]
 
 # all sentences
 
-a <- d
+#a <- d
 
 ## Attested sentence analysis (collapsing over animacy)
 
@@ -63,114 +63,26 @@ head(a_sent_casted)
 
 ### coll plots
 
-## big plot
+## all plot
 
-big = a_sent_casted[a_sent_casted$predicate=="big",]
-
-noun_s = bootsSummary(data=big, measurevar="coll", groupvars=c("noun"))
-noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-big_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll,mean),y=coll)) +
+all <- a_sent_casted 
+all_s = bootsSummary(data=all, measurevar="coll", groupvars=c("noun",'predicate'))
+all_s$noun <- factor(all_s$noun,ordered=is.ordered(all_s$noun))
+all_plot <- ggplot(all_s, aes(x=reorder(noun,coll,mean),y=coll)) +
   geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,-coll,mean), width=0.1),position=position_dodge(width=0.9))+
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,coll,mean), width=0.1),position=position_dodge(width=0.9))+
   #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("") +
-  xlab("")+
+  ylab("collective endorsement\n") +
+  xlab("\nnoun")+
   ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-big_plot
+  #theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
+  facet_wrap(~predicate,ncol=1,scale="free_x")
+all_plot
+ggsave("results/attested.pdf",width=4.5)
 
-## heavy plot
-
-heavy = a_sent_casted[a_sent_casted$predicate=="heavy",]
-
-noun_s = bootsSummary(data=heavy, measurevar="coll", groupvars=c("noun"))
-noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-heavy_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll,mean),y=coll)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,-coll,mean), width=0.1),position=position_dodge(width=0.9))+
-  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("collective endorsement") +
-  xlab("")+
-  ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-heavy_plot
-
-## tall plot
-
-tall = a_sent_casted[a_sent_casted$predicate=="tall",]
-
-noun_s = bootsSummary(data=tall, measurevar="coll", groupvars=c("noun"))
-noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-tall_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll,mean),y=coll)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,-coll,mean), width=0.1),position=position_dodge(width=0.9))+
-  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("") +
-  xlab("noun")+
-  ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-tall_plot
-
-pdf("results/all.pdf")
-grid.arrange(big_plot, heavy_plot, tall_plot)
-dev.off()
-
-
-
-
-
-### coll_diff plots
-
-## big plot
-
-big = a_sent_casted[a_sent_casted$predicate=="big",]
-
-noun_s = bootsSummary(data=big, measurevar="coll_diff", groupvars=c("noun"))
-noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-big_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll_diff,mean),y=coll_diff)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,-coll_diff,mean), width=0.1),position=position_dodge(width=0.9))+
-  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("") +
-  xlab("")+
-  #ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-big_plot
-
-## heavy plot
-
-heavy = a_sent_casted[a_sent_casted$predicate=="heavy",]
-
-noun_s = bootsSummary(data=heavy, measurevar="coll_diff", groupvars=c("noun"))
-noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-heavy_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll_diff,mean),y=coll_diff)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,-coll_diff,mean), width=0.1),position=position_dodge(width=0.9))+
-  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("coll - diff") +
-  xlab("")+
-  #ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-heavy_plot
-
-## tall plot
-
-tall = a_sent_casted[a_sent_casted$predicate=="tall",]
-
-noun_s = bootsSummary(data=tall, measurevar="coll_diff", groupvars=c("noun"))
-noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-tall_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll_diff,mean),y=coll_diff)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,-coll_diff,mean), width=0.1),position=position_dodge(width=0.9))+
-  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("") +
-  xlab("noun")+
-  #ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-tall_plot
-
-pdf("results/all_diff.pdf")
-grid.arrange(big_plot, heavy_plot, tall_plot)
-dev.off()
-
-
+b = lmer(coll~noun+(1|workerid),data=a_sent_casted[a_sent_casted$predicate=="big",])
+summary(b)
+h = lmer(coll~noun+(1|workerid),data=a_sent_casted[a_sent_casted$predicate=="heavy",])
+summary(h)
+t = lmer(coll~noun+(1|workerid),data=a_sent_casted[a_sent_casted$predicate=="tall",])
+summary(t)

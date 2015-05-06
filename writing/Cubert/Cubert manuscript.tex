@@ -109,100 +109,28 @@ Predicates like \textit{heavy} or \textit{expensive} admit both distributive and
 
 Not all predicates are so permissive in their interpretations. Since \citet[140]{quine1960}, linguists have assumed that certain predicates lack collective interpretations: \textit{the boxes are big} is said to communicate only about individual box size; the collective interpretation whereby speakers communicate about total set size is claimed to be absent (or at least extremely hard to come by). Other size and shape predicates are said to behave similarly (e.g., \emph{long}, \emph{round}); \cite{schwarzschild2011} terms them ``stubbornly distributive,'' signaling the lack of collective interpretations. \citet{zhang2013} labels this class of predicates ``delimitable,'' highlighting their usage to describe physical extents. \cite{syrett2015} finds evidence of stubborn distributivity in children as young as 3 years of age.
 
-Understanding why (and whether) stubbornly distributive predicates like \emph{big} differ from what we will call ``complaisantly collective'' predicates like \emph{heavy} requires understanding the role of context in plural predication. As we will see, context plays a central role in the choice between distributive and collective interpretations. Determining how casts the distributive/collective distinction in a new light, while illuminating the semantics of plural predication and the pragmatic mechanisms of ambiguity resolution. 
+Understanding why (and whether) stubbornly distributive predicates like \emph{big} differ from what we will call ``complaisantly collective'' predicates like \emph{heavy} requires understanding the role of context in plural predication. As we will see, context plays a central role in the choice between distributive and collective interpretations: potentially variable interpretations (e.g., collective height with \emph{tall}, which might change depending on the physical arrangement of a set of objects) are less useful to speakers for efficiently communicating about the state of the world; and, listeners tracks speakers' access to knowledge, and are unlikely to attribute interpretations to speakers for which they lack evidence (e.g., distributive weight for \emph{heavy} in a scenario where a speaker only even picks up a set of objects altogether). Determining how speakers and listeners track these features of context casts the distributive/collective distinction in a new light, while illuminating the semantics of plural predication and the pragmatic mechanisms of ambiguity resolution. 
 
 To address the question of how much plural predication depends on context, and in what way, we establish a way of studying plural predication experimentally. In Expt.~1, we introduce and validate a new paraphrase methodology, which probes possible interpretations with unambiguous paraphrases. The results of Expt.~1 demonstrate a difference between \emph{big} and \emph{heavy}, as expected, but show that the predicate \emph{tall} patterns with \emph{heavy} in its ability to yield collective interpretations, at least in our experimental setting. We take these findings as evidence that stubborn distributivity cannot be reduced simply to predicating properties of physical extent.
 
-We then explore the idea that contextual predictability of the relevant collective property is a critical factor in determining which reading is used. Expt.~2 uses the paraphrase endorsement methodology to show that less variable contexts make collective interpretations more acceptable for all of the predicates tested. Finally, we discuss the role of contextual predictability and speaker knowledge under a pragmatic account of ambiguity resolution in plural predication, using a lifted-variable variant of a Bayesian Rational Speech-Act model to formalize the process \citep{frankgoodman2012,lassitergoodman2013}.
+We then explore the idea that contextual predictability of the relevant collective property is a critical factor in determining which reading is used. Expt.~3 uses the paraphrase endorsement methodology to show that less variable contexts increase the predictability of potentially noisy collective interpretations (e.g., always stacking objects on top of each other, regularizing the collective height of sets), and as a result make collective interpretations more acceptable. Finally, we discuss the role of contextual predictability and speaker knowledge under a pragmatic account of ambiguity resolution in plural predication, using a lifted-variable variant of a Bayesian Rational Speech-Act model to formalize the process \citep{frankgoodman2012,lassitergoodman2013}.
 
 But first, a primer on the semantics of plural predication writ broad, and then some background on gradable predicates and stubborn distributivity specifically.
 
-\subsection{Representations of plurality}
 
-The foundational work in the semantics of plurality is \cite{link1983}; he adopts a mereological account of the logical structure of plurality. \citeauthor{link1983} bases many of his claims on observations concerning the behavior of nominal conjunctions in English---these, he assumes, name pluralities; the sentences in \Next[a] together entail the sentence in \Next[b]. If each individual is a man, then taken together they are men.
+\section{Underspecification in collective predication}
 
-\ex. \label{cumulative}\a. Alan is a man. Bill is a man. Charlie is a man.
-\b. Alan, Bill, and Charlie are men.
-
-To understand the \textsc{cumulative} inference in \Last, \citeauthor{link1983} makes some assumptions concerning the domain of individuals, together with the formal mechanism of predication (i.e., ascribing properties to individuals): set inclusion \citep[cf.][]{montague1973}.
-
-First, the domain of individuals, D$_{e}$, consists of atomic individuals---objects in the domain without other objects as (proper) individual parts. This set includes individuals like Alan, Bill, Charlie, the book on your shelf, an apple, and so on. Predicates are modeled as sets of individuals---those individuals that hold the property named by the predicate. The denotation of a singular nominal predicate like (\emph{is a}) \emph{man} is a subset of this atomic domain.
-
-\ex. \label{theboys} Let \sem{Alan} = \texttt{a}, \sem{Bill} = \texttt{b}, and \sem{Charlie} = \texttt{c}; assume no other men. Then,\\
- \sem{(is a) man} = \{\texttt{a}, \texttt{b}, \texttt{c}\}
-
-Singular \emph{man} contains all and only those members of the atomic domain that hold the property of being a man---it contains the men in the domain. In \Last, where we assume three men, the set denoted by singular \emph{man} contains just Alan, Bill, and Charlie, or the individuals \tt{a}, \tt{b}, and \tt{c}.
-
-Given the model sketched in \Last, and assuming predication gets modeled as set inclusion, the derivation in \Next results as we say of the sentence \emph{Alan is a man} that it is true: Alan is a man just in case he is a member of the set of singular men; Alan is in fact a member of the set of singular men, so he is a man.
-
-\ex. \sem{Alan is a man} = 1 iff\\
-\sem{man}(\sem{Alan}) = 1, i.e., iff\\
-\texttt{a} $\in$ \{\texttt{a}, \texttt{b}, \texttt{c}\}
-
-To achieve a general theory of predication, \citeauthor{link1983} must say how set inclusion transpires with plural predicates like \emph{men}; but first, \citeauthor{link1983} must take a stance on plural reference more broadly: (plural) individuals are modeled as mereological sums, points on mereological lattices that track part-whole relations. Simply put, a plurality is a sum of its parts: the plural individual named by \emph{Alan, Bill, and Charlie} is the summation of the singular individuals \tt{a}, \tt{b}, and \tt{c}. 
-
-For \citeauthor{link1983}, pluralities are formed via the \textsc{individual sum} operator $\oplus$, which spells out in English as (some variants of) the conjunction \emph{and}.
-
-\ex. For any two individuals \texttt{x}, \texttt{y}, their sum (i.e., the individual named by \emph{x and y}) is the smallest plural individual that has \texttt{x} and \texttt{y} as parts: \texttt{x}$\oplus$\texttt{y}
-
-If there are three boys, as in \ref{theboys}, then \emph{the boys} names the same plural individual as \emph{Alan and Bill and Charlie}, namely \texttt{a}$\oplus$\texttt{b}$\oplus$\texttt{c}. The spatial, structural, and functional arrangement of this sum is left unspecified. It merely represents the collection, however arranged, of the three individuals.
-
-Now, (semantically) plural nominal predicates (e.g., \emph{men}) contain pluralities in their extensions; to build a plural predicate from singular ones, \citeauthor{link1983} introduces the ``star''-operator, *, which takes a predicate \texttt{P} and generates all of the individual sums of members of the extension of the basic, ``un-starred'' predicate. Roughly speaking, a plural predicate, *\texttt{P}, is a collection of all of the possible subsets of the singular predicate \texttt{P} (less the empty set \O).
-
-\ex. \sem{*\texttt{P}} \defeq \{\texttt{x} $\in$ D$_{e}$: $\exists$\texttt{X} $\subseteq$ \sem{\texttt{P}}[\texttt{X} $\neq$ \O\ \and \texttt{x} = \texttt{S}(\texttt{X})]\}\\
-where \texttt{S}(\texttt{X}) is the supremum, or maximal element of \texttt{X}
-
-We can now model the denotation of English \emph{man} and \emph{men} using the sets in \Next; \emph{man} corresponds to the singular property of being a man, while \emph{men} corresponds to the closure of that property under sum-formation via the *-operator.\footnote{The present discussion collapses over the distinction between semantic and morphological plurality. See \cite{scontras2013salt,scontras2013sub,scontras2014diss} for fuller discussion of this distinction.} \emph{Men} thus denotes the set of all men and their possible combinations.
-
-\ex. \texttt{P} = \texttt{man}\\
-\sem{\texttt{P}} = \{\texttt{a}, \texttt{b}, \texttt{c}\}\\
-\sem{*\texttt{P}} = \{\texttt{a}, \texttt{b}, \texttt{c}, \texttt{a}$\oplus$\texttt{b}, \texttt{a}$\oplus$\texttt{c}, \texttt{b}$\oplus$\texttt{c}, \texttt{a}$\oplus$\texttt{b}$\oplus$\texttt{c}\}
-
-The semilattice in Fig.\ \ref{semilattice} conveys similar information, while explicitly tracking the part-whole relations among the individuals.
-Each node $\bullet$ in Fig.\ \ref{semilattice} represents an individual in the domain, and the lines connecting the nodes track part-hood. For example, Alan and Bill are each individual parts of the plural individual named by \emph{Alan and Bill}, which itself is a part of the plural individual named by \emph{Alan, Bill, and Charlie}. Together, they are men, which means that each is a man.
-
-\begin{figure}[t]
-%\psset{rowsep=20pt,colsep=50pt,nodesep=4pt} 
-\centering
-\psset{rowsep=-2pt,colsep=10pt,nodesep=2pt} 
-\hspace{80pt}\begin{psmatrix}
-& \texttt{a}$\oplus$\texttt{b}$\oplus$\texttt{c} & \\
-& \rnode{abc}{$\bullet$}\\
-& & & & $\Leftarrow$ \textbf{Sums}\\
-\rnode[t]{ab}{\texttt{a}$\oplus$\texttt{b}} & \rnode[t]{ac}{\texttt{a}$\oplus$\texttt{c}} & \rnode[t]{bc}{\texttt{b}$\oplus$\texttt{c}}\\
-\rnode{ab2}{$\bullet$} & \rnode{ac2}{$\bullet$} & \rnode{bc2}{$\bullet$}\\
-\\
-\rnode{a}{$\bullet$} & \rnode{b}{$\bullet$} & \rnode{c}{$\bullet$} & & \ \ $\Leftarrow$ \textbf{Atoms}\\
-\texttt{a} & \texttt{b} & \texttt{c}
-\ncline{abc}{ab} \ncline{abc}{ac} \ncline{abc}{bc}
-\ncline{ab2}{a} \ncline{ab2}{b}
-\ncline{ac2}{a} \ncline{ac2}{c}
-\ncline{bc2}{b} \ncline{bc2}{c}
-\end{psmatrix}
-\caption{The denotation of semantically plural \emph{men}, a complete atomic join semilattice}\label{semilattice}
-\end{figure}
-
-\noindent 
-
-The mereological representation of individuals in terms of individual part-hood introduces a natural ``part-of'' ordering on the domain,  which \citeauthor{link1983} represents in the object language using the predicate $\Pi$ ``individual part of''; the bidirectional in \Next holds: if \tt{a} is an individual part of the individual \tt{b}, then the plural individual \tt{a}\op\tt{b} is identical to \tt{b}.
-
-\ex. \tt{a}$\Pi$\tt{b}\ \ $\leftrightarrow$\ \ \tt{a}\op\tt{b} = \tt{b}
-
-In Fig.\ \ref{semilattice}, the individual part relation $\Pi$ gets represented by the line segments connecting nodes. Pluralities, or ``sums,'' are those individuals which have other individuals in the domain as proper parts; atoms have no proper parts.
+XXX
 
 \subsection{Varieties of plural predication}
 
-Given that plural predicates are constructed from singular ones via sum-formation, we may model the cumulative inference in \ref{cumulative} (repeated in \Next): if each of Alan, Bill, and Charlie are in the extension of the predicate \emph{man}, then their sum is necessarily in the extension of the semantically plural predicate \emph{men}; \emph{men} is the closure of \emph{man} under sum-formation, so if \tt{a}, \tt{b}, and \tt{c} are in the extension of \emph{man}, their sum \tt{a}\op\tt{b}\op\tt{c} must be in the extension of \emph{men}.
-
-The distributive reading of \Next[b] follows from this semantics of plurality and predication, not any implicit quantification over the members of the subject. In other words, we need no  distributive operator (e.g., a silent \emph{each}) in the logical form of \Next[b] to derive \Next[a] as an entailment.
-
-\ex. \a. Alan is a man. Bill is a man. Charlie is a man.
-\b. Alan, Bill, and Charlie are men.
-
-To repeat: for Alan, Bill, and Charlie to be men, then \tt{a}\op\tt{b}\op\tt{c}---the sum named by \emph{Alan, Bill, and Charlie}---must be in the extension of the predicate named by \emph{men}. By assuming that \emph{men} corresponds to the closure of the singular predicate \emph{man}, it follows that each of Alan, Bill, and Charlie is a man whenever we say of Alan, Bill, and Charlie that they are men.
-
-Here is where terminology begins to get confusing: for \citeauthor{link1983}, predicates may be inherently distributive; these are singular-seeking predicates like \emph{die} or \emph{see} or \emph{have blue eyes}; also, \emph{man}. These predicates entail a distributive reading whenever they are used.
-Distributive predicates are those that contain only atoms in their basic (i.e., un-starred) denotations; to pluralize a distributive predicate---so that it may apply to a plural argument via set inclusion---we must close the predicate under sum formation via *, which ensures that for any plurality in the denotation of the plural predicate, each of its members is in the denotation of the singular predicate. Because plural predicates are formed via sum formation from singular predicates, and assuming distributive predicates contain only atoms in their singular denotations, then for a plurality to be in the denotation of a plural distributive predicate, each member of that plurality must be in the denotation of the singular predicate, as in \Next. Thus, it necessarily follows that if a plurality of individuals are men, each is a man.\footnote{The function \textsc{atom}(x) evaluates whether an individual is an atom in the domain; that is, whether it has any proper parts that are also in the domain.}
+The foundational work in the semantics of plurality is \cite{link1983}; he adopts a mereological account of the logical structure of plurality. For \citeauthor{link1983}, predicates may be inherently distributive; these are singular-seeking predicates like \emph{die} or \emph{see} or \emph{have blue eyes}; also, \emph{man}. These predicates entail a distributive reading whenever they are used.
+Distributive predicates are those that contain only atoms in their basic (i.e., un-starred) denotations; to pluralize a distributive predicate---so that it may apply to a plural argument via set inclusion---we must close the predicate under sum formation via *, which ensures that for any plurality in the denotation of the plural predicate, each of its members is in the denotation of the singular predicate.\footnote{Closure of a predicate under sum-formation via * is defined as follows:
+\begin{enumerate}
+\item \sem{*\texttt{P}} \defeq \{\texttt{x} $\in$ D$_{e}$: $\exists$\texttt{X} $\subseteq$ \sem{\texttt{P}}[\texttt{X} $\neq$ \O\ \and \texttt{x} = \texttt{S}(\texttt{X})]\}\\
+where \texttt{S}(\texttt{X}) is the supremum, or maximal element of \texttt{X}
+\end{enumerate}}
+ Because plural predicates are formed via sum formation from singular predicates, and assuming distributive predicates contain only atoms in their singular denotations, then for a plurality to be in the denotation of a plural distributive predicate, each member of that plurality must be in the denotation of the singular predicate, as in \Next. Thus, it necessarily follows that if a plurality of individuals are men, each is a man.\footnote{The function \textsc{atom}(x) evaluates whether an individual is an atom in the domain; that is, whether it has any proper parts that are also in the domain.}
 
 \ex. \a. \textsc{dist}(\texttt{P}) = 1 iff\\
 $\forall$\texttt{x}[\texttt{P}(\texttt{x}) $\rightarrow$ \textsc{atom}(x)]
@@ -217,13 +145,11 @@ RA: ``That they are few.''
 
 Being few is not a property any one of RA's friends holds. In fact, it makes no sense to say of an individual that he or she is few. Rather, the friends \textsc{collectively} hold this property. \citeauthor{link1983} models this fact by assuming that the predicate \emph{be few} contains in its basic, un-starred denotation pluralities of individuals. Suppose RA's friends are Alan, Bill, and Charlie, and that numbering three counts as being few.
 
-\newpage
-
 \ex. \tt{P} = \tt{be-few}\\
 \sem{\tt{P}} = \{\tt{a}\op\tt{b}\op\tt{c}, \ldots\}\\
 \sem{*\tt{P}} = \{\tt{a}\op\tt{b}\op\tt{c}, \ldots\}
 
-The collective interpretation of RA's response in \LLast follows from the fact that the (un-starred) predicate applies directly to pluralities; in fact, the predicate may apply \emph{only} to pluralities---it is a so-called ``plurality-seeking'' predicate like \emph{gather} or \emph{meet} \citep{schwarzschild1994}. In contrast to \citeauthor{link1983}'s distributive, or singular-seeking predicates, plurality-seeking predicates \emph{must not} contain atoms in their basic denotations. (\citeauthor{link1983} calls these plurality-seeking predicates ``collective,'' yet another source of terminological confusion.)
+The collective interpretation of RA's response in \LLast follows from the fact that the (un-starred) predicate applies directly to pluralities; in fact, the predicate may apply \emph{only} to pluralities---it is a so-called ``plurality-seeking'' predicate like \emph{gather} or \emph{meet} \citep{schwarzschild1994}. In contrast to \citeauthor{link1983}'s distributive, or singular-seeking predicates, plurality-seeking predicates \emph{must not} contain atoms in their basic denotations. %(\citeauthor{link1983} calls these plurality-seeking predicates ``collective,'' yet another source of terminological confusion.)
 
 According to the liturgy, distributive, singular-seeking predicates and collective, plurality-seeking predicates self-sort on conceptual grounds: being a man is a property that necessarily applies to singular individuals, while being few or gathering together are properties that cannot apply to singular individuals. Note, however, that even necessarily collective predicates like \emph{be few} or \emph{gather} may apply to singular noun phrases that transparently refer to pluralities of individuals, as in \Next. For now we leave aside issues surrounding collective nouns like \emph{group} or \emph{committee}. %Note, however, that if the distributive/collective divide bottoms out in  a prohibition on or requirement for singular individuals in the basic denotation of predicates, then our stance on the representation of these collective nouns must be compatible with such an approach.
 
@@ -277,7 +203,7 @@ With mixed predicates, the resulting interpretation is ambiguous; we may force e
 
 %We remarked briefly above on the underspecification of plural reference inherent to this semantics of plurality: individuals are summed together to create new, plural individuals, but the summation process remains intentionally vague. It remains to be shown, however, that our mental representations of these pluralities are as vague as their formal ones. For example, our representations of pluralities of real-world objects might track the physical arrangement of these objects, such that a set of boxes stacked one on top of the other and that same set of boxes lined up one next to the other count as different pluralities. In other words, we might view the summation operation \op\ as an umbrella term for the many ways of not merely collecting, but arranging sets of individuals.
 
-The process of collective predication is inherently vague. Whereas distributive predication commits a speaker to relatively concrete statements about the state of the world---if a plurality distributively holds some property, then each member holds that property---collective predication admits much broader construals. We said that a plurality collectively holds a property when it belongs to the denotation of an ``un-starred'' predicate, but what (in the world) does this mean (in the world)? Take \emph{build a raft}: formally, a plurality of individuals \tt{a}\op\tt{b} collectively holds this property \tt{build-raft} whenever it is included in the denotation of the predicate, as in \Next.
+The process of collective predication is by definition radically underspecified. Whereas distributive predication commits a speaker to relatively concrete statements about the state of the world---if a plurality distributively holds some property, then each member holds that property---collective predication admits much broader construals. We said that a plurality collectively holds a property when it belongs to the denotation of an ``un-starred'' predicate, but what (in the world) does this mean (in the world)? Take \emph{build a raft}: formally, a plurality of individuals \tt{a}\op\tt{b} collectively holds this property \tt{build-raft} whenever it is included in the denotation of the predicate, as in \Next.
 
 \ex. \tt{P} = \tt{build-raft}\\
 \sem{\tt{P}} = \{\tt{a}\op\tt{b}, \ldots\}
@@ -287,11 +213,9 @@ For the purposes of the semantics, the means by which a plurality gets included 
 Rather than focusing our efforts on the nebulous interpretations of collective action statements, highlighted by predicates like \emph{build a raft}, we consider in detail a specific class of predicates with more concrete, (relatively) objective evaluation strategies: gradable adjectives like \emph{heavy} or \emph{big}.\footnote{XXX This is not to say that we know nothing about collective action statements. Something about Margaret Gilbert's Plural Subject Theory.} The measurement inherent to the semantics of these words delivers scalar interpretations that are amenable to quantitative study: for a collection of boxes to be heavy, big, tall, etc., they must have a certain weight, size, height. By examining intuitions about the use of these predicates, together with the predication context that delivers them, we stand to better understand the mechanism of plural predication: when collective interpretations are appropriate, what they communicate, and what mediates the choice between distributive and collective interpretations in the first place.
 
 
-\section{Plurality and gradability}
+\subsection{Plurality and gradability}
 
 Composing with a plurality, some gradable predicates either receive a \textsc{distributive} or a \textsc{collective} interpretation. Under a distributive reading, the relevant property gets ascribed to each member of the plural subject. Under a collective reading, we ascribe the property to the subject as a whole.
-
-\newpage
 
 \ex. The boxes are heavy.
 \a. The boxes each are heavy. \hfill \textsc{distributive}
@@ -388,13 +312,13 @@ Rather than roaming the lexicon with name tags specifying their attitudes toward
 
 %\subsection{Collective predication as the absence of noise}
 
-Consider first the complaisantly collective predicate \emph{heavy}, which names the property of being heavy. There is but one way to evaluate this property, corresponding to a single dimension of measurement: the weight of some thing or things. Suppose we encounter a set of boxes piled one on top of the other. Those boxes will have a weight, and depending on that weight those boxes may or may not count as (collectively) heavy. Now, suppose we encounter that same set of boxes, this time lined up one next to the other. Despite changing the physical arrangement of the set of boxes, our strategy for evaluating the weight of the boxes remains the same: weigh them. Imagine any arrangement of these boxes and still the strategy for determining their weight---and thus their weight itself---persists. Another complaisantly collective predicate, \emph{voluminous}, behaves similarly: there is a single, canonical way to evaluate the volume of a set of objects, and their volume remains unchanged despite varying physical arrangement. So too for \emph{expensive}, \emph{fast}, and any other  complaisantly collective gradable predicate: the collective property is regular and predictable on the basis of context.
+Consider first the complaisantly collective predicate \emph{heavy}, which names the property of being heavy. There is but one way to evaluate this property, corresponding to a single dimension of measurement: the weight of some thing or things. Suppose we encounter a set of boxes piled one on top of the other. Those boxes will have a weight, and depending on that weight those boxes may or may not count as (collectively) heavy. Now, suppose we encounter that same set of boxes, this time lined up one next to the other. Despite changing the physical arrangement of the set of boxes, our strategy for evaluating the weight of the boxes remains the same: weigh them. Imagine any arrangement of these boxes and still the strategy for determining their weight---and thus their weight itself---persists. Another complaisantly collective predicate, \emph{voluminous}, behaves similarly: there is a single, canonical way to evaluate the volume of a set of objects, and their volume remains unchanged despite varying physical arrangement. So too for \emph{expensive}, \emph{voluminous}, and any other  complaisantly collective gradable predicate: the collective property is regular and predictable on the basis of context.
 
-While changing physical arrangements does not affect the contextual predictability of a property like collective weight, changing the speaker's epistemic state ought to influence the resulting disambiguation between distributive and collective interpretations. Imagine a speaker only lifts a set of boxes all together (not individually), and a listener knows this. If the speaker then tells the listener that the boxes were heavy, the listener ought to be able to reason about the limited epistemic state of the speaker (the speaker only has access to the total weight of the boxes) to conclude that the speaker intended a collective interpretation. As with predictability, here again context plays a central role in the (possible) interpretations of plural predication.
+While changing physical arrangements does not affect the contextual predictability of a property like collective weight, changing the speaker's epistemic state ought to influence the resulting disambiguation between distributive and collective interpretations. Imagine that a speaker only lifts a set of boxes all together (not individually), and that a listener knows this. If the speaker then tells the listener that the boxes were heavy, the listener ought to be able to reason about the limited epistemic state of the speaker (the speaker only has access to the total weight of the boxes) to conclude that the speaker intended a collective interpretation. Though the predictability of collective (i.e., total) weight remains a stable property of the context, we may further privilege collective interpretations by limiting speakers' access to the evidence they would need to verify a distributive interpretation. Here again context plays a central role in the (possible) interpretations of plural predication.
 
-Next, consider the stubbornly distributive predicate \emph{big}. Unlike with \emph{heavy}, here we have many ways to evaluate the property of being large, corresponding to different dimensions of measurement: we could measure the total space the boxes take up (including negative space between boxes), the volume the boxes displace, the width of the collection in a 2D visual plane, its height, etc. Depending on the strategy we use to evaluate their size, a collection of boxes may or may not count as large. And even if we were to fix the evaluation strategy, the outcome will depend crucially on the physical arrangement of the boxes: collective size does not persist against a changing arrangement of the set of boxes. Put differently, collective size is less contextually predictable than collective weight.
+Next, consider the stubbornly distributive predicate \emph{big}. Unlike with \emph{heavy}, here we have many ways to evaluate the property of being large, corresponding to different dimensions of measurement: we could measure the total space the boxes take up (including negative space between boxes), the volume the boxes displace, the width of the collection in a 2D visual plane, its height, etc. Depending on the strategy we use to evaluate their size, a collection of boxes may or may not count as large. And even if we were to fix the evaluation strategy, the outcome will depend crucially on the physical arrangement of the boxes: collective size does not persist against a changing arrangement of the set of boxes. Put differently, collective size is less contextually predictable than collective weight: it is clearer what it would mean to count as collectively heavy under different physical arrangements, less so what it would mean to count as collectively big.
 
-Here it bears noting that the divide between stubbornly distributive and complaisantly collective predicates might not be so sharp as the comparison between \emph{heavy} and \emph{big} suggests. Rather, predicates seem to fall along a spectrum of stubborn distributivity, corresponding to the amount of variation they allow both in evaluating the property they name (i.e., the dimension of measurement) and in the persistence of the property (i.e., the value of this measurement) despite changing physical arrangement. Take \emph{tall}. The predicate suggests a single, canonical strategy for evaluation: distance from the ground. However, the property does not persist despite changing physical arrangement. Still, encountering a set of boxes, it feels perfectly felicitous to discuss their collective height using a sentence like \Next. But note that crucial to the collective interpretation of \Next is a specific  and salient physical arrangement of boxes; an abstract set of boxes does not hold the property of being tall, but some specific arrangements of it might.
+Here it bears noting that the divide between stubbornly distributive and complaisantly collective predicates might not be so sharp as the comparison between \emph{heavy} and \emph{big} suggests. Rather, predicates seem to fall along a spectrum of stubborn distributivity, corresponding to the amount of variation they allow both in evaluating the property they name (i.e., the dimension of measurement) and in the persistence of the property (i.e., the value of this measurement) despite changing physical arrangement. Take \emph{tall}. The predicate suggests a single, canonical strategy for evaluation: distance from the ground. However, the property does not persist despite changing physical arrangement: changing the arrangement of a set potentially changes its total distance from the ground. Still, encountering a set of boxes, it often feels perfectly felicitous to discuss their collective height using a sentence like \Next. But note that crucial to the collective interpretation of \Next is a specific and salient physical arrangement of boxes; an abstract set of boxes does not hold the property of being tall, but some specific arrangements of it might.
 
 \ex. The boxes are tall.
 
@@ -402,9 +326,9 @@ Here it bears noting that the divide between stubbornly distributive and complai
 %
 %\ex. The boxes are wide.
 
-We appear to have a continuum of stubborn distributivity, or, perhaps better put, a continuum of collectivity for gradable predicates. At issue is the potential variation in evaluation strategy and the sensitivity of the named property to physical arrangement. Both factors influence the contextual predictability of the collective property; where the property is less predictable on the basis of context, collective interpretations are less informative---they require more coordination between speakers and listeners to arrive at that property. Because they are less informative, these interpretations are less useful; they should therefore be less likely.
+We appear to have a continuum of stubborn distributivity, or, perhaps better put, a continuum of collectivity for gradable predicates. At issue is the potential variation in evaluation strategy and the sensitivity of the named property to physical arrangement. Both factors influence the contextual predictability of the collective property; where the property is less predictable on the basis of context, collective interpretations are less informative---they require more coordination between speakers and listeners to arrive at that property. In other words, our judgments about whether a predicate applies collectively might not align. Because they are less informative, these interpretations are less useful; they should therefore be less likely.
 
-Here is the hypothesis: collective interpretations are susceptible to varying amounts of noise depending on the property at issue and the context in play. Language is used to communicate. Speakers aspire toward clarity in this process of communication. With a stubbornly distributive predicate, a speaker may have a very specific evaluation strategy (i.e., a measurement scale and dimension) in mind, but one hazards to assume that a listener would arrive at the same strategy in the absence of unambiguous contextual support for it. Moreover, the property a speaker names might change depending on the arrangement of the things said to hold it. To communicate effectively and avoid possible confusion, collective interpretations should be avoided; distributive interpretations are the safe bet. In other words, collective interpretations become less likely as contextual predictability of the collective property decreases. The phenomenon of stubborn distributivity is therefore not a simple lexical distinction between predicates, but rather emerges as a result of rational inferences between speakers and listeners as they communicate.
+Here is the hypothesis: collective interpretations are susceptible to varying amounts of noise depending on the property at issue and the context in play. Language is used to communicate. Speakers aspire toward clarity in this process of communication. With a stubbornly distributive predicate, a speaker may have a very specific evaluation strategy (i.e., a measurement scale and dimension) in mind, but one hazards to assume that a listener would arrive at the same strategy in the absence of unambiguous contextual support for it. Moreover, the property a speaker names might change depending on the arrangement of the things said to hold it. To communicate effectively and avoid possible confusion, collective interpretations should be avoided; distributive interpretations are the safe bet. In other words, collective interpretations become less likely as contextual predictability of the collective property----that is, retrievability of the intended interpretation---decreases. The phenomenon of stubborn distributivity is therefore not a simple lexical distinction between predicates, but rather emerges as a result of rational inferences between speakers and listeners as they communicate.
 
 \section{Testing the predictions}
 
@@ -476,13 +400,105 @@ To evaluate the behavior of the predicates in the absence of the disambiguating 
 
 The disambiguating paraphrases behave as expected: \emph{each} delivers a distributive interpretation and \emph{together} delivers a collective one. We also find that the bare form of \emph{big} patterns differently from \emph{heavy} and \emph{tall}---it is more distributive. This finding is expected with respect to \textit{big} vs.~\textit{heavy} (the former should be stubbornly distributive), but surprising given the behavior of \textit{tall}: both \emph{tall} and \emph{big} are predicates of size and shape. If naming properties of physical extent mediates the choice between distributive and collective interpretations of plural predications, we should find that \emph{tall} patterns with \emph{big}. Equally damning is the comparison between \emph{tall} and \emph{heavy}: if anything, \emph{tall} more consistently delivers collective interpretations. What allows \emph{tall} to readily receive collective interpretations---while precluding them for \emph{big}---in our experimental context? 
 
-As discussed above, one candidate factor is the contextual predictability of the collective property: how easy it is for speakers and listeners to arrive at the same collective property for a given set of objects. We have seen that collective weight is a stable property of sets, which stands to explain the complaisance of \emph{heavy} toward collective interpretations. In the context of the current experiment, collective height is also predictable: boxes  appeared stacked one on top of the other, yielding stable total set heights. Collective size, however, could vary depending on the strategy used to evaluate it (height? width? area? volume?), thus accounting for the lack of collective interpretations for bare \emph{big}. In Expt.~2, we use the paraphrase methodology to directly investigate the role of contextual predictability in plural predication.
+As discussed above, one candidate factor is the contextual predictability of the collective property: how easy it is for speakers and listeners to arrive at the same collective property for a given set of objects. We have seen that collective weight is a stable property of sets, which stands to explain the complaisance of \emph{heavy} toward collective interpretations. In the context of the current experiment, collective height is also predictable: boxes  appeared stacked one on top of the other, yielding stable total set heights. Collective size, however, could vary depending on the strategy used to evaluate it (height? width? area? volume?), thus accounting for the lack of collective interpretations for bare \emph{big}. In Expt.~3, we use the paraphrase methodology to directly investigate the role of contextual predictability in plural predication.
 
-The results of the current experiment also highlight the role of speaker knowledge in plural predication: based solely on whether the context scenario had Cubert move vs.~inspect the boxes he received, we see a trend whereby bare \emph{heavy} received more or less collective interpretations, respectively. The absence of the effect for \emph{big} and \emph{tall} suggests an explanation in terms of the epistemic state of the speaker: in ``move'' scenarios the speakers is less likely to have access to individual box weights; the listener is therefore less likely to assume that the speaker, Cubert, intended a distributive interpretation for which he lacks evidence. We follow up on this result with a similar scenario manipulation in Expt.~2.
+The results of the current experiment also highlight the role of speaker knowledge in plural predication: based solely on whether the context scenario had Cubert move vs.~inspect the boxes he received, we see a trend whereby bare \emph{heavy} received more or less collective interpretations, respectively. The absence of the effect for \emph{big} and \emph{tall} suggests an explanation in terms of the epistemic state of the speaker: in ``move'' scenarios the speakers is less likely to have access to individual box weights; the listener is therefore less likely to assume that the speaker, Cubert, intended a distributive interpretation for which he lacks evidence. We follow up on this result with a similar scenario manipulation in Expt.~3.
 
-\subsection{Experiment 2: Manipulating context}
+However, before manipulating contextual predictability and speaker knowledge, we further validate the paraphrase methodology in Expt.~2 using naturally-occurring examples of plural predication.
 
-If physical arrangements are less likely to change, collective properties become more predictable, so collective interpretations stand a better chance of being informative. These interpretations should therefore become more likely. If speakers lack knowledge for one of two possible interpretations, the epistemically-supported interpretation should become more likely. In Expt.~2, we manipulated predictability and speakers' access to knowledge through a series of context scenarios, and used paraphrase endorsements to test the availability of collective interpretations.
+
+\subsection{Experiment 2a: Naturally-occurring examples}
+
+In Expt.~1, we used a reference task to evaluate disambiguating paraphrases of plural predications. By providing potential referents, however, we gave participants specific and salient physical arrangements (e.g., box piles) against which to evaluate interpretations of predicates. Here, we move away from specific arrangements and use the disambiguating paraphrases from Expt.~1 to directly probe interpretations of plural predications.
+To ensure a robust test of this methodology, we use naturally-occurring examples of plural predicates extracted from the British National Corpus.\footnote{Sentences were extracted from the British National Corpus Online service, managed by Oxford University Computing Services on behalf of the BNC Consortium. All rights in the texts cited are reserved.}
+
+\subsubsection{Participants}
+
+We recruited 90 participants through Amazon.com's Mechanical Turk. Participants were compensated for participation.
+
+\subsubsection{Design and methods}
+
+In a search of the British National Corpus, we identified the 40 most frequent subject-predicate combinations in the plural predication frame in \Next.
+
+\ex. The \textsc{noun}s were \textsc{adjective}.
+\a. The \textsc{noun}s each were \textsc{adjective}. \label{bnc-each}
+\b. The \textsc{noun}s together were \textsc{adjective}. \label{bnc-together}
+
+
+Participants were presented with 30 sentences; 15 of these sentences were naturally-occurring examples from the original set of the 40 most frequent instances. The other 15 sentences were constructed by randomly pairing subjects and predicates from the set of 40 to create novel sentences.
+
+Each sentence was presented as an utterance by a speaker, and participants were tasked with determining what the speaker meant. Participants rated two possible possible paraphrases on a slide scale. The paraphrases were either distributive (with ``each'', \ref{bnc-each}) or collective (with post-nominal ``together'', \ref{bnc-together}). Scale endpoints corresponded to whether the paraphrase was ``definitely'' or ``definitely not'' what the speaker intended by his or her utterance. Before rating its paraphrases, participants judged whether the utterance made sense (choosing between "Yes" and "No"). In the analyses reported below, we only look at responses to utterances that participants said made sense.
+
+\subsubsection{Predictions}
+
+Our primary goal is to evaluate the viability of our paraphrase methodology with endorsement ratings. If participants understand our task and fully use the sliders to indicate their preferences, we should see a range of paraphrase endorsement ratings. Additionally, if the interpretations of plural predications depend on the immediate linguistic context---that is, on the subjects and predicates involved---we should find by-noun and by-predicate variation in distributive vs.~collective interpretation rates.
+
+\subsubsection{Results}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.985\linewidth]{plots/noun_plot.eps}
+	%\vspace{0pt}
+	\caption{Collective paraphrase endorsement rates for different subject nouns.} \label{nouncoll}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.85\linewidth]{plots/noun_pred_plot.eps}
+	%\vspace{0pt}
+	\caption{Collective paraphrase endorsement rates for different subject nouns grouped by predicate.} \label{noun-pred-coll}
+\end{figure}
+
+
+\subsubsection{Discussion}
+
+
+
+\subsection{Experiment 2b: \emph{big}, \emph{heavy}, \emph{tall}}
+
+Expt.~2a tests our paraphrase endorsement methodology using the 40 most frequent plural predications in the British National Corpus. Here we shift our sights to predicates more directly of interest to the current investigation of stubborn distributivity: \emph{big}, \emph{heavy}, and \emph{tall}. Due to the limited number of instances of plural predication with these predicates in the British National Corpus, we use the Google Books Corpus \citep{davies2011}.
+
+\subsubsection{Participants}
+
+We recruited 30 participants through Amazon.com's Mechanical Turk. Participants were compensated for participation.
+
+\subsubsection{Design and methods}
+
+The design and methods for this experiment were identical to those of Expt.~2a, with the exception that our naturally-occurring examples feature the predicates \emph{big}, \emph{heavy}, and \emph{tall} and derive from the Google Books Corpus. We identified the five most frequent subject nouns in the plural predication frame (i.e., \emph{the \textsc{noun}s were \textsc{adjective}}) for each of the predicates \emph{big}, \emph{heavy}, and \emph{tall}.\footnote{For \emph{heavy}, many of the most frequent subject nouns resulted in a non-canonical, abstract interpretation. For example, \emph{heavy rains} or \emph{heavy casualties}. We excluded these cases from the current experiment. In a separate experiment, we included just these abstract instances of plural predication with \emph{heavy} and found no effect of the subject noun on interpretation.} The subject-predicate pairs appear in \Next.
+
+\ex. \emph{Noun-predicate pairings}:\\[2pt]
+\begin{tabular}{ll}
+big:& boys, children, houses, rooms, waves\\
+heavy:& bags, lids, loads, men, trees\\
+tall:& buildings, offspring, plants, trees, windows
+\end{tabular}	
+
+As with Expt.~2a, we only look at responses to utterances that participants indicated made sense to them.
+
+\subsubsection{Predictions}
+
+Given that \emph{heavy} is complaisantly collective, we should find greater rates of collective interpretation for this predicate. For stubbornly distributive \emph{big}, we should find much lesser rates of collective interpretations. If the relatively high rates of collective interpretations for \emph{tall} in Expt.~1 stemmed from the availability of a specific physical arrangement, we should find lower rates of collective interpretation here where no arrangements are specified.
+
+If contextual predictability influences the viability of collective interpretations, we should find that noun-predicate pairs that plausibly implicate a limited set of collective properties---as was the case with \emph{small numbers} in Expt.~2a---yield greater rates of collective interpretations. For example, with \emph{big waves}, the collective property named most likely targets just a single dimension of the waves: their height. We would therefore expect greater rates of collective interpretations for \emph{big waves}.
+
+We might also expect to find variation by subject noun that tracks speakers' access to knowledge. That is, if a speaker is more likely to lack evidence for a distributive or a collective interpretation for a specific noun-predicate pair, we should find greater rates of the competing interpretations for that pair. For example, with \emph{heavy loads}, it is unlikely that the speaker carried all of the loads together, so the speaker would lack direct access to knowledge about the collective weight of those loads; we would therefore expect lower rates of collective interpretations.
+
+\subsubsection{Results}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.85\linewidth]{plots/bht_plot.eps}
+	\vspace{0pt}
+	\caption{Collective paraphrase endorsement rates for different nouns serving as the subject to the predicates \emph{big}, \emph{heavy}, and \emph{tall}.} \label{bhtcoll}
+\end{figure}
+
+\subsubsection{Discussion}
+
+
+
+\subsection{Experiment 3: Manipulating context}
+
+If physical arrangements are less likely to change, collective properties become more predictable, so collective interpretations stand a better chance of being informative. These interpretations should therefore become more likely. If speakers lack knowledge for one of two possible interpretations, the epistemically-supported interpretation should become more likely. In Expt.~3, we manipulated predictability and speakers' access to knowledge through a series of context scenarios, and used paraphrase endorsements to test the availability of collective interpretations.
 
 \subsubsection{Participants}
 
@@ -501,7 +517,7 @@ Also between subjects, we manipulated the variability of \textsc{context} (``reg
 \includegraphics[width=.45\textwidth]{images/context13reg.eps}
 \ \ \ \ 
 \includegraphics[width=.45\textwidth]{images/context13nodolly.eps}
-\caption{Example context scenarios from Expt.~2. Left: the outcome of a ``regular,'' ``move'' context scenario. Right: the outcome of a ``random,'' ``inspect'' context scenario.\label{expt2context}}
+\caption{Example context scenarios from Expt.~3. Left: the outcome of a ``regular,'' ``move'' context scenario. Right: the outcome of a ``random,'' ``inspect'' context scenario.\label{expt2context}}
 \end{figure}
 
 
@@ -528,7 +544,7 @@ Fig.\ \ref{resultsexpt2} displays the raw paraphrase endorsement ratings average
 	\centering
 	\includegraphics[width=\linewidth]{plots/expt2rawbootsci.eps} 
 	\vspace{-15pt}
-	\caption{Paraphrase endorsement rate averaged across all trials in Expt.~2.}\label{resultsexpt2}
+	\caption{Paraphrase endorsement rate averaged across all trials in Expt.~3.}\label{resultsexpt2}
 \end{figure}
 
 
@@ -703,17 +719,17 @@ The qualitative predictions of our plural predication model match the intuitions
 
 Another outcome of our model's predictions is the increase in the probability of a collective interpretation as the speaker's knowledge access becomes limited. With only partial access to the actual state $s$---such that the speaker's observation $o$ of $s$ is its summation--- $S_{1}$ is less likely to have precise information concerning $s$ about which to communicate. $L_{1}$ tracks  $S_{1}$'s epistemic state, and therefore knows whether the speaker has full or partial knowledge. In the case of partial knowledge, a distributive interpretation lacks perceptual/epistemic support, and therefore becomes less likely; as a result, collective interpretations become more likely.
 
-We have verified the qualitative predictions of our account of plural predication: increasing the contextual predictability of collective properties (by decreasing estimate noise) increases the probability of collective interpretation; and, regardless of the amount of collective noise, removing support for a distributive interpretation (by limiting the speaker's access to individual properties) decreases the probability of a distributive interpretation and thus increases the probability of a collective interpretation. Crucially, both of these qualitative predictions are borne out while making minimal assumptions concerning model parameters. Once we fit these parameters to the human data collected in Expt.~2, we may test both qualitative and quantitative predictions of the model.
+We have verified the qualitative predictions of our account of plural predication: increasing the contextual predictability of collective properties (by decreasing estimate noise) increases the probability of collective interpretation; and, regardless of the amount of collective noise, removing support for a distributive interpretation (by limiting the speaker's access to individual properties) decreases the probability of a distributive interpretation and thus increases the probability of a collective interpretation. Crucially, both of these qualitative predictions are borne out while making minimal assumptions concerning model parameters. Once we fit these parameters to the human data collected in Expt.~3, we may test both qualitative and quantitative predictions of the model.
 
-Comparing the model predictions in Fig.~\ref{modelresults} to the rates of collective endorsement from Expt.~2 in Fig.~\ref{resultsexpt2}, the first thing to notice is the overall higher rates of collective endorsement in the human data. To capture this fact, we can change the prior probability of a collective interpretation, $p(V)$, in our model. In Fig.~\ref{modelresults}, that parameter is set to 0.5, or chance; to achieve a maximal fit between our model and the dependent measure from Expt.~2, we fit that parameter to 0.88 for each of the three predicates.
+Comparing the model predictions in Fig.~\ref{modelresults} to the rates of collective endorsement from Expt.~3 in Fig.~\ref{resultsexpt2}, the first thing to notice is the overall higher rates of collective endorsement in the human data. To capture this fact, we can change the prior probability of a collective interpretation, $p(V)$, in our model. In Fig.~\ref{modelresults}, that parameter is set to 0.5, or chance; to achieve a maximal fit between our model and the dependent measure from Expt.~3, we fit that parameter to 0.88 for each of the three predicates.
 
-To evaluate the role of speaker knowledge, we look only at judgments for plural predications with \emph{heavy} (the knowledge manipulation had no measurable affect on \emph{tall} or \emph{big}). Here we fit only the specific values for noise in the model; all other parameters remain unchanged. With \emph{heavy}-specific values for ``random'' and ``regular'' noise, we generate the model predictions in Fig.~\ref{heavymodel}, plotted with average collective endorsement ratings from Expt.~2. Perhaps remarkably, by simply assuming that the collective interpretations of \emph{heavy} have \emph{heavy}-specific values for noise in context, we achieve a near exact fit between the model and the human data it predicts.
+To evaluate the role of speaker knowledge, we look only at judgments for plural predications with \emph{heavy} (the knowledge manipulation had no measurable affect on \emph{tall} or \emph{big}). Here we fit only the specific values for noise in the model; all other parameters remain unchanged. With \emph{heavy}-specific values for ``random'' and ``regular'' noise, we generate the model predictions in Fig.~\ref{heavymodel}, plotted with average collective endorsement ratings from Expt.~3. Perhaps remarkably, by simply assuming that the collective interpretations of \emph{heavy} have \emph{heavy}-specific values for noise in context, we achieve a near exact fit between the model and the human data it predicts.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.8\linewidth]{plots/heavymodel.eps}
 	\vspace{0pt}
-	\caption{Fitted model predictions and human data from Expt.~2 for collective interpretations of \emph{heavy}; variability of context (i.e., ``random'' vs.~``regular'') is modeled by noise in the collective interpretation, and the scenario manipulation (i.e., ``inspect'' vs.~``move'') is modeled by speaker's perceptual access to knowledge of the state (``full'' vs.~``partial'').} \label{heavymodel}
+	\caption{Fitted model predictions and human data from Expt.~3 for collective interpretations of \emph{heavy}; variability of context (i.e., ``random'' vs.~``regular'') is modeled by noise in the collective interpretation, and the scenario manipulation (i.e., ``inspect'' vs.~``move'') is modeled by speaker's perceptual access to knowledge of the state (``full'' vs.~``partial'').} \label{heavymodel}
 \end{figure}
 
 Next, for \emph{big} and \emph{tall} we again predict collective endorsement, this time collapsing over the scenario manipulation. As with \emph{heavy}, we again fit predicate-specific values for collective interpretation noise. Also, we cheapen the cost of the ambiguous utterance relative to the unambiguous ones; in place of the flat prior distribution over possible utterances used above, here we set the prior such that \texttt{ambiguous} is twice as cheap as \texttt{collective} or \texttt{distributive}. With no other changes to model parameters, we generate the predictions plotted in Fig.~\ref{bigtallmodel}; once again, the fit is near perfect.
@@ -722,10 +738,10 @@ Next, for \emph{big} and \emph{tall} we again predict collective endorsement, th
 	\centering
 	\includegraphics[width=.8\linewidth]{plots/bigtallmodel.eps}
 	\vspace{0pt}
-	\caption{Fitted model predictions and human data from Expt.~2 for collective interpretations of \emph{big} and \emph{tall}; variability of context (i.e., ``random'' vs.~``regular'') is modeled by noise of collective interpretation.} \label{bigtallmodel}
+	\caption{Fitted model predictions and human data from Expt.~3 for collective interpretations of \emph{big} and \emph{tall}; variability of context (i.e., ``random'' vs.~``regular'') is modeled by noise of collective interpretation.} \label{bigtallmodel}
 \end{figure}
 
-In addition to the match between the qualitative predictions of our model and the human data from Expt.~2, we have shown that fitting predicate-specific parameters for noise and utterance cost yields near exact quantitative predictions of human behavior. Put simply, our model of plural predication succeeds. Collective interpretations become more likely as the properties they name become more predictable in context.
+In addition to the match between the qualitative predictions of our model and the human data from Expt.~3, we have shown that fitting predicate-specific parameters for noise and utterance cost yields near exact quantitative predictions of human behavior. Put simply, our model of plural predication succeeds. Collective interpretations become more likely as the properties they name become more predictable in context.
 
 
 \section{General discussion}
@@ -734,7 +750,7 @@ We began with an age-old observation about collective interpretations for gradab
 
 We found evidence for this information-theoretic explanation over the course of two experiments. First, in Expt.~1, we verified the phenomenon of stubborn distributivity, demonstrating that \emph{big} resists collective interpretations while \emph{heavy} admits them. The results of experiment also demonstrate the role of speaker access to knowledge, something both speakers and listeners track as they communicate with each other. In a scenario where speakers plausibly lacked epistemic support for a distributive interpretation, collective interpretations became more likely.
 
-In Expt.~2, we replicated the speaker knowledge effect while testing more directly the role of contextual predictability in collective predication. After manipulating the regularity of the predication context, we found that more regular contexts yielded greater rates of collective paraphrase endorsement for each of the predicates tested. We thus confirmed our hypothesis: increasing contextual predictability of collective properties---by increasing the regularity of the contexts themselves---increases rates collective interpretations. In other words, rates of collective interpretation were shown to be influenced by an interaction between the predictability of the property named and the context of predication.
+In Expt.~3, we replicated the speaker knowledge effect while testing more directly the role of contextual predictability in collective predication. After manipulating the regularity of the predication context, we found that more regular contexts yielded greater rates of collective paraphrase endorsement for each of the predicates tested. We thus confirmed our hypothesis: increasing contextual predictability of collective properties---by increasing the regularity of the contexts themselves---increases rates collective interpretations. In other words, rates of collective interpretation were shown to be influenced by an interaction between the predictability of the property named and the context of predication.
 
 Having both demonstrated and quantified the role of contextual predictability and speaker knowledge in plural predication, we then formalized the role of each factor in a computational model of communication. Our model, conceived within the Rational Speech-Act framework, employed standard semantics to achieve not only accurate qualitative, but accurate quantitative predictions of our human data. Speaker knowledge affected collective interpretations by removing epistemic support and thereby decreasing a speaker's utility for distributive interpretations. Contextual predictability had a similar effect: noisier, less predictable collective interpretations are less effective at correctly communicating about the world; being less useful, they are less likely.
 
@@ -756,9 +772,9 @@ Recall that current theories of stubborn distributivity describe it as a constra
 
 Given the prohibition on plural subjects in their basic denotations, stubbornly distributive predicates simply cannot deliver collective interpretations, which result from direct predication between a singular, or basic predicate and a plural subject. At the very least, the results of our experiments demonstrate that stubborn distributivity should not (indeed, cannot) manifest in terms of an all-out prohibition against collective interpretations. Even unabashedly stubbornly distributive predicates like \emph{big} yield greater rates of collective interpretations when context supports them. And it is the way that context supports collective interpretations that provides the key to understanding where stubborn distributivity comes from in the first place: contextual predictability.
 
-Complaisantly collective predicates like \emph{heavy} or \emph{expensive} do not require support from context to ensure that their collective properties are predictable. The properties of collective weight and price are inherently stable in context; there exists but one way to evaluate these properties, and they persist despite changing physical arrangement. Not so for the collective properties named by stubbornly distributive predicates like \emph{big} or \emph{round}, which name properties of size or shape. Owing to uncertainty in evaluation strategy, compounded by definitional dependence on physical arrangement, these collective properties are relatively unpredictable, unstable, and as a result difficult for speakers and listeners to coordinate on in the absence of additional contextual or linguistic cues. Grammar might encode stubborn distributivity as a preference against plural arguments for certain predicates, but here we suggest a lower level explanation for this preference: stubbornly distributive predicates name collective properties that are difficult to accurately communicate. Increasing the contextual predictability of these properties as we did in Expt.~2 decreases this difficulty and thereby increases the utility and likelihood of collective interpretations.
+Complaisantly collective predicates like \emph{heavy} or \emph{expensive} do not require support from context to ensure that their collective properties are predictable. The properties of collective weight and price are inherently stable in context; there exists but one way to evaluate these properties, and they persist despite changing physical arrangement. Not so for the collective properties named by stubbornly distributive predicates like \emph{big} or \emph{round}, which name properties of size or shape. Owing to uncertainty in evaluation strategy, compounded by definitional dependence on physical arrangement, these collective properties are relatively unpredictable, unstable, and as a result difficult for speakers and listeners to coordinate on in the absence of additional contextual or linguistic cues. Grammar might encode stubborn distributivity as a preference against plural arguments for certain predicates, but here we suggest a lower level explanation for this preference: stubbornly distributive predicates name collective properties that are difficult to accurately communicate. Increasing the contextual predictability of these properties as we did in Expt.~3 decreases this difficulty and thereby increases the utility and likelihood of collective interpretations.
 
-Further evidence for the non-trivial role of contextual predictability in collective predication comes from data demonstrating that one and the same predicate receives varying rates of collective interpretations depending on the noun that serves as its subject. In a pilot study of ambiguity resolution in naturally-occurring examples of plural predication, we identified the 40 most frequent subject-predicate combinations in a plural predication frame (i.e., \emph{The NOUNs were ADJECTIVE}) in the British National Corpus.\footnote{The sentences in \ref{bnc} were extracted from the British National Corpus Online service, managed by Oxford University Computing Services on behalf of the BNC Consortium. All rights in the texts cited are reserved.} Of those pairs, the predicate \emph{small} appeared four times, each with a different subject. Using the same paraphrase methodology from Expt.~2, we had 80 participants rate distributive ``each'' vs.~collective ``together'' paraphrases of the four sentences in \Next.
+Further evidence for the non-trivial role of contextual predictability in collective predication comes from data demonstrating that one and the same predicate receives varying rates of collective interpretations depending on the noun that serves as its subject. In a pilot study of ambiguity resolution in naturally-occurring examples of plural predication, we identified the 40 most frequent subject-predicate combinations in a plural predication frame (i.e., \emph{The NOUNs were ADJECTIVE}) in the British National Corpus.\footnote{The sentences in \ref{bnc} were extracted from the British National Corpus Online service, managed by Oxford University Computing Services on behalf of the BNC Consortium. All rights in the texts cited are reserved.} Of those pairs, the predicate \emph{small} appeared four times, each with a different subject. Using the same paraphrase methodology from Expt.~3, we had 80 participants rate distributive ``each'' vs.~collective ``together'' paraphrases of the four sentences in \Next.
 
 \ex. \label{bnc}\a. The classes were small.
 \b. The rooms were small.
@@ -772,9 +788,9 @@ Further evidence for the non-trivial role of contextual predictability in collec
 	\caption{Collective paraphrase endorsement rates for different nouns serving as the subject to the predicate \emph{small}.} \label{smallcoll}
 \end{figure}
 
-If stubborn distributivity were a binary, predicate-level phenomenon hard-coded into the semantics of these words, we should find no effect of the subject noun in the determination of their distributive vs.~collective interpretations: stubbornly distributive predicates, regardless of their subject, should always be maximally distributive. As Fig.~\ref{smallcoll} demonstrates, however, they are not. More importantly, the subject \emph{numbers} stands out in its relatively high rates of collective endorsement with the predicate \emph{small}.\footnote{A linear mixed effects model predicting collective endorsement rate by subject noun finds that sentences with the subject \emph{numbers} receive greater rates of collective endorsement than do sentences with \emph{children} ($\beta=-0.15$, $SE=0.07$, $t=-2.24$, $p<0.05$), \emph{rooms} ($\beta=-0.19$, $SE=0.07$, $t=-2.73$, $p<0.01$), or \emph{classes} ($\beta=-0.27$, $SE=0.07$, $t=-3.87$, $p<0.01$).} Allow us to suggest an explanation for the exceptional behavior of \emph{numbers} in terms that by now ought to ring familiar: faced with the task of evaluating the relative size of a hypothetical set of numbers, participants converge on a single strategy, namely summing them up. In other words, the collective size of numbers is relatively predictable in context, more so than the collective size of children (determined by, e.g., height, weight, age, etc.) or of rooms and classes (determined by, e.g., number of occupants, seating capacity, overall volume, etc.). The same mechanism we saw at play in the context manipulation of Expt.~2 rears its head again here: contextual predictability of the collective property determines availability of collective interpretations.
+If stubborn distributivity were a binary, predicate-level phenomenon hard-coded into the semantics of these words, we should find no effect of the subject noun in the determination of their distributive vs.~collective interpretations: stubbornly distributive predicates, regardless of their subject, should always be maximally distributive. As Fig.~\ref{smallcoll} demonstrates, however, they are not. More importantly, the subject \emph{numbers} stands out in its relatively high rates of collective endorsement with the predicate \emph{small}.\footnote{A linear mixed effects model predicting collective endorsement rate by subject noun finds that sentences with the subject \emph{numbers} receive greater rates of collective endorsement than do sentences with \emph{children} ($\beta=-0.15$, $SE=0.07$, $t=-2.24$, $p<0.05$), \emph{rooms} ($\beta=-0.19$, $SE=0.07$, $t=-2.73$, $p<0.01$), or \emph{classes} ($\beta=-0.27$, $SE=0.07$, $t=-3.87$, $p<0.01$).} Allow us to suggest an explanation for the exceptional behavior of \emph{numbers} in terms that by now ought to ring familiar: faced with the task of evaluating the relative size of a hypothetical set of numbers, participants converge on a single strategy, namely summing them up. In other words, the collective size of numbers is relatively predictable in context, more so than the collective size of children (determined by, e.g., height, weight, age, etc.) or of rooms and classes (determined by, e.g., number of occupants, seating capacity, overall volume, etc.). The same mechanism we saw at play in the context manipulation of Expt.~3 rears its head again here: contextual predictability of the collective property determines availability of collective interpretations.
 
-Note that subject nouns already played a crucial role in the disambiguation of plural predications. We saw that physically aggregating a plurality using an atomizing noun like \emph{pile} or \emph{stack} greatly increases the availability of collective interpretations. We observed a similar, though opposite effect for mass nouns, which lack any information about physical arrangement. Again, semantics might attend to the atomic status of the resulting noun phrase in its evaluation of stubborn distributivity (\emph{the pile of boxes} names a single atom, while \emph{the boxes} most likely does not), but pragmatics provides us with an explanation for why these nouns seem to unlock the collective interpretation. Just as our contextual manipulation in Expt.~2 increased contextual predictability of collective size or height by increasing the likelihood of encountering a plurality of boxes in a specific physical arrangement, so too do atomizing nouns. The arrangement of a \emph{stack} or \emph{pile} of boxes is much more regular across contexts than an abstract collection thereof. It is this regularity introduced by the atomizing noun that permits an otherwise elusive collective interpretation; the information-theoretic mechanism remains the same.
+Note that subject nouns already played a crucial role in the disambiguation of plural predications. We saw that physically aggregating a plurality using an atomizing noun like \emph{pile} or \emph{stack} greatly increases the availability of collective interpretations. We observed a similar, though opposite effect for mass nouns, which lack any information about physical arrangement. Again, semantics might attend to the atomic status of the resulting noun phrase in its evaluation of stubborn distributivity (\emph{the pile of boxes} names a single atom, while \emph{the boxes} most likely does not), but pragmatics provides us with an explanation for why these nouns seem to unlock the collective interpretation. Just as our contextual manipulation in Expt.~3 increased contextual predictability of collective size or height by increasing the likelihood of encountering a plurality of boxes in a specific physical arrangement, so too do atomizing nouns. The arrangement of a \emph{stack} or \emph{pile} of boxes is much more regular across contexts than an abstract collection thereof. It is this regularity introduced by the atomizing noun that permits an otherwise elusive collective interpretation; the information-theoretic mechanism remains the same.
 
 To understand this mechanism, namely how contextual predictability affects the calculus of interpretation choice, we modeled its contribution explicitly within a computational model of plural predication. The success of this model adds to the growing body of support for the central role of rational inference in communication; we turn next to its details.
 
@@ -786,7 +802,7 @@ Thanks to recent advances in computational cognitive science (in our case, simul
 
 Recall the general structure of the plural predication model from Fig.~\ref{pluralRSA}: the pragmatic listener $L_{1}$ reasons about the speaker $S_{1}$ reasoning about a naive listener $L_{0}$. At the lowest level of inference, $L_{0}$ interprets an utterance $u$ according to some interpretation $V$ to determine the state of affairs $s$. We model contextual predictability as the inverse of noise in the collective interpretation, which manifests as a scalar multiplier of the estimated collective property. In other words, as collective noise increases, contextual predictability of the collective property decreases. At the level of $L_{0}$, noise serves to decrease the probability of correctly resolving the state. Descriptively, the distribution over states $L_{0}$ infers is flatter as a function of noise. Simply putt, noisier interpretations are less informative.
 
-At the second level of inference, $S_{1}$ is aware of this effect of noise on $L_{0}$, and takes it into account as he estimates the utility of his utterance. Noisier, less informative interpretations are less useful for $S_{1}$ to achieve the goal of correctly resolving $s$, and as a result $S_{1}$ is less likely to use them. At the highest level of inference, $L_{1}$ is the aware of the effect of noise on the choice of $S_{1}$'s utterance interpretations. Given this effect, $L_{1}$ is less likely to resolve the interpretation as collective (and thus is more likely to resolve it as distributive) as noise increases. As a result, the probability of a collective interpretation for an ambiguous utterance (e.g., \emph{the boxes are tall}) decreases as noise increases. To correctly predict the human data concerning collective interpretations from Expt.~2, all we needed was to assign different values for collective noise to the different predicates in our model. Again, the success of this manipulation confirms our original hypothesis: different predicates carry different amounts of noise with their collective properties, which determines their relative rates of collective interpretations.
+At the second level of inference, $S_{1}$ is aware of this effect of noise on $L_{0}$, and takes it into account as he estimates the utility of his utterance. Noisier, less informative interpretations are less useful for $S_{1}$ to achieve the goal of correctly resolving $s$, and as a result $S_{1}$ is less likely to use them. At the highest level of inference, $L_{1}$ is the aware of the effect of noise on the choice of $S_{1}$'s utterance interpretations. Given this effect, $L_{1}$ is less likely to resolve the interpretation as collective (and thus is more likely to resolve it as distributive) as noise increases. As a result, the probability of a collective interpretation for an ambiguous utterance (e.g., \emph{the boxes are tall}) decreases as noise increases. To correctly predict the human data concerning collective interpretations from Expt.~3, all we needed was to assign different values for collective noise to the different predicates in our model. Again, the success of this manipulation confirms our original hypothesis: different predicates carry different amounts of noise with their collective properties, which determines their relative rates of collective interpretations.
 
 The success of our model does not end here. Supporting the general framework of rational inference in communication, our model also captured (both qualitatively and quantitatively) the affect of speaker knowledge on interpretation choice. We observed that in scenarios where speakers likely lacked information about individual properties, collective interpretations were more prevalent. We hypothesized a source for this effect: without epistemic support for distributive interpretations, collective interpretations are more useful to speakers, and thus more probable for listeners. The success of the speaker access to knowledge parameter, $a$, in our model lends credence to this hypothesis. As in the case of modeling contextual predictability, we may trace the source of this effect to its start.
 
@@ -835,12 +851,12 @@ Table \ref{expt1analysis2} presents model coefficients for the full mixed logist
  
 
 
-\section{Full mixed effects linear regression model from Expt.~2}\label{expt2results}
+\section{Full mixed effects linear regression model from Expt.~3}\label{expt2results}
 
-The following table presents model coefficients for the full mixed linear regression model used in the analysis of Expt.~2. The model predicts collective endorsement ratings from fixed effects for context, predicate, scenario, and trial, as well as random by-participant intercepts and slopes grouped by trial. The fixed effects predictors were centered before analysis.
+The following table presents model coefficients for the full mixed linear regression model used in the analysis of Expt.~3. The model predicts collective endorsement ratings from fixed effects for context, predicate, scenario, and trial, as well as random by-participant intercepts and slopes grouped by trial. The fixed effects predictors were centered before analysis.
 
 \begin{table}[h!] 
-	\centering \caption{Full logistic regression model from analysis of Expt.~2.} \label{expt2analysis}
+	\centering \caption{Full linear regression model from analysis of Expt.~3.} \label{expt2analysis}
 \begin{tabular}{lrrrr}\toprule
 	&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
 Intercept	& 	0.58	&	0.03	&	17.08	&	\textbf{$<$0.01} \\
@@ -880,3 +896,92 @@ Pred-tall:Scenario	&	0.07	&	0.08	&	0.95	& 0.35\\
 
 
 \end{document}
+
+
+
+
+
+
+\citeauthor{link1983} bases many of his claims on observations concerning the behavior of nominal conjunctions in English---these, he assumes, name pluralities; the sentences in \Next[a] together entail the sentence in \Next[b]. If each individual is a man, then taken together they are men.
+
+\ex. \label{cumulative}\a. Alan is a man. Bill is a man. Charlie is a man.
+\b. Alan, Bill, and Charlie are men.
+
+To understand the \textsc{cumulative} inference in \Last, \citeauthor{link1983} makes some assumptions concerning the domain of individuals, together with the formal mechanism of predication (i.e., ascribing properties to individuals): set inclusion \citep[cf.][]{montague1973}.
+
+First, the domain of individuals, D$_{e}$, consists of atomic individuals---objects in the domain without other objects as (proper) individual parts. This set includes individuals like Alan, Bill, Charlie, the book on your shelf, an apple, and so on. Predicates are modeled as sets of individuals---those individuals that hold the property named by the predicate. The denotation of a singular nominal predicate like (\emph{is a}) \emph{man} is a subset of this atomic domain.
+
+\ex. \label{theboys} Let \sem{Alan} = \texttt{a}, \sem{Bill} = \texttt{b}, and \sem{Charlie} = \texttt{c}; assume no other men. Then,\\
+ \sem{(is a) man} = \{\texttt{a}, \texttt{b}, \texttt{c}\}
+
+Singular \emph{man} contains all and only those members of the atomic domain that hold the property of being a man---it contains the men in the domain. In \Last, where we assume three men, the set denoted by singular \emph{man} contains just Alan, Bill, and Charlie, or the individuals \tt{a}, \tt{b}, and \tt{c}.
+
+Given the model sketched in \Last, and assuming predication gets modeled as set inclusion, the derivation in \Next results as we say of the sentence \emph{Alan is a man} that it is true: Alan is a man just in case he is a member of the set of singular men; Alan is in fact a member of the set of singular men, so he is a man.
+
+\ex. \sem{Alan is a man} = 1 iff\\
+\sem{man}(\sem{Alan}) = 1, i.e., iff\\
+\texttt{a} $\in$ \{\texttt{a}, \texttt{b}, \texttt{c}\}
+
+To achieve a general theory of predication, \citeauthor{link1983} must say how set inclusion transpires with plural predicates like \emph{men}; but first, \citeauthor{link1983} must take a stance on plural reference more broadly: (plural) individuals are modeled as mereological sums, points on mereological lattices that track part-whole relations. Simply put, a plurality is a sum of its parts: the plural individual named by \emph{Alan, Bill, and Charlie} is the summation of the singular individuals \tt{a}, \tt{b}, and \tt{c}. 
+
+For \citeauthor{link1983}, pluralities are formed via the \textsc{individual sum} operator $\oplus$, which spells out in English as (some variants of) the conjunction \emph{and}.
+
+\ex. For any two individuals \texttt{x}, \texttt{y}, their sum (i.e., the individual named by \emph{x and y}) is the smallest plural individual that has \texttt{x} and \texttt{y} as parts: \texttt{x}$\oplus$\texttt{y}
+
+If there are three boys, as in \ref{theboys}, then \emph{the boys} names the same plural individual as \emph{Alan and Bill and Charlie}, namely \texttt{a}$\oplus$\texttt{b}$\oplus$\texttt{c}. The spatial, structural, and functional arrangement of this sum is left unspecified. It merely represents the collection, however arranged, of the three individuals.
+
+Now, (semantically) plural nominal predicates (e.g., \emph{men}) contain pluralities in their extensions; to build a plural predicate from singular ones, \citeauthor{link1983} introduces the ``star''-operator, *, which takes a predicate \texttt{P} and generates all of the individual sums of members of the extension of the basic, ``un-starred'' predicate. Roughly speaking, a plural predicate, *\texttt{P}, is a collection of all of the possible subsets of the singular predicate \texttt{P} (less the empty set \O).
+
+\ex. \sem{*\texttt{P}} \defeq \{\texttt{x} $\in$ D$_{e}$: $\exists$\texttt{X} $\subseteq$ \sem{\texttt{P}}[\texttt{X} $\neq$ \O\ \and \texttt{x} = \texttt{S}(\texttt{X})]\}\\
+where \texttt{S}(\texttt{X}) is the supremum, or maximal element of \texttt{X}
+
+We can now model the denotation of English \emph{man} and \emph{men} using the sets in \Next; \emph{man} corresponds to the singular property of being a man, while \emph{men} corresponds to the closure of that property under sum-formation via the *-operator.\footnote{The present discussion collapses over the distinction between semantic and morphological plurality. See \cite{scontras2013salt,scontras2013sub,scontras2014diss} for fuller discussion of this distinction.} \emph{Men} thus denotes the set of all men and their possible combinations.
+
+\ex. \texttt{P} = \texttt{man}\\
+\sem{\texttt{P}} = \{\texttt{a}, \texttt{b}, \texttt{c}\}\\
+\sem{*\texttt{P}} = \{\texttt{a}, \texttt{b}, \texttt{c}, \texttt{a}$\oplus$\texttt{b}, \texttt{a}$\oplus$\texttt{c}, \texttt{b}$\oplus$\texttt{c}, \texttt{a}$\oplus$\texttt{b}$\oplus$\texttt{c}\}
+
+The semilattice in Fig.\ \ref{semilattice} conveys similar information, while explicitly tracking the part-whole relations among the individuals.
+Each node $\bullet$ in Fig.\ \ref{semilattice} represents an individual in the domain, and the lines connecting the nodes track part-hood. For example, Alan and Bill are each individual parts of the plural individual named by \emph{Alan and Bill}, which itself is a part of the plural individual named by \emph{Alan, Bill, and Charlie}. Together, they are men, which means that each is a man.
+
+\begin{figure}[t]
+%\psset{rowsep=20pt,colsep=50pt,nodesep=4pt} 
+\centering
+\psset{rowsep=-2pt,colsep=10pt,nodesep=2pt} 
+\hspace{80pt}\begin{psmatrix}
+& \texttt{a}$\oplus$\texttt{b}$\oplus$\texttt{c} & \\
+& \rnode{abc}{$\bullet$}\\
+& & & & $\Leftarrow$ \textbf{Sums}\\
+\rnode[t]{ab}{\texttt{a}$\oplus$\texttt{b}} & \rnode[t]{ac}{\texttt{a}$\oplus$\texttt{c}} & \rnode[t]{bc}{\texttt{b}$\oplus$\texttt{c}}\\
+\rnode{ab2}{$\bullet$} & \rnode{ac2}{$\bullet$} & \rnode{bc2}{$\bullet$}\\
+\\
+\rnode{a}{$\bullet$} & \rnode{b}{$\bullet$} & \rnode{c}{$\bullet$} & & \ \ $\Leftarrow$ \textbf{Atoms}\\
+\texttt{a} & \texttt{b} & \texttt{c}
+\ncline{abc}{ab} \ncline{abc}{ac} \ncline{abc}{bc}
+\ncline{ab2}{a} \ncline{ab2}{b}
+\ncline{ac2}{a} \ncline{ac2}{c}
+\ncline{bc2}{b} \ncline{bc2}{c}
+\end{psmatrix}
+\caption{The denotation of semantically plural \emph{men}, a complete atomic join semilattice}\label{semilattice}
+\end{figure}
+
+\noindent 
+
+The mereological representation of individuals in terms of individual part-hood introduces a natural ``part-of'' ordering on the domain,  which \citeauthor{link1983} represents in the object language using the predicate $\Pi$ ``individual part of''; the bidirectional in \Next holds: if \tt{a} is an individual part of the individual \tt{b}, then the plural individual \tt{a}\op\tt{b} is identical to \tt{b}.
+
+\ex. \tt{a}$\Pi$\tt{b}\ \ $\leftrightarrow$\ \ \tt{a}\op\tt{b} = \tt{b}
+
+In Fig.\ \ref{semilattice}, the individual part relation $\Pi$ gets represented by the line segments connecting nodes. Pluralities, or ``sums,'' are those individuals which have other individuals in the domain as proper parts; atoms have no proper parts.
+
+\subsection{Varieties of plural predication}
+
+Given that plural predicates are constructed from singular ones via sum-formation, we may model the cumulative inference in \ref{cumulative} (repeated in \Next): if each of Alan, Bill, and Charlie are in the extension of the predicate \emph{man}, then their sum is necessarily in the extension of the semantically plural predicate \emph{men}; \emph{men} is the closure of \emph{man} under sum-formation, so if \tt{a}, \tt{b}, and \tt{c} are in the extension of \emph{man}, their sum \tt{a}\op\tt{b}\op\tt{c} must be in the extension of \emph{men}.
+
+The distributive reading of \Next[b] follows from this semantics of plurality and predication, not any implicit quantification over the members of the subject. In other words, we need no  distributive operator (e.g., a silent \emph{each}) in the logical form of \Next[b] to derive \Next[a] as an entailment.
+
+\ex. \a. Alan is a man. Bill is a man. Charlie is a man.
+\b. Alan, Bill, and Charlie are men.
+
+To repeat: for Alan, Bill, and Charlie to be men, then \tt{a}\op\tt{b}\op\tt{c}---the sum named by \emph{Alan, Bill, and Charlie}---must be in the extension of the predicate named by \emph{men}. By assuming that \emph{men} corresponds to the closure of the singular predicate \emph{man}, it follows that each of Alan, Bill, and Charlie is a man whenever we say of Alan, Bill, and Charlie that they are men.
+
+Here is where terminology begins to get confusing: 

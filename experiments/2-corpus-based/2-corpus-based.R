@@ -8,8 +8,12 @@ library(reshape2)
 setwd("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/")
 
 sub = read.table("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/Submiterator-master/2-corpus-based-subject_information.tsv",sep="\t",header=T)
+sub
 
 d = read.table("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/Submiterator-master/2-corpus-based-trials.tsv",sep="\t",header=T)
+
+#only native English
+d <- d[d$workerid!=8&d$workerid!=20&d$workerid!=30&d$workerid!=47&d$workerid!=73,]
 
 s = read.csv("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/bnc.sentences.csv",header=T)
 
@@ -43,17 +47,17 @@ a_sent_casted <- na.omit(a_sent_casted)
 
 noun_s = bootsSummary(data=a_sent_casted, measurevar="coll", groupvars=c("noun","animate"))
 noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-noun_plot <- ggplot(noun_s, aes(x=reorder(noun,-coll,mean),y=coll)) +
+noun_plot <- ggplot(noun_s, aes(x=reorder(noun,coll,mean),y=coll)) +
   geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,response,is.ordered=T), width=0.1),position=position_dodge(width=0.9))+
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,coll,mean), width=0.1),position=position_dodge(width=0.9))+
   #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("collective endorsement") +
-  xlab("noun")+
+  ylab("collective endorsement\n") +
+  xlab("\nsubject noun")+
   ylim(0,1) +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
 noun_plot
 
-ggsave('results/noun_plot.pdf',width=6.25,height=3)
+ggsave('results/noun_plot.pdf',width=6.3,height=3)
 
 # noun by pred plot
 
@@ -86,18 +90,18 @@ p_n <- a_sent_casted[a_sent_casted$predicate=="bright"|
 summary(p_n)
 n_pred_s = bootsSummary(data=p_n, measurevar="coll", groupvars=c("noun","predicate"))
 n_pred_s$noun <- factor(n_pred_s$noun,ordered=is.ordered(pred_s$noun))
-n_pred_plot <- ggplot(n_pred_s, aes(x=reorder(noun,-coll,mean),y=coll)) +
+n_pred_plot <- ggplot(n_pred_s, aes(x=reorder(noun,coll,mean),y=coll)) +
   geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,response,is.ordered=T), width=0.1),position=position_dodge(width=0.9))+
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,coll,mean), width=0.1),position=position_dodge(width=0.9))+
   #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
   ylab("collective endorsement\n") +
-  xlab("")+
+  xlab("\nsubject noun")+
   ylim(0,1) +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1)) +
   facet_wrap(~predicate,nrow=2,scales="free_x")
 n_pred_plot
 
-ggsave('results/noun_pred_plot.pdf',width=5,height=3.25)
+ggsave('results/noun_pred_plot.pdf',width=5.9,height=3.6)
 
 
 
