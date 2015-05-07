@@ -410,7 +410,7 @@ However, before manipulating contextual predictability and speaker knowledge, we
 \subsection{Experiment 2a: Naturally-occurring examples}
 
 In Expt.~1, we used a reference task to evaluate disambiguating paraphrases of plural predications. By providing potential referents, however, we gave participants specific and salient physical arrangements (e.g., box piles) against which to evaluate interpretations of predicates. Here, we move away from specific arrangements and use the disambiguating paraphrases from Expt.~1 to directly probe interpretations of plural predications.
-To ensure a robust test of this methodology, we use naturally-occurring examples of plural predicates extracted from the British National Corpus.\footnote{Sentences were extracted from the British National Corpus Online service, managed by Oxford University Computing Services on behalf of the BNC Consortium. All rights in the texts cited are reserved.}
+To ensure a robust test of this methodology, we use naturally-occurring examples of plural predications extracted from the British National Corpus.\footnote{Sentences were extracted from the British National Corpus Online service, managed by Oxford University Computing Services on behalf of the BNC Consortium. All rights in the texts cited are reserved.}
 
 \subsubsection{Participants}
 
@@ -421,13 +421,15 @@ We recruited 90 participants through Amazon.com's Mechanical Turk. Participants 
 In a search of the British National Corpus, we identified the 40 most frequent subject-predicate combinations in the plural predication frame in \Next.
 
 \ex. The \textsc{noun}s were \textsc{adjective}.
-\a. The \textsc{noun}s each were \textsc{adjective}. \label{bnc-each}
+
+Participants were presented with 30 sentences; 15 of these sentences were naturally-occurring examples from the original set of the 40 most frequent instances. The other 15 sentences were constructed by randomly pairing subjects and predicates from the original set of 40 to create novel sentences.
+
+Each sentence was presented as an utterance by a speaker, and participants were tasked with determining what the speaker meant. Participants rated two possible paraphrases on a slide scale. The paraphrases were either distributive (with ``each'', \ref{bnc-each}) or collective (with post-nominal ``together'', \ref{bnc-together}). 
+
+\ex. \a. The \textsc{noun}s each were \textsc{adjective}. \label{bnc-each}
 \b. The \textsc{noun}s together were \textsc{adjective}. \label{bnc-together}
 
-
-Participants were presented with 30 sentences; 15 of these sentences were naturally-occurring examples from the original set of the 40 most frequent instances. The other 15 sentences were constructed by randomly pairing subjects and predicates from the set of 40 to create novel sentences.
-
-Each sentence was presented as an utterance by a speaker, and participants were tasked with determining what the speaker meant. Participants rated two possible possible paraphrases on a slide scale. The paraphrases were either distributive (with ``each'', \ref{bnc-each}) or collective (with post-nominal ``together'', \ref{bnc-together}). Scale endpoints corresponded to whether the paraphrase was ``definitely'' or ``definitely not'' what the speaker intended by his or her utterance. Before rating its paraphrases, participants judged whether the utterance made sense (choosing between "Yes" and "No"). In the analyses reported below, we only look at responses to utterances that participants said made sense.
+Scale endpoints corresponded to whether the paraphrase was ``definitely'' or ``definitely not'' what the speaker intended by his or her utterance. Before rating its paraphrases, participants judged whether the utterance made sense (choosing between "Yes" and "No"). In the analyses reported below, we only look at responses to utterances that participants said made sense.
 
 \subsubsection{Predictions}
 
@@ -435,12 +437,17 @@ Our primary goal is to evaluate the viability of our paraphrase methodology with
 
 \subsubsection{Results}
 
+We begin modestly, with a look at the range of collective endorsement ratings.\footnote{A look at distributive endorsement ratings, or normalized collective ratings (i.e., the difference between collective and distributive ratings) reveals similar patterns of results).} Fig.~\ref{sentence-coll} plots average collective endorsement ratings for each of the 40 most frequent sentences.
+
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=.985\linewidth]{plots/noun_plot.eps}
+	\includegraphics[width=.985\linewidth]{plots/sentence_plot.eps}
 	%\vspace{0pt}
-	\caption{Collective paraphrase endorsement rates for different subject nouns.} \label{nouncoll}
+	\caption{Collective paraphrase endorsement rates for different noun-predicate combinations (i.e., for different sentences).} \label{sentence-coll}
 \end{figure}
+
+Descriptively, we see a wide range of ratings, spanning from approximately 25\% endorsement to 85\%; participants appear comfortable using the full scale. Another property of the distribution of ratings in Fig.~\ref{sentence-coll} is its relatively smooth gradient: we fail to find clear groupings of predicates, such that they behave in one way or another with respect to collective interpretations. Stubbornly distributive \emph{small} indeed occurs toward the low end of collective endorsement ratings, but not markedly so.
+More relevant to our present purposes are those predicates that occur with different subject nouns. There are 8 such predicates in our small corpus; we plot their average collective endorsement ratings grouped by subject nouns in Fig.~\ref{noun-pred-coll}.
 
 \begin{figure}[h!]
 	\centering
@@ -449,14 +456,18 @@ Our primary goal is to evaluate the viability of our paraphrase methodology with
 	\caption{Collective paraphrase endorsement rates for different subject nouns grouped by predicate.} \label{noun-pred-coll}
 \end{figure}
 
+As Fig.~\ref{noun-pred-coll} demonstrates, rates of collective endorsement differ by subject noun for one and the same predicate. We draw the reader's attention to the case of stubbornly distributive \emph{small}. 
+If stubborn distributivity were a binary, predicate-level phenomenon hard-coded into the semantics of these predicates, we should find no effect of the subject noun in the determination of their distributive vs.~collective interpretations: stubbornly distributive predicates, regardless of their subject, should always be maximally distributive. As \emph{small} in Fig.~\ref{noun-pred-coll} demonstrates, however, they are not. More importantly, the subject \emph{numbers} stands out in its relatively high rates of collective endorsement with the predicate \emph{small}. A linear mixed effects model predicting collective endorsement rates by subject noun for \emph{small}, with random by-participant intercepts, finds that sentences with the subject \emph{numbers} receive greater rates of collective endorsement than do sentences with \emph{children} ($\beta=-0.15$, $SE=0.07$, $t=-2.24$, $p<0.05$), \emph{rooms} ($\beta=-0.19$, $SE=0.07$, $t=-2.73$, $p<0.01$), or \emph{classes} ($\beta=-0.27$, $SE=0.07$, $t=-3.87$, $p<0.01$).\footnote{We find the same pattern of results if instead we compare each subject noun with the grand mean (i.e., by effect, or deviation, coding our variables): \emph{numbers} deviates significantly, while the other nouns do not.}
 
 \subsubsection{Discussion}
 
+We have extended our paraphrase methodology beyond a simple reference task, using naturally-occurring examples of plural predications. Our goals here were modest: to understand better the terrain of interpretation preferences for plural predications, without special attention to particular classes of predicates or subjects. Participants demonstrated full use of the paraphrase endorsement rating scales provided. Moreover, their patterns of ratings begin to shed light on the disambiguation of plural predication. Perhaps most obvious is the absence of clear groupings of predicates: one would be hard pressed to read stubborn distributivity (or complaisant collectivity) off the pattern of ratings in Fig.~\ref{sentence-coll}.
 
+After considering the full set of sentences, we narrowed our focus to those predicates occurring in more than one sentence (i.e., with different subject nouns). Narrower still, we highlighted the case of stubbornly distributive \emph{small}, showing that the subject \emph{numbers} yielded higher rates of collective endorsement. Allow us to suggest an explanation for the exceptional behavior of \emph{numbers}: faced with the task of evaluating the relative size of a hypothetical set of numbers, participants converge on a single strategy, namely summing them up. In other words, the collective size of numbers is relatively predictable in context, more so than the collective size of children (determined by, e.g., height, weight, age, etc.) or of rooms and classes (determined by, e.g., number of occupants, seating capacity, overall volume, etc.). We explore this idea further in Expt.~2b, where we limit our naturally-occurring examples to a more theoretically relevant set of predicates: \emph{big}, \emph{heavy}, and \emph{tall}.
 
 \subsection{Experiment 2b: \emph{big}, \emph{heavy}, \emph{tall}}
 
-Expt.~2a tests our paraphrase endorsement methodology using the 40 most frequent plural predications in the British National Corpus. Here we shift our sights to predicates more directly of interest to the current investigation of stubborn distributivity: \emph{big}, \emph{heavy}, and \emph{tall}. Due to the limited number of instances of plural predication with these predicates in the British National Corpus, we use the Google Books Corpus \citep{davies2011}.
+Expt.~2a tested our paraphrase endorsement methodology using the 40 most frequent plural predications in the British National Corpus. Here we shift our sights to predicates more directly of interest to the current investigation of stubborn distributivity: \emph{big}, \emph{heavy}, and \emph{tall}. Due to the limited number of instances of plural predication with these predicates in the British National Corpus, we use the much larger Google Books Corpus \citep{davies2011}.
 
 \subsubsection{Participants}
 
@@ -473,17 +484,19 @@ heavy:& bags, lids, loads, men, trees\\
 tall:& buildings, offspring, plants, trees, windows
 \end{tabular}	
 
-As with Expt.~2a, we only look at responses to utterances that participants indicated made sense to them.
+As with Expt.~2a, subject rated disambiguating paraphrases of the resulting sentences. Again, we look only at responses to the 15 utterances from the corpus that participants indicated made sense to them.
 
 \subsubsection{Predictions}
 
-Given that \emph{heavy} is complaisantly collective, we should find greater rates of collective interpretation for this predicate. For stubbornly distributive \emph{big}, we should find much lesser rates of collective interpretations. If the relatively high rates of collective interpretations for \emph{tall} in Expt.~1 stemmed from the availability of a specific physical arrangement, we should find lower rates of collective interpretation here where no arrangements are specified.
+Given that \emph{heavy} is complaisantly collective, we should find greater rates of collective interpretation for this predicate. For stubbornly distributive \emph{big}, we should find much lesser rates of collective interpretations. If the relatively high rates of collective interpretations for \emph{tall} in Expt.~1 stemmed from the availability of a specific physical arrangement, we should find lower rates of collective interpretation here, where no arrangements are specified.
 
-If contextual predictability influences the viability of collective interpretations, we should find that noun-predicate pairs that plausibly implicate a limited set of collective properties---as was the case with \emph{small numbers} in Expt.~2a---yield greater rates of collective interpretations. For example, with \emph{big waves}, the collective property named most likely targets just a single dimension of the waves: their height. We would therefore expect greater rates of collective interpretations for \emph{big waves}.
+If contextual predictability influences the viability of collective interpretations, we should find that noun-predicate pairs that plausibly implicate a limited set of collective properties---as was the case with \emph{small numbers} in Expt.~2a---yield greater rates of collective interpretations. For example, with \emph{big waves}, the collective property named most likely targets just a single dimension of the waves' physical extent: their height. We would therefore expect greater rates of collective interpretations for \emph{big waves}.
 
 We might also expect to find variation by subject noun that tracks speakers' access to knowledge. That is, if a speaker is more likely to lack evidence for a distributive or a collective interpretation for a specific noun-predicate pair, we should find greater rates of the competing interpretations for that pair. For example, with \emph{heavy loads}, it is unlikely that the speaker carried all of the loads together, so the speaker would lack direct access to knowledge about the collective weight of those loads; we would therefore expect lower rates of collective interpretations.
 
 \subsubsection{Results}
+
+Fig.~\ref{bhtcoll} plots average collective endorsement ratings for each of the three predicates grouped by their subjects.
 
 \begin{figure}[h!]
 	\centering
@@ -491,6 +504,10 @@ We might also expect to find variation by subject noun that tracks speakers' acc
 	\vspace{0pt}
 	\caption{Collective paraphrase endorsement rates for different nouns serving as the subject to the predicates \emph{big}, \emph{heavy}, and \emph{tall}.} \label{bhtcoll}
 \end{figure}
+
+To compare the predicates with each other, we fit a linear mixed effects model predicting collective endorsement by predicate, with random intercepts for participants and nouns, and random slopes for participants. Predicate was dummy coded with \emph{heavy} as the reference level. There were main effects for both contrasts, such that \emph{big} ($\beta=-0.22$, $SE=0.07$, $t=-3.24$, $p<0.01$) and \emph{tall} ($\beta=-0.20$, $SE=0.06$, $t=-3.20$, $p<0.01$) led to fewer collective choices. Next, we examine the behavior of the subject nouns for each predicate in turn.
+
+Starting with \emph{tall}, we fit a linear mixed effects model predicting collective endorsement by subject noun, with random intercepts for participants and nouns, and random slopes for participants. The subject noun predictor was dummy coded with \emph{trees} as the reference level (i.e., the subject withe the highest average collective endorsement rating).
 
 \subsubsection{Discussion}
 

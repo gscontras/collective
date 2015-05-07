@@ -79,12 +79,34 @@ all_plot <- ggplot(all_s, aes(x=reorder(noun,coll,mean),y=coll)) +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
   facet_wrap(~predicate,ncol=3,scale="free_x")
 all_plot
-ggsave("results/attested.pdf",width=6,height=2.7)
+#ggsave("results/attested.pdf",width=6,height=2.7)
 
+##test
 
-b = lmer(coll~noun+(1|workerid),data=a_sent_casted[a_sent_casted$predicate=="big",])
+aggregate(coll~predicate,data=a_sent_casted,mean)
+contrasts(a_sent_casted$noun)
+big <- a_sent_casted[a_sent_casted$predicate=="big",]
+aggregate(coll~noun,data=big,mean)
+big$noun <- factor(big$noun,levels=c("boys","children","houses","waves","rooms"))
+contrasts(big$noun) <- "contr.sum"
+heavy <- a_sent_casted[a_sent_casted$predicate=="heavy",]
+heavy$noun <- factor(heavy$noun,levels=c("loads","men","bags","lids","trees"))
+aggregate(coll~noun,data=heavy,mean)
+contrasts(heavy$noun) <- "contr.sum"
+tall <- a_sent_casted[a_sent_casted$predicate=="tall",]
+tall$noun <- factor(tall$noun,levels=c("trees","plants","offspring","buildings","windows"))
+aggregate(coll~noun,data=tall,mean)
+#contrasts(tall$noun) <- "contr.sum"
+
+b = lmer(coll~noun+(1|workerid),data=big)
 summary(b)
-h = lmer(coll~noun+(1|workerid),data=a_sent_casted[a_sent_casted$predicate=="heavy",])
+h = lmer(coll~noun+(1|workerid),data=heavy)
 summary(h)
-t = lmer(coll~noun+(1|workerid),data=a_sent_casted[a_sent_casted$predicate=="tall",])
+t = lmer(coll~noun+(1|workerid),data=tall)
 summary(t)
+
+d <- a_sent_casted
+d$predicate <- factor(d$predicate,levels=c("heavy","big","tall"))
+contrasts(d$predicate)
+m = lmer(coll~predicate+(1+predicate|workerid)+(1|noun),data=d)
+summary(m)

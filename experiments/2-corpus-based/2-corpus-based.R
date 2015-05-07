@@ -43,6 +43,15 @@ a_sent_casted$coll_diff = (a_sent_casted$coll-a_sent_casted$dist)
 
 a_sent_casted <- na.omit(a_sent_casted)
 
+#small analysis
+
+small = a_sent_casted[a_sent_casted$predicate=="small",]
+head(small)
+small$noun <- factor(small$noun,levels=c("numbers","children","rooms","classes"))
+contrasts(small$noun) <- 'contr.sum'
+sm = lmer(coll~noun+(1|workerid),data=small)
+summary(sm)
+
 # noun plot
 
 noun_s = bootsSummary(data=a_sent_casted, measurevar="coll", groupvars=c("noun","animate"))
@@ -58,6 +67,24 @@ noun_plot <- ggplot(noun_s, aes(x=reorder(noun,coll,mean),y=coll)) +
 noun_plot
 
 ggsave('results/noun_plot.pdf',width=6.3,height=3)
+
+# sentence plot
+
+sentence_s = bootsSummary(data=a_sent_casted, measurevar="coll", groupvars=c("sentence","animate"))
+sentence_s$sentence <- factor(sentencen_s$sentence,ordered=is.ordered(sentence_s$sentence))
+sentence_plot <- ggplot(sentence_s, aes(x=reorder(sentence,coll,mean),y=coll)) +
+  geom_bar(stat="identity",position=position_dodge()) +
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(sentence,coll,mean), width=0.1),position=position_dodge(width=0.9))+
+  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
+  ylab("collective endorsement\n") +
+  xlab("\nsentence")+
+  ylim(0,1) +
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1,size=7))
+sentence_plot
+
+ggsave('results/sentence_plot.pdf',width=6.3,height=3.5)
+
+
 
 # noun by pred plot
 
