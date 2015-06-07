@@ -87,12 +87,12 @@ aggregate(coll~predicate,data=a_sent_casted,mean)
 contrasts(a_sent_casted$noun)
 big <- a_sent_casted[a_sent_casted$predicate=="big",]
 aggregate(coll~noun,data=big,mean)
-big$noun <- factor(big$noun,levels=c("boys","children","houses","waves","rooms"))
-contrasts(big$noun) <- "contr.sum"
+big$noun <- factor(big$noun,levels=c("waves","rooms","boys","children","houses"))
+#contrasts(big$noun) <- "contr.sum"
 heavy <- a_sent_casted[a_sent_casted$predicate=="heavy",]
-heavy$noun <- factor(heavy$noun,levels=c("loads","men","bags","lids","trees"))
+heavy$noun <- factor(heavy$noun,levels=c("bags","lids","trees","loads","men"))
 aggregate(coll~noun,data=heavy,mean)
-contrasts(heavy$noun) <- "contr.sum"
+#contrasts(heavy$noun) <- "contr.sum"
 tall <- a_sent_casted[a_sent_casted$predicate=="tall",]
 tall$noun <- factor(tall$noun,levels=c("trees","plants","offspring","buildings","windows"))
 aggregate(coll~noun,data=tall,mean)
