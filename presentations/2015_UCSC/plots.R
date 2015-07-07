@@ -7,7 +7,7 @@ setwd("~/Documents/git/CoCoLab/collective/presentations/2015_UCSC/")
 d = read.table("~/Dropbox/CoCoLab/CollectivePredication/Experiment/Persistence.v14.manipulationcheck4/experiment_persistence.v14-master/Submiterator-master/persistence.v14-trials.tsv",sep="\t",header=T)
 d$coll = 0
 d[d$choice =="coll_list",]$coll = 1
-d = d[d$scenario=="move",]
+#d = d[d$scenario=="move",]
 d$utterance <- factor(d$utterance,levels=c("big","tall","heavy"))
 
 # each predicate
@@ -59,19 +59,19 @@ plot <- ggplot(d_s, aes(y=coll,x=utterance,fill=scenario)) +
   ylab("collective choice \n")+
   xlab("\n predicate") +
   labs(fill="scenario") + 
-  scale_fill_manual(values=c("green", "yellow","blue"))
+  scale_fill_manual(values=c("cyan", "orange","blue"))
 #theme(legend.position="bottom", legend.margin=unit(-.7,"cm") )
 plot <- plot   + theme_blackDisplay()
 plot
 
-ggsave("expt1_all.pdf",width=11, height=5.5)
+ggsave("expt1_all_XPRAG.pdf",width=11, height=5.5)
 
 
 # expt 2 plots
 
 d = read.csv("~/Dropbox/CoCoLab/CollectivePredication/Experiment/Persistence.v10.everything/experiment_persistence.v10-master/Submiterator-master/persistence.v10-trials.order.csv",header=T)
 
-d = d[d$sceanrio=="move",]
+#d = d[d$sceanrio=="move",]
 
 d$utterance <-factor(d$utterance,levels=c("big",'heavy','tall'))
 
@@ -92,6 +92,26 @@ plot <- plot  +facet_grid(. ~ utterance) + theme_blackDisplay() #+ theme(legend.
 plot
 
 ggsave("expt3-no-scenario.pdf",width=18, height=7)
+
+
+## predicate with all data
+
+d_s = bootsSummary(data=d, measurevar="response", groupvars=c("sentence_type","context","utterance","sceanrio"))
+
+plot <- ggplot(d_s, aes(x=factor(context,labels=c("variable","predictable")),y=response,fill=factor(sentence_type,labels=c("together","each")))) +
+  #  geom_bar(alpha=1/2,stat="identity",position=position_dodge()) +
+  geom_bar(stat="identity",position=position_dodge()) +
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=factor(context,labels=c("variable","predictable")), width=0.1),position=position_dodge(width=0.9),color="gray")+
+  ylab("endorsement \n")+
+  ylim(0,1)+
+  xlab("\n context") +
+  labs(fill="paraphrase")+
+  scale_fill_manual(values=c("blue","red"))
+plot <- plot  +facet_grid(sceanrio ~ utterance) + theme_blackDisplay() #+ theme(legend.position="bottom", legend.margin=unit(-.7,"cm") ) 
+plot
+
+ggsave("expt3-ALL_XPRAG.pdf",width=18, height=9)
+
 
 # all predicates results
 
@@ -377,13 +397,13 @@ p <- ggplot(agg,aes(x=noise,y=p)) +
   ylab("probability of\ncollective interpretation\n") +
   xlab("\ncollective interpretation noise")+
   labs(fill="speaker\nknowledge\naccess")+
-  scale_fill_manual(values=c("red", "blue"))+
+  scale_fill_manual(values=c("orange", "cyan"))+
   theme(axis.text.x = element_text(size=10,angle=0))+
   theme_blackDisplay()#+
 #facet_grid(dist_theta~coll_theta)
 p
 
-ggsave("model-results.pdf",width=10,height=6)
+ggsave("model-results_XPRAG.pdf",width=10,height=6)
 
 
 #### heavy plot
@@ -391,7 +411,7 @@ ggsave("model-results.pdf",width=10,height=6)
 heavy = read.csv("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/heavy2.csv",header=T)
 
 head(heavy)
-heavy$context <- factor(heavy$context,labels=c("high variability","low variability"))
+heavy$context <- factor(heavy$context,labels=c("variable","predictable"))
 
 heavy_plot <- ggplot(heavy, aes(x=data,y=coll,fill=scenario)) +
   #  geom_bar(alpha=1/2,stat="identity",position=position_dodge()) +
@@ -401,30 +421,30 @@ heavy_plot <- ggplot(heavy, aes(x=data,y=coll,fill=scenario)) +
   ylim(0,1)+
   xlab("") +
   labs(fill="scenario")+
-  scale_fill_manual(values=c("blue", "red"))+
+  scale_fill_manual(values=c("cyan", "orange"))+
   facet_grid(.~context)+
 #raw_plot <- raw_plot  +facet_grid(. ~ utterance)
 theme_blackDisplay()
 heavy_plot
-ggsave("heavymodel.pdf",width=12,height=6)
+ggsave("heavymodel_XPRAG.pdf",width=12,height=6)
 
 
 ## big-tall plot
 
 bigtall = read.csv("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/big-tall.csv",header=T)
 
-bt_plot <- ggplot(bigtall, aes(x=data,y=coll,fill=factor(context,labels=c("high","low")))) +
+bt_plot <- ggplot(bigtall, aes(x=data,y=coll,fill=factor(context,labels=c("variable","predictable")))) +
   #  geom_bar(alpha=1/2,stat="identity",position=position_dodge()) +
   geom_bar(stat="identity",position=position_dodge()) +
   geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=data, width=0.1),position=position_dodge(width=0.9),color="grey")+
   ylab("collective endorsement\np(collective)\n")+
   ylim(0,1)+
   xlab("") +
-  labs(fill="context\nvariability")+
+  labs(fill="context")+
   scale_fill_manual(values=c("red", "blue"))+
   facet_grid(.~predicate) +
   theme_blackDisplay()
 #raw_plot <- raw_plot  +facet_grid(. ~ utterance)
 #+ theme_blackDisplay()
 bt_plot
-ggsave("bigtallmodel.pdf",width=12,height=6)
+ggsave("bigtallmodel_XPRAG.pdf",width=12,height=6)
