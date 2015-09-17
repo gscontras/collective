@@ -100,7 +100,7 @@ p
 
 setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
 
-ggsave("model-results.pdf")
+ggsave("model-results2.pdf",height=3)
 
 # check state distribution for inferred thetas
 

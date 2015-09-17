@@ -79,7 +79,7 @@ all_plot <- ggplot(all_s, aes(x=reorder(noun,coll,mean),y=coll)) +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
   facet_wrap(~predicate,ncol=3,scale="free_x")
 all_plot
-#ggsave("results/attested.pdf",width=6,height=2.7)
+ggsave("results/bht_plot2.pdf",width=6,height=2.7)
 
 ##test
 

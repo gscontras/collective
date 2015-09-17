@@ -82,7 +82,7 @@ sentence_plot <- ggplot(sentence_s, aes(x=reorder(sentence,coll,mean),y=coll)) +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1,size=7))
 sentence_plot
 
-ggsave('results/sentence_plot.pdf',width=6.3,height=3.5)
+ggsave('results/sentence_plot2.pdf',width=6.3,height=3.5)
 
 
 
@@ -116,7 +116,7 @@ p_n <- a_sent_casted[a_sent_casted$predicate=="bright"|
                        a_sent_casted$predicate=="small",]
 summary(p_n)
 n_pred_s = bootsSummary(data=p_n, measurevar="coll", groupvars=c("noun","predicate"))
-n_pred_s$noun <- factor(n_pred_s$noun,ordered=is.ordered(pred_s$noun))
+n_pred_s$noun <- factor(n_pred_s$noun,ordered=is.ordered(n_pred_s$noun))
 n_pred_plot <- ggplot(n_pred_s, aes(x=reorder(noun,coll,mean),y=coll)) +
   geom_bar(stat="identity",position=position_dodge()) +
   geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,coll,mean), width=0.1),position=position_dodge(width=0.9))+
@@ -128,7 +128,7 @@ n_pred_plot <- ggplot(n_pred_s, aes(x=reorder(noun,coll,mean),y=coll)) +
   facet_wrap(~predicate,nrow=2,scales="free_x")
 n_pred_plot
 
-ggsave('results/noun_pred_plot.pdf',width=5.9,height=4)
+ggsave('results/noun_pred_plot2.pdf',width=5.9,height=4)
 
 
 
