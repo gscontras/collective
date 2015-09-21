@@ -301,7 +301,7 @@ Participants were introduced to Cubert, a worker in a box factory. Between parti
 	\caption{Example trial from Expt.~1 with the predicate \emph{big} in the ``each'' utterance.}\label{expt1trial}
 \end{figure}
 
- Cubert used three predicates, \emph{big}, \emph{heavy}, and \emph{tall}, in three sentence frames, or utterances: ``bare'' \ref{bare}, ``each'' \ref{each}, and ``together'' \ref{together}. Participants saw each version of each predicate in a random order, completing nine trials. 
+ Cubert used three predicates, \emph{big}, \emph{heavy}, and \emph{tall}, in three sentence frames, or utterances: ``bare'' \ref{bare}, ``each'' \ref{each}, and ``together'' \ref{together}. Participants saw each version of each predicate in a random order, completing nine trials. All 50 participants indicated that they were native speakers of English, so we included all of the data in the analyses reported below.
 
 \subsection{Predictions}
 
@@ -315,8 +315,8 @@ However, given that Cubert would need to lift individual boxes to assess their i
 
 Results were coded in terms of whether participants chose the collective referent, and therefore the collective interpretation for Cubert's statement to Dot. Fig.\ \ref{results2} displays the proportion of collective choices, with bootstrapped 95\% confidence intervals drawn from 10,000 samples of the data \citep{diciccioefron1996}; a value of 1 indicates that participants chose the collective referent 100\% of the time.
 
-To evaluate the disambiguating potential of our paraphrases, we first look at responses to these paraphrases, excluding the bare utterance. Mean proportion of collective referent choice for collective paraphrases with \emph{together} was 85\% (i.e., near ceiling); for distributive paraphrases with \emph{each} this proportion was 10\% (i.e., near floor). We fit a mixed effects logistic regression model \citep{baayenetal2008} using the \emph{lme4} package \citep{batesetal2014} in \emph{R}, predicting referent choice by \textsc{utterance} (``each,'' ``together''), as well as \textsc{trial} order.  The model included random intercepts for participants, predicates, and scenarios, as well as random slopes for participants grouped by \textsc{utterance} (i.e., the maximal random effects structure supported by the data). The full regression model appears in Appendix \ref{expt1results}. The model finds a main effect of \textsc{utterance} ($\beta$ = 5.50, $SE$ = 0.94, $z$ = 5.87, p $<$ 0.001) such that collective \emph{together} yielded greater rates of collective referent choice than distributive \emph{each}; the effect of \textsc{trial} was not significant ($\beta$ = 0.06, $SE$ = 0.08, $z$ = 0.81, p $=$ 0.42). Thus, the ``together'' utterances yielded collective referent choices, and the ``each'' utterances did not.
-\ndg{should we have predicate be a predictor here so that we can report (whether) the predicate didn't affect choice for the fully dissambiguated phrases?}\gcs{if we have predicate interact with utterance, the interaction is not significant. include?}
+To evaluate the disambiguating potential of our paraphrases, we first look at responses to these paraphrases, excluding the bare utterance. Mean proportion of collective referent choice for collective paraphrases with \emph{together} was 85\% (i.e., near ceiling); for distributive paraphrases with \emph{each} this proportion was 10\% (i.e., near floor). We fit a mixed effects logistic regression model \citep{baayenetal2008} using the \emph{lme4} package \citep{batesetal2014} in \emph{R}, predicting referent choice by \textsc{utterance} (``each,'' ``together'') and its interaction with \textsc{predicate} (\emph{big}, \emph{heavy}, \emph{tall}; \emph{big} was coded as the reference level), as well as \textsc{trial} order.  The model included random intercepts for participants and scenarios (i.e., the maximal random effects structure supported by the data). The full regression model appears in Appendix \ref{expt1results}. The model finds a main effect of \textsc{utterance} ($\beta$ = 4.99, $SE$ = 0.82, $z$ = 6.08, p $<$ 0.001), confirming that collective \emph{together} yielded greater rates of collective referent choice than distributive \emph{each}; the interactions with \textsc{predicate} were not significant (\emph{heavy}: $\beta$ = -1.39, $SE$ = 0.91, $z$ = -1.52, p $=$ 0.13; \emph{tall}: $\beta$ = -0.63, $SE$ = 0.95, $z$ = -0.66, p $=$ 0.51). The effect of \textsc{trial} was also not significant ($\beta$ = 0.07, $SE$ = 0.07, $z$ = 1.00, p $=$ 0.32). Thus, the ``together'' utterances yielded collective referent choices, and the ``each'' utterances did not, for each of the three predicates.
+%\ndg{should we have predicate be a predictor here so that we can report (whether) the predicate didn't affect choice for the fully dissambiguated phrases?}\gcs{if we have predicate interact with utterance, the interaction is not significant. include?}
 
 To evaluate the behavior of the predicates in the absence of the disambiguating particles, together with the effect of our scenario manipulation, we next consider responses to the bare, potentially ambiguous utterance. We fit a mixed effects logistic regression model predicting referent choice by \textsc{predicate} (\emph{big}, \emph{heavy}, \emph{tall}), \textsc{scenario} (``move,'' ``inspect''), and \textsc{trial} order. We dummy coded the \textsc{predicate} predictor, with \emph{big} as the reference level. The model included random intercepts and slopes for participants (grouped by \textsc{trial}; the maximal random effects structure supported by the data). The full regression model appears in Appendix \ref{expt1results}. The model finds main effects of \textsc{predicate} for both the \emph{heavy} ($\beta$ = 3.05, $SE$ = 1.23, $z$ = 2.48, p $<$ 0.05) and the \emph{tall} ($\beta$ = 3.63, $SE$ = 1.29, $z$ = 2.82, p $<$ 0.01) contrasts. Compared to \emph{big}, the other predicates yielded greater rates of collective referent choice in ``bare'' utterances. While the effect of \textsc{scenario} did not reach significance, we note the trend in Fig.~\ref{results2} whereby ``move'' scenarios tended to have higher rates of collective referent choice for bare \emph{heavy} utterances (34\% ``move'' vs.~14\% ``inspect''); a post-hoc test of this difference approaches significance ($t$ = -1.70, \emph{df} = 47.96, $p$ = 0.096).
 
@@ -363,7 +363,10 @@ In a search of the British National Corpus, we identified the 40 most frequent s
 
 \ex. The \textsc{noun}s were \textsc{adjective}.
 
-Each participant was presented with 30 sentences; 15 of these sentences were drawn randomly \ndg{was it random?} \gcs{it was random without replacement} from the original set of the 40 most frequent instances. The other 15 sentences were constructed by randomly pairing subjects and predicates from the original set of 40 to create novel sentences. \ndg{were there any restrictions? eg could a participant see the same predicate / subject twice? were the constructed sentences really random for each participant, or was there a fixed set of them?} \gcs{the only restriction was that the sentences were not among the original 40 most frequent ones. a participant could see the same predicate/subject twice in the novel sentences, and they were randomly constructed for each participant}
+Each participant was presented with 30 sentences; 15 of these sentences were drawn randomly 
+%\ndg{was it random?} \gcs{it was random without replacement} 
+from the original set of the 40 most frequent instances. The other sentences were constructed by randomly pairing subjects and predicates from the original set of 40 to create 15 novel sentences for each participant. 
+%\ndg{were there any restrictions? eg could a participant see the same predicate / subject twice? were the constructed sentences really random for each participant, or was there a fixed set of them?} \gcs{the only restriction was that the sentences were not among the original 40 most frequent ones. a participant could see the same predicate/subject twice in the novel sentences, and they were randomly constructed for each participant}
 
 Each sentence was presented as an utterance by a speaker, and participants were tasked with determining what the speaker meant. Participants rated two possible paraphrases on a sliding scale. The paraphrases were either distributive (with ``each'', \ref{bnc-each}) and collective (with ``together'', \ref{bnc-together}). Given our interest in rates of collective interpretations, we are primarily concerned with collective paraphrase endorsement rates; we expect distributive paraphrase endorsement rates to give redundant information.  We included both distributive and collective paraphrases to highlight the potential ambiguity for participants.
 
@@ -380,7 +383,7 @@ Scale endpoints corresponded to whether the paraphrase was ``definitely'' or ``d
 
 %\ndg{give some stats on the 'makes sense' judgements: of the original sentences, what was the mean percent sensible? range? for the constructed sentences?}
 Of the original 40 most frequent sentences, participants indicated that they ``made sense'' 95\% of the time. Of the novel sentences, participants indicated that they ``made sense'' 67\% of the time.
-To avoid possible confusion nonsensical interpretations might introduce, in the analyses reported below we only look at responses to utterances that participants said made sense. %\ndg{why?}
+To avoid possible confusion that nonsensical interpretations might introduce, in the analyses reported below we only look at responses to utterances that participants said made sense. %\ndg{why?}
 
 We begin with a look at the range of collective endorsement ratings.\footnote{A look at distributive endorsement ratings, or normalized collective ratings (i.e., the difference between collective and distributive ratings) reveals similar patterns of results, owing to the high negative correlation between distributive and collective endorsement ratings ($r=-0.78$).} Fig.~\ref{sentence-coll} plots average collective endorsement ratings for each of the 40 most frequent sentences. Descriptively, we see a wide range of ratings, spanning from approximately 25\%  to 85\% endorsement; participants appear to be comfortable using the full scale. An important observation about the distribution of ratings in Fig.~\ref{sentence-coll} is its relatively smooth gradient: we fail to find clear groupings of predicates, such that they behave in one way or another with respect to collective interpretations. Stubbornly distributive \emph{small} indeed occurs toward the low end of collective endorsement ratings, but not markedly so.
 
@@ -398,7 +401,7 @@ Rates of collective endorsement differ by subject noun for one and the same pred
 If stubborn distributivity were a binary, predicate-level phenomenon hard-coded into the semantics of these predicates, we should find no effect of the subject noun in the determination of their distributive vs.~collective interpretations: stubbornly distributive predicates, regardless of their subject, should always be maximally distributive. But as \emph{small} in Fig.~\ref{noun-pred-coll} demonstrates, they are not. 
 %More importantly, the subject \emph{numbers} stands out in its relatively high rates of collective endorsement with the predicate \emph{small}. 
 A linear mixed effects model predicting collective endorsement rates by subject noun for \emph{small}, with random by-participant intercepts, finds that sentences with the subject \emph{numbers} received greater rates of collective endorsement than sentences with \emph{children} ($\beta=-0.15$, $SE=0.07$, $t=-2.24$, $p<0.05$), \emph{rooms} ($\beta=-0.19$, $SE=0.07$, $t=-2.73$, $p<0.01$), or \emph{classes} ($\beta=-0.27$, $SE=0.07$, $t=-3.87$, $p<0.01$).\footnote{We find the same pattern of results if instead we compare each subject noun with the grand mean (i.e., through effect, or deviation, coding of our variables): \emph{numbers} deviates significantly, while the other nouns do not.}
-\ndg{we should have some analysis of the other seven predicates -- maybe there is an overall test of whether noun matters? or do tests within predicates (add significance stars to the figure...).}\gcs{would it be better to only plot \emph{small} in fig.~\ref{noun-pred-coll}?}
+\ndg{we should have some analysis of the other seven predicates -- maybe there is an overall test of whether noun matters? or do tests within predicates (add significance stars to the figure...).}\gcs{would it be better to only plot \emph{small} in fig.~\ref{noun-pred-coll}?} We relied on the accidental occurrence of these in the corpus, in 2b we do this systematically.
 
 
 \begin{figure}[h!]
@@ -472,7 +475,7 @@ Finally, \emph{heavy}; here, \emph{bags} received the highest collective endorse
 
 \subsubsection{Discussion}
 
-%\ndg{to edit...}
+\ndg{to edit...}
 
 We have extended our paraphrase methodology beyond a simple reference task, using naturally-occurring examples of plural predications.
 % Our goals here were modest: to understand better the terrain of interpretation preferences for plural predications, without special attention to particular classes of predicates or subjects. Participants demonstrated full use of the paraphrase endorsement rating scales provided. Moreover, 
@@ -806,15 +809,17 @@ We have seen that the phenomenon of stubborn distributivity, whereby certain gra
 \section{Full mixed effects logistic regression models from Expt.~1}\label{expt1results}
 
 
-Table \ref{expt1analysis1} presents model coefficients for the full mixed logistic regression model used in the analysis of disambiguating paraphrases in Expt.~1. The model predicts collective referent choice from fixed effects for disambiguating utterance and trial, as well as random by-participant, by-predicate, and by-scenario intercepts. The model also includes random slopes for participants grouped by utterance. The fixed effects predictors were centered before analysis.
+Table \ref{expt1analysis1} presents model coefficients for the full mixed logistic regression model used in the analysis of disambiguating paraphrases in Expt.~1. The model predicts collective referent choice from fixed effects for disambiguating utterance and its interaction with predicate, together with trial order. The model includes random by-participant and by-scenario intercepts. The fixed effects predictors were centered before analysis.
 
 \begin{table}[h!] 
 	\centering \caption{Full logistic regression model from paraphrase analysis of Expt.~1.} \label{expt1analysis1}
 \begin{tabular}{lrrrr}\toprule
 	&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{z}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
-Intercept	&	-0.43	&	0.49	&	-0.88	&	0.38\\
-Utterance	&	5.50	&	0.94	&	5.87	&	\textbf{$<$0.01}\\
-Trial	&	0.07	&	0.08	&	0.81	&	0.42\\
+Intercept	&	-0.25	&	0.25	&	-0.97	&	0.33\\
+Utterance	&	4.99	&	0.82	&	6.08	&	\textbf{$<$0.01}\\
+Trial	&	0.07	&	0.07	&	1.00	&	0.32\\
+Utterance:Pred-heavy&	-1.39	&	0.91	&	-1.52	&	0.13\\
+Utterance:Pred-tall&	-0.63	&	0.95	&	-0.66	&	0.51\\
 \bottomrule
 \end{tabular}
 \end{table}

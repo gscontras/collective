@@ -74,6 +74,10 @@ a_sent_casted$coll_diff = (a_sent_casted$coll-a_sent_casted$dist)
 a_sent_casted <- na.omit(a_sent_casted)
 head(a_sent_casted)
 
+a_sent_corr = dcast(data=a, sentence ~ sentence_type, value.var="response",mean,na.rm=T)
+gof(a_sent_corr$coll,a_sent_corr$dist)# r=-.98,r2=0.96
+
+
 ### coll plots
 
 
@@ -123,3 +127,18 @@ d$predicate <- factor(d$predicate,levels=c("heavy","big","tall"))
 contrasts(d$predicate)
 m = lmer(coll~predicate+(1+predicate|workerid)+(1|noun),data=d)
 summary(m)
+
+## big waves vs. heavy men
+bw = big[big$noun=="waves",]
+hm = heavy[heavy$noun=="men",]
+bwhm = rbind(bw,hm)
+head(bwhm)
+aggregate(coll~predicate,data=bwhm,mean)
+bhm = lmer(coll~predicate+(1|workerid),data=bwhm)
+summary(bhm)
+
+tt = tall[tall$noun=="trees",]
+tthm = rbind(tt,hm)
+aggregate(coll~predicate,data=tthm,mean)
+thm = lmer(coll~predicate+(1|workerid),data=tthm)
+summary(thm)
