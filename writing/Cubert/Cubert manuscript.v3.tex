@@ -317,6 +317,7 @@ Results were coded in terms of whether participants chose the collective referen
 
 To evaluate the disambiguating potential of our paraphrases, we first look at responses to these paraphrases, excluding the bare utterance. Mean proportion of collective referent choice for collective paraphrases with \emph{together} was 85\% (i.e., near ceiling); for distributive paraphrases with \emph{each} this proportion was 10\% (i.e., near floor). We fit a mixed effects logistic regression model \citep{baayenetal2008} using the \emph{lme4} package \citep{batesetal2014} in \emph{R}, predicting referent choice by \textsc{utterance} (``each,'' ``together'') and its interaction with \textsc{predicate} (\emph{big}, \emph{heavy}, \emph{tall}; \emph{big} was coded as the reference level), as well as \textsc{trial} order.  The model included random intercepts for participants and scenarios (i.e., the maximal random effects structure supported by the data). The full regression model appears in Appendix \ref{expt1results}. The model finds a main effect of \textsc{utterance} ($\beta$ = 4.99, $SE$ = 0.82, $z$ = 6.08, p $<$ 0.001), confirming that collective \emph{together} yielded greater rates of collective referent choice than distributive \emph{each}; the interactions with \textsc{predicate} were not significant (\emph{heavy}: $\beta$ = -1.39, $SE$ = 0.91, $z$ = -1.52, p $=$ 0.13; \emph{tall}: $\beta$ = -0.63, $SE$ = 0.95, $z$ = -0.66, p $=$ 0.51). The effect of \textsc{trial} was also not significant ($\beta$ = 0.07, $SE$ = 0.07, $z$ = 1.00, p $=$ 0.32). Thus, the ``together'' utterances yielded collective referent choices, and the ``each'' utterances did not, for each of the three predicates.
 %\ndg{should we have predicate be a predictor here so that we can report (whether) the predicate didn't affect choice for the fully dissambiguated phrases?}\gcs{if we have predicate interact with utterance, the interaction is not significant. include?}
+\gcs{changed around analysis to include interactions with predicate as predictors}
 
 To evaluate the behavior of the predicates in the absence of the disambiguating particles, together with the effect of our scenario manipulation, we next consider responses to the bare, potentially ambiguous utterance. We fit a mixed effects logistic regression model predicting referent choice by \textsc{predicate} (\emph{big}, \emph{heavy}, \emph{tall}), \textsc{scenario} (``move,'' ``inspect''), and \textsc{trial} order. We dummy coded the \textsc{predicate} predictor, with \emph{big} as the reference level. The model included random intercepts and slopes for participants (grouped by \textsc{trial}; the maximal random effects structure supported by the data). The full regression model appears in Appendix \ref{expt1results}. The model finds main effects of \textsc{predicate} for both the \emph{heavy} ($\beta$ = 3.05, $SE$ = 1.23, $z$ = 2.48, p $<$ 0.05) and the \emph{tall} ($\beta$ = 3.63, $SE$ = 1.29, $z$ = 2.82, p $<$ 0.01) contrasts. Compared to \emph{big}, the other predicates yielded greater rates of collective referent choice in ``bare'' utterances. While the effect of \textsc{scenario} did not reach significance, we note the trend in Fig.~\ref{results2} whereby ``move'' scenarios tended to have higher rates of collective referent choice for bare \emph{heavy} utterances (34\% ``move'' vs.~14\% ``inspect''); a post-hoc test of this difference approaches significance ($t$ = -1.70, \emph{df} = 47.96, $p$ = 0.096).
 
@@ -394,15 +395,17 @@ We begin with a look at the range of collective endorsement ratings.\footnote{A 
 	\caption{Collective paraphrase endorsement rates for different noun-predicate combinations in Expt.~2a (i.e., for different sentences).} \label{sentence-coll}
 \end{figure}
 
-There are 8 predicates that occur with different subject nouns in our small corpus; we plot their average collective endorsement ratings in Fig.~\ref{noun-pred-coll}.
+\gcs{is the following any better?}
+There are 8 predicates that occur with different nouns in our small corpus; we plot their average collective endorsement ratings in Fig.~\ref{noun-pred-coll}.
 %
 %
-Rates of collective endorsement differ by subject noun for one and the same predicate. We draw the reader's attention to the case of stubbornly distributive \emph{small} (bottom right). 
-If stubborn distributivity were a binary, predicate-level phenomenon hard-coded into the semantics of these predicates, we should find no effect of the subject noun in the determination of their distributive vs.~collective interpretations: stubbornly distributive predicates, regardless of their subject, should always be maximally distributive. But as \emph{small} in Fig.~\ref{noun-pred-coll} demonstrates, they are not. 
+For at least 3 out of these 8 predicates, rates of collective endorsement differ significantly by subject noun (\emph{bright}, \emph{closed}, \emph{small}; see Appendix \ref{2-stats} for details). We draw the reader's attention to the case of stubbornly distributive \emph{small} (bottom right of Fig.~\ref{noun-pred-coll}). 
+If stubborn distributivity were a binary, predicate-level phenomenon hard-coded into the semantics, we should find no effect of the subject noun in the determination of \emph{smalls}'s distributive vs.~collective interpretations: stubbornly distributive predicates, regardless of their subject, should always be maximally distributive. But this is not the case for \emph{small} in Fig.~\ref{noun-pred-coll}. 
 %More importantly, the subject \emph{numbers} stands out in its relatively high rates of collective endorsement with the predicate \emph{small}. 
 A linear mixed effects model predicting collective endorsement rates by subject noun for \emph{small}, with random by-participant intercepts, finds that sentences with the subject \emph{numbers} received greater rates of collective endorsement than sentences with \emph{children} ($\beta=-0.15$, $SE=0.07$, $t=-2.24$, $p<0.05$), \emph{rooms} ($\beta=-0.19$, $SE=0.07$, $t=-2.73$, $p<0.01$), or \emph{classes} ($\beta=-0.27$, $SE=0.07$, $t=-3.87$, $p<0.01$).\footnote{We find the same pattern of results if instead we compare each subject noun with the grand mean (i.e., through effect, or deviation, coding of our variables): \emph{numbers} deviates significantly, while the other nouns do not.}
-\ndg{we should have some analysis of the other seven predicates -- maybe there is an overall test of whether noun matters? or do tests within predicates (add significance stars to the figure...).}\gcs{would it be better to only plot \emph{small} in fig.~\ref{noun-pred-coll}?} We relied on the accidental occurrence of these in the corpus, in 2b we do this systematically.
+%\ndg{we should have some analysis of the other seven predicates -- maybe there is an overall test of whether noun matters? or do tests within predicates (add significance stars to the figure...).}\gcs{would it be better to only plot \emph{small} in fig.~\ref{noun-pred-coll}?} 
 
+Here we rely on the accidental occurrence of multiple subject nouns in our small corpora to test the effects of local linguistic context. In Expt.~2b, we follow up on the current results by systematically testing the effect of subject nouns on a narrower set of predicates.
 
 \begin{figure}[h!]
 	\centering
@@ -411,7 +414,6 @@ A linear mixed effects model predicting collective endorsement rates by subject 
 	\caption{Collective paraphrase endorsement rates for different subject nouns grouped by predicate (Expt.~2a).} \label{noun-pred-coll}
 \end{figure}
 
-%\subsubsection{Discussion}
 
 \subsection{Experiment 2b: \emph{big}, \emph{heavy}, \emph{tall}}
 
@@ -467,7 +469,7 @@ To compare the predicates with each other, we fit a linear mixed effects model p
 
 %\ndg{it's not clear to me that the ensuing are the most useful analyses to do... we want to know how judgements vary by noun. it is relevant to know if any nouns differ within predicate, and also whether the ranges of the predicates overlap....}
 
-Next, we compare the behavior of the subject nouns within each predicate. Starting with \emph{tall}, we fit a linear mixed effects model predicting collective endorsement by subject noun, with random intercepts for participants and nouns, and random slopes for participants. The subject noun predictor was dummy coded with \emph{trees} as the reference level (i.e., the subject with the highest average collective endorsement rating). Compared to \emph{trees}, we do not find an effect of the contrast with \emph{plants} ($\beta=0.00$, $SE=0.06$, $t=-0.07$, $p=0.95$), \emph{offspring} ($\beta=-0.03$, $SE=0.06$, $t=-0.55$, $p=0.59$), \emph{buildings} ($\beta=-0.06$, $SE=0.06$, $t=-1.00$, $p=0.32$), or \emph{windows} ($\beta=-0.09$, $SE=0.06$, $t=-1.52$, $p=0.13$). In other words, \emph{tall}'s subjects behave similarly in their general resistance to collective interpretation. 
+Next, we compare the behavior of the subject nouns within each predicate.  Starting with \emph{tall}, we fit a linear mixed effects model predicting collective endorsement by subject noun, with random intercepts for participants and nouns, and random slopes for participants; full regression models appear in Appendix \ref{2-stats}. The subject noun predictor was dummy coded with \emph{trees} as the reference level (i.e., the subject with the highest average collective endorsement rating). Compared to \emph{trees}, we do not find an effect of the contrast with \emph{plants} ($\beta=0.00$, $SE=0.06$, $t=-0.07$, $p=0.95$), \emph{offspring} ($\beta=-0.03$, $SE=0.06$, $t=-0.55$, $p=0.59$), \emph{buildings} ($\beta=-0.06$, $SE=0.06$, $t=-1.00$, $p=0.32$), or \emph{windows} ($\beta=-0.09$, $SE=0.06$, $t=-1.52$, $p=0.13$). In other words, \emph{tall}'s subjects behave similarly in their general resistance to collective interpretation. 
 
 Turning to \emph{big}, we performed a similar analysis, this time dummy coding \emph{waves} (the subject with the greatest average collective endorsement rating) as the reference level. There were significant effects of each contrast: \emph{rooms} ($\beta=-0.18$, $SE=0.06$, $t=-2.97$, $p<0.01$), \emph{boys} ($\beta=-0.22$, $SE=0.06$, $t=-3.53$, $p<0.01$), \emph{children} ($\beta=-0.21$, $SE=0.06$, $t=-3.54$, $p<0.01$), and \emph{houses} ($\beta=-0.23$, $SE=0.06$, $t=-3.68$, $p<0.01$); \emph{waves} stands out in its relatively high levels of collective endorsement with \emph{big}.
 
@@ -811,7 +813,7 @@ We have seen that the phenomenon of stubborn distributivity, whereby certain gra
 
 Table \ref{expt1analysis1} presents model coefficients for the full mixed logistic regression model used in the analysis of disambiguating paraphrases in Expt.~1. The model predicts collective referent choice from fixed effects for disambiguating utterance and its interaction with predicate, together with trial order. The model includes random by-participant and by-scenario intercepts. The fixed effects predictors were centered before analysis.
 
-\begin{table}[h!] 
+\begin{table}[htb] 
 	\centering \caption{Full logistic regression model from paraphrase analysis of Expt.~1.} \label{expt1analysis1}
 \begin{tabular}{lrrrr}\toprule
 	&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{z}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
@@ -827,7 +829,7 @@ Utterance:Pred-tall&	-0.63	&	0.95	&	-0.66	&	0.51\\
 Table \ref{expt1analysis2} presents model coefficients for the full mixed logistic regression model used in the analysis of bare utterances in Expt.~1. The model predicts collective referent choice from fixed effects for predicate, scenario, and trial, as well as random by-participant intercepts and slopes grouped by trial. Fixed effects predictors were centered before analysis.
 
 
-\begin{table}[h!] 
+\begin{table}[htb] 
 	\centering \caption{Full logistic regression model from bare utterance analysis of Expt.~1.} \label{expt1analysis2}
 	\begin{tabular}{lrrrr}\toprule
 		&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{z}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
@@ -840,12 +842,82 @@ Table \ref{expt1analysis2} presents model coefficients for the full mixed logist
 \end{table}
  
 
+\section{Full mixed effects linear regression models from Expt.~2}\label{2-stats}
+
+Table \ref{expt2aanalysis} presents model coefficients for the full mixed linear regression models used in the analyses of the 8 predicates occurring with more than one subject noun in Expt.~2a. The model predicts collective endorsement ratings from fixed effects for subject noun, as well as random by-participant intercepts. In each case, the subject noun with the highest mean collective endorsement rating served as the reference level.
+
+\begin{table}[htb] 
+	\centering \caption{Full linear regression models from analysis of Expt.~2a.} \label{expt2aanalysis}
+\begin{tabular}{lrrrr}\toprule
+	&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
+\emph{\textbf{bright}} \\
+Intercept	& 	0.75 &	0.07	&	11.46	&	\textbf{$<$0.01} \\
+Noun-colors	&	-0.19	&   0.08	&	-2.26	&	\textbf{$<$0.05} \\ \hline
+\emph{\textbf{closed}}\\
+Intercept	& 	0.60	&	0.07	&	8.61	&	\textbf{$<$0.01} \\
+Noun-shops	&	-0.16	&   0.09	&	-1.87	&	0.07 \\ \hline
+\emph{\textbf{friendly}}\\
+Intercept	& 	0.73	&	0.05	&	13.41	&	\textbf{$<$0.01} \\
+Noun-people	&	-0.05	&   0.06	&	-0.93	&	0.37 \\\hline
+\emph{\textbf{full}}\\
+Intercept	& 	0.68	&	0.06	&	11.53	&	\textbf{$<$0.01} \\
+Noun-papers	&	-0.11	&   0.10	&	-1.19	&	0.24 \\
+Noun-pubs	&	-0.23	&   0.08	&	-2.91	&	\textbf{$<$0.01} \\\hline
+\emph{\textbf{guilty}}\\
+Intercept	& 	0.68	&	0.05	&	12.51	&	\textbf{$<$0.01} \\
+Noun-men	&	-0.02	&   0.08	&	-0.21	&	0.84 \\\hline
+\emph{\textbf{open}}\\
+Intercept	& 	0.65	&	0.07	&	9.73	&	\textbf{$<$0.01} \\
+Noun-gates	&	0.01	&   0.09	&	0.08	&	0.94 \\
+Noun-doors	&	-0.03	&   0.08	&	-0.40	&	0.69 \\
+Noun-curtains	&	0.00	&   0.09	&	-0.03	&	0.98 \\
+Noun-pubs	&	-0.11	&   0.09 	&	-1.29	&	0.20 \\
+Noun-windows	&	-0.15	&   0.08	&	-1.77	&	0.08 \\\hline
+\emph{\textbf{quiet}}\\
+Intercept	& 	0.71	&	0.07	&	10.72	&	\textbf{$<$0.01} \\
+Noun-streets	&	-0.06	&   0.09	&	-0.65	&	0.52 \\\hline
+\emph{\textbf{small}}\\
+Intercept	& 	0.57	&	0.06	&	9.65	&	\textbf{$<$0.01} \\
+Noun-children	&	-0.16	&   0.07	&	-2.34	&	\textbf{$<$0.05} \\
+Noun-rooms	&	-0.20	&   0.07	&	-2.78	&	\textbf{$<$0.01} \\
+Noun-classes	&	-0.28	&   0.07	&	-3.88	&	\textbf{$<$0.01} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table \ref{expt2banalysis} presents model coefficients for the full mixed linear regression models used in the analyses of subject nouns for the predicates \emph{big}, \emph{heavy}, and \emph{tall} in Expt.~2b. The model predicts collective endorsement ratings from fixed effects for subject noun, as well as random by-participant intercepts. In each case, the subject noun with the highest mean collective endorsement rating served as the reference level.
+
+\begin{table}[htb] 
+	\centering \caption{Full linear regression models from subject noun analysis of Expt.~2b.} \label{expt2banalysis}
+\begin{tabular}{lrrrr}\toprule
+	&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
+\emph{\textbf{big}} \\
+Intercept	& 	0.42 &	0.06	&	6.73	&	\textbf{$<$0.01} \\
+Noun-rooms	&	-0.18	&   0.06	&	-2.96&	\textbf{$<$0.01} \\
+Noun-boys	&	-0.22&   0.06	&	-3.53	&	\textbf{$<$0.01} \\
+Noun-children	&	-0.21	&   0.06	&	-3.54	&	\textbf{$<$0.01} \\
+Noun-houses	&	-0.23	&   0.06	&	-3.68	&	\textbf{$<$0.01} \\ \hline
+\emph{\textbf{heavy}}\\
+Intercept		& 	0.63	&   0.07	&	9.63	&	\textbf{$<$0.01} \\
+Noun-lids		&	-0.08	&   0.08	&	-1.04	&	0.30\\
+Noun-trees	&	-0.15	&   0.08	&	-1.93	&	0.06 \\
+Noun-loads	&	-0.24	&   0.08	&	-3.15	&	\textbf{$<$0.01} \\
+Noun-men		&	-0.25	&   0.08	&	-3.36	&	\textbf{$<$0.01} \\ \hline
+\emph{\textbf{tall}}\\
+Intercept		& 	0.30	&	0.06	&	4.65	&	\textbf{$<$0.01} \\
+Noun-plants	&	0.00	&   0.06	&	-0.07	&	0.95 \\
+Noun-offspring	&	-0.03	&   0.06	&	-0.55	&	0.59 \\
+Noun-buildings	&	-0.06	&   0.06	&	-1.00	&	0.32 \\
+Noun-windows	&	-0.09	&   0.06	&	-1.52	&	0.13 \\\hline
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Full mixed effects linear regression model from Expt.~3}\label{expt2results}
 
 The following table presents model coefficients for the full mixed linear regression model used in the analysis of Expt.~3. The model predicts collective endorsement ratings from fixed effects for context, predicate, scenario, and trial, as well as random by-participant intercepts and slopes grouped by trial. The fixed effects predictors were centered before analysis.
 
-\begin{table}[h!] 
+\begin{table}[htb] 
 	\centering \caption{Full linear regression model from analysis of Expt.~3.} \label{expt2analysis}
 \begin{tabular}{lrrrr}\toprule
 	&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule

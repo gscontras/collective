@@ -96,7 +96,7 @@ all_plot <- ggplot(all_s, aes(x=reorder(noun,coll,mean),y=coll)) +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
   facet_wrap(~predicate,ncol=3,scale="free_x")
 all_plot
-ggsave("results/bht_plot2.pdf",width=6,height=2.7)
+#ggsave("results/bht_plot2.pdf",width=6,height=2.7)
 
 ##test
 
@@ -117,11 +117,30 @@ aggregate(coll~noun,data=tall,mean)
 
 b = lmer(coll~noun+(1|workerid),data=big)
 summary(b)
+#Estimate Std. Error       df t value Pr(>|t|)    
+#(Intercept)   0.41962    0.06234 58.78000   6.731 7.84e-09 ***
+#  nounrooms    -0.18000    0.06065 97.99000  -2.968 0.003766 ** 
+#  nounboys     -0.21677    0.06140 98.26000  -3.530 0.000634 ***
+#  nounchildren -0.21462    0.06065 97.99000  -3.539 0.000616 ***
+#  nounhouses   -0.22597    0.06140 98.26000  -3.680 0.000381 ***
 h = lmer(coll~noun+(1|workerid),data=heavy)
 summary(h)
+#Estimate Std. Error       df t value Pr(>|t|)    
+#(Intercept)  0.63000    0.06543 83.66000   9.629 3.33e-15 ***
+#  nounlids    -0.08001    0.07670 94.34000  -1.043  0.29955    
+#nountrees   -0.15205    0.07868 95.10000  -1.933  0.05626 .  
+#nounloads   -0.24153    0.07673 94.47000  -3.148  0.00220 ** 
+#  nounmen     -0.25462    0.07582 94.03000  -3.358  0.00113 ** 
 t = lmer(coll~noun+(1|workerid),data=tall)
 summary(t)
+#Estimate Std. Error        df t value Pr(>|t|)    
+#(Intercept)    0.301538   0.064802 50.680000   4.653 2.38e-05 ***
+#  nounplants    -0.003846   0.057850 96.070000  -0.066    0.947    
+#nounoffspring -0.032781   0.060098 96.470000  -0.545    0.587    
+#nounbuildings -0.058077   0.057850 96.070000  -1.004    0.318    
+#nounwindows   -0.088686   0.058548 96.200000  -1.515    0.133   
 
+# pred comparison
 d <- a_sent_casted
 d$predicate <- factor(d$predicate,levels=c("heavy","big","tall"))
 contrasts(d$predicate)

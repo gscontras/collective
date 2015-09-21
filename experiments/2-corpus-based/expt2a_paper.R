@@ -34,13 +34,6 @@ s_agg = aggregate(madesense~attested+workerid,data=d,mean)
 head(s_agg)
 aggregate(madesense~attested,data=s_agg,mean)
 
-c = dcast(data=d, predicate + noun + workerid ~ sentence_type, value.var="response",mean,na.rm=T)
-
-gof(c$coll,c$dist)
-
-ggplot(c, aes(x=dist,y=coll)) +
-  geom_point()
-
 # trim to just those sentences that make sense
 
 d = d[!is.na(d$sense)&d$sense=="Yes",]
@@ -67,38 +60,13 @@ a_sent_casted <- na.omit(a_sent_casted)
 
 ggplot(a_sent_corr, aes(x=dist,y=coll)) +
   geom_point()+
-  geom_smooth()
+  geom_smooth(method=lm)
 
-
-#small analysis
-
-small = a_sent_casted[a_sent_casted$predicate=="small",]
-head(small)
-small$noun <- factor(small$noun,levels=c("numbers","children","rooms","classes"))
-contrasts(small$noun) <- 'contr.sum'
-sm = lmer(coll~noun+(1|workerid),data=small)
-summary(sm)
-
-# noun plot
-
-noun_s = bootsSummary(data=a_sent_casted, measurevar="coll", groupvars=c("noun","animate"))
-noun_s$noun <- factor(noun_s$noun,ordered=is.ordered(noun_s$noun))
-noun_plot <- ggplot(noun_s, aes(x=reorder(noun,coll,mean),y=coll)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,coll,mean), width=0.1),position=position_dodge(width=0.9))+
-  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("collective endorsement\n") +
-  xlab("\nsubject noun")+
-  ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-noun_plot
-
-ggsave('results/noun_plot.pdf',width=6.3,height=3)
 
 # sentence plot
 
 sentence_s = bootsSummary(data=a_sent_casted, measurevar="coll", groupvars=c("sentence","animate"))
-sentence_s$sentence <- factor(sentencen_s$sentence,ordered=is.ordered(sentence_s$sentence))
+sentence_s$sentence <- factor(sentence_s$sentence,ordered=is.ordered(sentence_s$sentence))
 sentence_plot <- ggplot(sentence_s, aes(x=reorder(sentence,coll,mean),y=coll)) +
   geom_bar(stat="identity",position=position_dodge()) +
   geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(sentence,coll,mean), width=0.1),position=position_dodge(width=0.9))+
@@ -109,26 +77,7 @@ sentence_plot <- ggplot(sentence_s, aes(x=reorder(sentence,coll,mean),y=coll)) +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1,size=7))
 sentence_plot
 
-ggsave('results/sentence_plot2.pdf',width=6.3,height=3.5)
-
-
-
-# noun by pred plot
-
-pred_s = bootsSummary(data=a_sent_casted, measurevar="coll", groupvars=c("noun","predicate"))
-pred_s$noun <- factor(pred_s$noun,ordered=is.ordered(pred_s$noun))
-pred_plot <- ggplot(pred_s, aes(x=reorder(noun,-coll,mean),y=coll)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,response,is.ordered=T), width=0.1),position=position_dodge(width=0.9))+
-  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
-  ylab("collective endorsement") +
-  xlab("")+
-  ylim(0,1) +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1)) +
-  facet_wrap(~predicate,scales="free_x")
-pred_plot
-
-ggsave('results/pred_plot.pdf',width=6,height=6.5)
+#ggsave('results/sentence_plot2.pdf',width=6.3,height=3.5)
 
 ## just predicates with multiple nouns
 
@@ -158,8 +107,87 @@ n_pred_plot
 ggsave('results/noun_pred_plot2.pdf',width=5.9,height=4)
 
 
+#small analysis
 
+small = a_sent_casted[a_sent_casted$predicate=="small",]
+head(small)
+small$noun <- factor(small$noun,levels=c("numbers","children","rooms","classes"))
+#contrasts(small$noun) <- 'contr.sum'
+sm = lmer(coll~noun+(1|workerid),data=small)
+summary(sm)
+#Estimate Std. Error        df t value Pr(>|t|)    
+#(Intercept)    0.57190    0.05925 135.84000   9.652  < 2e-16 ***
+#  nounchildren  -0.16202    0.06918  96.86000  -2.342  0.02123 *  
+#  nounrooms     -0.19773    0.07103  94.99000  -2.784  0.00648 ** 
+#  nounclasses   -0.28333    0.07310  91.23000  -3.876  0.00020 ***
 
+# bright
+bright = p_n[p_n$predicate=="bright",]
+bright$noun <- factor(bright$noun,levels=c("eyes","colors"))
+bm = lmer(coll~noun+(1|workerid),data=bright)
+summary(bm)
+#            Estimate Std. Error       df t value Pr(>|t|)    
+#(Intercept)  0.75407    0.06582 56.77000  11.457 2.22e-16 ***
+#  nouncolors  -0.18599    0.08240 41.84000  -2.257   0.0293 *  
+
+# closed
+closed = p_n[p_n$predicate=="closed",]
+closed$noun <- factor(closed$noun,levels=c("doors","shops"))
+cm = lmer(coll~noun+(1|workerid),data=closed)
+summary(cm)
+#Estimate Std. Error       df t value Pr(>|t|)    
+#(Intercept)  0.59518    0.06910 60.04000   8.613 4.41e-12 ***
+#  nounshops   -0.16046    0.08571 36.09000  -1.872   0.0693 .   
+
+# friendly
+friendly = p_n[p_n$predicate=="friendly",]
+friendly$noun <- factor(friendly$noun,levels=c("natives","people"))
+fm = lmer(coll~noun+(1|workerid),data=friendly)
+summary(fm)
+#Estimate Std. Error       df t value Pr(>|t|)    
+#(Intercept)  0.73277    0.05463 45.17000  13.412   <2e-16 ***
+#  nounpeople  -0.05181    0.05563 11.27000  -0.931    0.371    
+
+# full
+full = p_n[p_n$predicate=="full",]
+full$noun <- factor(full$noun,levels=c("streets","papers","pubs"))
+fum = lmer(coll~noun+(1|workerid),data=full)
+summary(fum)
+#Estimate Std. Error       df t value Pr(>|t|)    
+#(Intercept)  0.68004    0.05897 72.96000  11.533   <2e-16 ***
+#  nounpapers  -0.11367    0.09581 39.52000  -1.186   0.2425    
+#nounpubs    -0.23446    0.08065 53.36000  -2.907   0.0053 ** 
+
+# guilty
+guilty = p_n[p_n$predicate=="guilty",]
+guilty$noun <- factor(guilty$noun,levels=c("defendants","men"))
+gm = lmer(coll~noun+(1|workerid),data=guilty)
+summary(gm)
+#Estimate Std. Error       df t value Pr(>|t|)    
+#(Intercept)  0.67682    0.05411 52.87000  12.508   <2e-16 ***
+#  nounmen     -0.01641    0.08024 27.69000  -0.205    0.839    
+
+# open
+open = p_n[p_n$predicate=="open",]
+open$noun <- factor(open$noun,levels=c("eyes","gates","doors","curtains","pubs","windows"))
+om = lmer(coll~noun+(1|workerid),data=open)
+summary(om)
+#Estimate Std. Error         df t value Pr(>|t|)    
+#(Intercept)    0.645859   0.066373 173.590000   9.731   <2e-16 ***
+#  noungates      0.006575   0.085160 134.750000   0.077   0.9386    
+#noundoors     -0.032949   0.082482 128.930000  -0.399   0.6902    
+#nouncurtains  -0.002674   0.085480 135.970000  -0.031   0.9751    
+#nounpubs      -0.113868   0.088188 137.830000  -1.291   0.1988    
+#nounwindows   -0.146230   0.082504 135.220000  -1.772   0.0786 .  
+
+# quiet
+quiet = p_n[p_n$predicate=="quiet",]
+quiet$noun <- factor(quiet$noun,levels=c("dogs","streets"))
+qm = lmer(coll~noun+(1|workerid),data=quiet)
+summary(qm)
+#Estimate Std. Error       df t value Pr(>|t|)    
+#(Intercept)  0.70667    0.06593 58.00000  10.718 2.22e-15 ***
+#  nounstreets -0.05788    0.08891 58.00000  -0.651    0.518   
 
 
 ## Attested sentence collectivity ranking
