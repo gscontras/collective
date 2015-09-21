@@ -65,6 +65,7 @@
 
 \definecolor{Green}{RGB}{10,200,100}
 \newcommand{\ndg}[1]{\textcolor{Green}{[ndg: #1]}}  
+\newcommand{\gcs}[1]{\textcolor{blue}{[gcs: #1]}}  
 
 
 
@@ -274,9 +275,9 @@ One way to access interpretations of potentially ambiguous plural predications i
 \a.\label{each} The boxes \textbf{each} were big/heavy/tall.
 \b.\label{together} The boxes \textbf{together} were big/heavy/tall.
 
-Although many theorists assume the success of these disambiguating particles \citep[e.g.,][]{schwarzschild1994}, diligence is due: we must establish that these are in fact unambiguous paraphrases in the context of our experimental paradigm. We do so by asking participants to choose between two collections as the referent of each phrase \ref{bare}, \ref{each}, and \ref{together}; the objects in one collection had the property individually (but not collectively), while the other collection had the property (but the individuals in it did not).
-We expect the two disambiguated phrases to lead to robust selection of the corresponding collection, while selections for the ambiguous phrase will indicate preferences for its interpretation.
-In addition we begin to explore the role of context by manipulating the plausible knowledge of the speaker: whether he is likely to have access to the relevant information about each object, or only about the collection.
+Although many theorists assume the success of these disambiguating particles \citep[e.g.,][]{schwarzschild1994}, diligence is due: we must establish that these are in fact unambiguous paraphrases in the context of our experimental paradigm. We do so by asking participants to choose between two collections of boxes as the referent of each definite description in \ref{bare}, \ref{each}, and \ref{together}; the objects in one collection held the property individually (but not collectively), while the other collection held the property (but the individuals in it did not).
+We expect the two disambiguated sentences to lead to robust selection of the corresponding collection, while selections for the ambiguous sentence will indicate preferences for its interpretation.
+In addition, we begin to explore the role of context by manipulating the plausible knowledge of the speaker: whether he is likely to have access to the relevant information about each object, or only about the collection.
 
 \subsection{Participants}
 
@@ -285,7 +286,7 @@ We recruited 50 participants through Amazon.com's Mechanical Turk crowd-sourcing
 
 \subsection{Design and methods}
 
-Participants were introduced to Cubert, a worker in a box factory. Between participants, the context scenario either had Cubert ``move'' or ``inspect'' the boxes that he received from a dispenser. In ``move'' scenarios, Cubert appeared with a cart positioned under the dispenser (Fig.~\ref{expt1context}, left); in ``inspect'' scenarios, there was no cart (Fig.~\ref{expt1context}, right). Participants were told that after moving/inspecting a shipment of boxes, Cubert told his friend Dot about the boxes he moved/inspected. Their task was to help Dot decide which boxes Cubert was referring to with his utterance. Participants chose between two sets of boxes, one that implied a collective interpretation of the utterance (five small boxes, Fig.\ \ref{expt1trial}, left) and one that implied a distributive interpretation (two large boxes which were together smaller than the five, Fig.\ \ref{expt1trial}, right).
+Participants were introduced to Cubert, a worker in a box factory. Between participants, the context scenario either had Cubert ``move'' or ``inspect'' the boxes that he received from a dispenser. In ``move'' scenarios, Cubert appeared with a cart positioned under the dispenser (Fig.~\ref{expt1context}, left); in ``inspect'' scenarios, there was no cart (Fig.~\ref{expt1context}, right). Participants were told that after moving/inspecting a shipment of boxes, Cubert told his friend Dot about the boxes he moved/inspected. Their task was to help Dot decide which boxes Cubert was referring to with his utterance. Participants chose between two sets of boxes, one that implied a collective interpretation of the utterance (five small boxes, Fig.\ \ref{expt1trial}, left) and one that implied a distributive interpretation (two large boxes which were together smaller than the five small boxes, Fig.\ \ref{expt1trial}, right).
 
 \begin{figure}[h]
 	\centering
@@ -308,14 +309,14 @@ If \emph{each} and \emph{together} are clear disambiguators for plural predicati
 
 For the potentially ambiguous bare utterances, stubbornly distributive \emph{big} ought to always prefer distributive referents, while complaisantly collective \emph{heavy} should be split. If predicates of size and shape are always stubbornly distributivity, \emph{tall} should pattern with \emph{big}. Given that size and height are visually assessable properties, the scenario manipulation should have no effect on Cubert's epistemic state, and therefore no effect on the resulting interpretations for bare \emph{big} and \emph{tall}. 
 %For complaisantly collective \emph{heavy}, we should find higher rates of collective referent choice for the bare utterance. 
-However, given that Cubert would need to lift individual boxes to assess their individual weight we should find an effect of scenario for \emph{heavy}: moving all of the boxes (as opposed to inspecting each box) would yield higher rates of collective referent choice; without lifting each box, Cubert would lack the knowledge needed to be justified in using a distributive interpretation.
+However, given that Cubert would need to lift individual boxes to assess their individual weight, we should find an effect of scenario for \emph{heavy}: moving all of the boxes (as opposed to inspecting each box) would yield higher rates of collective referent choice; without lifting each box, Cubert would lack the knowledge needed to be justified in using a distributive interpretation.
 
 \subsection{Results}
 
 Results were coded in terms of whether participants chose the collective referent, and therefore the collective interpretation for Cubert's statement to Dot. Fig.\ \ref{results2} displays the proportion of collective choices, with bootstrapped 95\% confidence intervals drawn from 10,000 samples of the data \citep{diciccioefron1996}; a value of 1 indicates that participants chose the collective referent 100\% of the time.
 
 To evaluate the disambiguating potential of our paraphrases, we first look at responses to these paraphrases, excluding the bare utterance. Mean proportion of collective referent choice for collective paraphrases with \emph{together} was 85\% (i.e., near ceiling); for distributive paraphrases with \emph{each} this proportion was 10\% (i.e., near floor). We fit a mixed effects logistic regression model \citep{baayenetal2008} using the \emph{lme4} package \citep{batesetal2014} in \emph{R}, predicting referent choice by \textsc{utterance} (``each,'' ``together''), as well as \textsc{trial} order.  The model included random intercepts for participants, predicates, and scenarios, as well as random slopes for participants grouped by \textsc{utterance} (i.e., the maximal random effects structure supported by the data). The full regression model appears in Appendix \ref{expt1results}. The model finds a main effect of \textsc{utterance} ($\beta$ = 5.50, $SE$ = 0.94, $z$ = 5.87, p $<$ 0.001) such that collective \emph{together} yielded greater rates of collective referent choice than distributive \emph{each}; the effect of \textsc{trial} was not significant ($\beta$ = 0.06, $SE$ = 0.08, $z$ = 0.81, p $=$ 0.42). Thus, the ``together'' utterances yielded collective referent choices, and the ``each'' utterances did not.
-\ndg{should we have predicate be a predictor here so that we can report (whether) the predicate didn't affect choice for the fully dissambiguated phrases?}
+\ndg{should we have predicate be a predictor here so that we can report (whether) the predicate didn't affect choice for the fully dissambiguated phrases?}\gcs{if we have predicate interact with utterance, the interaction is not significant. include?}
 
 To evaluate the behavior of the predicates in the absence of the disambiguating particles, together with the effect of our scenario manipulation, we next consider responses to the bare, potentially ambiguous utterance. We fit a mixed effects logistic regression model predicting referent choice by \textsc{predicate} (\emph{big}, \emph{heavy}, \emph{tall}), \textsc{scenario} (``move,'' ``inspect''), and \textsc{trial} order. We dummy coded the \textsc{predicate} predictor, with \emph{big} as the reference level. The model included random intercepts and slopes for participants (grouped by \textsc{trial}; the maximal random effects structure supported by the data). The full regression model appears in Appendix \ref{expt1results}. The model finds main effects of \textsc{predicate} for both the \emph{heavy} ($\beta$ = 3.05, $SE$ = 1.23, $z$ = 2.48, p $<$ 0.05) and the \emph{tall} ($\beta$ = 3.63, $SE$ = 1.29, $z$ = 2.82, p $<$ 0.01) contrasts. Compared to \emph{big}, the other predicates yielded greater rates of collective referent choice in ``bare'' utterances. While the effect of \textsc{scenario} did not reach significance, we note the trend in Fig.~\ref{results2} whereby ``move'' scenarios tended to have higher rates of collective referent choice for bare \emph{heavy} utterances (34\% ``move'' vs.~14\% ``inspect''); a post-hoc test of this difference approaches significance ($t$ = -1.70, \emph{df} = 47.96, $p$ = 0.096).
 
@@ -334,7 +335,7 @@ The disambiguating paraphrases behave as expected: \emph{each} delivers a distri
 
 As discussed above, one candidate factor is the contextual predictability of the collective property: how easy it is for speakers and listeners to arrive at the same collective property for a given set of objects. We have seen that collective weight is a stable property of sets, which stands to explain the complaisance of \emph{heavy} toward collective interpretations. In the context of the current experiment, collective height is also predictable: boxes  always appeared stacked one on top of the other, yielding stable total set heights. Collective size, however, could vary depending on the strategy used to evaluate it (height? width? area? volume?) as well as on the arrangement of the objects said to hold it, thus accounting for the lack of collective interpretations for bare \emph{big}. In Expt.~3, we use the paraphrase methodology to directly investigate the role of contextual predictability in plural predication.
 
-The results of the current experiment do not rule out a role of speaker knowledge in plural predication: based solely on whether the context scenario had Cubert move vs.~inspect the boxes he received, we see a trend whereby bare \emph{heavy} received more or less collective interpretations, respectively. The absence of the effect for \emph{big} and \emph{tall} suggests an explanation in terms of the epistemic state of the speaker: in ``move'' scenarios, the speaker is less likely to have access to individual box weights; the listener is therefore less likely to assume that the speaker, Cubert, intended a distributive interpretation for which he lacks evidence. We attempt to confirm this effect with a similar scenario manipulation in Expt.~3.
+The results of the current experiment do not rule out the influence of speaker knowledge in plural predication: based solely on whether the context scenario had Cubert move vs.~inspect the boxes he received, we see a trend whereby bare \emph{heavy} received more or less collective interpretations, respectively. The absence of the effect for \emph{big} and \emph{tall} suggests an explanation in terms of the epistemic state of the speaker: in ``move'' scenarios, the speaker is less likely to have access to individual box weights; the listener is therefore less likely to assume that the speaker, Cubert, intended a distributive interpretation for which he lacks evidence. We attempt to confirm this effect with a similar scenario manipulation in Expt.~3.
 
 But before we manipulate contextual predictability and speaker knowledge directly, we extend the paraphrase methodology in Expt.~2 to naturally-occurring examples of plural predication, investigating the role of the local linguistic context.
 
@@ -342,8 +343,8 @@ But before we manipulate contextual predictability and speaker knowledge directl
 \section{Experiment 2: Naturally-occurring examples}
 
 In Expt.~1, we used a reference task to validate disambiguating paraphrases as a probe of interpretations of plural predications. 
-We next use the paraphrase methodology to evaluate natural plural predications gathered from corpora. We aim to both extend our understanding of distributive vs.~collective preferences to predicates beyond \emph{big/tall/heavy}, and explore the effect of linguistic context: how the head noun affects this preference.
-\ndg{better motivate: we want to see whether there is a clear distinction among predicate classes, we want to see whether noun affects interpretation, etc}
+We next use the paraphrase methodology to evaluate natural plural predications gathered from corpora. We aim to both extend our understanding of distributive vs.~collective preferences to predicates beyond \emph{big/tall/heavy}, and explore the effect of linguistic context: how the subject noun affects this preference. We thereby test the null hypothesis of a simple lexical distinction between stubbornly distributive and complaisantly collective predicates: if stubbornly distributive predicates are truly stubborn, we should find a clear split in behavior between them and the other predicates, and we should find no effect of the subject noun on their resistance to collective interpretations.
+%\ndg{better motivate: we want to see whether there is a clear distinction among predicate classes, we want to see whether noun affects interpretation, etc}
 
 %However, by providing potential referents, we gave participants specific and salient physical arrangements (e.g., box stacks) against which to evaluate interpretations of predicates. Here, we move away from specific arrangements and use the disambiguating paraphrases from Expt.~1 to directly probe interpretations of plural predications.
 %We extend beyond big/tall/heavy boxes, to look at frequent linguistic contexts for plural predication. Doing so provides insight into the role the local linguistic context plays in the disambiguation of plural predication.
@@ -362,14 +363,14 @@ In a search of the British National Corpus, we identified the 40 most frequent s
 
 \ex. The \textsc{noun}s were \textsc{adjective}.
 
-Each participant was presented with 30 sentences; 15 of these sentences were drawn randomly \ndg{was it random?} from the original set of the 40 most frequent instances. The other 15 sentences were constructed by randomly pairing subjects and predicates from the original set of 40 to create novel sentences. \ndg{were there any restrictions? eg could a participant see the same predicate / subject twice? were the constructed sentences really random for each participant, or was there a fixed set of them?}
+Each participant was presented with 30 sentences; 15 of these sentences were drawn randomly \ndg{was it random?} \gcs{it was random without replacement} from the original set of the 40 most frequent instances. The other 15 sentences were constructed by randomly pairing subjects and predicates from the original set of 40 to create novel sentences. \ndg{were there any restrictions? eg could a participant see the same predicate / subject twice? were the constructed sentences really random for each participant, or was there a fixed set of them?} \gcs{the only restriction was that the sentences were not among the original 40 most frequent ones. a participant could see the same predicate/subject twice in the novel sentences, and they were randomly constructed for each participant}
 
-Each sentence was presented as an utterance by a speaker, and participants were tasked with determining what the speaker meant. Participants rated two possible paraphrases on a sliding scale. The paraphrases were either distributive (with ``each'', \ref{bnc-each}) and collective (with ``together'', \ref{bnc-together}). 
+Each sentence was presented as an utterance by a speaker, and participants were tasked with determining what the speaker meant. Participants rated two possible paraphrases on a sliding scale. The paraphrases were either distributive (with ``each'', \ref{bnc-each}) and collective (with ``together'', \ref{bnc-together}). We are primarily concerned with collective paraphrase endorsement rates; we expect distributive paraphrase endorsement rates to be redundant, but we included them to highlight the potential ambiguity for participants.
 
 \ex. \a. The \textsc{noun}s each were \textsc{adjective}. \label{bnc-each}
 \b. The \textsc{noun}s together were \textsc{adjective}. \label{bnc-together}
 
-Scale endpoints corresponded to whether the paraphrase was ``definitely'' or ``definitely not'' what the speaker intended by his or her utterance. Before rating its paraphrases, participants judged whether the utterance made sense (choosing between "Yes" and "No"). 
+Scale endpoints corresponded to whether the paraphrase was ``definitely'' or ``definitely not'' what the speaker intended by his or her utterance. Before rating its paraphrases, participants judged whether the utterance made sense (choosing between "Yes" and "No"). We analyzed data from the 85 participants who indicated that their native language was English.
 
 %\subsubsection{Predictions}
 %
@@ -377,10 +378,11 @@ Scale endpoints corresponded to whether the paraphrase was ``definitely'' or ``d
 
 \subsubsection{Results}
 
-\ndg{give some stats on the 'makes sense' judgements: of the original sentences, what was the mean percent sensible? range? for the constructed sentences?}
-In the analyses reported below, we only look at responses to utterances that participants said made sense. \ndg{why?}
+%\ndg{give some stats on the 'makes sense' judgements: of the original sentences, what was the mean percent sensible? range? for the constructed sentences?}
+Of the original 40 most frequent sentences, participants indicated that they ``made sense'' 95\% of the time. Of the novel sentences, participants indicated that they ``made sense'' 67\% of the time.
+To avoid effects of possible confusion on the ratings given, in the analyses reported below we only look at responses to utterances that participants said made sense. %\ndg{why?}
 
-We begin with a look at the range of collective endorsement ratings.\footnote{A look at distributive endorsement ratings, or normalized collective ratings (i.e., the difference between collective and distributive ratings) reveals similar patterns of results.} Fig.~\ref{sentence-coll} plots average collective endorsement ratings for each of the 40 most frequent sentences.
+We begin with a look at the range of collective endorsement ratings.\footnote{A look at distributive endorsement ratings, or normalized collective ratings (i.e., the difference between collective and distributive ratings) reveals similar patterns of results, owing to the high negative correlation between distributive and collective endorsement ratings ($r=-0.78$).} Fig.~\ref{sentence-coll} plots average collective endorsement ratings for each of the 40 most frequent sentences. Descriptively, we see a wide range of ratings, spanning from approximately 25\%  to 85\% endorsement; participants appear to be comfortable using the full scale. An important observation about the distribution of ratings in Fig.~\ref{sentence-coll} is its relatively smooth gradient: we fail to find clear groupings of predicates, such that they behave in one way or another with respect to collective interpretations. Stubbornly distributive \emph{small} indeed occurs toward the low end of collective endorsement ratings, but not markedly so.
 
 \begin{figure}[h!]
 	\centering
@@ -389,30 +391,29 @@ We begin with a look at the range of collective endorsement ratings.\footnote{A 
 	\caption{Collective paraphrase endorsement rates for different noun-predicate combinations in Expt.~2a (i.e., for different sentences).} \label{sentence-coll}
 \end{figure}
 
-Descriptively, we see a wide range of ratings, spanning from approximately 25\%  to 85\% endorsement; participants appear to be comfortable using the full scale. An important observation about the distribution of ratings in Fig.~\ref{sentence-coll} is its relatively smooth gradient: we fail to find clear groupings of predicates, such that they behave in one way or another with respect to collective interpretations. Stubbornly distributive \emph{small} indeed occurs toward the low end of collective endorsement ratings, but not markedly so.
-
 There are 8 predicates that occur with different subject nouns in our small corpus; we plot their average collective endorsement ratings in Fig.~\ref{noun-pred-coll}.
 %
+%
+Rates of collective endorsement differ by subject noun for one and the same predicate. We draw the reader's attention to the case of stubbornly distributive \emph{small} (bottom right). 
+If stubborn distributivity were a binary, predicate-level phenomenon hard-coded into the semantics of these predicates, we should find no effect of the subject noun in the determination of their distributive vs.~collective interpretations: stubbornly distributive predicates, regardless of their subject, should always be maximally distributive. But as \emph{small} in Fig.~\ref{noun-pred-coll} demonstrates, they are not. 
+%More importantly, the subject \emph{numbers} stands out in its relatively high rates of collective endorsement with the predicate \emph{small}. 
+A linear mixed effects model predicting collective endorsement rates by subject noun for \emph{small}, with random by-participant intercepts, finds that sentences with the subject \emph{numbers} received greater rates of collective endorsement than sentences with \emph{children} ($\beta=-0.15$, $SE=0.07$, $t=-2.24$, $p<0.05$), \emph{rooms} ($\beta=-0.19$, $SE=0.07$, $t=-2.73$, $p<0.01$), or \emph{classes} ($\beta=-0.27$, $SE=0.07$, $t=-3.87$, $p<0.01$).\footnote{We find the same pattern of results if instead we compare each subject noun with the grand mean (i.e., through effect, or deviation, coding of our variables): \emph{numbers} deviates significantly, while the other nouns do not.}
+\ndg{we should have some analysis of the other seven predicates -- maybe there is an overall test of whether noun matters? or do tests within predicates (add significance stars to the figure...).}\gcs{would it be better to only plot \emph{small} in fig.~\ref{noun-pred-coll}?}
+
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=.85\linewidth]{plots/noun_pred_plot2.eps}
 	%\vspace{0pt}
 	\caption{Collective paraphrase endorsement rates for different subject nouns grouped by predicate (Expt.~2a).} \label{noun-pred-coll}
 \end{figure}
-%
-Rates of collective endorsement differ by subject noun for one and the same predicate. We draw the reader's attention to the case of stubbornly distributive \emph{small} (bottom right). 
-If stubborn distributivity were a binary, predicate-level phenomenon hard-coded into the semantics of these predicates, we should find no effect of the subject noun in the determination of their distributive vs.~collective interpretations: stubbornly distributive predicates, regardless of their subject, should always be maximally distributive. But as \emph{small} in Fig.~\ref{noun-pred-coll} demonstrates, they are not. 
-%More importantly, the subject \emph{numbers} stands out in its relatively high rates of collective endorsement with the predicate \emph{small}. 
-A linear mixed effects model predicting collective endorsement rates by subject noun for \emph{small}, with random by-participant intercepts, finds that sentences with the subject \emph{numbers} received greater rates of collective endorsement than sentences with \emph{children} ($\beta=-0.15$, $SE=0.07$, $t=-2.24$, $p<0.05$), \emph{rooms} ($\beta=-0.19$, $SE=0.07$, $t=-2.73$, $p<0.01$), or \emph{classes} ($\beta=-0.27$, $SE=0.07$, $t=-3.87$, $p<0.01$).\footnote{We find the same pattern of results if instead we compare each subject noun with the grand mean (i.e., through effect, or deviation, coding of our variables): \emph{numbers} deviates significantly, while the other nouns do not.}
-
-\ndg{we should have some analysis of the other seven predicates -- maybe there is an overall test of whether noun matters? or do tests within predicates (add significance stars to the figure...).}
 
 %\subsubsection{Discussion}
 
 \subsection{Experiment 2b: \emph{big}, \emph{heavy}, \emph{tall}}
 
-The three predicates \emph{big}, \emph{heavy}, and \emph{tall} are of particular interest because they come from both supposed lexical categories (stubborn and complaisant), while lending themselves to direct manipulation (as in Expt.~1) because they depend on physical properties.
-Due to the limited number of instances of plural predication with these predicates in the British National Corpus, we use instead the much larger Google Books Corpus \citep{davies2011} to look at them in more detail.
+We then narrowed our sights to the predicates tested in Expt.~1: \emph{big}, \emph{heavy}, and \emph{tall}. These predicates are of particular interest because they come from both supposed lexical categories (stubbornly distributive and complaisantly collective) and the physical properties they name lend themselves to direct manipulation.
+Due to the limited number of instances of plural predication with these predicates in the British National Corpus, we use instead the much larger Google Books Corpus \citep{davies2011} to look at their most frequent subject nouns.
 
 \subsubsection{Participants}
 
@@ -429,7 +430,7 @@ heavy:& bags, lids, loads, men, trees\\
 tall:& buildings, offspring, plants, trees, windows
 \end{tabular}	
 
-As with Expt.~2a, participants judged whether the resulting sentences made sense and rated disambiguating paraphrases of each. 
+As with Expt.~2a, participants judged whether the resulting sentences made sense and rated disambiguating paraphrases of each. We analyzed data from the 26 participants who indicated that their native language was English.
 
 %\subsubsection{Predictions}
 %
@@ -443,20 +444,22 @@ As with Expt.~2a, participants judged whether the resulting sentences made sense
 
 \subsubsection{Results}
 
-We again look only at responses to the utterances that participants indicated made sense to them. \ndg{again, why?}
+Of the original 15 most frequent sentences, participants indicated that they made sense 98\% of the time; of the novel sentences, participants indicated that they made sense 87\% of the time.
+We again look only at responses to the original most frequent utterances that participants indicated made sense to them.
 
 \ndg{here, but also in other expts, should do some analysis of the distributive paraphrase... it's weird to just leave it out. if it is truly redundant with the collective measure, how about quantifying that? ie. report their correlation or such.}
 
-Fig.~\ref{bhtcoll} plots average collective endorsement ratings for each of the three predicates grouped by their subjects.
+Fig.~\ref{bhtcoll} plots average collective endorsement ratings for each of the three predicates grouped by their subjects.\footnote{As before, distributive endorsement ratings provide redundant information, owing to their high negative correlation with the collective ratings ($r=-.98$).}
 %
+%
+To compare the predicates with each other, we fit a linear mixed effects model predicting collective endorsement by predicate, with random intercepts for participants and nouns, and random slopes for participants. The predicate predictor was dummy coded with \emph{heavy} as the reference level. There were main effects for both contrasts, such that \emph{big} ($\beta=-0.22$, $SE=0.07$, $t=-3.24$, $p<0.01$) and \emph{tall} ($\beta=-0.20$, $SE=0.06$, $t=-3.20$, $p<0.01$) led to lower rates of collective endorsement. Next, we examine the behavior of the subject nouns for each predicate in turn.
+
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=.85\linewidth]{plots/bht_plot2.eps}
 	\vspace{0pt}
 	\caption{Collective paraphrase endorsement rates for different nouns serving as the subject to the predicates \emph{big}, \emph{heavy}, and \emph{tall} (Expt.~2b).} \label{bhtcoll}
 \end{figure}
-%
-To compare the predicates with each other, we fit a linear mixed effects model predicting collective endorsement by predicate, with random intercepts for participants and nouns, and random slopes for participants. The predicate predictor was dummy coded with \emph{heavy} as the reference level. There were main effects for both contrasts, such that \emph{big} ($\beta=-0.22$, $SE=0.07$, $t=-3.24$, $p<0.01$) and \emph{tall} ($\beta=-0.20$, $SE=0.06$, $t=-3.20$, $p<0.01$) led to lower rates of collective endorsement. Next, we examine the behavior of the subject nouns for each predicate in turn.
 
 \ndg{it's not clear to me that the ensuing are the most useful analyses to do... we want to know how judgements vary by noun. it is relevant to know if any nouns differ within predicate, and also whether the ranges of the predicates overlap....}
 
