@@ -576,7 +576,7 @@ After observing the dispenser in action via the context  scenarios, participants
 Fig.\ \ref{resultsexpt2} displays the raw paraphrase endorsement ratings averaged across all trials with bootstrapped 95\% confidence intervals. For the purpose of analysis, we analyze responses to the collective paraphrases (i.e., the red bars in Fig.~\ref{resultsexpt2}); higher rates of endorsement for the collective paraphrase signal greater rates of collective interpretation.\footnote{All reported results hold if instead we look at normalized collective paraphrase endorsement ratings (i.e., the difference between collective and distributive endorsements for each trial).} %calculated the difference between collective and distributive paraphrase endorsement ratings for each trial; Fig.~\ref{normresultsexpt2} presents these difference scores, where greater values of the difference score signal greater rates of collective paraphrase endorsement.
 First note the qualitative effects of our two manipulations: collective interpretations do appear to be greater for \emph{tall} in the regular condition and greater for \emph{heavy} in the move condition.
 
-\ndg{our predictions really are about effect of manipulations on predicates separately, and we don't care much about predicate directly.... so how about doing three separate regressions, one for each predicate? this should be easier to interpret. or is this the same as putting them all together with a predicate predictor?}
+\ndg{our predictions really are about effect of manipulations on predicates separately, and we don't care much about predicate directly.... so how about doing three separate regressions, one for each predicate? this should be easier to interpret. equivalently we could leave out the main effect predictors for scenario and context, leaving only the interaction terms with predicate. }
 
 \begin{figure}[h!]
 	\centering
@@ -606,13 +606,26 @@ Such a representational coercion story raises problems for the semantics of plur
 %
 %In addition to the host of issues such a representational coercion story raises for the semantics of plural definite descriptions \citep[for discussion, see ][]{link1983,landman1989,schwarzschild1996,link1998}, the success of our speaker knowledge manipulation speaks directly against it: participants give similarly high distributive endorsement ratings for \emph{heavy} in ``inspect'' scenarios and similarly low distributive endorsement ratings for \emph{heavy} in ``move'' scenarios, regardless of the variability of context. In other words, the speaker knowledge manipulation, which suppresses information about individual set members in ``move'' scenarios, affects random and regular contexts similarly. If regular contexts forced reanalysis of \emph{the boxes} as an assemblage like \emph{the pile}, we would not expect ``move'' vs.~``inspect'' scenarios to privilege or dis-privilege access to information about individual set members; there would only be a single individual available in context.
 
-Taken together, our results demonstrate the central role of context in plural predication: as collective properties become more predictable, collective interpretations become more likely; and without epistemic support, distributive interpretations become less likely. These findings support a pragmatic, information-theoretic account of stubborn distributivity according to which ostensibly stubbornly distributive predicates are such because the properties they name are unpredictable, or unstable in context. We next formalize the role of context in interpretation of plural predication, using tools from probabilistic modeling.
+Taken together, our results demonstrate the central role of context in plural predication: as collective properties become more predictable, collective interpretations become more likely; and without epistemic support, distributive interpretations become less likely. These findings support a pragmatic account of stubborn distributivity according to which ostensibly stubbornly distributive predicates are such because the properties they name are unpredictable, or unstable in context. We next formalize the role of context in interpretation of plural predication, using tools from probabilistic modeling.
 
 %Next, we formalize the role of context in this choice of interpretation using a Bayesian Rational Speech-Act model \citep{frankgoodman2012,lassitergoodman2013}. Noisy (i.e., more variable) interpretations are less useful because they require more coordination between speakers and listeners; they are therefore less likely. Similarly, listeners are less likely to assume interpretations for which speakers lack knowledge.
 
 
 
 \section{Modeling plural predication}
+
+\ndg{this section should be much shorter -- probably about three pages. 
+%
+first describe the basic model structure briefly, giving some intuition and pointing out where we draw on previous modeling work.
+%
+start with the literal semantics: $\sem{u}^{v,c}(s)$, which is a truth function that depends on both context, $c$, and word-sense, $v$. specifically we assume that depending on $v$ the plural predication is either universal of property or c X sum of property. here context c is a simple scalar multiplier, a simple approximation for all the ways context could affect the collective property.
+%
+now the literal listener has prior uncertainty about context $P(c)$ and state $P(s)$ and otherwise just updates beliefs by conditioning on the meaning. we could have the literal listener reason also about the word-sense, $v$, but we choose instead to \emph{lift} it, so that pragmatic forces will affect it. (should we implement and compare to the unlifted model?)
+%
+then the speaker, whose utility is expected informativity. (do we need cost in this model?)
+then the pragmatic listener, who reasons about word-sense as well as world (and context).
+%
+then have a briefer section on the setup we use for the boxes scenario, and how we choose parameters.}
 
 We have seen that disambiguating plural predication depends not only on local linguistic context (e.g., the predicate, its subject, and disambiguating particles like \emph{each} or \emph{together}), but also on the broader discourse and world context. Moreover, we showed how properties of the broader context stand to explain the effect certain predicates have on disambiguating plural predication: complaisantly collective predicates like \emph{heavy} name collective properties that are stable and predictable on the basis of context; stubbornly distributive predicates like \emph{big} name collective properties that are unstable and unpredictable on the basis of context. The less predictable the collective property, the noisier the collective interpretation. Conversely, we saw that increasing contextual predictability increases collective interpretations, presumably by decreasing potential interpretation noise. A noisy interpretation is less useful at communicating its intended message, and therefore less likely. Additionally, we saw that listeners track speaker knowledge as they disambiguate plural predication, so that unsupported interpretations are unlikely. To formalize the effect of context (i.e., contextual predictability and speaker access to knowledge) in plural predication, we adopt a lifted variable variant of the Bayesian Rational Speech-Act model. 
 
