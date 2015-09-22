@@ -496,7 +496,7 @@ Finally, with \emph{heavy}, we found that different subject nouns yielded differ
 
 \section{Experiment 3: Manipulating context}
 
-If physical arrangements are less likely to change, collective properties become more predictable. And with more predictable collective properties, the truth values of statements involving them become more stable, so collective interpretations are less noisy and stand a better chance of being informative. These interpretations should therefore become more likely. If speakers lack knowledge to verify one of two possible interpretations, the epistemically-supported interpretation should become more likely. In Expt.~3, we manipulated predictability and speakers' access to knowledge through a series of context scenarios, and used the paraphrase endorsement method from Expt.~2 to test the availability of collective interpretations.
+If physical arrangements are less likely to change, collective properties become more predictable. And with more predictable collective properties, the truth values of statements involving them become more stable, so collective interpretations are less noisy and stand a better chance of being informative. These interpretations should therefore become more likely. If speakers lack knowledge to verify one of two possible interpretations, the epistemically-supported interpretation should become more likely. In Expt.~3, we manipulated predictability and speakers' access to knowledge through a series of context scenarios, and used the paraphrase endorsement method from Expt.~1 to test the availability of collective interpretations.
 
 \subsection{Participants}
 
@@ -510,6 +510,9 @@ Between subjects, we manipulated the \textsc{scenario} story (``move'' vs.~``ins
 
 Also between subjects, we manipulated the variability of the \textsc{context} (``regular'' vs.~``random''). In regular contexts, the dispenser consistently stacked boxes on top of each other (Fig.~\ref{expt2context}, left). In random contexts, boxes were dispensed without any consistent physical arrangement (Fig.\ \ref{expt2context}, right). Participants saw four each of either ``regular'' or ``random'' context priming scenarios.
 
+\ndg{do the boxes vary at all in the familiarization aside from arrangement? if so describe.}
+
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=.45\textwidth]{images/context13reg.eps}
@@ -519,8 +522,10 @@ Also between subjects, we manipulated the variability of the \textsc{context} (`
 \end{figure}
 
 
-After observing the dispenser in action via the context  scenarios, participants were then introduced to a second agent, Dot, whom Cubert told about the boxes he moved/inspected. Participants were tasked with helping Dot understand what Cubert meant by his utterance. To do so, they saw an utterance and rated potential paraphrases on a sliding scale. The paraphrases were either distributive (with  ``each'') or collective (with ``together'').  Scale endpoints corresponded to whether the paraphrase was ``definitely'' or ``definitely not'' what Cubert meant by his utterance (Fig. \ref{trial}). Participants completed three trials in a random order with three different predicates: \emph{big}, \emph{heavy}, and \emph{tall}.
+After observing the dispenser in action via the context  scenarios, participants were then introduced to a second agent, Dot, whom Cubert told about some boxes he moved/inspected. Participants were tasked with helping Dot understand what Cubert meant by his utterance. To do so, they saw an utterance and rated potential paraphrases on a sliding scale. The paraphrases were either distributive (with  ``each'') or collective (with ``together'').  Scale endpoints corresponded to whether the paraphrase was ``definitely'' or ``definitely not'' what Cubert meant by his utterance (Fig. \ref{trial}). (Note that, unlike Expt.~1, there was no explicit referent of the utterance visible.) Participants completed three trials in a random order with three different predicates: \emph{big}, \emph{heavy}, and \emph{tall}.
 
+
+\ndg{links to expts?}
 
 \begin{figure}[h]
 \centering
@@ -529,6 +534,8 @@ After observing the dispenser in action via the context  scenarios, participants
 \end{figure}
 
 \subsection{Predictions}
+
+\ndg{i don't think we need this section. relevant motivation can go at beginning of this section. it'll be more compact that way. altermatively, make it shorter and more specific (we predict an interaction between blah and blah, etc).}
 
 If contextual predictability of collective properties influences the availability of collective interpretations, we should find that regular arrangement contexts yield more collective interpretations, resulting in higher endorsement rates for the collective paraphrase with \emph{together}. This effect ought to hold for the predicates \emph{big} and \emph{tall}---\emph{heavy} is already strongly contextually predictable, so we might not be able to increase its predictability. The predicate \emph{tall} should be the most sensitive to our context manipulation because we introduce regularity into its dimension of measurement directly: stacking boxes on top of each other to make collective height particularly salient.
 
@@ -550,7 +557,7 @@ We fit a linear mixed effects model predicting collective endorsement ratings by
 \textsc{predicate} (\emph{big}, \emph{heavy}, \emph{tall}; with \emph{big} dummy-coded as the reference level),
  \textsc{scenario} (``inspect'' vs.~``move''), and \textsc{trial} order; the model included interactions between \textsc{predicate} and \textsc{context}, and between \textsc{predicate} and \textsc{scenario}. The model also included random intercepts for participants, as well as random slopes for participants grouped by \textsc{trial} (i.e., the maximal random effects structure supported by the data). The full regression model appears in Appendix \ref{expt2results}.
 
-As demonstrated in Fig.~\ref{resultsexpt2}, there was a main effect of \textsc{context}, so that regular contexts had more collective interpretations than did random contexts ($\beta$ = 0.18, $SE$ = 0.07, $t$ = 2.70, p $<$ 0.01). The model finds a main effect of the contrast between \emph{big} and \emph{tall} ($\beta$ = 0.07, $SE$ = 0.04, $t$ = 2.00, p $<$ 0.05), driven in large part by a marginally significant interaction between \emph{tall} and \textsc{context} ($\beta$ = 0.13, $SE$ = 0.08, $t$ = 1.72, p $=$ 0.09): \emph{tall} was most affected by our contextual manipulation, yielding the greatest rates of collective interpretations in regular contexts. Finally, the model finds a significant interaction between the predicate \emph{heavy} and \textsc{scenario} ($\beta$ = 0.21, $SE$ = 0.08, $t$ = 2.77, p $<$ 0.01): \emph{heavy} received more collective interpretations in ``move'' scenarios.
+As apparent in Fig.~\ref{resultsexpt2}, there was a main effect of \textsc{context}, so that regular contexts had more collective interpretations than did random contexts ($\beta$ = 0.18, $SE$ = 0.07, $t$ = 2.70, p $<$ 0.01). The model finds a main effect of the contrast between \emph{big} and \emph{tall} ($\beta$ = 0.07, $SE$ = 0.04, $t$ = 2.00, p $<$ 0.05), driven in large part by a marginally significant interaction between \emph{tall} and \textsc{context} ($\beta$ = 0.13, $SE$ = 0.08, $t$ = 1.72, p $=$ 0.09): \emph{tall} was most affected by our contextual manipulation, yielding the greatest rates of collective interpretations in regular contexts. Finally, the model finds a significant interaction between the predicate \emph{heavy} and \textsc{scenario} ($\beta$ = 0.21, $SE$ = 0.08, $t$ = 2.77, p $<$ 0.01): \emph{heavy} received more collective interpretations in ``move'' scenarios.
 
 \subsection{Discussion}
 
