@@ -344,7 +344,7 @@ But before we manipulate contextual predictability and speaker knowledge directl
 \section{Experiment 2: Naturally-occurring examples}
 
 In Expt.~1, we used a reference task to validate disambiguating paraphrases as a probe of interpretations of plural predications. 
-We next use the paraphrase methodology to evaluate natural plural predications gathered from corpora. We aim to both extend our understanding of distributive vs.~collective preferences to predicates beyond \emph{big/tall/heavy}, and explore the effect of linguistic context: how the subject noun affects this preference. We thereby test the null hypothesis of a simple lexical distinction between stubbornly distributive and complaisantly collective predicates: if stubbornly distributive predicates are truly stubborn, we should find a clear split in behavior between them and the other predicates, and we should find no effect of the subject noun on their resistance to collective interpretations.
+We next use the paraphrase methodology to evaluate natural plural predications gathered from corpora. We aim to both extend our understanding of distributive vs.~collective preferences to predicates beyond \emph{big}/\emph{tall}/\emph{heavy}, and explore the effect of linguistic context: how the subject noun affects this preference. We thereby test the null hypothesis of a simple lexical distinction between stubbornly distributive and complaisantly collective predicates: if stubbornly distributive predicates are truly stubborn, we should find a clear split in behavior between them and the other predicates, and we should find no effect of the subject noun on their resistance to collective interpretations.
 %\ndg{better motivate: we want to see whether there is a clear distinction among predicate classes, we want to see whether noun affects interpretation, etc}
 
 %However, by providing potential referents, we gave participants specific and salient physical arrangements (e.g., box stacks) against which to evaluate interpretations of predicates. Here, we move away from specific arrangements and use the disambiguating paraphrases from Expt.~1 to directly probe interpretations of plural predications.
@@ -558,7 +558,7 @@ Fig.\ \ref{resultsexpt2} displays the raw paraphrase endorsement ratings average
 
 We fit a linear mixed effects model predicting collective endorsement ratings by \textsc{context} (``random'' vs.~``regular''),
 \textsc{predicate} (\emph{big}, \emph{heavy}, \emph{tall}; with \emph{big} dummy-coded as the reference level),
- \textsc{scenario} (``inspect'' vs.~``move''), and \textsc{trial} order; the model included interactions between \textsc{predicate} and \textsc{context}, and between \textsc{predicate} and \textsc{scenario}. The model also included random intercepts for participants, as well as random slopes for participants grouped by \textsc{trial} (i.e., the maximal random effects structure supported by the data). The full regression model appears in Appendix \ref{expt2results}.
+ \textsc{scenario} (``inspect'' vs.~``move''), and \textsc{trial} order; the model included interactions between \textsc{predicate} and \textsc{context}, and between \textsc{predicate} and \textsc{scenario}. The model also included random intercepts for participants, as well as random slopes for participants grouped by \textsc{trial} (i.e., the maximal random effects structure supported by the data). The full regression model appears in Appendix \ref{expt3results}.
 
 As demonstrated in Fig.~\ref{resultsexpt2}, there was a main effect of \textsc{context}, so that regular contexts had more collective interpretations than did random contexts ($\beta$ = 0.18, $SE$ = 0.07, $t$ = 2.70, p $<$ 0.01). The model finds a main effect of the contrast between \emph{big} and \emph{tall} ($\beta$ = 0.07, $SE$ = 0.04, $t$ = 2.00, p $<$ 0.05), driven in large part by a marginally significant interaction between \emph{tall} and \textsc{context} ($\beta$ = 0.13, $SE$ = 0.08, $t$ = 1.72, p $=$ 0.09): \emph{tall} was most affected by our contextual manipulation, yielding the greatest rates of collective interpretations in regular contexts. Finally, the model finds a significant interaction between the predicate \emph{heavy} and \textsc{scenario} ($\beta$ = 0.21, $SE$ = 0.08, $t$ = 2.77, p $<$ 0.01): \emph{heavy} received more collective interpretations in ``move'' scenarios.
 
@@ -844,40 +844,40 @@ Table \ref{expt1analysis2} presents model coefficients for the full mixed logist
 
 \section{Full mixed effects linear regression models from Expt.~2}\label{2-stats}
 
-Table \ref{expt2aanalysis} presents model coefficients for the full mixed linear regression models used in the analyses of the 8 predicates occurring with more than one subject noun in Expt.~2a. The model predicts collective endorsement ratings from fixed effects for subject noun, as well as random by-participant intercepts. In each case, the subject noun with the highest mean collective endorsement rating served as the reference level.
+Table \ref{expt2aanalysis} presents model coefficients for the full mixed linear regression models used in the analyses of the 8 predicates occurring with more than one subject noun in Expt.~2a. The models predict collective endorsement ratings from fixed effects for subject noun, as well as random by-participant intercepts. For each predicate, the subject noun with the highest mean collective endorsement rating served as the reference level.
 
 \begin{table}[htb] 
 	\centering \caption{Full linear regression models from analysis of Expt.~2a.} \label{expt2aanalysis}
 \begin{tabular}{lrrrr}\toprule
 	&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
 \emph{\textbf{bright}} \\
-Intercept	& 	0.75 &	0.07	&	11.46	&	\textbf{$<$0.01} \\
+Intercept-eyes	& 	0.75 &	0.07	&	11.46	&	\textbf{$<$0.01} \\
 Noun-colors	&	-0.19	&   0.08	&	-2.26	&	\textbf{$<$0.05} \\ \hline
 \emph{\textbf{closed}}\\
-Intercept	& 	0.60	&	0.07	&	8.61	&	\textbf{$<$0.01} \\
+Intercept-doors	& 	0.60	&	0.07	&	8.61	&	\textbf{$<$0.01} \\
 Noun-shops	&	-0.16	&   0.09	&	-1.87	&	0.07 \\ \hline
 \emph{\textbf{friendly}}\\
-Intercept	& 	0.73	&	0.05	&	13.41	&	\textbf{$<$0.01} \\
+Intercept-natives	& 	0.73	&	0.05	&	13.41	&	\textbf{$<$0.01} \\
 Noun-people	&	-0.05	&   0.06	&	-0.93	&	0.37 \\\hline
 \emph{\textbf{full}}\\
-Intercept	& 	0.68	&	0.06	&	11.53	&	\textbf{$<$0.01} \\
+Intercept-streets	& 	0.68	&	0.06	&	11.53	&	\textbf{$<$0.01} \\
 Noun-papers	&	-0.11	&   0.10	&	-1.19	&	0.24 \\
 Noun-pubs	&	-0.23	&   0.08	&	-2.91	&	\textbf{$<$0.01} \\\hline
 \emph{\textbf{guilty}}\\
-Intercept	& 	0.68	&	0.05	&	12.51	&	\textbf{$<$0.01} \\
+Intercept-defendants	& 	0.68	&	0.05	&	12.51	&	\textbf{$<$0.01} \\
 Noun-men	&	-0.02	&   0.08	&	-0.21	&	0.84 \\\hline
 \emph{\textbf{open}}\\
-Intercept	& 	0.65	&	0.07	&	9.73	&	\textbf{$<$0.01} \\
+Intercept-eyes	& 	0.65	&	0.07	&	9.73	&	\textbf{$<$0.01} \\
 Noun-gates	&	0.01	&   0.09	&	0.08	&	0.94 \\
 Noun-doors	&	-0.03	&   0.08	&	-0.40	&	0.69 \\
 Noun-curtains	&	0.00	&   0.09	&	-0.03	&	0.98 \\
 Noun-pubs	&	-0.11	&   0.09 	&	-1.29	&	0.20 \\
 Noun-windows	&	-0.15	&   0.08	&	-1.77	&	0.08 \\\hline
 \emph{\textbf{quiet}}\\
-Intercept	& 	0.71	&	0.07	&	10.72	&	\textbf{$<$0.01} \\
+Intercept-dogs	& 	0.71	&	0.07	&	10.72	&	\textbf{$<$0.01} \\
 Noun-streets	&	-0.06	&   0.09	&	-0.65	&	0.52 \\\hline
 \emph{\textbf{small}}\\
-Intercept	& 	0.57	&	0.06	&	9.65	&	\textbf{$<$0.01} \\
+Intercept-numbers	& 	0.57	&	0.06	&	9.65	&	\textbf{$<$0.01} \\
 Noun-children	&	-0.16	&   0.07	&	-2.34	&	\textbf{$<$0.05} \\
 Noun-rooms	&	-0.20	&   0.07	&	-2.78	&	\textbf{$<$0.01} \\
 Noun-classes	&	-0.28	&   0.07	&	-3.88	&	\textbf{$<$0.01} \\
@@ -885,26 +885,26 @@ Noun-classes	&	-0.28	&   0.07	&	-3.88	&	\textbf{$<$0.01} \\
 \end{tabular}
 \end{table}
 
-Table \ref{expt2banalysis} presents model coefficients for the full mixed linear regression models used in the analyses of subject nouns for the predicates \emph{big}, \emph{heavy}, and \emph{tall} in Expt.~2b. The model predicts collective endorsement ratings from fixed effects for subject noun, as well as random by-participant intercepts. In each case, the subject noun with the highest mean collective endorsement rating served as the reference level.
+Table \ref{expt2banalysis} presents model coefficients for the full mixed linear regression models used in the analyses of subject nouns in Expt.~2b. The models predict collective endorsement ratings for each of the three predicates (\emph{big}, \emph{heavy}, \emph{tall}) from fixed effects for subject noun, as well as random by-participant intercepts. For each predicate, the subject noun with the highest mean collective endorsement rating served as the reference level.
 
 \begin{table}[htb] 
 	\centering \caption{Full linear regression models from subject noun analysis of Expt.~2b.} \label{expt2banalysis}
 \begin{tabular}{lrrrr}\toprule
 	&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
 \emph{\textbf{big}} \\
-Intercept	& 	0.42 &	0.06	&	6.73	&	\textbf{$<$0.01} \\
+Intercept-waves& 	0.42 &	0.06	&	6.73	&	\textbf{$<$0.01} \\
 Noun-rooms	&	-0.18	&   0.06	&	-2.96&	\textbf{$<$0.01} \\
 Noun-boys	&	-0.22&   0.06	&	-3.53	&	\textbf{$<$0.01} \\
 Noun-children	&	-0.21	&   0.06	&	-3.54	&	\textbf{$<$0.01} \\
 Noun-houses	&	-0.23	&   0.06	&	-3.68	&	\textbf{$<$0.01} \\ \hline
 \emph{\textbf{heavy}}\\
-Intercept		& 	0.63	&   0.07	&	9.63	&	\textbf{$<$0.01} \\
+Intercept-bags	& 	0.63	&   0.07	&	9.63	&	\textbf{$<$0.01} \\
 Noun-lids		&	-0.08	&   0.08	&	-1.04	&	0.30\\
 Noun-trees	&	-0.15	&   0.08	&	-1.93	&	0.06 \\
 Noun-loads	&	-0.24	&   0.08	&	-3.15	&	\textbf{$<$0.01} \\
 Noun-men		&	-0.25	&   0.08	&	-3.36	&	\textbf{$<$0.01} \\ \hline
 \emph{\textbf{tall}}\\
-Intercept		& 	0.30	&	0.06	&	4.65	&	\textbf{$<$0.01} \\
+Intercept-trees	& 	0.30	&	0.06	&	4.65	&	\textbf{$<$0.01} \\
 Noun-plants	&	0.00	&   0.06	&	-0.07	&	0.95 \\
 Noun-offspring	&	-0.03	&   0.06	&	-0.55	&	0.59 \\
 Noun-buildings	&	-0.06	&   0.06	&	-1.00	&	0.32 \\
@@ -913,22 +913,22 @@ Noun-windows	&	-0.09	&   0.06	&	-1.52	&	0.13 \\\hline
 \end{tabular}
 \end{table}
 
-\section{Full mixed effects linear regression model from Expt.~3}\label{expt2results}
+\section{Full mixed effects linear regression model from Expt.~3}\label{expt3results}
 
-The following table presents model coefficients for the full mixed linear regression model used in the analysis of Expt.~3. The model predicts collective endorsement ratings from fixed effects for context, predicate, scenario, and trial, as well as random by-participant intercepts and slopes grouped by trial. The fixed effects predictors were centered before analysis.
+Table \ref{expt3analysis} presents model coefficients for the full mixed linear regression model used in the analysis of Expt.~3. The model predicts collective endorsement ratings from fixed effects for context, predicate, scenario, and trial, as well as random by-participant intercepts and slopes grouped by trial. The fixed effects predictors were centered before analysis.
 
 \begin{table}[htb] 
-	\centering \caption{Full linear regression model from analysis of Expt.~3.} \label{expt2analysis}
+	\centering \caption{Full linear regression model from analysis of Expt.~3.} \label{expt3analysis}
 \begin{tabular}{lrrrr}\toprule
 	&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
-Intercept	& 	0.58	&	0.03	&	17.08	&	\textbf{$<$0.01} \\
-Pred-heavy	&	0.02	&   0.04	&	0.60	&	0.55 \\
-Pred-tall	&	0.07	&	0.04	&	2.00	&	\textbf{$<$0.05}\\
-Context		&	0.18	&	0.07	&	2.70	&	\textbf{$<$0.01}\\
-Scenario	& 	0.00	&	0.07	& 	-0.02	&	0.98 \\
-Trial		&	-0.01	&	0.02  	&	-0.36	&   0.72 \\
+Intercept			& 	0.58	&	0.03	&	17.08&	\textbf{$<$0.01} \\
+Pred-heavy		&	0.02	&   	0.04	&	0.60	&	0.55 \\
+Pred-tall			&	0.07	&	0.04	&	2.00	&	\textbf{$<$0.05}\\
+Context			&	0.18	&	0.07	&	2.70	&	\textbf{$<$0.01}\\
+Scenario			& 	0.00	&	0.07	& 	-0.02	&	0.98 \\
+Trial				&	-0.01	&	0.02  &	-0.36	&   0.72 \\
 Pred-heavy:Context	&	-0.07	&	0.08	&	-0.98	&	0.33 \\
-Pred-tall:Context	&	0.13	&	0.08	&	1.72	& \textbf{0.09} \\
+Pred-tall:Context	&	0.13	&	0.08	&	1.72	& {0.09} \\
 Pred-heavy:Scenario	&	0.21	&	0.08	&	2.77	&	\textbf{$<$0.01} \\
 Pred-tall:Scenario	&	0.07	&	0.08	&	0.95	& 0.35\\
 \bottomrule
