@@ -147,6 +147,8 @@ head(d)
 agg <- aggregate(p~noise*k,d[d$collective=="true",],sum)
 agg
 
+write.csv(agg,"~/Documents/git/CoCoLab/collective/writing/Cubert/plots/heavy.csv")
+
 
 # a=2     .1414
 # a=1.8   .1451
