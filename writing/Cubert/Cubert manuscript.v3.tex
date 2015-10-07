@@ -665,7 +665,7 @@ Such a representational coercion story raises serious problems for the semantics
 %
 %In addition to the host of issues such a representational coercion story raises for the semantics of plural definite descriptions \citep[for discussion, see ][]{link1983,landman1989,schwarzschild1996,link1998}, the success of our speaker knowledge manipulation speaks directly against it: participants give similarly high distributive endorsement ratings for \emph{heavy} in ``inspect'' scenarios and similarly low distributive endorsement ratings for \emph{heavy} in ``move'' scenarios, regardless of the variability of context. In other words, the speaker knowledge manipulation, which suppresses information about individual set members in ``move'' scenarios, affects random and regular contexts similarly. If regular contexts forced reanalysis of \emph{the boxes} as an assemblage like \emph{the pile}, we would not expect ``move'' vs.~``inspect'' scenarios to privilege or dis-privilege access to information about individual set members; there would only be a single individual available in context.
 
-Taken together, our results demonstrate the central role of context in plural predication: as collective properties become more predictable, collective interpretations become more likely; and without epistemic support, distributive interpretations become less likely. These findings support a pragmatic account of stubborn distributivity according to which ostensibly stubbornly distributive predicates are such because the properties they name are unpredictable, or unstable in context. We next formalize the role of context in the interpretation of plural predication, using tools from probabilistic modeling.
+Taken together, our results demonstrate the central role of context in plural predication: as collective properties become more predictable, collective interpretations become more likely; and without epistemic support, distributive interpretations become less likely. These findings support a pragmatic account of stubborn distributivity according to which ostensibly stubbornly distributive predicates are such because the properties they name are unpredictable, or unstable in most contexts. We next formalize the role of context in the interpretation of plural predication, using tools from probabilistic modeling.
 
 %Next, we formalize the role of context in this choice of interpretation using a Bayesian Rational Speech-Act model \citep{frankgoodman2012,lassitergoodman2013}. Noisy (i.e., more variable) interpretations are less useful because they require more coordination between speakers and listeners; they are therefore less likely. Similarly, listeners are less likely to assume interpretations for which speakers lack knowledge.
 
@@ -687,33 +687,74 @@ Taken together, our results demonstrate the central role of context in plural pr
 %%
 %then have a briefer section on the setup we use for the boxes scenario, and how we choose parameters.}
 
-To successfully model contextual predictability and speaker knowledge in ambiguity resolution---and thereby precisely specify their contributions---we adopt a variant of the Rational Speech-Acts (RSA) approach \citep{frankgoodman2012,goodmanstuhlmuller2013}. Within the RSA framework, language understanding is modeled as a recursive reasoning process: the listener interprets the speaker's utterance by reasoning about a cooperative speaker trying to inform a naive listener about some state of affairs. 
+We aim to formalize the pragmatic account described so far, especially the role contextual predictability and speaker knowledge in ambiguity resolution.
+We will base our analysis on the Rational Speech-Acts (RSA) approach \citep{frankgoodman2012,goodmanstuhlmuller2013}. Within the RSA framework, language understanding is modeled as a social reasoning process: the listener interprets an utterance by reasoning about a cooperative speaker who is trying to inform a naive listener about some state of affairs. 
 
 %Using Bayesian inference, the listener determines what the state of the world is likely to be given that a speaker produced some utterance, knowing that the speaker is reasoning about how a listener is most likely to interpret that utterance. Thus, we have at least three levels of inference. At the top, the sophisticated, pragmatic listener, \emph{L}$_{1}$, reasons about the pragmatic speaker, \emph{S}$_{1}$, and infers the state of the world \emph{s} given that the speaker chose to produce the utterance \emph{u}. The speaker chooses \emph{u} by maximizing the probability that a naive, literal listener, \emph{L}$_{0}$, would correctly infer the state of the world \emph{s} given the literal meaning of \emph{u}.
 
-In recent models, conversational participants reason not merely over utterances and meanings, but also over variables that contribute to those meanings. This sort of joint-inference, ``lifted variable'' (sometimes called ``lexical uncertainty'') RSA model has proven useful in accounts of gradable adjective semantics (where the lifted variable is the adjective's degree threshold; \citealp{lassitergoodman2013}), modal semantics (where the lifted variable is again a threshold, this time for the probability of an event's occurrence; \citealp{lassitergoodman2015}), specificity implicatures (where the lifted variable determines the choice of lexica; \citealp{bergenetal2012}), and non-literal meaning (where the lifted variable concerns the dimension along which the speaker intends to communicate, or the question under discussion; \citealp{kaoetal2014}), to name just a few applications (see also XXX). In our model, the lifted variable about which speakers and listeners jointly reason determines the interpretation of an ambiguous plural predication: whether an utterance is interpreted collectively or distributively.
+In several recent RSA models the pragmatic listener is extended to reason over factors needed to fix meaning, in addition to the word itself. 
+That is, some aspect of the literal interpretation model is ``lifted'' into the inference performed by the parhatic reasoner.
+%In recent models, conversational participants reason not merely over utterances and meanings, but also over variables that contribute to those meanings. 
+This sort of lifted variable RSA model has proven useful in accounts of gradable adjective semantics (where the lifted variable is the adjective's degree threshold; \citealp{lassitergoodman2013}), specificity implicatures (where the lifted variable determines the choice of lexica; \citealp{bergenetal2012}), and non-literal meaning (where the lifted variable concerns the dimension along which the speaker intends to communicate, or the question under discussion; \citealp{kaoetal2014}), to name a few applications (see also \citealp{goodmanlassiter2015} for a overview). Our model treats the two underlying senses (collective and distributive) as vague expressions that have an underspecified threshold semantics---following \citealp{lassitergoodman2013} we lift the corresponding threshold variables to pragmatic listener.
 
-\subsection{Model overview}
+From \citealp{goodmanstuhlmuller2013} we borrow a treatment of the speaker's knowledge. The speaker has a basic motivation to inform the listener about the true state of the world; he accounts for his uncertainty about this true state by choosing an utterance according to the \emph{expected informativity} given his belief distribution. The pragmatic listener knows this, but doesn't know what private observations the speaker has had---she takes this uncertainty into account when evaluating an utterance.
 
-We assume a simple truth-functional literal semantics, wherein a plural predication utterance $u$ (e.g., \emph{the boxes are big}) is mapped from states of the world $s$ to truth values. We parameterize the truth function, $\sem{u}^{v,c}(s)$, so that it depends both on context, $c$, and on utterance interpretation, $v$. Specifically, we assume that, depending on $v$, the plural predication is either interpreted distributively, \Next[a], or collectively, \Next[b], as a function of context. Here context $c$ is a simple scalar multiplier, an approximation of the many ways that context could affect the predictability of the collective property. As $c$ increases, the listener's estimate of the collective property deviates from the true value; more extreme values for $c$ lead to noisier collective interpretations.
+There are two significant innovations in the current model. First, we treat ambiguity resolution via a lifted variable: the pragmatic reasoner infers which sense (collective or distributive) of the plural predication was intended by the speaker. Second, we explore the effects of contextual noise that differentially affects the two interpretations. That is, we allow that there are uncertain contextual factors that affect evaluation of the collective property but not the distributive. 
+In the formal exposition that follows we will be brief about the pre-existing model features (lifted threshold variables, speaker knowledgeability) and more expansive about the new aspects.
+
+\subsection{The model}
+
+We take states of the world, $s\in S$, to consist of a collection of entities, each of which has some individual degree: for each $x\in s$, $d(s)\in \mathbb R$ is the relevant property.
+We assume a simple truth-functional literal semantics, wherein a plural predication utterance $u$ (e.g., \emph{the boxes are big})  denotes a mapping from states of the world to truth values\footnote{We assume truth values are coerced to numbers where appropriate: \emph{true} is $1$ and \emph{false} is $0$.}. We parameterize the truth function, $\sem{u}^{v,c}: S \rightarrow \text{Bool}$, so that it depends both on context, $c$, and on utterance interpretation, $v$, and two thresholds, $\theta_c$ and $\theta_d$. 
+We will consider three alternative utterances: 
+an {unambiguously distributive} (e.g., \emph{the boxes each are big}), an {unambiguously collective} (e.g., \emph{the boxes together are big}), and an {ambiguous} utterance (e.g., \emph{the boxes are big}).
 
  \ex. \emph{Literal semantics}:
- \a. \label{dist}\sem{\texttt{distributive-interpretation}} =
-\begin{flushright}\lam $s$. $\forall$x$\in$$s$[x $>$ \texttt{distributive-threshold}]\end{flushright}
-\b. \label{coll}\sem{\texttt{collective-interpretation}}$^{c}$ = 
-\begin{flushright}\lam $s$. (\texttt{sum}($s$) $\times$ $c$ $>$ \texttt{collective-threshold}\end{flushright}
+ \a. \label{dist}\sem{\texttt{distrib}}$^{\theta_d}$ = 
+   \lam $s$. $\forall \ x\ \in s\ [d(x) > \theta_d]$
+\b. \label{coll}\sem{\texttt{coll}}$^{c,\theta_c}$ = 
+   \lam $s$. $[c \cdot \sum_{x\in s} d(x) > \theta_c]$
+\c.  \label{amb}\sem{\texttt{amb}}$^{v, c, \theta_d, \theta_c}$ = 
+   if $v$ \sem{\texttt{distrib}}$^{\theta_d}$, else \sem{\texttt{coll}}$^{c,\theta_c}$
+
+The unambiguous distributive utterance, \Last[a], is a universal quantification over a vague scalar meaning: each degree must exceed the threshold $\theta_d$. 
+The unambiguous collective utterance, \Last[b], is again a vague scalar meaning: the collective degree must exceed the threshold $\theta_c$. 
+However the collective degree captures two assumptions. First, we assume for simplicity that the appropriate aggregation is base on a sum: the total degree of the collection.
+Second, we assume that the computation of this total degree may depend on contextual factors $c$ (such as the particular arrangement of the objects); we treat $c$ as a simple scalar multiplier that can distort the total degree of the collection---an approximation of the many ways that context could affect the collective property. 
+Finally, the ambiguous utterance, \Last[c] (the plural predication itself), is governed by the variable $v$: depending on $v$ it is either collective or distributive.
+
+%Specifically, we assume that, depending on $v$, the plural predication is either interpreted distributively, \Next[a], or collectively, \Next[b]. Each of these senses may further depend on context, $c$.
+%
+% \ex. \emph{Literal semantics}:
+% \a. \label{dist}\sem{\texttt{distributive-interpretation}} =
+%\begin{flushright}\lam $s$. $\forall \ x\ \in s\ [d(x) > \texttt{distributive-threshold}]$\end{flushright}
+%\b. \label{coll}\sem{\texttt{collective-interpretation}}$^{c}$ = 
+%\begin{flushright}\lam $s$. $[c \cdot \sum_{x\in s} d(x) > \texttt{collective-threshold}]$\end{flushright}
+%
+%We are interested in the contextual factors that affect only the collective interpretation, since these lead to differential predictability of the meaning.
+%We further make the simplifying assumption that the collective property is formed by summing the individual degrees in a way that may be influenced by context; we treat $c$ as a simple scalar multiplier that can distort the total degree of the collection---an approximation of the many ways that context could affect the collective property. 
+%%As $c$ increases, the listener's estimate of the collective property deviates from the true value; more extreme values for $c$ lead to noisier collective interpretations. \ndg{this last sentence isn't right if $c$ is a detemerministic multiplier -- i think this refers to the distribution on $c$...}
+
 
 The literal listener $L_{0}$ has prior uncertainty about the context, $P(c)$, and the true state, $P(s)$, and otherwise updates beliefs about $s$ by conditioning on the meaning of $u$: 
-$$P_{L_{0}}(s|u,v) \propto \sem{u}^{v,c}(s) \cdot P(c) \cdot P(s)$$
-We could have the literal listener reason also about the utterance interpretation, $v$, but we choose instead to \emph{lift} it, so that pragmatic forces will affect it. 
+$$P_{L_{0}}(s|u,v,\theta_d,\theta_c) \propto \sem{u}^{v,c,\theta_d,\theta_c}(s) \cdot P(c) \cdot P(s)$$
+The distribution on collective-context, $P(c)$, will determine how predictable the collective property is compared to the distributive: higher entropy $P(c)$ will correspond to to noisier collective interpretations.
+The other interpretation variables ($v$, $\theta_d$, $\theta_c$) are lifted, so that they will be actively reasoned about by the pragmatic listener.
+\ndg{should we say a word about why we choose to lift some but not all of the variables? what happens if we lift $c$???}
+%We could have the literal listener reason also about the utterance interpretation, $v$, but we choose instead to \emph{lift} it, so that pragmatic forces will affect it. 
 
 The speaker, $S_{1}$, chooses an utterance \emph{u} that would most effectively communicate some state \emph{s} to a literal listener \emph{L}$_{0}$.  In other words, the speaker's utility function $U_{S_{1}}$ minimizes the effort \emph{L}$_{0}$ would need to arrive at \emph{s} from \emph{u} (i.e., increasing utterance informativity by decreasing surprisal), all while being efficient at communicating (i.e., minimizing utterance cost, $C(u)$):
-$$U_{S_{1}}(u;s,v) = \textrm{log}(L_{0}(s|u,v)) - C(u)$$
-To capture the speaker's epistemic state, we follow \cite{goodmanstuhlmuller2013} and include a parameter $a$ determining the speaker's possibly incomplete access to the true state $s$. The speaker makes an observation $o$ about the state $s$, and, depending on the speaker's perceptual access $a$, $o$ might be identical to $s$ (i.e., the speaker has full access to information about the state) or a summary of $s$ (say, its sum, corresponding to the speaker's only having access to collective information regarding the state). The speaker then selects an utterance $u$ to convey information about the likely state $s$ that generated the observation $o$:
-$$P_{S_{1}} (u|o,a,v) \propto \textrm{exp}(\alpha \mathbb{E}_{P(s|o,a)}[U_{S_{1}} (u;s,v)])$$
+$$U_{S_{1}}(u;s,v,\theta_d,\theta_c) = \textrm{log}(L_{0}(s|u,v,\theta_d,\theta_c)) - C(u)$$
+To capture the speaker's epistemic state, we follow \cite{goodmanstuhlmuller2013} by assuming the speaker has a private belief distribution about the state of the world, $P(s|o)$, that depends on some observations $o$ of the true world. 
+The speaker then selects an utterance $u$ to convey information about the likely state $s$ that generated the observation $o$:
+$$P_{S_{1}} (u|o,v,\theta_d,\theta_c) \propto \textrm{exp}(\alpha \mathbb{E}_{P(s|o)}[U_{S_{1}} (u;s,v,\theta_d,\theta_c)])$$
+The observations $o$ could be the full state (degree of all objects in $s$) could be a partial state (degree of some of the objects) or could be a value derived from the state---for our purposes an observation of only the total, $\sum_{x\in s} d(x)$, will be relevant. $P(s|o)$ is formed by bayesian updating given the observation.
+
+\ndg{i think we should commit to the full/sum access here....}
 
 At the top level of inference, the pragmatic listener $L_{1}$ interprets the speaker's utterance $u$ to jointly infer the state $s$ and the utterance's intended interpretation $v$. This probability is proportional to the probability that $S_{1}$ would choose to utter $u$ with interpretation $v$ to communicate about the state \emph{s} inferred on the basis of perceptual access $a$ to a literal listener, while incorporating prior uncertainty about $s$ and $v$.
-$$P_{L_{1}}(s,v|u,a) \propto P_{S_{1}}(u|s,a,v) \cdot P(s) \cdot P(v)$$
+\ndg{needs to represent uncertainty about speakers observation}
+$$P_{L_{1}}(s,v|u,a) \propto P_{S_{1}}(u|o,v,\theta_d,\theta_c) \cdot P(s) \cdot P(v)$$
 Put simply, listeners reason about likely interpretations of ambiguous plural predications given their intuitive understanding of speakers and their prior knowledge of the world (i.e., which states and interpretations are \emph{a priori} likely).
 
 
