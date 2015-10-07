@@ -747,15 +747,21 @@ The speaker, $S_{1}$, chooses an utterance \emph{u} that would most effectively 
 $$U_{S_{1}}(u;s,v,\theta_d,\theta_c) = \textrm{log}(L_{0}(s|u,v,\theta_d,\theta_c)) - C(u)$$
 To capture the speaker's epistemic state, we follow \cite{goodmanstuhlmuller2013} by assuming the speaker has a private belief distribution about the state of the world, $P(s|o)$, that depends on some observations $o$ of the true world. 
 The speaker then selects an utterance $u$ to convey information about the likely state $s$ that generated the observation $o$:
-$$P_{S_{1}} (u|o,v,\theta_d,\theta_c) \propto \textrm{exp}(\alpha \mathbb{E}_{P(s|o)}[U_{S_{1}} (u;s,v,\theta_d,\theta_c)])$$
-The observations $o$ could be the full state (degree of all objects in $s$) could be a partial state (degree of some of the objects) or could be a value derived from the state---for our purposes an observation of only the total, $\sum_{x\in s} d(x)$, will be relevant. $P(s|o)$ is formed by bayesian updating given the observation.
+$$P_{S_{1}} (u|o,v,\theta_d,\theta_c) \propto \textrm{exp}(\alpha \mathbb{E}_{P_a(s|o)}[U_{S_{1}} (u;s,v,\theta_d,\theta_c)])$$
+We will assume, based on our experimental setup, that the speaker has one of two modes of \emph{access} to the world state: if $a=\texttt{full}$ then the speaker has observed the full state, in which case $P_{\texttt{full}}(s|o) = \delta_{s=o}$ is a delta distribution on the true (observed) state; if $a=\texttt{sum}$ then the speaker has only observed the sum (e.g.~observing the total weight of some boxes by lifting them), in which case $P_{\texttt{sum}}(s|o)\propto P(s)\delta_{\sum_{x\in s} d(x) = o}$.
 
-\ndg{i think we should commit to the full/sum access here....}
+%may have observed 
+%
+%The observations $o$ could be the full state (degree of all objects in $s$) could be a partial state (degree of some of the objects) or could be a value derived from the state---for our purposes an observation of only the total, $\sum_{x\in s} d(x)$, will be relevant. $P(s|o)$ is formed by bayesian updating given the observation.
 
-At the top level of inference, the pragmatic listener $L_{1}$ interprets the speaker's utterance $u$ to jointly infer the state $s$ and the utterance's intended interpretation $v$. This probability is proportional to the probability that $S_{1}$ would choose to utter $u$ with interpretation $v$ to communicate about the state \emph{s} inferred on the basis of perceptual access $a$ to a literal listener, while incorporating prior uncertainty about $s$ and $v$.
-\ndg{needs to represent uncertainty about speakers observation}
-$$P_{L_{1}}(s,v|u,a) \propto P_{S_{1}}(u|o,v,\theta_d,\theta_c) \cdot P(s) \cdot P(v)$$
-Put simply, listeners reason about likely interpretations of ambiguous plural predications given their intuitive understanding of speakers and their prior knowledge of the world (i.e., which states and interpretations are \emph{a priori} likely).
+
+At the top level of inference, the pragmatic listener $L_{1}$ interprets the speaker's utterance $u$ to jointly infer the state $s$ and
+the free interpretation variables: the ambiguous utterance's intended interpretation $v$, and the thresholds $\theta_d$, $\theta_c$. %This probability is proportional to the probability that $S_{1}$ would choose to utter $u$ with interpretation $v$ to communicate about the state \emph{s} inferred on the basis of perceptual access $a$ to a literal listener, while incorporating prior uncertainty about $s$ and $v$.
+By Bayes' rule:
+$$P_{L_{1}}(s,v,\theta_d,\theta_c|u,a) \propto P_{S_{1}}(u|o(a,s),v,\theta_d,\theta_c) \cdot P(s) \cdot P(v)$$
+Here $o(a,s)$ is a deterministic function that reads off the observation the speaker would have had given an access mode and a hypothesized true state. We have assumed uninformative, uniform priors on the threshold variables.
+
+Put simply, the plural predication is both ambiguous ($v$) and vague ($\theta_{c}$, $\theta_d$); the listener reasons about likely interpretations given an intuitive understanding of speakers and prior knowledge of the world (i.e., which states and interpretations are \emph{a priori} likely). This inference is guided by reasoning about how informative each utterance would have been, with different interpretations. Informativity is in turn influenced by semantic factors including the variability of context, $c$, that may differentially affect the different interpretations.
 
 
 %For example, if the speaker only has perceptual access to the sum of some state (e.g., total weight), the speaker would infer a distribution over the possible individual properties that could have generated that observation (e.g., the weights of individual boxes). The speaker thus selects an utterance $u$ to convey information about the likely state $s$ that generated the observation $o$. The revised  pragmatic speaker model, \Next, takes into account perceptual access and potential uncertainty about the world state. Here, the pragmatic speaker calculates a belief distribution over what the actual state $s$ would be given the observation $o$ and perceptual access $a$: $P(s|o,a)$.
@@ -863,6 +869,9 @@ Put simply, listeners reason about likely interpretations of ambiguous plural pr
 % To summarize: the pragmatic listener resolves ambiguity while interpreting an utterance by reasoning about the pragmatic speaker, who chooses utterances most likely to communicate some state via a specific interpretation to a naive, literal listener. The speaker and pragmatic listener track the speaker's access to knowledge, which determines whether the speaker has limited access to the state about which he communicates. In other words, listeners reason about likely interpretations of ambiguous plural predications given their intuitive understanding of speakers and their prior knowledge of the world (i.e., which states and interpretations are \emph{a priori} likely).
 
 \subsection{Qualitative predictions}
+
+\ndg{this section can be simplified somewhat, since i included some additional details (eg access, degrees) in the above. why separate quantitative and qualitative results? we could simply use the fit values and generate all the same plots?}
+
 
 To generate qualitative predictions that we may compare with our experimental results, we need to fix various parameter settings within the model. %Here we fill in more details of these settings, with the caveat that the qualitative model results presented below are robust to a broad range of parameter settings; the specific values we give here are used merely to demonstrate the general behavior and success of the model.\footnote{XXX specifics about the range of parameter settings that are possible, and the settings that are not.\label{parameter}}
 States $s$ correspond to ordered sets of four objects, which hold scalar properties. States are formed by drawing four times from a uniform prior distribution over objects (i.e., boxes of size 3 or 4). States are thus sets of positive integers; the state $\{3, 3, 4, 4\}$ corresponds to a plurality of four boxes, two of size 3 and two of size 4. 
