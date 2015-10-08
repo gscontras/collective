@@ -61,10 +61,10 @@ ggsave("plots/plural-predication-state.pdf",height=5,width=40,limitsize=FALSE)
 
 
 
-### test plots
+### unfit plots
+setwd("~/Documents/git/cocolab/collective/model/")
 
-
-d = read.csv("plural-predication-big-tall-20150924.csv",header=F)
+d = read.csv("plural-predication-fit.csv",header=F)
 #colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","p")
 #colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","p")
 colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","obj4","p")
@@ -72,7 +72,7 @@ head(d)
 
 
 d$noise <-factor(d$noise,levels=c("high","mid",'low','no'))
-#d$k <-factor(d$k,levels=c("partial","full"))
+#d$k <-factor(d$knowledge,labels=c("partial","full"))
 d$numobjs <- factor(d$numobjs)
 #d$state = paste(d$obj1,d$obj2)
 #d$state = paste(d$obj1,d$obj2,d$obj3)
@@ -80,7 +80,7 @@ d$state = paste(d$obj1,d$obj2,d$obj3,d$obj4)
 d$state <- factor(d$state)
 #d$KL <- factor(d$KL)
 d$p <- as.numeric(as.character(d$p))
-d$k = "partial"
+d$k = "sum"
 d[d$knowledge=="true",]$k = "full"
 head(d)
 
@@ -94,13 +94,75 @@ p <- ggplot(agg,aes(x=noise,y=p)) +
   xlab("\ncollective interpretation noise")+
   labs(fill="speaker\nknowledge\naccess")+
   scale_fill_manual(values=c("red", "blue"))+
-  theme(axis.text.x = element_text(size=10,angle=0))#+
+  theme(axis.text.x = element_text(size=10,angle=0))+
+  theme_bw()
 #facet_grid(dist_theta~coll_theta)
 p
 
 setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
 
-ggsave("model-results2.pdf",height=3)
+ggsave("model-results-fit.pdf",height=3)
+
+
+## predicate-specific fit plots
+
+setwd("~/Documents/git/cocolab/collective/model/")
+
+d = read.csv("plural-predication-all.csv",header=F)
+#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","p")
+#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","p")
+colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","obj4","p")
+head(d)
+
+
+#d$noise <-factor(d$noise,levels=c("high","mid",'low','no'))
+d$pred = as.character(lapply(strsplit(as.character(d$noise), split="-"), "[", 1))
+d$variability= as.character(lapply(strsplit(as.character(d$noise), split="-"), "[", 2))
+#d$k <-factor(d$knowledge,labels=c("partial","full"))
+d$numobjs <- factor(d$numobjs)
+#d$state = paste(d$obj1,d$obj2)
+#d$state = paste(d$obj1,d$obj2,d$obj3)
+d$state = paste(d$obj1,d$obj2,d$obj3,d$obj4)
+d$state <- factor(d$state)
+#d$KL <- factor(d$KL)
+d$p <- as.numeric(as.character(d$p))
+d$k = "sum"
+d[d$knowledge=="true",]$k = "full"
+head(d)
+
+# check effect direction for inferred thetas
+
+coll_agg <- aggregate(p~variability*pred*k,d[d$collective=="true",],sum)
+
+dist_agg = coll_agg 
+dist_agg$p = 1-dist_agg$p
+
+coll_agg$interpretation = "collective"
+dist_agg$interpretation = "distributive"
+
+agg = rbind(coll_agg,dist_agg)
+#agg$interpretation = factor(agg$interpretation,levels=c("distributive","collective"))
+
+p <- ggplot(agg,aes(x=variability,y=p)) +
+  geom_bar(stat='identity',position=position_dodge(),aes(fill=interpretation)) +
+  ylab("probability of\ncollective interpretation\n") +
+  xlab("\ncollective interpretation noise")+
+  labs(fill="interpretation")+
+  scale_fill_manual(values=c("red", "blue"))+
+  theme(axis.text.x = element_text(size=10,angle=0))+
+  theme_bw()+
+  ylim(0,1)+
+  facet_grid(k~pred)
+p
+
+setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
+
+ggsave("model-results-all.pdf",width=6,height=2.7)
+
+
+
+
+
 
 # check state distribution for inferred thetas
 
