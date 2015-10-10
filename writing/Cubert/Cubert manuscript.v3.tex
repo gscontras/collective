@@ -882,16 +882,15 @@ The plural predication is both ambiguous ($v$) and vague ($\theta_{c}$, $\theta_
 \ndg{what is the list of all parameters fit? $P(v)$, $C(u)$... anything else? do these results still use only two values of the degrees (3 and 4)? which $P(c)$ is used for these predictions? is it fit to the data?}
 
 
-To generate predictions we need to fix various parameter settings within the model; we aim to make the simplest choices possible, focussing on qualitative predictions. \footnote{The full model is viewable online at \url{http://forestdb.org/models/plural-predication.html}.}
+To generate predictions, we need to fix various parameter settings within the model; we aim to make the simplest choices possible, focussing on qualitative predictions. \footnote{The full model is viewable online at \url{http://forestdb.org/models/plural-predication.html}.}
 %Here we fill in more details of these settings, with the caveat that the qualitative model results presented below are robust to a broad range of parameter settings; the specific values we give here are used merely to demonstrate the general behavior and success of the model.\footnote{XXX specifics about the range of parameter settings that are possible, and the settings that are not.\label{parameter}}
-Each state, $s$, consists of four objects, each of which has degree $3$ or $4$. 
-The $\theta_d$ threshold variable ranged over values $2,3$, the $\theta_c$ over $12,13,14,15,16$.
-The priors on state $P(s)$ and on thresholds $P(\theta_d,\theta_c)$ are taken to be uniform. \ndg{check}
-We take $P(v)$ to be Bernoulli with a single free parameter (the prior bias toward distributive interpretations); this parameter was fit to $0.88$ based on our experimental data.
-We take the cost $C(u)$ to be $1$ for the ambiguous utterance and $2$ for both the unambiguous utterances---a reasonable assumption from the point of view of production, given that unambiguous utterances contain an extra word (i.e., \emph{each} or \emph{together}).
-Importantly the qualitative patterns reported below are robust to changes in these parameters and assumptions.
+Each state, $s$, consists of two objects, each of which has degree $3$ or $4$. The prior on states $P(s)$ was taken to be uniform. The distributive threshold $\theta_d$ ranged over the object degrees, and was drawn uniformly from the set of objects; the collective threshold $\theta_c$ ranged over state degrees (i.e., 6, 7 8), and was drawn uniformly from the state prior.
+%The priors on state $P(s)$ and on thresholds $P(\theta_d,\theta_c)$ are taken to be uniform. \ndg{check}
+We take $P(v)$ to be Bernoulli with a single free parameter (i.e., the prior bias toward collective interpretations); this parameter was fit to $0.9$ based on our experimental data.
+We take the cost $C(u)$ to be $1$ for the ambiguous utterance and $2$ for both of the unambiguous utterances\gcs{follow up on this}---a reasonable assumption from the point of view of production, given that unambiguous utterances contain an extra word (i.e., \emph{each} or \emph{together}). The parameter $\alpha > 0$ controls the speaker's optimality, that is, the speaker's rationality in choosing utterances; we fit $\alpha$ to $10$ based on our experimental data.
+Importantly, the qualitative patterns reported below are robust to changes in these parameters and assumptions.
 
-\ndg{what about alpha?}
+%\ndg{what about alpha?}
 
 %States $s$ correspond to ordered sets of four objects, which hold scalar properties. States are formed by drawing four times from a uniform prior distribution over objects (i.e., boxes of size 3 or 4). States are thus sets of positive integers; 
 %the state $\{3, 3, 4, 4\}$ corresponds to a plurality of four boxes, two of size 3 and two of size 4. 
@@ -912,20 +911,21 @@ Our central claim surrounds the effect of $P(c)$, which controls the predictabil
 %%This parameter explicitly represents possible noise in the determination of, say, collective size. In other words, this parameter models the contextual predictability of a collective property, or the possibility that speakers and listeners will arrive at different truth values for a collective interpretation. For our purposes, lower noise (i.e., values closer to 1) corresponds to increased contextual predictability of the collective property. 
 %To evaluate the qualitative predictions of our model, we begin with the possible values for $c$ shown in 
 %
-Fig.~\ref{noises} shows four different distributions evaluated. For example, with \texttt{low} noise the multiplier $c$ equals 1 (i.e., no change to the state estimate) 100\% of the time; and with \texttt{high} noise, $c$ equals 0.5, 1, or 1.5 with equal probability (i.e., the state estimate is accurate a third of the time, or off by half two-thirds of the time).
+\gcs{XXX}
+%Fig.~\ref{noises} shows four different distributions evaluated. For example, with \texttt{low} noise the multiplier $c$ equals 1 (i.e., no change to the state estimate) 100\% of the time; and with \texttt{high} noise, $c$ equals 0.5, 1, or 1.5 with equal probability (i.e., the state estimate is accurate a third of the time, or off by half two-thirds of the time).
 %Given our interest in the effects of contextual predictability and speaker knowledge on the disambiguation of plural predications, i
 In Fig.~\ref{modelresults} we plot the probability that the interpretation-resolving variable $v$ is \texttt{collective} after hearing the \texttt{ambiguous} utterance, marginalizing the other variables from the pragmatic listener $L_1$. In other words, we plot the probability of a collective interpretation depending on collective noise and speaker access.% as a function of noise in the collective interpretation and speaker access to knowledge.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\linewidth]{plots/noise_plots.eps}
-	\vspace{-20pt}
-	\caption{Contextual noise priors used to evaluate the qualitative predictions of the plural predication model.} \label{noises}
-\end{figure}
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=\linewidth]{plots/noise_plots.eps}
+%	\vspace{-20pt}
+%	\caption{Contextual noise priors used to evaluate the qualitative predictions of the plural predication model.} \label{noises}
+%\end{figure}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth]{plots/model-results.eps}
+	\includegraphics[width=\linewidth]{plots/model-results-add.eps}
 	\vspace{-20pt}
 	\caption{Model predictions for the probability of the \texttt{ambiguous} utterance receiving a collective interpretation as a function of collective interpretation noise and speaker knowledge access.  \ndg{todo: regenerate this figure using parameters fit to data. also change access label to "sum" from "partial".}  } \label{modelresults} 
 \end{figure}
@@ -947,7 +947,7 @@ In Fig.~\ref{modelresults} we plot the probability that the interpretation-resol
 
 
 
-The qualitative predictions of our plural predication model match the hypotheses and experimental results that motivated the model. Most striking is the monotonic increase in probability of collective interpretations as collective noise decreases. We now have a formal understanding as to why this effect holds: the noisier the collective interpretation, the less likely the listener $L_{0}$ is to correctly resolve the question under discussion, namely the properties of the named boxes $s$. Given that the speaker $S_{1}$'s goal is to successfully communicate $s$ to $L_{0}$, the noisier an interpretation, the less useful it is at achieving this goal; the speaker is therefore less likely to intend this interpretation, and as a result the pragmatic listener $L_{1}$ is less likely to infer it.
+The qualitative predictions of our plural predication model match the hypotheses and experimental results that motivated the model. Most striking is the monotonic decrease in probability of collective interpretations as collective noise increases. We now have a formal understanding as to why this effect holds: the noisier the collective interpretation, the less likely the listener $L_{0}$ is to correctly resolve the question under discussion, namely the properties of the named boxes $s$. Given that the speaker $S_{1}$'s goal is to successfully communicate $s$ to $L_{0}$, the noisier an interpretation, the less useful it is at achieving this goal; the speaker is therefore less likely to intend this interpretation, and as a result the pragmatic listener $L_{1}$ is less likely to infer it.
 
 The model also successfully predicts the qualitative increase in the probability of a collective interpretation as the speaker's  access to individual object properties becomes limited. %With only partial access to the actual state $s$, $S_{1}$ is less likely to have precise information concerning $s$ about which to communicate. 
 $L_{1}$ tracks  $S_{1}$'s epistemic state, and therefore knows whether the speaker has full or partial knowledge. In the case of partial knowledge, a distributive interpretation lacks epistemic support, and therefore becomes less likely; as a result, collective interpretations become more likely.
@@ -960,22 +960,22 @@ $L_{1}$ tracks  $S_{1}$'s epistemic state, and therefore knows whether the speak
 \ndg{something about fitting $P(c)$...}
 
 To quantitatively evaluate the role of speaker knowledge, we collapse over the contextual predictability manipulation and look only at judgments for plural predications with \emph{heavy} (the knowledge manipulation had no measurable affect on \emph{tall} or \emph{big}). %Here we fit only the specific values for noise in the model; all other parameters remain unchanged. 
-With \emph{heavy}-specific values for contextual noise---all other parameters remain unchanged---we generate the model predictions in Fig.~\ref{heavymodel}, plotted with average collective endorsement ratings for \emph{heavy} from Expt.~3. By simply assuming that the collective interpretations of \emph{heavy} have \emph{heavy}-specific values for noise in context, we achieve a near exact fit between the model and the human data it predicts.
+With \emph{heavy}-specific values for $P(c)$---all other parameters remain unchanged---we generate the model predictions in Fig.~\ref{heavymodel}, plotted with average collective endorsement ratings for \emph{heavy} from Expt.~3. By simply assuming that the collective interpretations of \emph{heavy} have \emph{heavy}-specific values for noise in context, we achieve a near exact fit between the model and the human data it predicts.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.72\linewidth]{plots/heavymodel.eps}
+	\includegraphics[width=.6\linewidth]{plots/model-heavy.eps}
 	%\vspace{-20pt}
 	\caption{Fitted model predictions and human data from Expt.~3 for collective interpretations of \emph{heavy}; the scenario manipulation (i.e., ``inspect'' vs.~``move'') is modeled by speaker's perceptual access to knowledge of the state (``full'' vs.~``partial'').} \label{heavymodel}
 \end{figure}
 
-To qualitatively evaluate the role of contextual predictability for \emph{big} and \emph{tall}, we again have the model predict collective endorsement, this time collapsing over the scenario manipulation. As with \emph{heavy}, we fit predicate-specific values for contextual noise.  With no other changes to model parameters, we generate the predictions plotted in Fig.~\ref{bigtallmodel}; once again, the fit is near perfect.
+To qualitatively evaluate the role of contextual predictability for \emph{big} and \emph{tall}, we again have the model predict collective endorsement, this time collapsing over the scenario manipulation. As with \emph{heavy}, we fit predicate-specific values for $P(c)$; to model the effect of our contextual manipulation, we had increased contextual noise in regular contexts.  We also increased the cost of the unambiguous utterances to $3$ (cf.~the cost of $2$ for the results reported above). With no other changes to model parameters, we generate the predictions plotted in Fig.~\ref{bigtallmodel}; once again, the fit is near perfect.
 
-\ndg{why not model all of the data, too, uncollapsed? eg i'd like to see a version of fig 9 that has both data and model.... in fact this plus the more qualitative fig 11 may be all we need.}
+%\ndg{why not model all of the data, too, uncollapsed? eg i'd like to see a version of fig 9 that has both data and model.... in fact this plus the more qualitative fig 11 may be all we need.}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth]{plots/bigtallmodel.eps}
+	\includegraphics[width=\linewidth]{plots/model-big-tall.eps}
 	\vspace{-20pt}
 	\caption{Fitted model predictions and human data from Expt.~3 for collective interpretations of \emph{big} and \emph{tall}; variability of context (i.e., ``random'' vs.~``regular'') is modeled by contextual noise in the evaluation of the collective interpretation.} \label{bigtallmodel}
 \end{figure}
