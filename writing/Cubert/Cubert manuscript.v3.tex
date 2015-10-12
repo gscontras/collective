@@ -649,8 +649,8 @@ First note the qualitative effects of our two manipulations: collective interpre
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=.9\linewidth]{plots/expt3.eps} 
-	%\vspace{-15pt}
+	\includegraphics[width=\linewidth]{plots/expt3.eps} 
+	\vspace{-20pt}
 	\caption{Paraphrase endorsement rate averaged across all trials in Expt.~3.}\label{resultsexpt2}
 \end{figure}
 
@@ -722,14 +722,14 @@ an {unambiguously distributive} (e.g., \emph{the boxes each are big}), an {unamb
  \a. \label{dist}\sem{\texttt{distrib}}$^{\theta_d}$ = 
    \lam $s$. $\forall \ x\ \in s\ [d(x) > \theta_d]$
 \b. \label{coll}\sem{\texttt{coll}}$^{c,\theta_c}$ = 
-   \lam $s$. $[c \cdot \sum_{x\in s} d(x) > \theta_c]$
+   \lam $s$. $[c + \sum_{x\in s} d(x) > \theta_c]$
 \c.  \label{amb}\sem{\texttt{amb}}$^{v, c, \theta_d, \theta_c}$ = 
    if $v$ \sem{\texttt{distrib}}$^{\theta_d}$, else \sem{\texttt{coll}}$^{c,\theta_c}$
 
 The unambiguous distributive utterance, \Last[a], is a universal quantification over a vague scalar meaning: each object's degree must exceed the distributive threshold $\theta_d$. 
 The unambiguous collective utterance, \Last[b], is again a vague scalar meaning: the collective degree must exceed the collective threshold $\theta_c$. 
 However, the collective degree captures two assumptions. First, we follow the work on collective semantics in assuming that the appropriate aggregation is based on a sum \citep[e.g.][]{scha1984}: the total degree of the collection.
-Second, we assume that the computation of this total degree may depend on contextual factors $c$ (such as the particular arrangement of the objects); we treat $c$ as a simple scalar multiplier that can distort the total degree of the collection---an approximation of the many ways that context could affect the collective property. 
+Second, we assume that the computation of this total degree may depend on contextual factors $c$ (such as the particular arrangement of the objects); we treat $c$ as a simple additive variable that can distort the total degree of the state---an approximation of the many ways that context could affect the collective property. 
 Finally, the ambiguous utterance, \Last[c], is governed by the variable $v$: depending on $v$ it is either collective or distributive.
 
 %Specifically, we assume that, depending on $v$, the plural predication is either interpreted distributively, \Next[a], or collectively, \Next[b]. Each of these senses may further depend on context, $c$.
@@ -879,15 +879,14 @@ The plural predication is both ambiguous ($v$) and vague ($\theta_{c}$, $\theta_
 
 \subsection{Model results}
 
-\ndg{what is the list of all parameters fit? $P(v)$, $C(u)$... anything else? do these results still use only two values of the degrees (3 and 4)? which $P(c)$ is used for these predictions? is it fit to the data?}
+%\ndg{what is the list of all parameters fit? $P(v)$, $C(u)$... anything else? do these results still use only two values of the degrees (3 and 4)? which $P(c)$ is used for these predictions? is it fit to the data?}
 
-
-To generate predictions, we need to fix various parameter settings within the model; we aim to make the simplest choices possible, focussing on qualitative predictions. \footnote{The full model is viewable online at \url{http://forestdb.org/models/plural-predication.html}.}
+To generate predictions, we need to fix various parameter settings within the model; we aim to make the simplest choices possible, focussing on qualitative predictions.\footnote{The full model is viewable online at \url{http://forestdb.org/models/plural-predication.html}.}
 %Here we fill in more details of these settings, with the caveat that the qualitative model results presented below are robust to a broad range of parameter settings; the specific values we give here are used merely to demonstrate the general behavior and success of the model.\footnote{XXX specifics about the range of parameter settings that are possible, and the settings that are not.\label{parameter}}
 Each state, $s$, consists of two objects, each of which has degree $3$ or $4$. The prior on states $P(s)$ was taken to be uniform. The distributive threshold $\theta_d$ ranged over the object degrees, and was drawn uniformly from the set of objects; the collective threshold $\theta_c$ ranged over state degrees (i.e., 6, 7 8), and was drawn uniformly from the state prior.
 %The priors on state $P(s)$ and on thresholds $P(\theta_d,\theta_c)$ are taken to be uniform. \ndg{check}
 We take $P(v)$ to be Bernoulli with a single free parameter (i.e., the prior bias toward collective interpretations); this parameter was fit to $0.9$ based on our experimental data.
-We take the cost $C(u)$ to be $1$ for the ambiguous utterance and $2$ for both of the unambiguous utterances\gcs{follow up on this}---a reasonable assumption from the point of view of production, given that unambiguous utterances contain an extra word (i.e., \emph{each} or \emph{together}). The parameter $\alpha > 0$ controls the speaker's optimality, that is, the speaker's rationality in choosing utterances; we fit $\alpha$ to $10$ based on our experimental data.
+We take the cost $C(u)$ to be $1$ for the ambiguous utterance and $2$ for both of the unambiguous utterances---a reasonable assumption from the point of view of production, given that unambiguous utterances contain an extra word (i.e., \emph{each} or \emph{together}). The parameter $\alpha > 0$ controls the speaker's optimality; we fit $\alpha$ to $10$ based on our experimental data.
 Importantly, the qualitative patterns reported below are robust to changes in these parameters and assumptions.
 
 %\ndg{what about alpha?}
@@ -905,16 +904,15 @@ Importantly, the qualitative patterns reported below are robust to changes in th
 %In our box setting, this semantics captures the fact that the distributive interpretation of a gradable predicate is true of a plurality when each of its members exceeds a contextually-determined cutoff \citep{kennedy1999,lassitergoodman2013}. The \texttt{collective-interpretation} is true of a state $s$ just in case the sum of that state---the plurality taken together---exceeds some collective threshold. Here we capture the sum-based aggregation inherent to collective interpretations of gradable predicates \citep{scha1984}. 
 %So far, no deviation from the formal semantics tradition.
 
-Our central claim surrounds the effect of $P(c)$, which controls the predictability of the collective interpretation. To evaluate its role we generated model predictions for distributions of varying entropy.
+Our central claim surrounds the effect of $P(c)$, which controls the predictability of the collective interpretation. To evaluate its role, we generated model predictions for distributions of varying entropy; $c$ was drawn from a normal distribution centered around $0$. The variance of this distribution controls the amount of collective interpretation noise. We begin by the comparing effects of \texttt{no} ($\sigma=0.02$), \texttt{low} ($\sigma=1$), \texttt{mid} ($\sigma=2$), and \texttt{high} ($\sigma=3$) collective noise.
 %
 %What sets this semantics apart is the contextual noise parameter $c$ in the \texttt{collective}-\texttt{interpretation}, a scalar multiplier of the set aggregate estimate that determines contextual predictability. 
 %%This parameter explicitly represents possible noise in the determination of, say, collective size. In other words, this parameter models the contextual predictability of a collective property, or the possibility that speakers and listeners will arrive at different truth values for a collective interpretation. For our purposes, lower noise (i.e., values closer to 1) corresponds to increased contextual predictability of the collective property. 
 %To evaluate the qualitative predictions of our model, we begin with the possible values for $c$ shown in 
 %
-\gcs{XXX}
 %Fig.~\ref{noises} shows four different distributions evaluated. For example, with \texttt{low} noise the multiplier $c$ equals 1 (i.e., no change to the state estimate) 100\% of the time; and with \texttt{high} noise, $c$ equals 0.5, 1, or 1.5 with equal probability (i.e., the state estimate is accurate a third of the time, or off by half two-thirds of the time).
 %Given our interest in the effects of contextual predictability and speaker knowledge on the disambiguation of plural predications, i
-In Fig.~\ref{modelresults} we plot the probability that the interpretation-resolving variable $v$ is \texttt{collective} after hearing the \texttt{ambiguous} utterance, marginalizing the other variables from the pragmatic listener $L_1$. In other words, we plot the probability of a collective interpretation depending on collective noise and speaker access.% as a function of noise in the collective interpretation and speaker access to knowledge.
+In Fig.~\ref{modelresults}, we plot the probability that the interpretation-resolving variable $v$ is \texttt{collective} after hearing the \texttt{ambiguous} utterance, marginalizing the other variables from the pragmatic listener $L_1$. In other words, we plot the probability of a collective interpretation depending on collective noise and speaker access.% as a function of noise in the collective interpretation and speaker access to knowledge.
 
 %\begin{figure}[h]
 %	\centering
@@ -927,7 +925,9 @@ In Fig.~\ref{modelresults} we plot the probability that the interpretation-resol
 	\centering
 	\includegraphics[width=\linewidth]{plots/model-results-add.eps}
 	\vspace{-20pt}
-	\caption{Model predictions for the probability of the \texttt{ambiguous} utterance receiving a collective interpretation as a function of collective interpretation noise and speaker knowledge access.  \ndg{todo: regenerate this figure using parameters fit to data. also change access label to "sum" from "partial".}  } \label{modelresults} 
+	\caption{Model predictions for the probability of the \texttt{ambiguous} utterance receiving a collective interpretation as a function of collective interpretation noise and speaker knowledge access.  
+	%\ndg{todo: regenerate this figure using parameters fit to data. also change access label to "sum" from "partial".}  
+	} \label{modelresults} 
 \end{figure}
 
 %With \texttt{no} noise, our estimates are spot on and collective properties are maximally predictable from context. Increasing noise, contextual predictability decreases: our estimates of collective properties deviate from the true state. Noise is a property of the world context, and as such speakers and listeners both have access to its value. In other words, we assume that speakers and listeners are aware of the inherent contextual predictability of collective properties.
@@ -946,7 +946,6 @@ In Fig.~\ref{modelresults} we plot the probability that the interpretation-resol
 %%\subsection{Model predictions}
 
 
-
 The qualitative predictions of our plural predication model match the hypotheses and experimental results that motivated the model. Most striking is the monotonic decrease in probability of collective interpretations as collective noise increases. We now have a formal understanding as to why this effect holds: the noisier the collective interpretation, the less likely the listener $L_{0}$ is to correctly resolve the question under discussion, namely the properties of the named boxes $s$. Given that the speaker $S_{1}$'s goal is to successfully communicate $s$ to $L_{0}$, the noisier an interpretation, the less useful it is at achieving this goal; the speaker is therefore less likely to intend this interpretation, and as a result the pragmatic listener $L_{1}$ is less likely to infer it.
 
 The model also successfully predicts the qualitative increase in the probability of a collective interpretation as the speaker's  access to individual object properties becomes limited. %With only partial access to the actual state $s$, $S_{1}$ is less likely to have precise information concerning $s$ about which to communicate. 
@@ -957,28 +956,28 @@ $L_{1}$ tracks  $S_{1}$'s epistemic state, and therefore knows whether the speak
 
 %To test the quantitative predictions of our model, we fit its parameters to best estimate the human data. Comparing the model predictions in Fig.~\ref{modelresults} to the rates of collective endorsement from Expt.~3 in Fig.~\ref{resultsexpt2}, the first thing to notice is the overall higher rates of collective endorsement in the human data. To capture this fact, we can change the prior probability of a collective interpretation, $p(v)$, in our model. In Fig.~\ref{modelresults}, that parameter is set to 0.5, or chance; to achieve a maximal fit between our model and the dependent measure from Expt.~3, we set that parameter to 0.88 for each of the three predicates. We also cheapen the cost of the ambiguous utterance relative to the unambiguous ones; in place of the flat prior distribution over possible utterances used above, here we set the utterance prior such that \texttt{ambiguous} is twice as cheap as \texttt{collective} or \texttt{distributive}---a reasonable assumption from the point of view of production, given that costlier, unambiguous utterances contain an extra word (i.e., \emph{each} or \emph{together}).
 
-\ndg{something about fitting $P(c)$...}
+%\ndg{something about fitting $P(c)$...}
 
 To quantitatively evaluate the role of speaker knowledge, we collapse over the contextual predictability manipulation and look only at judgments for plural predications with \emph{heavy} (the knowledge manipulation had no measurable affect on \emph{tall} or \emph{big}). %Here we fit only the specific values for noise in the model; all other parameters remain unchanged. 
-With \emph{heavy}-specific values for $P(c)$---all other parameters remain unchanged---we generate the model predictions in Fig.~\ref{heavymodel}, plotted with average collective endorsement ratings for \emph{heavy} from Expt.~3. By simply assuming that the collective interpretations of \emph{heavy} have \emph{heavy}-specific values for noise in context, we achieve a near exact fit between the model and the human data it predicts.
+With \emph{heavy}-specific values for $P(c)$ ($\sigma=0.7$; all other parameters remain unchanged) we generate the model predictions in Fig.~\ref{fit-model}, plotted with average collective endorsement ratings for \emph{heavy} from Expt.~3. By simply assuming that the collective interpretations of \emph{heavy} have \emph{heavy}-specific values for noise in context, we achieve a near exact fit between the model and the human data it predicts.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.6\linewidth]{plots/model-heavy.eps}
-	%\vspace{-20pt}
-	\caption{Fitted model predictions and human data from Expt.~3 for collective interpretations of \emph{heavy}; the scenario manipulation (i.e., ``inspect'' vs.~``move'') is modeled by speaker's perceptual access to knowledge of the state (``full'' vs.~``partial'').} \label{heavymodel}
+	\includegraphics[width=\linewidth]{plots/model_all_new.eps}
+	\vspace{-20pt}
+	\caption{Fitted model predictions and human data from Expt.~3 for collective interpretations. For \emph{heavy}, the scenario manipulation (i.e., ``inspect'' vs.~``move'') is modeled by speaker's perceptual access to knowledge of the state (``full'' vs.~``sum''). For \emph{big} and \emph{tall}, variability of context (i.e., ``random'' vs.~``regular'') is modeled by collective interpretation noise $P(c)$.} \label{fit-model}
 \end{figure}
 
-To qualitatively evaluate the role of contextual predictability for \emph{big} and \emph{tall}, we again have the model predict collective endorsement, this time collapsing over the scenario manipulation. As with \emph{heavy}, we fit predicate-specific values for $P(c)$; to model the effect of our contextual manipulation, we had increased contextual noise in regular contexts.  We also increased the cost of the unambiguous utterances to $3$ (cf.~the cost of $2$ for the results reported above). With no other changes to model parameters, we generate the predictions plotted in Fig.~\ref{bigtallmodel}; once again, the fit is near perfect.
+To qualitatively evaluate the role of contextual predictability for \emph{big} and \emph{tall}, we again have the model predict collective endorsement, this time collapsing over the scenario manipulation. As with \emph{heavy}, we fit predicate-specific values for $P(c)$; to model the effect of our contextual manipulation, we increased contextual noise in random contexts (\emph{big}/\emph{tall} \texttt{random}: $\sigma=3$; \emph{big} \texttt{regular}: $\sigma=1$; \emph{tall} \texttt{regular}: $\sigma=0.1$).  We also increased the cost of the unambiguous utterances to $3$ (cf.~the cost of $2$ for the results reported above). With no other changes to model parameters, we generate the predictions plotted in Fig.~\ref{fit-model}; once again, the fit is near perfect.
 
 %\ndg{why not model all of the data, too, uncollapsed? eg i'd like to see a version of fig 9 that has both data and model.... in fact this plus the more qualitative fig 11 may be all we need.}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\linewidth]{plots/model-big-tall.eps}
-	\vspace{-20pt}
-	\caption{Fitted model predictions and human data from Expt.~3 for collective interpretations of \emph{big} and \emph{tall}; variability of context (i.e., ``random'' vs.~``regular'') is modeled by contextual noise in the evaluation of the collective interpretation.} \label{bigtallmodel}
-\end{figure}
+%
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=\linewidth]{plots/model-big-tall.eps}
+%	\vspace{-20pt}
+%	\caption{Fitted model predictions and human data from Expt.~3 for collective interpretations of \emph{big} and \emph{tall}; variability of context (i.e., ``random'' vs.~``regular'') is modeled by contextual noise in the evaluation of the collective interpretation.} \label{bigtallmodel}
+%\end{figure}
 
 In addition to the match between the qualitative predictions of our model and the human data from Expt.~3, fitting predicate-specific parameters for contextual noise yields near exact quantitative predictions of the observed human behavior. Put simply, our model of plural predication, which explicates the ways that speakers and listeners reason about each other as they communicate, succeeds. %Collective interpretations become more likely as the properties they name become more predictable in context.
 
@@ -1025,7 +1024,7 @@ Note that subject nouns already played a central role in the disambiguation of p
 
 %\ndg{do we need to more directly address david beaver and chris kennedy's question about whether the action is in the predicate or the noun? my take is that it could be either -- our model and results are at the level of the whole phrase, leaving open where in the compositional / lexical semantics the ambiguity is actually located.} \gcs{I added a bit to the discussion above about how stubbornly distributive predicates might require plural arguments with fixed arrangements. We also discuss the issue indirectly in the discussion of Expt.~3. Not sure if we should say much more about this.}
 
-To understand this mechanism, namely how contextual predictability affects the calculus of interpretation choice, we modeled its contribution explicitly within a computational model of plural predication. Both the formal analysis and experimental results operate at the level of whole utterances. They leave open several questions of compositional semantics. Most notably, we assume that a plural predication is ambiguous between collective and distributive readings. The locus of this ambiguity could be in the predicate, in the noun phrase, or only in the composition of the two. For instance, it may be that the noun phrase can be construed as either a plurality or plural entity, giving rise to the ambiguity in plural predication. Future research will be needed to pin down the compositional source of the ambiguity; having a theory of how the ambiguity is resolved in context is likely to help. \ndg{greg, check this paragraph.}
+To understand this mechanism, namely how contextual predictability affects the calculus of interpretation choice, we modeled its contribution explicitly within a computational model of plural predication. Both the formal analysis and experimental results operate at the level of whole utterances. They leave open several questions of compositional semantics. Most notably, we assume that a plural predication is ambiguous between collective and distributive readings. The locus of this ambiguity could be in the predicate, in the noun phrase, or only in the composition of the two. For instance, it may be that the noun phrase can be construed as either a plurality (e.g., some boxes) or an aggregate (e.g., a single collection), giving rise to the ambiguity in plural predication. Future research will be needed to pin down the compositional source of the ambiguity; having a theory of how the ambiguity is resolved in context is likely to help. %\ndg{greg, check this paragraph.}
 
 %The success of this model adds to the growing body of support for the central role of rational inference in communication; we turn next to its details.
 
