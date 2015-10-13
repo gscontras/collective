@@ -1,117 +1,172 @@
-\documentclass[linguex]{sp}
-%\documentclass[11pt]{article}
-%\usepackage[hmargin={.75in},vmargin={1.25in},foot={.6in}]{geometry}   
-%\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
-%\geometry{landscape}                % Activate for for rotated page geometry
-%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
-%\usepackage{graphicx,color}
-%\usepackage{natbib}
-\usepackage{booktabs}
-%\usepackage{subfig}
-%\usepackage{latexsym}
-%\usepackage{amsmath}
-%\usepackage{amssymb}
-%\usepackage{amsthm}
-%\usepackage{alltt}
-%\usepackage{textcomp}
-%\usepackage{url}
-%\usepackage{epsfig}
-%\usepackage{multicol}
-%\usepackage{pstricks}
-%\usepackage{tabularx}
-%\usepackage{gb4e}
-%\usepackage{qtree}
-%\qtreecenterfalse
-%\usepackage[normalem]{ulem}
-%\usepackage{linguex}
-%\usepackage{bbding}
-%\usepackage{setspace}
-%\usepackage[table]{xcolor}
-\usepackage{pifont} %ding
-\usepackage{pst-node}
-%\usepackage{bold-extra}
-\usepackage{color}
+%% 
+%% Copyright 2007, 2008, 2009 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+%% SP 2008/03/01
 
+\documentclass[preprint,12pt,authoryear,titlepage]{elsarticle}
 
-%\usepackage{natbib}
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
 
-%\setcounter{secnumdepth}{4}
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times,authoryear]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn,authoryear]{elsarticle}
+%% \documentclass[final,3p,times,authoryear]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn,authoryear]{elsarticle}
+%% \documentclass[final,5p,times,authoryear]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn,authoryear]{elsarticle}
 
-\newcommand{\txtp}{\textipa}
-\renewcommand{\rm}{\textrm}
-\newcommand{\sem}[1]{\mbox{$[\![$#1$]\!]$}}
-\newcommand{\lam}{$\lambda$}
-\newcommand{\lan}{$\langle$}
-\newcommand{\ran}{$\rangle$}
-\newcommand{\type}[1]{\ensuremath{\left \langle #1 \right \rangle }}
-\newcommand{\defeq}{$\mathrel{\mathop:}=$ }
-\renewcommand{\and}{$\wedge$ }
-\renewcommand{\tt}{\texttt}
-\newcommand{\op}{$\oplus$}
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
 
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb,linguex,url,color,amsmath,booktabs}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
 
-\newcommand{\bex}{\begin{exe}}
-\newcommand{\eex}{\end{exe}}
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%\usepackage{lineno}
+%\modulolinenumbers[5]
 
-%bullet points
-\newcommand{\bit}{\begin{itemize}}
-\newcommand{\eit}{\end{itemize}}
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+% Update first horizontal rule to insert a \clearpage
+\makeatletter
+\patchcmd{\pprintMaketitle}% <cmd>
+  {\hrule\vskip12pt}% <search>
+  {\clearpage\hrule\vskip12\p@}% <replace>
+  {}{}% <success><failure>
+% Update second horizontal rule to insert a \clearpage
+\patchcmd{\pprintMaketitle}% <cmd>
+  {\hrule\vskip12pt}% <search>
+  {\hrule\clearpage}% <replace>
+  {}{}% <success><failure>
+\makeatother
 
-%numbering, non sequential
-\newcommand{\ben}{\begin{enumerate}}
-\newcommand{\een}{\end{enumerate}}
-
-%\linespread{1.2}
+\linespread{1.25}
 
 \definecolor{Green}{RGB}{10,200,100}
 \newcommand{\ndg}[1]{\textcolor{Green}{[ndg: #1]}}  
-\newcommand{\gcs}[1]{\textcolor{blue}{[gcs: #1]}}  
+\newcommand{\gcs}[1]{\textcolor{blue}{[gcs: #1]}} 
 
+\newcommand{\sem}[1]{\mbox{$[\![$#1$]\!]$}}
 
+\newcommand{\lam}{$\lambda$}
 
-% \pdf* commands provide metadata for the PDF output. ASCII characters only!
-\pdfauthor{Gregory Scontras and Noah D. Goodman}
-\pdftitle{Resolving uncertainty in plural predication}
-\pdfkeywords{Full keyword list, separated, by, commas}
-
-% Optional short title inside square brackets, for the running headers.
-% If no short title is given, no title appears in the headers.
-\title[Resolving uncertainty in plural predication]{Resolving uncertainty in plural predication \thanks{We thank people XXX. This work was supported in part by a James S.~McDonnell Foundation Scholar Award (to N.D.G.); Office of Naval Research Grant N000141310788 (to N.D.G.); and the DARPA Probabilistic Programming for Advanced Machine Learning (PPAML) program, agreement number FA8750-14-2-0009 (to N.D.G.).}}
-
-%DARPA Probabilistic Program- ming for Advanced Machine Learning (PPAML) program. This material is based on research spon- sored by DARPA under agreement number FA8750-14-2-0009.
-
-% Optional short author inside square brackets, for the running headers.
-% If no short author is given, no authors print in the headers.
-\author[Scontras \& Goodman]{% As many authors as you like, each separated by \AND.
-	\spauthor{Gregory Scontras \\ \institute{Stanford University}} \AND
-	\spauthor{Noah D.~Goodman \\ \institute{Stanford University}}
-}
-
-
-
-
+\journal{Cognition}
 
 \begin{document}
 
-\maketitle
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for theassociated footnote;
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for theassociated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for theassociated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
+
+%%\title{Resolving uncertainty in plural predication}
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{}
+%% \address[label1]{}
+%% \address[label2]{}
+
+\title{Resolving uncertainty in plural predication\tnoteref{label1}}
+\tnotetext[label1]{This work was supported in part by a James S.~McDonnell Foundation Scholar Award (to N.D.G.); Office of Naval Research Grant N000141310788 (to N.D.G.); and the DARPA Probabilistic Programming for Advanced Machine Learning (PPAML) program, agreement number FA8750-14-2-0009 (to N.D.G.).}
+
+
+%\author{Gregory Scontras\corref{cor1}, Noah D.~Goodman}
+%\cortext[cor1]{Corresponding author}
+%\ead{scontras@stanford.edu}
+%\ead[url]{http://web.stanford.edu/~scontras/}
+%%\author[stanford]{Noah D.~Goodman}
+%\address{Stanford University}
+%
+%\address{Department of Psychology, Stanford University, 450 Serra Mall, Jordan Hall, Stanford, CA 94305}
+
+%\author{Noah D.~Goodman}
+%\fntext[label2]{test}
+
+%\author{Author One\corref{cor1}\fnref{fn1}}
+%\ead{email@uni.edu}
+%\cortext[cor1]{Corresponding author}
+%\fntext[fn1]{Student}
+%
+%
+%\author{Author Two\fnref{fn2}}
+%\ead{email2@uni.edu}
+%\fntext[fn2]{Lecturer}
+%
+%\address{Address Here}
+
+\author{Gregory Scontras\corref{cor1}}
+\ead{scontras@stanford.edu}
+\ead[url]{http://web.stanford.edu/~scontras/}
+\author{Noah D.~Goodman\corref{cor2}}
+\cortext[cor1]{Corresponding author}
+    
+ \address{Stanford University}
+
+%% \fntext[label3]{}
 
 \begin{abstract}
-\ndg{revise this in light of current framing and emphasis...} \gcs{better?}
-	This paper investigates the role of context in the disambiguation between distributive and collective interpretations of plural predications.  We focus on the phenomenon of ``stubborn distributivity,'' whereby certain predicates (e.g., \emph{big}, \emph{tall}) are claimed to lack collective interpretations altogether. Over the course of three experiments, we show that stubbornly distributive predicates are so because the collective properties they name are unpredictable, or unstable, in most contexts; this unpredictability results in a noisy collective interpretation, something speakers and listeners recognize as ineffective for communicating efficiently about their world.
-	We formalize the pragmatics of utterance disambiguation within the Bayesian Rational Speech-Acts framework, showing how stubborn distributivity emerges from properties of context and the reasoning processes of speakers and listeners: speakers prefer more stable, more potentially informative utterances; listeners understand speakers’ preferences and use this understanding as they interpret utterances.	
-	%, using unambiguous paraphrases to isolate interpretations. Then, we apply our paraphrase endorsement method to naturally-occurring examples from corpora, finding that both the narrow linguistic context and the broader discourse context mediate interpretation choices. Next, we employ the paraphrase endorsement method while manipulating properties of the context directly, and find that the probability of an interpretation depends crucially on potential variability in the property being communicated; the more variable a collective property, the less likely a collective interpretation. Stubbornly distributive predicates name collective properties that are relatively unpredictable in and across contexts (e.g., collective size will depend crucially on the way a set of objects is arranged), which leads to more variable interpretations. A more variable interpretation is potentially less informative because it requires more coordination between speakers and listeners. The interpretation is therefore less useful to speakers for communicating about the state of the world, which makes it less likely. These facts support a general model of rational communication under which the resolution of ambiguities is sensitive to the amount of variability in possible interpretations.  We formalize this pragmatic calculus using a Bayesian Rational Speech-Act model of communication.
+%% Text of abstract
+This paper investigates the role of context in the disambiguation between distributive and collective interpretations of plural predications.  We focus on the phenomenon of ``stubborn distributivity,'' whereby certain predicates (e.g., \emph{big}, \emph{tall}) are claimed to lack collective interpretations altogether. Over the course of three experiments, we show that stubbornly distributive predicates are so because the collective properties they name are unpredictable, or unstable, in most contexts; this unpredictability results in a noisy collective interpretation, something speakers and listeners recognize as ineffective for communicating efficiently about their world.
+We formalize the pragmatics of utterance disambiguation within the Bayesian Rational Speech-Acts framework, showing how stubborn distributivity emerges from properties of context and the reasoning processes of speakers and listeners: speakers prefer more stable, more potentially informative utterances; listeners understand speakers’ preferences and use this understanding as they interpret utterances.\\
+
 \end{abstract}
 
-\begin{keywords}
-	plurality, distributive vs.~collective interpretations, ambiguity resolution, Rational Speech-Act models
-\end{keywords}
+\begin{keyword}
+%% keywords here, in the form: keyword \sep keyword
+plurality \sep distributive vs.~collective interpretations \sep ambiguity resolution \sep Rational Speech-Act models
 
-%\newpage
+%% PACS codes here, in the form: \PACS code \sep code
 
-%\tableofcontents
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
 
-%\newpage
+\end{keyword}
 
+\end{frontmatter}
+
+%\clearpage
+
+%\linenumbers
+
+%% main text
 \section{Introduction}
 
 If we hear ``the boys carried a piano,'' they likely carried one piano together; if we hear ``the pianos are big'' then likely each one is big. How do we understand the meaning of \emph{plural predications} like these?
@@ -363,7 +418,7 @@ Participants were introduced to Cubert, a worker in a box factory.\footnote{The 
 	\caption{Example trial from Expt.~1 with the predicate \emph{big} in the ``each'' utterance.}\label{expt1trial}
 \end{figure}
 
- Cubert used three predicates, \emph{big}, \emph{heavy}, and \emph{tall}, in three sentence frames, or utterances: ``bare'' \ref{bare}, ``each'' \ref{each}, and ``together'' \ref{together}. Participants saw each version of each predicate in a random order, completing nine trials. All 50 participants indicated that they were native speakers of English, so we included all of the data in the analyses reported below.
+Cubert used three predicates, \emph{big}, \emph{heavy}, and \emph{tall}, in three sentence frames, or utterances: ``bare'' \ref{bare}, ``each'' \ref{each}, and ``together'' \ref{together}. Participants saw each version of each predicate in a random order, completing nine trials. All 50 participants indicated that they were native speakers of English, so we included all of the data in the analyses reported below.
 
 \subsection{Predictions}
 
@@ -414,7 +469,7 @@ We next use the paraphrase methodology to evaluate natural plural predications g
 
 \subsection{Experiment 2a: Frequent plural predications}
 
- We begin with naturally-occurring examples of plural predications extracted from the British National Corpus.\footnote{Sentences were extracted from the British National Corpus Online service, managed by Oxford University Computing Services on behalf of the BNC Consortium. All rights in the texts cited are reserved.}
+We begin with naturally-occurring examples of plural predications extracted from the British National Corpus.\footnote{Sentences were extracted from the British National Corpus Online service, managed by Oxford University Computing Services on behalf of the BNC Consortium. All rights in the texts cited are reserved.}
 
 \subsubsection{Participants}
 
@@ -453,8 +508,8 @@ We begin with a look at the range of collective endorsement ratings.\footnote{A 
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=.985\linewidth]{plots/sentence_plot.eps}
-	%\vspace{0pt}
+	\includegraphics[width=1.04\linewidth]{plots/sentence_plot.eps}
+	\vspace{-20pt}
 	\caption{Collective paraphrase endorsement rates for different noun-predicate combinations in Expt.~2a (i.e., for different sentences).} \label{sentence-coll}
 \end{figure}
 
@@ -471,7 +526,7 @@ This analysis relies on the chance occurrence of multiple subject nouns in our s
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=.85\linewidth]{plots/noun_pred_plot.eps}
+	\includegraphics[width=.95\linewidth]{plots/noun_pred_plot.eps}
 	%\vspace{0pt}
 	\caption{Collective paraphrase endorsement rates for different subject nouns grouped by predicate (Expt.~2a).} \label{noun-pred-coll}
 \end{figure}
@@ -492,9 +547,9 @@ The design and methods for this experiment were identical to those of Expt.~2a, 
 
 \ex. \emph{Noun-predicate pairings}:\\[2pt]
 \begin{tabular}{ll}
-big:& boys, children, houses, rooms, waves\\
-heavy:& bags, lids, loads, men, trees\\
-tall:& buildings, offspring, plants, trees, windows
+	big:& boys, children, houses, rooms, waves\\
+	heavy:& bags, lids, loads, men, trees\\
+	tall:& buildings, offspring, plants, trees, windows
 \end{tabular}	
 
 As with Expt.~2a, participants judged whether the resulting sentences made sense and rated disambiguating paraphrases of each.\footnote{The full experiment is viewable online at \url{http://cocolab.stanford.edu/experiments/collective/expt2b/expt2b.html}.}  We analyzed data from the 26 participants who indicated that their native language was English.
@@ -616,11 +671,11 @@ Also between subjects, we manipulated the variability of the \textsc{context} (`
 
 
 \begin{figure}[h]
-\centering
-\includegraphics[width=.45\textwidth]{images/context13reg.eps}
-\ \ \ \ 
-\includegraphics[width=.45\textwidth]{images/context13nodolly.eps}
-\caption{Example context scenarios from Expt.~3. Left: the outcome of a ``regular,'' ``move'' context scenario. Right: the outcome of a ``random,'' ``inspect'' context scenario.\label{expt2context}}
+	\centering
+	\includegraphics[width=.45\textwidth]{images/context13reg.eps}
+	\ \ \ \ 
+	\includegraphics[width=.45\textwidth]{images/context13nodolly.eps}
+	\caption{Example context scenarios from Expt.~3. Left: the outcome of a ``regular,'' ``move'' context scenario. Right: the outcome of a ``random,'' ``inspect'' context scenario.\label{expt2context}}
 \end{figure}
 
 
@@ -629,9 +684,9 @@ After observing the dispenser in action via the context  scenarios, participants
 %\ndg{links to expts? should add for all of them...}
 
 \begin{figure}[h]
-\centering
-\includegraphics[width=4.5in]{images/trial.eps}
-\caption{Example ``big'' trial.}\label{trial}
+	\centering
+	\includegraphics[width=4.5in]{images/trial.eps}
+	\caption{Example ``big'' trial.}\label{trial}
 \end{figure}
 
 %\subsection{Predictions}
@@ -657,7 +712,7 @@ First note the qualitative effects of our two manipulations: collective interpre
 \end{figure}
 
 For each predicate, we fit a linear regression model predicting collective endorsement ratings by \textsc{context} (``random'' vs.~``regular''),
- \textsc{scenario} (``inspect'' vs.~``move''), and \textsc{trial} order; the model also included the interaction between \textsc{context} and \textsc{scenario}.\footnote{All reported results hold if instead we look at normalized collective paraphrase endorsement ratings (i.e., the difference between collective and distributive endorsements for each trial), given the strong negative correlation between the two endorsement ratings ($r=-0.62$). The results also hold if we analyze the results from all three predicates in a single mixed effects regression model; we present the three separate models here for ease of interpretation.} The full regression models appear in Appendix \ref{expt3results}.
+\textsc{scenario} (``inspect'' vs.~``move''), and \textsc{trial} order; the model also included the interaction between \textsc{context} and \textsc{scenario}.\footnote{All reported results hold if instead we look at normalized collective paraphrase endorsement ratings (i.e., the difference between collective and distributive endorsements for each trial), given the strong negative correlation between the two endorsement ratings ($r=-0.62$). The results also hold if we analyze the results from all three predicates in a single mixed effects regression model; we present the three separate models here for ease of interpretation.} The full regression models appear in Appendix \ref{expt3results}.
 As is apparent in Fig.~\ref{resultsexpt2}, there was a main effect of \textsc{context} for both \emph{big} ($\beta$ = 0.18, $SE$ = 0.07, $t$ = 2.52, p $<$ 0.05) and \emph{tall} ($\beta$ = 0.30, $SE$ = 0.07, $t$ = 4.58, p $<$ 0.01), such that regular contexts had more collective interpretations than did random contexts for these predicates. The effect of \textsc{context} was not significant for \emph{heavy} ($\beta$ = 0.11, $SE$ = 0.07, $t$ = 1.43, p $=$ 0.16), but the effect of \textsc{scenario} was ($\beta$ = 0.19, $SE$ = 0.08, $t$ = 2.54, p $<$ 0.05): \emph{heavy} received more collective interpretations in ``move'' scenarios. No other effects reached significance.
 
 %, so that  ($\beta$ = 0.18, $SE$ = 0.07, $t$ = 2.70, p $<$ 0.01). The model finds a main effect of the contrast between \emph{big} and \emph{tall} ($\beta$ = 0.07, $SE$ = 0.04, $t$ = 2.00, p $<$ 0.05), driven in large part by a marginally significant interaction between \emph{tall} and \textsc{context} ($\beta$ = 0.13, $SE$ = 0.08, $t$ = 1.72, p $=$ 0.09): \emph{tall} was most affected by our contextual manipulation, yielding the greatest rates of collective interpretations in regular contexts. Finally, the model finds a significant interaction between the predicate \emph{heavy} and \textsc{scenario} ($\beta$ = 0.21, $SE$ = 0.08, $t$ = 2.77, p $<$ 0.01): 
@@ -720,13 +775,13 @@ We assume a simple truth-functional literal semantics, wherein a plural predicat
 We will consider three alternative utterances: 
 an {unambiguously distributive} (e.g., \emph{the boxes each are big}), an {unambiguously collective} (e.g., \emph{the boxes together are big}), and an {ambiguous} utterance (e.g., \emph{the boxes are big}).
 
- \ex. \emph{Literal semantics}:
- \a. \label{dist}\sem{\texttt{distrib}}$^{\theta_d}$ = 
-   \lam $s$. $\forall \ x\ \in s\ [d(x) > \theta_d]$
+\ex. \emph{Literal semantics}:
+\a. \label{dist}\sem{\texttt{distrib}}$^{\theta_d}$ = 
+\lam $s$. $\forall \ x\ \in s\ [d(x) > \theta_d]$
 \b. \label{coll}\sem{\texttt{coll}}$^{c,\theta_c}$ = 
-   \lam $s$. $[c + \sum_{x\in s} d(x) > \theta_c]$
+\lam $s$. $[c + \sum_{x\in s} d(x) > \theta_c]$
 \c.  \label{amb}\sem{\texttt{amb}}$^{v, c, \theta_d, \theta_c}$ = 
-   if $v$ \sem{\texttt{distrib}}$^{\theta_d}$, else \sem{\texttt{coll}}$^{c,\theta_c}$
+if $v$ \sem{\texttt{distrib}}$^{\theta_d}$, else \sem{\texttt{coll}}$^{c,\theta_c}$
 
 The unambiguous distributive utterance, \Last[a], is a universal quantification over a vague scalar meaning: each object's degree must exceed the distributive threshold $\theta_d$. 
 The unambiguous collective utterance, \Last[b], is again a vague scalar meaning: the collective degree must exceed the collective threshold $\theta_c$. 
@@ -928,7 +983,7 @@ In Fig.~\ref{modelresults}, we plot the probability that the interpretation-reso
 	\includegraphics[width=\linewidth]{plots/model-results-add.eps}
 	\vspace{-20pt}
 	\caption{Model predictions for the probability of the \texttt{ambiguous} utterance receiving a collective interpretation as a function of collective interpretation noise and speaker knowledge access.  
-	%\ndg{todo: regenerate this figure using parameters fit to data. also change access label to "sum" from "partial".}  
+		%\ndg{todo: regenerate this figure using parameters fit to data. also change access label to "sum" from "partial".}  
 	} \label{modelresults} 
 \end{figure}
 
@@ -1073,6 +1128,8 @@ Second, we highlighted the role that context-specific predictability, or noise, 
 We have argued that understanding plural predication, and notably the phenomenon of stubborn distributivity, arises from an interaction between the rational reasoning processes of language users and qualities of the collective properties they name. Speakers and listeners require more coordination to align their beliefs about properties that are less predictable across contexts (e.g., collective size or shape, which might change as arrangements change). As a result, they require more support from context to accurately discuss these potentially variable, uncertain properties. This support might come in the form of words that increase contextual predictability (e.g., \emph{stack}, which regularizes otherwise variable physical arrangements) or from increasing the regularity of the context itself (e.g., by ensuring that sets realize a common physical arrangement). As collective properties become more predictable, collective interpretations become more informative, more useful, and therefore more likely.
 
 
+%% The Appendices part is started with the command \appendix;
+
 \appendix
 
 \section{Full mixed effects logistic regression models from Expt.~1}\label{expt1results}
@@ -1081,22 +1138,24 @@ We have argued that understanding plural predication, and notably the phenomenon
 Table \ref{expt1analysis1} presents model coefficients for the full mixed logistic regression model used in the analysis of disambiguating paraphrases in Expt.~1. The model predicts collective referent choice from fixed effects for disambiguating utterance and its interaction with predicate, together with trial order. The model includes random by-participant and by-scenario intercepts. The fixed effects predictors were centered before analysis.
 
 \begin{table}[htb] 
+	\renewcommand\thetable{A.1}
 	\centering \caption{Full logistic regression model from paraphrase analysis of Expt.~1.} \label{expt1analysis1}
-\begin{tabular}{lrrrr}\toprule
-	&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{z}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
-Intercept	&	-0.25	&	0.25	&	-0.97	&	0.33\\
-Utterance	&	4.99	&	0.82	&	6.08	&	\textbf{$<$0.01}\\
-Trial	&	0.07	&	0.07	&	1.00	&	0.32\\
-Utterance:Pred-heavy&	-1.39	&	0.91	&	-1.52	&	0.13\\
-Utterance:Pred-tall&	-0.63	&	0.95	&	-0.66	&	0.51\\
-\bottomrule
-\end{tabular}
+	\begin{tabular}{lrrrr}\toprule
+		&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{z}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
+		Intercept	&	-0.25	&	0.25	&	-0.97	&	0.33\\
+		Utterance	&	4.99	&	0.82	&	6.08	&	\textbf{$<$0.01}\\
+		Trial	&	0.07	&	0.07	&	1.00	&	0.32\\
+		Utterance:Pred-heavy&	-1.39	&	0.91	&	-1.52	&	0.13\\
+		Utterance:Pred-tall&	-0.63	&	0.95	&	-0.66	&	0.51\\
+		\bottomrule
+	\end{tabular}
 \end{table}
 
 Table \ref{expt1analysis2} presents model coefficients for the full mixed logistic regression model used in the analysis of bare utterances in Expt.~1. The model predicts collective referent choice from fixed effects for predicate, scenario, and trial, as well as random by-participant intercepts and slopes grouped by trial. Fixed effects predictors were centered before analysis.
 
 
 \begin{table}[htb] 
+	\renewcommand\thetable{A.2}
 	\centering \caption{Full logistic regression model from bare utterance analysis of Expt.~1.} \label{expt1analysis2}
 	\begin{tabular}{lrrrr}\toprule
 		&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{z}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
@@ -1107,77 +1166,79 @@ Table \ref{expt1analysis2} presents model coefficients for the full mixed logist
 		\bottomrule
 	\end{tabular}
 \end{table}
- 
+
 
 \section{Full mixed effects linear regression models from Expt.~2}\label{2-stats}
 
 Table \ref{expt2aanalysis} presents model coefficients for the full mixed linear regression models used in the analyses of the 8 predicates occurring with more than one subject noun in Expt.~2a. The models predict collective endorsement ratings from fixed effects for subject noun, as well as random by-participant intercepts. For each predicate, the subject noun with the highest mean collective endorsement rating served as the reference level.
 
 \begin{table}[htb] 
+	\renewcommand\thetable{B.1}
 	\centering \caption{Full linear regression models from analysis of Expt.~2a.} \label{expt2aanalysis}
-\begin{tabular}{lrrrr}\toprule
-	&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
-\emph{\textbf{bright}} \\
-Intercept-eyes	& 	0.75 &	0.07	&	11.46	&	\textbf{$<$0.01} \\
-Noun-colors	&	-0.19	&   0.08	&	-2.26	&	\textbf{$<$0.05} \\ \hline
-\emph{\textbf{closed}}\\
-Intercept-doors	& 	0.60	&	0.07	&	8.61	&	\textbf{$<$0.01} \\
-Noun-shops	&	-0.16	&   0.09	&	-1.87	&	0.07 \\ \hline
-\emph{\textbf{friendly}}\\
-Intercept-natives	& 	0.73	&	0.05	&	13.41	&	\textbf{$<$0.01} \\
-Noun-people	&	-0.05	&   0.06	&	-0.93	&	0.37 \\\hline
-\emph{\textbf{full}}\\
-Intercept-streets	& 	0.68	&	0.06	&	11.53	&	\textbf{$<$0.01} \\
-Noun-papers	&	-0.11	&   0.10	&	-1.19	&	0.24 \\
-Noun-pubs	&	-0.23	&   0.08	&	-2.91	&	\textbf{$<$0.01} \\\hline
-\emph{\textbf{guilty}}\\
-Intercept-defendants	& 	0.68	&	0.05	&	12.51	&	\textbf{$<$0.01} \\
-Noun-men	&	-0.02	&   0.08	&	-0.21	&	0.84 \\\hline
-\emph{\textbf{open}}\\
-Intercept-eyes	& 	0.65	&	0.07	&	9.73	&	\textbf{$<$0.01} \\
-Noun-gates	&	0.01	&   0.09	&	0.08	&	0.94 \\
-Noun-doors	&	-0.03	&   0.08	&	-0.40	&	0.69 \\
-Noun-curtains	&	0.00	&   0.09	&	-0.03	&	0.98 \\
-Noun-pubs	&	-0.11	&   0.09 	&	-1.29	&	0.20 \\
-Noun-windows	&	-0.15	&   0.08	&	-1.77	&	0.08 \\\hline
-\emph{\textbf{quiet}}\\
-Intercept-dogs	& 	0.71	&	0.07	&	10.72	&	\textbf{$<$0.01} \\
-Noun-streets	&	-0.06	&   0.09	&	-0.65	&	0.52 \\\hline
-\emph{\textbf{small}}\\
-Intercept-numbers	& 	0.57	&	0.06	&	9.65	&	\textbf{$<$0.01} \\
-Noun-children	&	-0.16	&   0.07	&	-2.34	&	\textbf{$<$0.05} \\
-Noun-rooms	&	-0.20	&   0.07	&	-2.78	&	\textbf{$<$0.01} \\
-Noun-classes	&	-0.28	&   0.07	&	-3.88	&	\textbf{$<$0.01} \\
-\bottomrule
-\end{tabular}
+	\begin{tabular}{lrrrr}\toprule
+		&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
+		\emph{\textbf{bright}} \\
+		Intercept-eyes	& 	0.75 &	0.07	&	11.46	&	\textbf{$<$0.01} \\
+		Noun-colors	&	-0.19	&   0.08	&	-2.26	&	\textbf{$<$0.05} \\ \hline
+		\emph{\textbf{closed}}\\
+		Intercept-doors	& 	0.60	&	0.07	&	8.61	&	\textbf{$<$0.01} \\
+		Noun-shops	&	-0.16	&   0.09	&	-1.87	&	0.07 \\ \hline
+		\emph{\textbf{friendly}}\\
+		Intercept-natives	& 	0.73	&	0.05	&	13.41	&	\textbf{$<$0.01} \\
+		Noun-people	&	-0.05	&   0.06	&	-0.93	&	0.37 \\\hline
+		\emph{\textbf{full}}\\
+		Intercept-streets	& 	0.68	&	0.06	&	11.53	&	\textbf{$<$0.01} \\
+		Noun-papers	&	-0.11	&   0.10	&	-1.19	&	0.24 \\
+		Noun-pubs	&	-0.23	&   0.08	&	-2.91	&	\textbf{$<$0.01} \\\hline
+		\emph{\textbf{guilty}}\\
+		Intercept-defendants	& 	0.68	&	0.05	&	12.51	&	\textbf{$<$0.01} \\
+		Noun-men	&	-0.02	&   0.08	&	-0.21	&	0.84 \\\hline
+		\emph{\textbf{open}}\\
+		Intercept-eyes	& 	0.65	&	0.07	&	9.73	&	\textbf{$<$0.01} \\
+		Noun-gates	&	0.01	&   0.09	&	0.08	&	0.94 \\
+		Noun-doors	&	-0.03	&   0.08	&	-0.40	&	0.69 \\
+		Noun-curtains	&	0.00	&   0.09	&	-0.03	&	0.98 \\
+		Noun-pubs	&	-0.11	&   0.09 	&	-1.29	&	0.20 \\
+		Noun-windows	&	-0.15	&   0.08	&	-1.77	&	0.08 \\\hline
+		\emph{\textbf{quiet}}\\
+		Intercept-dogs	& 	0.71	&	0.07	&	10.72	&	\textbf{$<$0.01} \\
+		Noun-streets	&	-0.06	&   0.09	&	-0.65	&	0.52 \\\hline
+		\emph{\textbf{small}}\\
+		Intercept-numbers	& 	0.57	&	0.06	&	9.65	&	\textbf{$<$0.01} \\
+		Noun-children	&	-0.16	&   0.07	&	-2.34	&	\textbf{$<$0.05} \\
+		Noun-rooms	&	-0.20	&   0.07	&	-2.78	&	\textbf{$<$0.01} \\
+		Noun-classes	&	-0.28	&   0.07	&	-3.88	&	\textbf{$<$0.01} \\
+		\bottomrule
+	\end{tabular}
 \end{table}
 
 Table \ref{expt2banalysis} presents model coefficients for the full mixed linear regression models used in the analyses of subject nouns in Expt.~2b. The models predict collective endorsement ratings for each of the three predicates (\emph{big}, \emph{heavy}, \emph{tall}) from fixed effects for subject noun, as well as random by-participant intercepts. For each predicate, the subject noun with the highest mean collective endorsement rating served as the reference level.
 
 \begin{table}[htb] 
+	\renewcommand\thetable{B.2}
 	\centering \caption{Full linear regression models from subject noun analysis of Expt.~2b.} \label{expt2banalysis}
-\begin{tabular}{lrrrr}\toprule
-	&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
-\emph{\textbf{big}} \\
-Intercept-waves& 	0.42 &	0.06	&	6.73	&	\textbf{$<$0.01} \\
-Noun-rooms	&	-0.18	&   0.06	&	-2.96&	\textbf{$<$0.01} \\
-Noun-boys	&	-0.22&   0.06	&	-3.53	&	\textbf{$<$0.01} \\
-Noun-children	&	-0.21	&   0.06	&	-3.54	&	\textbf{$<$0.01} \\
-Noun-houses	&	-0.23	&   0.06	&	-3.68	&	\textbf{$<$0.01} \\ \hline
-\emph{\textbf{heavy}}\\
-Intercept-bags	& 	0.63	&   0.07	&	9.63	&	\textbf{$<$0.01} \\
-Noun-lids		&	-0.08	&   0.08	&	-1.04	&	0.30\\
-Noun-trees	&	-0.15	&   0.08	&	-1.93	&	0.06 \\
-Noun-loads	&	-0.24	&   0.08	&	-3.15	&	\textbf{$<$0.01} \\
-Noun-men		&	-0.25	&   0.08	&	-3.36	&	\textbf{$<$0.01} \\ \hline
-\emph{\textbf{tall}}\\
-Intercept-trees	& 	0.30	&	0.06	&	4.65	&	\textbf{$<$0.01} \\
-Noun-plants	&	0.00	&   0.06	&	-0.07	&	0.95 \\
-Noun-offspring	&	-0.03	&   0.06	&	-0.55	&	0.59 \\
-Noun-buildings	&	-0.06	&   0.06	&	-1.00	&	0.32 \\
-Noun-windows	&	-0.09	&   0.06	&	-1.52	&	0.13 \\
-\bottomrule
-\end{tabular}
+	\begin{tabular}{lrrrr}\toprule
+		&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
+		\emph{\textbf{big}} \\
+		Intercept-waves& 	0.42 &	0.06	&	6.73	&	\textbf{$<$0.01} \\
+		Noun-rooms	&	-0.18	&   0.06	&	-2.96&	\textbf{$<$0.01} \\
+		Noun-boys	&	-0.22&   0.06	&	-3.53	&	\textbf{$<$0.01} \\
+		Noun-children	&	-0.21	&   0.06	&	-3.54	&	\textbf{$<$0.01} \\
+		Noun-houses	&	-0.23	&   0.06	&	-3.68	&	\textbf{$<$0.01} \\ \hline
+		\emph{\textbf{heavy}}\\
+		Intercept-bags	& 	0.63	&   0.07	&	9.63	&	\textbf{$<$0.01} \\
+		Noun-lids		&	-0.08	&   0.08	&	-1.04	&	0.30\\
+		Noun-trees	&	-0.15	&   0.08	&	-1.93	&	0.06 \\
+		Noun-loads	&	-0.24	&   0.08	&	-3.15	&	\textbf{$<$0.01} \\
+		Noun-men		&	-0.25	&   0.08	&	-3.36	&	\textbf{$<$0.01} \\ \hline
+		\emph{\textbf{tall}}\\
+		Intercept-trees	& 	0.30	&	0.06	&	4.65	&	\textbf{$<$0.01} \\
+		Noun-plants	&	0.00	&   0.06	&	-0.07	&	0.95 \\
+		Noun-offspring	&	-0.03	&   0.06	&	-0.55	&	0.59 \\
+		Noun-buildings	&	-0.06	&   0.06	&	-1.00	&	0.32 \\
+		Noun-windows	&	-0.09	&   0.06	&	-1.52	&	0.13 \\
+		\bottomrule
+	\end{tabular}
 \end{table}
 
 \section{Full mixed effects linear regression model from Expt.~3}\label{expt3results}
@@ -1185,140 +1246,53 @@ Noun-windows	&	-0.09	&   0.06	&	-1.52	&	0.13 \\
 Table \ref{expt3analysis} presents model coefficients for the full linear regression models used in the analysis of Expt.~3. For each predicate, the models predict collective endorsement ratings from fixed effects for context, scenario, trial, and the interaction between context and scenario. The fixed effects predictors were centered before analysis.
 
 \begin{table}[htb] 
+	\renewcommand\thetable{C.1}
 	\centering \caption{Full linear regression models from analysis of Expt.~3.} \label{expt3analysis}
-\begin{tabular}{lrrrr}\toprule
-	&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
-\emph{\textbf{big}} \\
-Intercept 			& 	0.57 &	0.04	&	15.69	&	\textbf{$<$0.01} \\
-Context			&	0.18	&   0.07	&	2.52&	\textbf{$<$0.05} \\
-Scenario			&	0.00&   0.07	&	0.03	&	0.97 \\
-Trial				&	-0.03	&   0.04	&	-0.67	&	0.51 \\
-Context:Scenario	&	0.21	&   0.15	&	1.43	&	0.16 \\ \hline
-\emph{\textbf{heavy}}\\
-Intercept 			& 	0.61 &	0.04	&	16.47	&	\textbf{$<$0.01} \\
-Context			&	0.11	&   0.07	&	1.43	&	0.16\\
-Scenario			&	0.19&   0.08	&	2.54	&	\textbf{$<$0.05}  \\
-Trial				&	0.02	&   0.05	&	0.42&	0.67 \\
-Context:Scenario	&	-0.12	&   0.15	&	-0.83	&	0.41 \\ \hline
-\emph{\textbf{tall}}\\
-Intercept 			& 	0.66 &	0.03	&	19.99	&	\textbf{$<$0.01} \\
-Context			&	0.30	&   0.07	&	4.58&	\textbf{$<$0.01} \\
-Scenario			&	0.07&   0.07	&	1.11	&	0.27 \\
-Trial				&	-0.01	&   0.04	&	-0.25	&	0.80 \\
-Context:Scenario	&	0.02	&   0.13	&	0.17	&	0.86 \\ 
-\bottomrule
-\end{tabular}
+	\begin{tabular}{lrrrr}\toprule
+		&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
+		\emph{\textbf{big}} \\
+		Intercept 			& 	0.57 &	0.04	&	15.69	&	\textbf{$<$0.01} \\
+		Context			&	0.18	&   0.07	&	2.52&	\textbf{$<$0.05} \\
+		Scenario			&	0.00&   0.07	&	0.03	&	0.97 \\
+		Trial				&	-0.03	&   0.04	&	-0.67	&	0.51 \\
+		Context:Scenario	&	0.21	&   0.15	&	1.43	&	0.16 \\ \hline
+		\emph{\textbf{heavy}}\\
+		Intercept 			& 	0.61 &	0.04	&	16.47	&	\textbf{$<$0.01} \\
+		Context			&	0.11	&   0.07	&	1.43	&	0.16\\
+		Scenario			&	0.19&   0.08	&	2.54	&	\textbf{$<$0.05}  \\
+		Trial				&	0.02	&   0.05	&	0.42&	0.67 \\
+		Context:Scenario	&	-0.12	&   0.15	&	-0.83	&	0.41 \\ \hline
+		\emph{\textbf{tall}}\\
+		Intercept 			& 	0.66 &	0.03	&	19.99	&	\textbf{$<$0.01} \\
+		Context			&	0.30	&   0.07	&	4.58&	\textbf{$<$0.01} \\
+		Scenario			&	0.07&   0.07	&	1.11	&	0.27 \\
+		Trial				&	-0.01	&   0.04	&	-0.25	&	0.80 \\
+		Context:Scenario	&	0.02	&   0.13	&	0.17	&	0.86 \\ 
+		\bottomrule
+	\end{tabular}
 \end{table}
 
+\section*{References}
 
-%\bibliographystyle{sp}
-\bibliography{greg.bib}
+%% If you have bibdatabase file and want bibtex to generate the
+%% bibitems, please use
+%%
+  \bibliographystyle{chicago} 
+  \bibliography{greg.bib}
 
-\begin{addresses}
-	\begin{address}
-		Gregory Scontras \\
-		Street1 \\
-		City1 \ldots \\
-		\email{author1@email}
-	\end{address}
-	\begin{address}
-		Noah D.~Goodman \\
-		Street2 \\
-		City2 \dots \\
-		\email{author2@email}
-	\end{address}
-	% repeat if needed.
-\end{addresses}
+%% else use the following coding to input the bibitems directly in the
+%% TeX file.
 
-
-
+%\begin{thebibliography}{00}
+%
+%%% \bibitem[Author(year)]{label}
+%%% Text of bibliographic item
+%
+%\bibitem[ ()]{}
+%
+%\end{thebibliography}
 \end{document}
 
-
-
-
-
-
-\citeauthor{link1983} bases many of his claims on observations concerning the behavior of nominal conjunctions in English---these, he assumes, name pluralities; the sentences in \Next[a] together entail the sentence in \Next[b]. If each individual is a man, then taken together they are men.
-
-\ex. \label{cumulative}\a. Alan is a man. Bill is a man. Charlie is a man.
-\b. Alan, Bill, and Charlie are men.
-
-To understand the \textsc{cumulative} inference in \Last, \citeauthor{link1983} makes some assumptions concerning the domain of individuals, together with the formal mechanism of predication (i.e., ascribing properties to individuals): set inclusion \citep[cf.][]{montague1973}.
-
-First, the domain of individuals, D$_{e}$, consists of atomic individuals---objects in the domain without other objects as (proper) individual parts. This set includes individuals like Alan, Bill, Charlie, the book on your shelf, an apple, and so on. Predicates are modeled as sets of individuals---those individuals that hold the property named by the predicate. The denotation of a singular nominal predicate like (\emph{is a}) \emph{man} is a subset of this atomic domain.
-
-\ex. \label{theboys} Let \sem{Alan} = \texttt{a}, \sem{Bill} = \texttt{b}, and \sem{Charlie} = \texttt{c}; assume no other men. Then,\\
- \sem{(is a) man} = \{\texttt{a}, \texttt{b}, \texttt{c}\}
-
-Singular \emph{man} contains all and only those members of the atomic domain that hold the property of being a man---it contains the men in the domain. In \Last, where we assume three men, the set denoted by singular \emph{man} contains just Alan, Bill, and Charlie, or the individuals \tt{a}, \tt{b}, and \tt{c}.
-
-Given the model sketched in \Last, and assuming predication gets modeled as set inclusion, the derivation in \Next results as we say of the sentence \emph{Alan is a man} that it is true: Alan is a man just in case he is a member of the set of singular men; Alan is in fact a member of the set of singular men, so he is a man.
-
-\ex. \sem{Alan is a man} = 1 iff\\
-\sem{man}(\sem{Alan}) = 1, i.e., iff\\
-\texttt{a} $\in$ \{\texttt{a}, \texttt{b}, \texttt{c}\}
-
-To achieve a general theory of predication, \citeauthor{link1983} must say how set inclusion transpires with plural predicates like \emph{men}; but first, \citeauthor{link1983} must take a stance on plural reference more broadly: (plural) individuals are modeled as mereological sums, points on mereological lattices that track part-whole relations. Simply put, a plurality is a sum of its parts: the plural individual named by \emph{Alan, Bill, and Charlie} is the summation of the singular individuals \tt{a}, \tt{b}, and \tt{c}. 
-
-For \citeauthor{link1983}, pluralities are formed via the \textsc{individual sum} operator $\oplus$, which spells out in English as (some variants of) the conjunction \emph{and}.
-
-\ex. For any two individuals \texttt{x}, \texttt{y}, their sum (i.e., the individual named by \emph{x and y}) is the smallest plural individual that has \texttt{x} and \texttt{y} as parts: \texttt{x}$\oplus$\texttt{y}
-
-If there are three boys, as in \ref{theboys}, then \emph{the boys} names the same plural individual as \emph{Alan and Bill and Charlie}, namely \texttt{a}$\oplus$\texttt{b}$\oplus$\texttt{c}. The spatial, structural, and functional arrangement of this sum is left unspecified. It merely represents the collection, however arranged, of the three individuals.
-
-Now, (semantically) plural nominal predicates (e.g., \emph{men}) contain pluralities in their extensions; to build a plural predicate from singular ones, \citeauthor{link1983} introduces the ``star''-operator, *, which takes a predicate \texttt{P} and generates all of the individual sums of members of the extension of the basic, ``un-starred'' predicate. Roughly speaking, a plural predicate, *\texttt{P}, is a collection of all of the possible subsets of the singular predicate \texttt{P} (less the empty set \O).
-
-\ex. \sem{*\texttt{P}} \defeq \{\texttt{x} $\in$ D$_{e}$: $\exists$\texttt{X} $\subseteq$ \sem{\texttt{P}}[\texttt{X} $\neq$ \O\ \and \texttt{x} = \texttt{S}(\texttt{X})]\}\\
-where \texttt{S}(\texttt{X}) is the supremum, or maximal element of \texttt{X}
-
-We can now model the denotation of English \emph{man} and \emph{men} using the sets in \Next; \emph{man} corresponds to the singular property of being a man, while \emph{men} corresponds to the closure of that property under sum-formation via the *-operator.\footnote{The present discussion collapses over the distinction between semantic and morphological plurality. See \cite{scontras2013salt,scontras2013sub,scontras2014diss} for fuller discussion of this distinction.} \emph{Men} thus denotes the set of all men and their possible combinations.
-
-\ex. \texttt{P} = \texttt{man}\\
-\sem{\texttt{P}} = \{\texttt{a}, \texttt{b}, \texttt{c}\}\\
-\sem{*\texttt{P}} = \{\texttt{a}, \texttt{b}, \texttt{c}, \texttt{a}$\oplus$\texttt{b}, \texttt{a}$\oplus$\texttt{c}, \texttt{b}$\oplus$\texttt{c}, \texttt{a}$\oplus$\texttt{b}$\oplus$\texttt{c}\}
-
-The semilattice in Fig.\ \ref{semilattice} conveys similar information, while explicitly tracking the part-whole relations among the individuals.
-Each node $\bullet$ in Fig.\ \ref{semilattice} represents an individual in the domain, and the lines connecting the nodes track part-hood. For example, Alan and Bill are each individual parts of the plural individual named by \emph{Alan and Bill}, which itself is a part of the plural individual named by \emph{Alan, Bill, and Charlie}. Together, they are men, which means that each is a man.
-
-\begin{figure}[t]
-%\psset{rowsep=20pt,colsep=50pt,nodesep=4pt} 
-\centering
-\psset{rowsep=-2pt,colsep=10pt,nodesep=2pt} 
-\hspace{80pt}\begin{psmatrix}
-& \texttt{a}$\oplus$\texttt{b}$\oplus$\texttt{c} & \\
-& \rnode{abc}{$\bullet$}\\
-& & & & $\Leftarrow$ \textbf{Sums}\\
-\rnode[t]{ab}{\texttt{a}$\oplus$\texttt{b}} & \rnode[t]{ac}{\texttt{a}$\oplus$\texttt{c}} & \rnode[t]{bc}{\texttt{b}$\oplus$\texttt{c}}\\
-\rnode{ab2}{$\bullet$} & \rnode{ac2}{$\bullet$} & \rnode{bc2}{$\bullet$}\\
-\\
-\rnode{a}{$\bullet$} & \rnode{b}{$\bullet$} & \rnode{c}{$\bullet$} & & \ \ $\Leftarrow$ \textbf{Atoms}\\
-\texttt{a} & \texttt{b} & \texttt{c}
-\ncline{abc}{ab} \ncline{abc}{ac} \ncline{abc}{bc}
-\ncline{ab2}{a} \ncline{ab2}{b}
-\ncline{ac2}{a} \ncline{ac2}{c}
-\ncline{bc2}{b} \ncline{bc2}{c}
-\end{psmatrix}
-\caption{The denotation of semantically plural \emph{men}, a complete atomic join semilattice}\label{semilattice}
-\end{figure}
-
-\noindent 
-
-The mereological representation of individuals in terms of individual part-hood introduces a natural ``part-of'' ordering on the domain,  which \citeauthor{link1983} represents in the object language using the predicate $\Pi$ ``individual part of''; the bidirectional in \Next holds: if \tt{a} is an individual part of the individual \tt{b}, then the plural individual \tt{a}\op\tt{b} is identical to \tt{b}.
-
-\ex. \tt{a}$\Pi$\tt{b}\ \ $\leftrightarrow$\ \ \tt{a}\op\tt{b} = \tt{b}
-
-In Fig.\ \ref{semilattice}, the individual part relation $\Pi$ gets represented by the line segments connecting nodes. Pluralities, or ``sums,'' are those individuals which have other individuals in the domain as proper parts; atoms have no proper parts.
-
-\subsection{Varieties of plural predication}
-
-Given that plural predicates are constructed from singular ones via sum-formation, we may model the cumulative inference in \ref{cumulative} (repeated in \Next): if each of Alan, Bill, and Charlie are in the extension of the predicate \emph{man}, then their sum is necessarily in the extension of the semantically plural predicate \emph{men}; \emph{men} is the closure of \emph{man} under sum-formation, so if \tt{a}, \tt{b}, and \tt{c} are in the extension of \emph{man}, their sum \tt{a}\op\tt{b}\op\tt{c} must be in the extension of \emph{men}.
-
-The distributive reading of \Next[b] follows from this semantics of plurality and predication, not any implicit quantification over the members of the subject. In other words, we need no  distributive operator (e.g., a silent \emph{each}) in the logical form of \Next[b] to derive \Next[a] as an entailment.
-
-\ex. \a. Alan is a man. Bill is a man. Charlie is a man.
-\b. Alan, Bill, and Charlie are men.
-
-To repeat: for Alan, Bill, and Charlie to be men, then \tt{a}\op\tt{b}\op\tt{c}---the sum named by \emph{Alan, Bill, and Charlie}---must be in the extension of the predicate named by \emph{men}. By assuming that \emph{men} corresponds to the closure of the singular predicate \emph{man}, it follows that each of Alan, Bill, and Charlie is a man whenever we say of Alan, Bill, and Charlie that they are men.
-
-Here is where terminology begins to get confusing: 
+\endinput
+%%
+%% End of file `elsarticle-template-harv.tex'.
