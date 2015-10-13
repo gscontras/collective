@@ -104,25 +104,26 @@ setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
 ggsave("model-results-fit.pdf",height=3)
 
 
-## predicate-specific fit plots
+## general plots
 
 setwd("~/Documents/git/cocolab/collective/model/")
 
-d = read.csv("plural-predication-all.csv",header=F)
-#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","p")
+d = read.csv("plural-predication-add.csv",header=F)
+colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","p")
 #colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","p")
-colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","obj4","p")
+#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","obj4","p")
 head(d)
 
 
-#d$noise <-factor(d$noise,levels=c("high","mid",'low','no'))
-d$pred = as.character(lapply(strsplit(as.character(d$noise), split="-"), "[", 1))
-d$variability= as.character(lapply(strsplit(as.character(d$noise), split="-"), "[", 2))
+d$noise <-factor(d$noise,levels=c("no","low",'mid','high'))
+d$noise <-factor(d$noise,labels=c("no\n(\u03c3=0.02)","low\n(\u03c3=1)",'mid\n(\u03c3=2)','high\n(\u03c3=3)'))
+#d$pred = as.character(lapply(strsplit(as.character(d$noise), split="-"), "[", 1))
+#d$variability= as.character(lapply(strsplit(as.character(d$noise), split="-"), "[", 2))
 #d$k <-factor(d$knowledge,labels=c("partial","full"))
 d$numobjs <- factor(d$numobjs)
-#d$state = paste(d$obj1,d$obj2)
+d$state = paste(d$obj1,d$obj2)
 #d$state = paste(d$obj1,d$obj2,d$obj3)
-d$state = paste(d$obj1,d$obj2,d$obj3,d$obj4)
+#d$state = paste(d$obj1,d$obj2,d$obj3,d$obj4)
 d$state <- factor(d$state)
 #d$KL <- factor(d$KL)
 d$p <- as.numeric(as.character(d$p))
@@ -132,96 +133,9 @@ head(d)
 
 # check effect direction for inferred thetas
 
-coll_agg <- aggregate(p~variability*pred*k,d[d$collective=="true",],sum)
+agg <- aggregate(p~k*noise,d[d$collective=="true",],sum)
 
-dist_agg = coll_agg 
-dist_agg$p = 1-dist_agg$p
-
-coll_agg$interpretation = "collective"
-dist_agg$interpretation = "distributive"
-
-agg = rbind(coll_agg,dist_agg)
 #agg$interpretation = factor(agg$interpretation,levels=c("distributive","collective"))
-
-p <- ggplot(agg,aes(x=variability,y=p)) +
-  geom_bar(stat='identity',position=position_dodge(),aes(fill=interpretation)) +
-  ylab("probability of\ncollective interpretation\n") +
-  xlab("\ncollective interpretation noise")+
-  labs(fill="interpretation")+
-  scale_fill_manual(values=c("red", "blue"))+
-  theme(axis.text.x = element_text(size=10,angle=0))+
-  theme_bw()+
-  ylim(0,1)+
-  facet_grid(k~pred)
-p
-
-setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
-
-ggsave("model-results-all.pdf",width=6,height=2.7)
-
-
-
-
-
-
-# check state distribution for inferred thetas
-
-t <- d[d$collective=="true",]
-
-state_agg <- aggregate(p~noise*knowledge*state*collective,d,sum)
-
-state <- ggplot(t,aes(x=state,y=p,fill=noise)) +
-  geom_bar(stat='identity',position=position_dodge()) +
-  ylab("P(collective)") +
-  theme(axis.text.x = element_text(size=15,angle=90))+
-  facet_grid(knowledge~.)
-state
-ggsave("plots/plural-predication-20-state.pdf",height=5,width=40,limitsize=FALSE)
-
-
-
-### heavy plots
-
-setwd("~/Documents/git/CoCoLab/collective/model/")
-
-d = read.csv("plural-predication-heavy-20150924.csv",header=F)
-#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","p")
-#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","p")
-colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","obj4","p")
-head(d)
-
-
-#d$noise <-factor(d$noise,levels=c("low","mid","high"))
-d$k <-factor(d$knowledge,labels=c("partial","full"))
-d$numobjs <- factor(d$numobjs)
-#d$state = paste(d$obj1,d$obj2)
-#d$state = paste(d$obj1,d$obj2,d$obj3)
-d$state = paste(d$obj1,d$obj2,d$obj3,d$obj4)
-d$state <- factor(d$state)
-#d$KL <- factor(d$KL)
-d$p <- as.numeric(as.character(d$p))
-#d$k = "partial"
-#d[d$knowledge=="true",]$k = "full"
-head(d)
-
-# check effect direction for inferred thetas
-
-agg <- aggregate(p~noise*k,d[d$collective=="true",],sum)
-agg
-
-write.csv(agg,"~/Documents/git/CoCoLab/collective/writing/Cubert/plots/heavy.csv")
-
-
-# a=2     .1414
-# a=1.8   .1451
-# a=1.75  .1462
-# a=1.6   .1488
-# a=1.5   .1501
-# a-1.45  .1505
-# a=1.4   .1507
-# a=1.375 .1507
-# a=1.35  .1507
-# a=1.3   .1504
 
 p <- ggplot(agg,aes(x=noise,y=p)) +
   geom_bar(stat='identity',position=position_dodge(),aes(fill=k)) +
@@ -229,15 +143,170 @@ p <- ggplot(agg,aes(x=noise,y=p)) +
   xlab("\ncollective interpretation noise")+
   labs(fill="speaker\nknowledge\naccess")+
   scale_fill_manual(values=c("red", "blue"))+
-  theme(axis.text.x = element_text(size=10,angle=0))#+
+  theme(axis.text.x = element_text(size=10,angle=0))+
+  theme_bw()
 #facet_grid(dist_theta~coll_theta)
 p
 
 setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
 
-ggsave("model-results.pdf")
+ggsave("model-results-add.png",width=6,height=2.7)
+
+
+
+##### big-tall plots
+
+## results from experiment 3
+
+d_raw = read.csv("~/Dropbox/CoCoLab/CollectivePredication/Experiment/Persistence.v10.everything/experiment_persistence.v10-master/Submiterator-master/persistence.v10-trials.order.csv",header=T)
+
+bt = d_raw[d_raw$utterance!= "heavy",]
+
+bt_s = bootsSummary(data=bt, measurevar="response", groupvars=c("sentence_type","context","utterance"))
+
+setwd("~/Documents/git/cocolab/collective/model/")
+
+d = read.csv("plural-predication-big-tall.csv",header=F)
+colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","p")
+head(d)
+d$pred = as.character(lapply(strsplit(as.character(d$noise), split="-"), "[", 1))
+d$variability= as.character(lapply(strsplit(as.character(d$noise), split="-"), "[", 2))
+d$numobjs <- factor(d$numobjs)
+d$state = paste(d$obj1,d$obj2)
+d$state <- factor(d$state)
+#d$KL <- factor(d$KL)
+d$p <- as.numeric(as.character(d$p))
+d$k = "sum"
+d[d$knowledge=="true",]$k = "full"
+head(d)
+agg <- aggregate(p~k*pred*variability,d[d$collective=="true",],sum)
+agg$interpretation = "coll"
+head(agg)
+#agg = aggregate(p~pred*variability*interpretation,agg,mean)
+colnames(agg) = c("sceanrio","utterance","context","response","sentence_type")
+agg$context = factor(agg$context,labels=c("random","regular"))
+#agg$sceanrio = factor(agg$sceanrio,labels=c("inspect","move"))
+agg$N = NA
+agg$bootsci_high = NA
+agg$bootsci_low = NA
+agg$sceanrio = NULL
+agg$data = "model"
+head(bt_s)
+bt_s$data = "human"
+bt_coll = bt_s[bt_s$sentence_type=="coll",]
+all_agg = rbind(bt_coll,agg)
+head(all_agg)
+
+all_plot <- ggplot(all_agg, aes(x=context,y=response,fill=data)) +
+  #  geom_bar(alpha=1/2,stat="identity",position=position_dodge()) +
+  geom_bar(stat="identity",position=position_dodge()) +
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=context, width=0.1),position=position_dodge(width=0.9))+
+  ylab("collective endorsement\np(collective\n")+
+  ylim(0,1)+
+  xlab("\n variability of context") +
+  labs(fill="source\nof data")+
+  scale_fill_manual(values=c("red", "blue"))+
+  #facet_grid(data~utterance) + 
+  facet_grid(. ~ utterance) + 
+  theme_bw()
+all_plot
+
+setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
+
+ggsave("model-big-tall.pdf",height=2.7)
+
+
+
+##### heavy plots
+
+## results from experiment 3
+
+d_raw = read.csv("~/Dropbox/CoCoLab/CollectivePredication/Experiment/Persistence.v10.everything/experiment_persistence.v10-master/Submiterator-master/persistence.v10-trials.order.csv",header=T)
+
+h = d_raw[d_raw$utterance== "heavy",]
+
+h_s = bootsSummary(data=h, measurevar="response", groupvars=c("sentence_type","sceanrio","utterance"))
+
+setwd("~/Documents/git/cocolab/collective/model/")
+
+d = read.csv("plural-predication-heavy.csv",header=F)
+colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","p")
+head(d)
+d$pred = as.character(lapply(strsplit(as.character(d$noise), split="-"), "[", 1))
+d$variability= as.character(lapply(strsplit(as.character(d$noise), split="-"), "[", 2))
+d$numobjs <- factor(d$numobjs)
+d$state = paste(d$obj1,d$obj2)
+d$state <- factor(d$state)
+#d$KL <- factor(d$KL)
+d$p <- as.numeric(as.character(d$p))
+d$k = "sum"
+d[d$knowledge=="true",]$k = "full"
+head(d)
+agg <- aggregate(p~k*pred,d[d$collective=="true",],sum)
+agg$interpretation = "coll"
+head(agg)
+#agg = aggregate(p~pred*variability*interpretation,agg,mean)
+colnames(agg) = c("sceanrio","utterance","response","sentence_type")
+#agg$context = factor(agg$context,labels=c("random","regular"))
+agg$sceanrio = factor(agg$sceanrio,labels=c("inspect","move"))
+agg$N = NA
+agg$bootsci_high = NA
+agg$bootsci_low = NA
+#agg$sceanrio = NULL
+agg$data = "model"
+head(h_s)
+h_s$data = "human"
+h_coll = h_s[h_s$sentence_type=="coll",]
+all_agg = rbind(h_coll,agg)
+head(all_agg)
+
+all_plot <- ggplot(all_agg, aes(x=sceanrio,y=response,fill=data)) +
+  #  geom_bar(alpha=1/2,stat="identity",position=position_dodge()) +
+  geom_bar(stat="identity",position=position_dodge()) +
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=sceanrio, width=0.1),position=position_dodge(width=0.9))+
+  ylab("collective endorsement\np(collective\n")+
+  ylim(0,1)+
+  xlab("\ncontext scenario") +
+  labs(fill="source\nof data")+
+  scale_fill_manual(values=c("red", "blue"))+
+  #facet_grid(data~utterance) + 
+  facet_grid(. ~ utterance) + 
+  theme_bw()
+all_plot
+
+setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
+
+ggsave("model-heavy.pdf",height=2.7,width=4)
 
 
 
 
 
+
+
+### new plot for all predicates
+
+d_raw = read.csv("~/Dropbox/CoCoLab/CollectivePredication/Experiment/Persistence.v10.everything/experiment_persistence.v10-master/Submiterator-master/persistence.v10-trials.order.csv",header=T)
+raw_s = bootsSummary(data=d_raw, measurevar="response", groupvars=c("sentence_type","sceanrio","utterance","context"))
+raw_s = raw_s[raw_s$sentence_type == "coll",]
+raw_s$data = "human"
+
+m = read.csv("new_plot_model.csv",header=T)
+all = rbind(raw_s,m)
+
+all_plot <- ggplot(all, aes(x=context,y=response,fill=data)) +
+  #  geom_bar(alpha=1/2,stat="identity",position=position_dodge()) +
+  geom_bar(stat="identity",position=position_dodge()) +
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=context, width=0.1),position=position_dodge(width=0.9))+
+  ylab("collective endorsement\np(collective\n")+
+  ylim(0,1)+
+  xlab("\n variability of context") +
+  labs(fill="source\nof data")+
+  scale_fill_manual(values=c("red", "blue"))+
+  facet_grid(sceanrio ~ utterance) + 
+  theme_bw()
+
+all_plot
+
+setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
+ggsave("model_all_new.pdf",width=6,height=2.7)
