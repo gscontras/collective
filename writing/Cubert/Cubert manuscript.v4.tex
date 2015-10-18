@@ -1017,8 +1017,13 @@ $L_{1}$ tracks  $S_{1}$'s epistemic state, and therefore knows whether the speak
 
 \ndg{i don't get the next two paragraphs: we're not doing any collapsing here now, right? shouldn't this just read something like ``we fit the variance of $P(c)$ for each predicate and each arrangement condition, we additionally assume total-only knowledge for heavy in move conditions but not other cases. the best fit variance values are blah. the results are compared to expt 3 collective endorsements in fig blah. we see blah.''??}
 
-To quantitatively evaluate the role of speaker knowledge, we collapse over the contextual predictability manipulation and look only at judgments for plural predications with \emph{heavy} (the knowledge manipulation had no measurable affect on \emph{tall} or \emph{big}). %Here we fit only the specific values for noise in the model; all other parameters remain unchanged. 
-With \emph{heavy}-specific values for $P(c)$ ($\sigma=0.7$; all other parameters remain unchanged) we generate the model predictions in Fig.~\ref{fit-model}, plotted with average collective endorsement ratings for \emph{heavy} from Expt.~3. By simply assuming that the collective interpretations of \emph{heavy} have \emph{heavy}-specific values for noise in context, we achieve a near exact fit between the model and the human data it predicts.
+To evaluate the quantitative predictions of our model, we fit the variance of $P(c)$ for each predicate and each arrangement condition (i.e., \texttt{regular} vs.~\texttt{random}); we additionally assume sum-only knowledge for \emph{heavy} in ``move'' conditions, but not other cases. The best fit variance values are as follows: \emph{heavy} \texttt{regular}/\texttt{random}: $\sigma=0.7$; \emph{big}/\emph{tall} \texttt{random}: $\sigma=3$; \emph{big} \texttt{regular}: $\sigma=1$; \emph{tall} \texttt{regular}: $\sigma=0.1$. The model predictions are compared to collective endorsement ratings from Expt.~3 in Fig.~\ref{fit-model}. \gcs{TBD: utterance cost differences}
+In addition to the match between the qualitative predictions of our model and the human data from Expt.~3, fitting predicate-specific parameters for contextual noise yields near exact \emph{quantitative} predictions as well. Put simply, our model of plural predication, which explicates the ways that speakers and listeners reason about each other as they communicate, succeeds. %Collective interpretations become more likely as the properties they name become more predictable in context.
+
+\ndg{some caveat about what the model is doing (formalizing the pragmatic theory, accommodating the data) and not doing (predicting the quantitative details of the data).} \gcs{I'm not sure I understand what you want here. We should talk about this.}
+
+%To quantitatively evaluate the role of speaker knowledge, we collapse over the contextual predictability manipulation and look only at judgments for plural predications with \emph{heavy} (the knowledge manipulation had no measurable affect on \emph{tall} or \emph{big}). %Here we fit only the specific values for noise in the model; all other parameters remain unchanged. 
+%With \emph{heavy}-specific values for $P(c)$ ($\sigma=0.7$; all other parameters remain unchanged) we generate the model predictions in Fig.~\ref{fit-model}, plotted with average collective endorsement ratings for \emph{heavy} from Expt.~3. By simply assuming that the collective interpretations of \emph{heavy} have \emph{heavy}-specific values for noise in context, we achieve a near exact fit between the model and the human data it predicts.
 
 \begin{figure}[h]
 	\centering
@@ -1027,20 +1032,18 @@ With \emph{heavy}-specific values for $P(c)$ ($\sigma=0.7$; all other parameters
 	\caption{Fitted model predictions and human data from Expt.~3 for collective interpretations (cf.~Fig.~\ref{resultsexpt2}). For \emph{heavy}, the scenario manipulation (i.e., ``inspect'' vs.~``move'') is modeled by speaker's perceptual access to knowledge of the state (``full'' vs.~``sum''). For \emph{big} and \emph{tall}, variability of context (i.e., ``random'' vs.~``regular'') is modeled by amount of collective interpretation noise $P(c)$.} \label{fit-model}
 \end{figure}
 
-To qualitatively evaluate the role of contextual predictability for \emph{big} and \emph{tall}, we again have the model predict collective endorsement, this time collapsing over the scenario manipulation. As with \emph{heavy}, we fit predicate-specific values for $P(c)$; to model the effect of our contextual manipulation, we increased contextual noise in random contexts (\emph{big}/\emph{tall} \texttt{random}: $\sigma=3$; \emph{big} \texttt{regular}: $\sigma=1$; \emph{tall} \texttt{regular}: $\sigma=0.1$).  We also increased the cost of the unambiguous utterances to $3$ (cf.~the cost of $2$ for the results reported above). \ndg{why do we need the costs to vary in this section at all?} With no other changes to model parameters, we generate the predictions plotted in Fig.~\ref{fit-model}; once again, the fit is near perfect.
-
-%\ndg{why not model all of the data, too, uncollapsed? eg i'd like to see a version of fig 9 that has both data and model.... in fact this plus the more qualitative fig 11 may be all we need.}
+%To qualitatively evaluate the role of contextual predictability for \emph{big} and \emph{tall}, we again have the model predict collective endorsement, this time collapsing over the scenario manipulation. As with \emph{heavy}, we fit predicate-specific values for $P(c)$; to model the effect of our contextual manipulation, we increased contextual noise in random contexts .  We also increased the cost of the unambiguous utterances to $3$ (cf.~the cost of $2$ for the results reported above). \ndg{why do we need the costs to vary in this section at all?} With no other changes to model parameters, we generate the predictions plotted in Fig.~\ref{fit-model}; once again, the fit is near perfect.
 %
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[width=\linewidth]{plots/model-big-tall.eps}
-%	\vspace{-20pt}
-%	\caption{Fitted model predictions and human data from Expt.~3 for collective interpretations of \emph{big} and \emph{tall}; variability of context (i.e., ``random'' vs.~``regular'') is modeled by contextual noise in the evaluation of the collective interpretation.} \label{bigtallmodel}
-%\end{figure}
+%%\ndg{why not model all of the data, too, uncollapsed? eg i'd like to see a version of fig 9 that has both data and model.... in fact this plus the more qualitative fig 11 may be all we need.}
+%%
+%%\begin{figure}[h]
+%%	\centering
+%%	\includegraphics[width=\linewidth]{plots/model-big-tall.eps}
+%%	\vspace{-20pt}
+%%	\caption{Fitted model predictions and human data from Expt.~3 for collective interpretations of \emph{big} and \emph{tall}; variability of context (i.e., ``random'' vs.~``regular'') is modeled by contextual noise in the evaluation of the collective interpretation.} \label{bigtallmodel}
+%%\end{figure}
+%
 
-In addition to the match between the qualitative predictions of our model and the human data from Expt.~3, fitting predicate-specific parameters for contextual noise yields near exact quantitative predictions of the observed human behavior. Put simply, our model of plural predication, which explicates the ways that speakers and listeners reason about each other as they communicate, succeeds. %Collective interpretations become more likely as the properties they name become more predictable in context.
-
-\ndg{some caveat about what the model is doing (formalizing the pragmatic theory, accommodating the data) and not doing (predicting the quantitative details of the data).} \gcs{I'm not sure I understand what you want here. We should talk about this.}
 
 \section{General discussion}
 
