@@ -64,10 +64,10 @@ ggsave("plots/plural-predication-state.pdf",height=5,width=40,limitsize=FALSE)
 ### unfit plots
 setwd("~/Documents/git/cocolab/collective/model/")
 
-d = read.csv("plural-predication-fit.csv",header=F)
+d = read.csv("plural-predication-sum.csv",header=F)
 #colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","p")
-#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","p")
-colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","obj4","p")
+colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","p")
+#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","obj4","p")
 head(d)
 
 
@@ -75,14 +75,16 @@ d$noise <-factor(d$noise,levels=c("high","mid",'low','no'))
 #d$k <-factor(d$knowledge,labels=c("partial","full"))
 d$numobjs <- factor(d$numobjs)
 #d$state = paste(d$obj1,d$obj2)
-#d$state = paste(d$obj1,d$obj2,d$obj3)
-d$state = paste(d$obj1,d$obj2,d$obj3,d$obj4)
+d$state = paste(d$obj1,d$obj2,d$obj3)
+#d$state = paste(d$obj1,d$obj2,d$obj3,d$obj4)
 d$state <- factor(d$state)
 #d$KL <- factor(d$KL)
 d$p <- as.numeric(as.character(d$p))
 d$k = "sum"
 d[d$knowledge=="true",]$k = "full"
 head(d)
+d$noise <-factor(d$noise,levels=c("no","low",'mid','high'))
+d$noise <-factor(d$noise,labels=c("no\n(\u03c3=0.01)","low\n(\u03c3=0.75)",'mid\n(\u03c3=1)','high\n(\u03c3=1.25)'))
 
 # check effect direction for inferred thetas
 
@@ -101,7 +103,7 @@ p
 
 setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
 
-ggsave("model-results-fit.pdf",height=3)
+ggsave("model-results-sum.pdf",height=3)
 
 
 ## general plots
