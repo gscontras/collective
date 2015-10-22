@@ -1,5 +1,5 @@
 library(lme4)
-library(plyr)
+#library(plyr)
 library(lmerTest)
 library(coin)
 library(ggplot2)
@@ -105,6 +105,27 @@ n_pred_plot <- ggplot(n_pred_s, aes(x=reorder(noun,coll,mean),y=coll)) +
 n_pred_plot
 
 ggsave('results/noun_pred_plot2.pdf',width=5.9,height=4)
+
+######################################################
+###### BERKELEY SLIDES PLOT
+######################################################
+
+n_pred_s = bootsSummary(data=p_n, measurevar="coll", groupvars=c("noun","predicate"))
+n_pred_s$noun <- factor(n_pred_s$noun,ordered=is.ordered(n_pred_s$noun))
+n_pred_plot <- ggplot(n_pred_s, aes(x=reorder(noun,coll,mean),y=coll)) +
+  geom_bar(stat="identity",position=position_dodge(),fill="white") +
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,coll,mean), width=0.1),position=position_dodge(width=0.9),color="gray")+
+  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
+  ylab("collective endorsement\n") +
+  xlab("subject noun")+
+  ylim(0,1) +
+  facet_wrap(~predicate,nrow=2,scales="free_x")+
+  theme_blackDisplay()+
+  theme(axis.text.x=element_text(angle=45,vjust=1.1,hjust=1))
+n_pred_plot
+
+ggsave("/Users/Greg/Documents/git/CoCoLab/collective/presentations/2015_Berkeley/expt2a.pdf",width=13,height=8)
+
 
 
 #small analysis

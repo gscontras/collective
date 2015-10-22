@@ -103,7 +103,7 @@ p
 
 setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
 
-ggsave("model-results-sum.pdf",height=3)
+ggsave("model-results-sum.png",height=3)
 
 
 ## general plots
