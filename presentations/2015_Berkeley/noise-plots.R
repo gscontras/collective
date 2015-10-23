@@ -34,29 +34,20 @@ colnames(n) = c("x","hx","noise")
 d = rbind(h,m,l,n)
 
 d$noise = factor(d$noise,levels=c("no","low","mid","high"))
+d$noise = factor(d$noise,labels=c("no (\u03c3=0.01)","low (\u03c3=0.75)","mid (\u03c3=1.00)","high (\u03c3=1.25)"))
 
-ggplot(d[d$noise=="no",], aes(x=x,y=hx)) +
+ggplot(d[d$noise=="no (\u03c3=0.01)",], aes(x=x,y=hx)) +
   geom_line(aes(color=noise,fill=noise),size=2.5)+
   xlab("\nnoise")+
   labs(color="")+
   ylab("")+
   theme_blackDisplay()+
   scale_color_manual(values=c("#F45E5B", "#5187FF","#17B32B","#9fb317"))+
-  theme(axis.ticks = element_blank(), axis.text.y = element_blank())
-ggsave("noise-no.pdf",height=6,width=9)
+  theme(axis.ticks = element_blank(), axis.text.y = element_blank())+
+  theme(legend.key.height=unit(2,"line"))
+ggsave("noise-no.png",height=6,width=10)
 
-ggplot(d[d$noise=="no"|d$noise=="low",], aes(x=x,y=hx)) +
-  geom_line(aes(color=noise,fill=noise),size=2.5)+
-  xlab("\nnoise")+
-  ylab("")+
-  ylim(0,.6)+
-  labs(color="")+
-  theme_blackDisplay()+
-  scale_color_manual(values=c("#F45E5B", "#5187FF","#17B32B","#9fb317"))+
-  theme(axis.ticks = element_blank(), axis.text.y = element_blank())
-ggsave("noise-low.pdf",height=6,width=9)
-
-ggplot(d[d$noise!="high",], aes(x=x,y=hx)) +
+ggplot(d[d$noise=="no (\u03c3=0.01)"|d$noise=="low (\u03c3=0.75)",], aes(x=x,y=hx)) +
   geom_line(aes(color=noise,fill=noise),size=2.5)+
   xlab("\nnoise")+
   ylab("")+
@@ -64,8 +55,21 @@ ggplot(d[d$noise!="high",], aes(x=x,y=hx)) +
   labs(color="")+
   theme_blackDisplay()+
   scale_color_manual(values=c("#F45E5B", "#5187FF","#17B32B","#9fb317"))+
-  theme(axis.ticks = element_blank(), axis.text.y = element_blank())
-ggsave("noise-mid.pdf",height=6,width=9)
+  theme(axis.ticks = element_blank(), axis.text.y = element_blank())+
+  theme(legend.key.height=unit(2,"line"))
+ggsave("noise-low.png",height=6,width=10)
+
+ggplot(d[d$noise!="high (\u03c3=1.25)",], aes(x=x,y=hx)) +
+  geom_line(aes(color=noise,fill=noise),size=2.5)+
+  xlab("\nnoise")+
+  ylab("")+
+  ylim(0,.6)+
+  labs(color="")+
+  theme_blackDisplay()+
+  scale_color_manual(values=c("#F45E5B", "#5187FF","#17B32B","#9fb317"))+
+  theme(axis.ticks = element_blank(), axis.text.y = element_blank())+
+  theme(legend.key.height=unit(2,"line"))
+ggsave("noise-mid.png",height=6,width=10)
 
 ggplot(d, aes(x=x,y=hx)) +
   geom_line(aes(color=noise,fill=noise),size=2.5)+
@@ -75,8 +79,9 @@ ggplot(d, aes(x=x,y=hx)) +
   labs(color="")+
   theme_blackDisplay()+
   scale_color_manual(values=c("#F45E5B", "#5187FF","#17B32B","#9fb317"))+
-  theme(axis.ticks = element_blank(), axis.text.y = element_blank())
-ggsave("noise-all.pdf",height=6,width=9)
+  theme(axis.ticks = element_blank(), axis.text.y = element_blank())+
+  theme(legend.key.height=unit(2,"line"))
+ggsave("noise-all.png",height=6,width=10)
 
 
 
@@ -103,7 +108,7 @@ d$k = "sum"
 d[d$knowledge=="true",]$k = "full"
 head(d)
 d$noise <-factor(d$noise,levels=c("no","low",'mid','high'))
-d$noise <-factor(d$noise,labels=c("no\n(\u03c3=0.01)","low\n(\u03c3=0.75)",'mid\n(\u03c3=1)','high\n(\u03c3=1.25)'))
+d$noise <-factor(d$noise,labels=c("no\n(\u03c3=0.01)","low\n(\u03c3=0.75)",'mid\n(\u03c3=1.00)','high\n(\u03c3=1.25)'))
 agg <- aggregate(p~noise*k,d[d$collective=="true",],sum)
 p <- ggplot(agg,aes(x=noise,y=p)) +
   geom_bar(stat='identity',position=position_dodge(),aes(fill=k)) +
