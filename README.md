@@ -95,7 +95,7 @@ Bayesian Rational Speech-Act (RSA) model:
 - **Literal listener** updates beliefs about world given utterance and prior knowledge:
 	- P<sub>L<sub>0</sub></sub>(s | u,v,θ<sub>d</sub>,θ<sub>c</sub>) ∝ [[u]]<sup>v,c,θ<sub>d</sub>,θ<sub>c</sub></sup>(s) · P(c) · P(s) 
 - **Speaker** choses utterance to communicate about observed state in accordance with her **utility** (minimizing surprisal and cost)
-	- U<sub>S<sub>1</sub></sub>(u; s,v,θ<sub>d</sub>,θ<sub>c</sub>) = log(L0 (s|u,v,θ<sub>d</sub>,θ<sub>c</sub>)) − C(u)
+	- U<sub>S<sub>1</sub></sub>(u; s,v,θ<sub>d</sub>,θ<sub>c</sub>) = log(L<sub>0</sub>(s|u,v,θ<sub>d</sub>,θ<sub>c</sub>)) − C(u)
 	- P<sub>S<sub>1</sub></sub>(u | o,v,θ<sub>d</sub>,θ<sub>c</sub>) ∝ exp(𝝰 · 𝔼<sub>P<sub>a</sub>(s|o)</sub>[U<sub>S<sub>1</sub></sub> (u; s,v,θ<sub>d</sub>,θ<sub>c</sub>)]) 
 - **Pragmatic listener** jointly infers interpretation and state given utterance
 	- P<sub>L<sub>1</sub></sub>(s,v,θ<sub>d</sub>,θ<sub>c</sub> | u,a) ∝ P<sub>S<sub>1</sub></sub>(u | o(a,s),v,θ<sub>d</sub>,θ<sub>c</sub>) · P(s) · P(v) · P(θ<sub>d</sub>,θ<sub>c</sub>) 
@@ -105,5 +105,7 @@ Bayesian Rational Speech-Act (RSA) model:
 
 1. More predictable (less noise) -> more collective
 2. Less distributive knowledge (sum access) -> more collective
+
+A **noisier** collective interpretation is **less useful** at effectively resolving the QUD, which makes it **less likely**.
 
 
