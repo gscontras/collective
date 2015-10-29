@@ -23,7 +23,7 @@ This repo contains work relevant to plural/collective predication
 
 A reference task to check whether *each* and *together* reliably disambiguate between distributive and collective interpretations for *big*/*heavy*/*tall*:
 
-[http://cocolab.stanford.edu/experiments/collective/expt1/expt1.html]()
+[http://cocolab.stanford.edu/experiments/collective/expt1/expt1.html](http://cocolab.stanford.edu/experiments/collective/expt1/expt1.html)
 
 ![title](writing/Cubert/plots/expt1bootsci.png)
 
@@ -39,7 +39,7 @@ Extracted 40 most frequent sentences from the BNC:
 
 Participants rated distributive (with *each*) and collective (with *together*) paraphrases.
 
-[http://cocolab.stanford.edu/experiments/collective/expt2a/expt2a.html]()
+[http://cocolab.stanford.edu/experiments/collective/expt2a/expt2a.html](http://cocolab.stanford.edu/experiments/collective/expt2a/expt2a.html)
 
 ![title](writing/Cubert/plots/sentence_plot.png)
 ![title](writing/Cubert/plots/noun_pred_plot.png)
@@ -54,7 +54,7 @@ Extracted 5 most frequent subject nouns from the Google Books:
 
 - the NOUNs were BIG/HEAVY/TALL
 
-[http://cocolab.stanford.edu/experiments/collective/expt2b/expt2b.html]()
+[http://cocolab.stanford.edu/experiments/collective/expt2b/expt2b.html](http://cocolab.stanford.edu/experiments/collective/expt2b/expt2b.html)
 ![title](writing/Cubert/plots/bht_plot.png)
 
 - *heavy* does get more collective interpretations
@@ -69,7 +69,7 @@ Hypothesis:
 1. more predictable -> more collective interpretations
 2. less distributive knowledge -> more collective interpretations
 
-[http://cocolab.stanford.edu/experiments/collective/expt3/expt3.html]()
+[http://cocolab.stanford.edu/experiments/collective/expt3/expt3.html](http://cocolab.stanford.edu/experiments/collective/expt3/expt3.html)
 ![title](writing/Cubert/plots/expt3.png)
 
 - Significant effect of contextual predictability for *big* and *tall*
@@ -100,7 +100,7 @@ Bayesian Rational Speech-Act (RSA) model:
 - **Pragmatic listener** jointly infers interpretation and state given utterance
 	- P<sub>L<sub>1</sub></sub>(s,v,θ<sub>d</sub>,θ<sub>c</sub> | u,a) ∝ P<sub>S<sub>1</sub></sub>(u | o(a,s),v,θ<sub>d</sub>,θ<sub>c</sub>) · P(s) · P(v) · P(θ<sub>d</sub>,θ<sub>c</sub>) 
 
-[http://forestdb.org/models/plural-predication.html]()
+[http://forestdb.org/models/plural-predication.html](http://forestdb.org/models/plural-predication.html)
 ![title](writing/Cubert/plots/model-results-sum.png)
 
 1. More predictable (less noise) -> more collective
