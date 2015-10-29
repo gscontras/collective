@@ -65,8 +65,9 @@ Extracted 5 most frequent subject nouns from the Google Books:
 ### Experiment 3: manipulating predictability and speaker knowledge
 
 Hypothesis:
-- more predictable -> more collective interpretations
-- less distributive knowledge -> more collective interpretations
+
+1. more predictable -> more collective interpretations
+2. less distributive knowledge -> more collective interpretations
 
 [http://cocolab.stanford.edu/experiments/collective/expt3/expt3.html]()
 ![title](writing/Cubert/plots/expt3.png)
@@ -80,13 +81,29 @@ Hypothesis:
 Bayesian Rational Speech-Act (RSA) model:
 
 - Language understanding as social reasoning
+	- Treat ambiguity resolution as a lifted variable to be inferred by the pragmatic listener
+- Standard truth-functional semantics parameterized to gradable thresholds, interpretation-resolving variables, and properties of context:
+	- [[dist]]<sup>θ<sub>d</sub></sup>  = λs. ∀ x ∈ s [d(x) > θ<sub>d</sub>] 
+	- [[coll]]<sup>c,θ<sub>c</sub></sup> = λs. [c +  ∑<sub>x∈s</sub>  d(x) > θ<sub>c</sub>] 
+	- [[amb]]<sup>v,c,θ<sub>d</sub>,θ<sub>c</sub></sup> = if v [[coll]]<sup>c,θ<sub>c</sub></sup>, else [[dist]]<sup>θ<sub>d</sub></sup>
 - Speakers and listeners coordinate on **utterance** and **interpretation** most likely to correctly resolve **QUD** (i.e., the state of the world)
 - Speaker observes world with either **full** or **sum** access 
-- Estimates of collective properties (i.e., total size/weight/height) susceptible to varying amounts of contextual **noise** (an additive factor):
-![title](presentations/2015_Berkeley/noise-all.png)
+- Estimates of collective properties (i.e., total size/weight/height) susceptible to varying amounts of contextual **noise**, an additive factor drawn from the prior over contextual noise P(c):
 
+	![title](presentations/2015_Berkeley/noise-all.png)
+
+- **Literal listener** updates beliefs about world given utterance and prior knowledge:
+	- P<sub>L<sub>0</sub></sub>(s | u,v,θ<sub>d</sub>,θ<sub>c</sub>) ∝ [[u]]<sup>v,c,θ<sub>d</sub>,θ<sub>c</sub></sup>(s) · P(c) · P(s) 
+- **Speaker** choses utterance to communicate about observed state in accordance with her **utility** (minimizing surprisal and cost)
+	- U<sub>S<sub>1</sub></sub>(u; s,v,θ<sub>d</sub>,θ<sub>c</sub>) = log(L0 (s|u,v,θ<sub>d</sub>,θ<sub>c</sub>)) − C(u)
+	- P<sub>S<sub>1</sub></sub>(u | o,v,θ<sub>d</sub>,θ<sub>c</sub>) ∝ exp(𝝰 · 𝔼<sub>P<sub>a</sub>(s|o)</sub>[U<sub>S<sub>1</sub></sub> (u; s,v,θ<sub>d</sub>,θ<sub>c</sub>)]) 
+- **Pragmatic listener** jointly infers interpretation and state given utterance
+	- P<sub>L<sub>1</sub></sub>(s,v,θ<sub>d</sub>,θ<sub>c</sub> | u,a) ∝ P<sub>S<sub>1</sub></sub>(u | o(a,s),v,θ<sub>d</sub>,θ<sub>c</sub>) · P(s) · P(v) · P(θ<sub>d</sub>,θ<sub>c</sub>) 
 
 [http://forestdb.org/models/plural-predication.html]()
 ![title](writing/Cubert/plots/model-results-sum.png)
+
+1. More predictable (less noise) -> more collective
+2. Less distributive knowledge (sum access) -> more collective
 
 
