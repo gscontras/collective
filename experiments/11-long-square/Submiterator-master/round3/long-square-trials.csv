@@ -1,0 +1,9 @@
+workerid,predicate,utterance,response,context,sentence_type
+0,square,square,0,regular,dist
+0,square,square,1,regular,coll
+1,long,long,0.66,random,coll
+1,long,long,0.28,random,dist
+2,long,long,0.06,regular,coll
+2,long,long,0.06,regular,dist
+3,square,square,0.97,random,coll
+3,square,square,0.95,random,dist

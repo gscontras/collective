@@ -1,0 +1,3 @@
+workerid,predicate,utterance,response,context,sentence_type
+0,tall,tall,0.16,random,dist
+0,tall,tall,0.29,random,coll

@@ -1,0 +1,5 @@
+workerid,predicate,utterance,response,context,sentence_type
+0,long,long,0.44,regular,coll
+0,long,long,0.23,regular,dist
+1,long,long,NA,regular,coll
+1,long,long,0.81,regular,dist
