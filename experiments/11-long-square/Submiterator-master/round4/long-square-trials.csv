@@ -5,3 +5,5 @@ workerid,predicate,utterance,response,context,sentence_type
 1,tall,tall,0.76,random,dist
 2,tall,tall,0.03,regular,dist
 2,tall,tall,1,regular,coll
+3,tall,tall,0.23,random,dist
+3,tall,tall,0.82,random,coll

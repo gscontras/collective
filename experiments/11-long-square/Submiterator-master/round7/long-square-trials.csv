@@ -3,3 +3,9 @@ workerid,predicate,utterance,response,context,sentence_type
 0,long,long,0.89,regular,dist
 1,long,long,0,regular,coll
 1,long,long,1,regular,dist
+2,long,long,0.12,regular,dist
+2,long,long,0.8,regular,coll
+3,square,square,1,regular,dist
+3,square,square,0,regular,coll
+4,tall,tall,0.01,regular,dist
+4,tall,tall,1,regular,coll

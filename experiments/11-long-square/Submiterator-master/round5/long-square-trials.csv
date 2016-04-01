@@ -3,3 +3,17 @@ workerid,predicate,utterance,response,context,sentence_type
 0,tall,tall,0.46,regular,dist
 1,tall,tall,0.57,random,dist
 1,tall,tall,0.29,random,coll
+2,square,square,0.34,regular,coll
+2,square,square,0.5,regular,dist
+3,tall,tall,1,regular,coll
+3,tall,tall,0.15,regular,dist
+4,square,square,0.7,regular,coll
+4,square,square,0.32,regular,dist
+5,tall,tall,0.85,regular,coll
+5,tall,tall,0.16,regular,dist
+6,square,square,0.21,random,dist
+6,square,square,0.61,random,coll
+7,square,square,0.94,regular,dist
+7,square,square,0.22,regular,coll
+8,tall,tall,0.01,random,dist
+8,tall,tall,0.01,random,coll

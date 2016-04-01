@@ -1,3 +1,10 @@
 workerid,language,enjoyment,gender,age,comments,asses,education
 0,English,2,Female,50,Interesting experiment,Yes,2
 1,english,1,Female,51,none,Yes,4
+2,eng,1,Male,27,,Yes,2
+3,English,2,Male,25,No comments.,Yes,2
+4,English,2,Female,26,,Yes,3
+5,English,2,Male,30,n/a,Yes,4
+6,"vietnamese, english",1,Female,27,"There were rectangles, and rectangles aren&quotechart squares, so I wasn&quotechart sure how to answer it, but gave my best guess",Yes,3
+7,spanish,2,Female,24,I was confused on the how the animation worked.,Confused,2
+8,English,1,Female,55,"Uh, I was hoping for more options about Cuthbert&quotechars meaning, since neither choice seemed right.",Yes,3

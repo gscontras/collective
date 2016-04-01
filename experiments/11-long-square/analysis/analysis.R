@@ -4,68 +4,47 @@ library(hydroGOF)
 library(tidyr)
 library(dplyr)
 
+source("../analysis/helpers.R")
+
 setwd("~/Documents/git/cocolab/collective/experiments/11-long-square/Submiterator-master")
 
-num_round_dirs = 10
+num_round_dirs = 10 # problem with round 5
 df = do.call(rbind, lapply(1:num_round_dirs, function(i) {
   return (read.csv(paste(
     'round', i, '/long-square.csv', sep='')) %>%
+    #'round', i, '/long-square-trials.csv', sep='')) %>%
       mutate(workerid = (workerid + (i-1)*9)))}))
 
 d = subset(df, select=c("workerid","predicate","response","context","sentence_type","language"))
 unique(d$language)
-d = d[d$language!="Chinese"&d$language!="Spanish, English"&d$language!="Spanish"&d$language!="Hindi"&d$language!="spanish"&d$language!=""&d$language!="SPANISH",]
+d = d[d$language!="Chinese"&d$language!="Spanish, English"&d$language!="Spanish"&d$language!="Hindi"&d$language!="spanish"&d$language!=""&d$language!="SPANISH"&d$language!="vietnamese, english",]
 unique(d$language)
 
-length(unique(d$workerid)) # n=19
+#d = subset(df, select=c("workerid","predicate","response","context","sentence_type"))
+
+length(unique(d$workerid)) # n=44
 
 #write.csv(d,"../results/long-square_results.csv")
 
+d_raw <- d #un-transformed data
+#d_raw <- na.omit(d) #un-transformed data
 
-## predicate plot by class
-c_s = bootsSummary(data=d, measurevar="response", groupvars=c("class"))
-#c_s = aggregate(response~class,data=d,mean)
+## plots
 
-class_plot <- ggplot(c_s, aes(x=reorder(class,-response,mean),y=response)) +
+#summary(d_raw)
+
+raw_s = bootsSummary(data=d_raw, measurevar="response", groupvars=c("sentence_type","context","predicate"))
+
+raw_plot <- ggplot(raw_s, aes(x=context,y=response,fill=factor(sentence_type,labels=c("collective","distributive")))) +
+  #  geom_bar(alpha=1/2,stat="identity",position=position_dodge()) +
   geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(class,response,is.ordered=T), width=0.1),position=position_dodge(width=0.9))+
-  ylab("subjectivity\n")+
-  xlab("adjective class") +
-  #facet_wrap(~class,scale="free_x") +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
-  theme_bw()+
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-class_plot
-ggsave("../results/class_subjectivity.pdf",height=3)
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=context, width=0.1),position=position_dodge(width=0.9))+
+  ylab("endorsement (out of 1)\n")+
+  ylim(0,1)+
+  xlab("\n variability of context") +
+  labs(fill="paraphrase")+
+  scale_fill_manual(values=c("red", "blue"))+
+  facet_grid(~ predicate) + theme_bw()
+raw_plot
 
-
-
-#### just subjectivity
-
-
-## predicate plot by class
-c_s = bootsSummary(data=d, measurevar="response", groupvars=c("class"))
-class_plot <- ggplot(c_s, aes(x=reorder(class,-response,mean),y=response)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(class,response,is.ordered=T), width=0.1),position=position_dodge(width=0.9))+
-  ylab("subjectivity\n")+
-  xlab("adjective class") +
-  #facet_wrap(~class,scale="free_x") +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-class_plot
-ggsave("../results/class_plot.pdf",height=5)
-
-## predicate plot by class
-p_s = bootsSummary(data=d, measurevar="response", groupvars=c("class","predicate"))
-p_s$predicate <- factor(p_s$predicate,ordered=is.ordered(p_s$predicate))
-pred_plot <- ggplot(p_s, aes(x=reorder(predicate,-response,mean),y=response)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(predicate,response,is.ordered=T), width=0.1),position=position_dodge(width=0.9))+
-  ylab("subjectivity\n")+
-  xlab("predicate") +
-  facet_wrap(~class,scale="free_x") +
-  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))
-pred_plot
-ggsave("../results/pred_plot.pdf",height=5)
-
-
+#ggsave("expt2rawbootsci2.pdf",width=6,height=2.7)

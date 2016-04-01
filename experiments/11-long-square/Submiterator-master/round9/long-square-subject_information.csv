@@ -1,2 +1,7 @@
 workerid,language,enjoyment,gender,age,comments,asses,education
 0,English,1,Male,38,Everything was fine.,Yes,3
+1,English,1,Male,64,thank you,Yes,3
+2,english,2,Male,35,,Yes,3
+3,English,2,Female,25,Confusing but interesting.,Confused,2
+4,,-1,,,,NA,-1
+5,English and Kreyol,1,Female,20,,Confused,2
