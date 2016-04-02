@@ -9,3 +9,11 @@ workerid,predicate,utterance,response,context,sentence_type
 3,tall,tall,0.21,regular,coll
 4,square,square,0.13,random,dist
 4,square,square,0.77,random,coll
+5,tall,tall,0.33,random,dist
+5,tall,tall,0.8,random,coll
+6,square,square,0.46,regular,coll
+6,square,square,0,regular,dist
+7,tall,tall,0,regular,dist
+7,tall,tall,0.96,regular,coll
+8,square,square,0.81,regular,coll
+8,square,square,0.09,regular,dist

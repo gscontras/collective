@@ -11,3 +11,9 @@ workerid,predicate,utterance,response,context,sentence_type
 4,tall,tall,0.13,regular,dist
 5,long,long,0.99,regular,dist
 5,long,long,0.02,regular,coll
+6,square,square,0.59,regular,coll
+6,square,square,0.81,regular,dist
+7,square,square,0.99,regular,dist
+7,square,square,0.01,regular,coll
+8,long,long,0.34,regular,dist
+8,long,long,0.58,regular,coll

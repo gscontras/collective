@@ -17,12 +17,12 @@ df = do.call(rbind, lapply(1:num_round_dirs, function(i) {
 
 d = subset(df, select=c("workerid","predicate","response","context","sentence_type","language"))
 unique(d$language)
-d = d[d$language!="Chinese"&d$language!="Spanish, English"&d$language!="Spanish"&d$language!="Hindi"&d$language!="spanish"&d$language!=""&d$language!="SPANISH"&d$language!="vietnamese, english",]
+d = d[d$language!="Chinese"&d$language!="Spanish, English"&d$language!="Spanish"&d$language!="Hindi"&d$language!="spanish"&d$language!=""&d$language!="SPANISH"&d$language!="vietnamese, english"&d$language!="English and Kreyol"&d$language!="Vietnamese",]
 unique(d$language)
 
 #d = subset(df, select=c("workerid","predicate","response","context","sentence_type"))
 
-length(unique(d$workerid)) # n=44
+length(unique(d$workerid)) # n=82
 
 #write.csv(d,"../results/long-square_results.csv")
 
@@ -48,3 +48,20 @@ raw_plot <- ggplot(raw_s, aes(x=context,y=response,fill=factor(sentence_type,lab
 raw_plot
 
 #ggsave("expt2rawbootsci2.pdf",width=6,height=2.7)
+
+d = dcast(data=d, workerid + predicate + context ~ sentence_type, value.var="response",mean)
+
+centered = cbind(d, myCenter(d[,c("predicate","context")]))
+centered$diff = centered$dist - centered$coll
+
+tall = centered[centered$predicate=="tall",]
+t_m = glm(diff~ ccontext, data=tall)
+summary(t_m)
+
+square = centered[centered$predicate=="square",]
+s_m = glm(diff~ ccontext, data=square)
+summary(s_m)
+
+long = centered[centered$predicate=="long",]
+l_m = glm(diff~ ccontext, data=long)
+summary(l_m)

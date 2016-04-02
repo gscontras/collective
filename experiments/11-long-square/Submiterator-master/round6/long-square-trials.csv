@@ -7,3 +7,13 @@ workerid,predicate,utterance,response,context,sentence_type
 2,long,long,0.72,random,dist
 3,square,square,0.66,regular,coll
 3,square,square,0,regular,dist
+4,long,long,0.32,regular,dist
+4,long,long,0.42,regular,coll
+5,square,square,NA,random,dist
+5,square,square,0.98,random,coll
+6,square,square,0.49,random,dist
+6,square,square,0.48,random,coll
+7,square,square,0.86,regular,dist
+7,square,square,0.05,regular,coll
+8,square,square,0.2,regular,dist
+8,square,square,0.53,regular,coll
