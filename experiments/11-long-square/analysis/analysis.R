@@ -47,7 +47,7 @@ raw_plot <- ggplot(raw_s, aes(x=context,y=response,fill=factor(sentence_type,lab
   facet_grid(~ predicate) + theme_bw()
 raw_plot
 
-#ggsave("expt2rawbootsci2.pdf",width=6,height=2.7)
+#ggsave("../analysis/long-square.pdf",width=6,height=2.7)
 
 d = dcast(data=d, workerid + predicate + context ~ sentence_type, value.var="response",mean)
 
