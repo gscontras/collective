@@ -35,16 +35,16 @@ function make_slides(f) {
                     return _.shuffle([
                       ['<img src="expt-files/images/context1.1.png" class="context_image" alt="Step 1" id="context1.1"></img>',
                       '<img src="expt-files/images/contextX.2.png" class="context_image" alt="Step 2" id="context1.2"></img>',
-                      '<img src="expt-files/images/context1.3'+exp.predicates[exp.predicate]+'.png" class="context_image" alt="Step 3" id="context1.3"></img>'],
+                      '<img src="expt-files/images/context1.3.png" class="context_image" alt="Step 3" id="context1.3"></img>'],
                       ['<img src="expt-files/images/context2.1.png" class="context_image" alt="Step 1" id="context2.1"></img>',
                       '<img src="expt-files/images/contextX.2.png" class="context_image" alt="Step 2" id="context1.2"></img>',
-                      '<img src="expt-files/images/context2.3'+exp.predicates[exp.predicate]+'.png" class="context_image" alt="Step 3" id="context2.3"></img>'],
+                      '<img src="expt-files/images/context2.3.png" class="context_image" alt="Step 3" id="context2.3"></img>'],
                       ['<img src="expt-files/images/context3.1.png" class="context_image" alt="Step 1" id="context3.1"></img>',
                       '<img src="expt-files/images/contextX.2.png" class="context_image" alt="Step 2" id="context1.2"></img>',
-                      '<img src="expt-files/images/context3.3'+exp.predicates[exp.predicate]+'.png" class="context_image" alt="Step 3" id="context3.3"></img>'],
+                      '<img src="expt-files/images/context3.3.png" class="context_image" alt="Step 3" id="context3.3"></img>'],
                       ['<img src="expt-files/images/context4.1.png" class="context_image" alt="Step 1" id="context4.1"></img>',
                       '<img src="expt-files/images/contextX.2.png" class="context_image" alt="Step 2" id="context1.2"></img>',
-                      '<img src="expt-files/images/context4.3'+exp.predicates[exp.predicate]+'.png" class="context_image" alt="Step 3" id="context4.3"></img>']
+                      '<img src="expt-files/images/context4.3.png" class="context_image" alt="Step 3" id="context4.3"></img>']
                       ])
                   }
           else {
@@ -111,7 +111,7 @@ function make_slides(f) {
 
   slides.multi_slider = slide({
     name : "multi_slider",
-    present : _.shuffle(["long","heavy","big"]),
+    present : _.shuffle(exp.adjectives),
 
     present_handle : function(stim) {
       $(".err").hide();
@@ -139,12 +139,25 @@ function make_slides(f) {
     },
 
     button : function() {
-      if (exp.sliderPost.length < this.n_sliders) {
-        $(".err").show();
-      } else {
-        this.log_responses();
-        _stream.apply(this); //use _stream.apply(this); if and only if there is "present" data.
+      var ok_to_go_on = true
+      if (exp.sliderPost[0]==undefined){
+        ok_to_go_on = false
       }
+      if (exp.sliderPost[1]==undefined){
+        ok_to_go_on = false
+      }
+      if (ok_to_go_on) {            
+           this.log_responses();
+           _stream.apply(this);
+          } else {
+           $(".err").show();
+          }
+      // if (exp.sliderPost.length < this.n_sliders) {
+      //   $(".err").show();
+      // } else {
+      //   this.log_responses();
+      //   _stream.apply(this); //use _stream.apply(this); if and only if there is "present" data.
+      // }
     },
 
     init_sliders : function(sentence_types) {
@@ -223,15 +236,19 @@ function init() {
   exp.trials = [];
   exp.catch_trials = [];
   exp.scenario = _.sample(["move"]);
-  exp.predicate = _.sample(["long"]);
+  exp.predicate = _.sample(["tall"]);
   // exp.predicate = _.sample(["tall","square","long"]);
-  // exp.scenario = _.sample(["move"]);
+  exp.scenario = _.sample(["move"]);
   exp.context = _.sample(["regular","random"]); //can randomize between subject conditions here
   // exp.context = _.sample(["regular"]); //can randomize between subject conditions here
   exp.predicates = {"tall": "", 
                   "square": ".square",
                   "long": ".long"}
 
+  exp.adjectives = ["full", "lengthy", "short", "little", "big", "long", "fat", "high", 
+                    "skinny", "tall", "small", "large", "tiny", "wide", "mini", "flat",
+                    "heavy", "narrow", "humongous", "huge", "thick", "low", "deep", "thin", "slight"]
+                    // swapped open with heavy
 
   exp.system = {
       Browser : BrowserDetect.browser,
