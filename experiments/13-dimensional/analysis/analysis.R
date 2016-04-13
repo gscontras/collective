@@ -123,12 +123,12 @@ summary(m)
 
 ## individual dimension analysis
 
-contents = d_tran[d_tran$dimension=="contents",]
-contents_c = cbind(contents, myCenter(contents[,c("context","valence")]))
-contents_m = glm(coll~ ccontext+slide_number, data=contents_c)
-summary(contents_m) #.
-contents_m = glm(diff~ ccontext+slide_number, data=contents_c)
-summary(contents_m) #ns
+capacity = d_tran[d_tran$dimension=="capacity",]
+capacity_c = cbind(capacity, myCenter(capacity[,c("context","valence")]))
+capacity_m = glm(coll~ ccontext+slide_number, data=capacity_c)
+summary(capacity_m) #.
+capacity_m = glm(diff~ ccontext+slide_number, data=capacity_c)
+summary(capacity_m) #ns
 
 depth = d_tran[d_tran$dimension=="depth",]
 depth_c = cbind(depth, myCenter(depth[,c("context","valence")]))
