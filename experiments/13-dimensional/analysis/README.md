@@ -118,7 +118,7 @@
 	|	huge					|	size						|	positive			|
 	|	humongous		|	size						|	positive			|
 	|	large					|	size						|	positive			|
-	| 	heavy					|	size						|	positive			|
+	| 	heavy					|	weight				|	positive			|
 	|	narrow				|	width					|	negative			|
 	|	skinny					|	width					|	negative			|
 	|	thin						|	width					|	negative			|

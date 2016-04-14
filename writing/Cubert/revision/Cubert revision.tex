@@ -737,11 +737,70 @@ Such a representational coercion story raises serious problems for the semantics
 %
 %In addition to the host of issues such a representational coercion story raises for the semantics of plural definite descriptions \citep[for discussion, see ][]{link1983,landman1989,schwarzschild1996,link1998}, the success of our speaker knowledge manipulation speaks directly against it: participants give similarly high distributive endorsement ratings for \emph{heavy} in ``inspect'' scenarios and similarly low distributive endorsement ratings for \emph{heavy} in ``move'' scenarios, regardless of the variability of context. In other words, the speaker knowledge manipulation, which suppresses information about individual set members in ``move'' scenarios, affects random and regular contexts similarly. If regular contexts forced reanalysis of \emph{the boxes} as an assemblage like \emph{the pile}, we would not expect ``move'' vs.~``inspect'' scenarios to privilege or dis-privilege access to information about individual set members; there would only be a single individual available in context.
 
-Taken together, our results demonstrate the central role of context in plural predication: as collective properties become more predictable, collective interpretations become more likely; and without epistemic support, distributive interpretations become less likely. These findings support a pragmatic account of stubborn distributivity according to which ostensibly stubbornly distributive predicates are such because the properties they name are unpredictable, or unstable in most contexts. We next formalize the role of context in the interpretation of plural predication, using tools from probabilistic modeling.
+Taken together, our results demonstrate the central role of context in plural predication: as collective properties become more predictable, collective interpretations become more likely; and without epistemic support, distributive interpretations become less likely. These findings support a pragmatic account of stubborn distributivity according to which ostensibly stubbornly distributive predicates are such because the properties they name are unpredictable, or unstable in most contexts. Before formalizing the role of context in the interpretation of plural predication using tools from probabilistic modeling, we probe the generalizability of our findings in one last experiment.
 
 %Next, we formalize the role of context in this choice of interpretation using a Bayesian Rational Speech-Act model \citep{frankgoodman2012,lassitergoodman2013}. Noisy (i.e., more variable) interpretations are less useful because they require more coordination between speakers and listeners; they are therefore less likely. Similarly, listeners are less likely to assume interpretations for which speakers lack knowledge.
 
 
+\section{Experiment 4: Generalizing our findings}
+
+In Expt.~3 we looked at the role of contextual predictability in interpretation choice for three adjectives of English: \emph{big}, \emph{heavy}, and \emph{tall}. One might worry that the observed success of our contextual manipulation is an artifact of the small set of adjectives we %have so-far 
+tested, and might not generalize to a broader set of adjectives. Therefore, to test the generalizability of the findings from Expt.~3, we recycled the design on a much broader set of 25 dimensional adjectives.
+
+\subsection{Participants}
+
+We recruited 54 participants through Amazon's Mechanical Turk. Participants were compensated for participation.
+
+\subsection{Design and methods}
+
+The experimental design was near-identical to that of Expt.~3: participants were introduced to Cubert, who was tasked with ``moving'' boxes that he received from a dispenser in the ceiling (there was no ``inspect'' condition). Between subjects, we manipulated the variability of the \textsc{context} (``regular'' vs.~``random'') by having the dispenser either stack boxes on top of each other or dispense them in a random phsyical arrangement. Participants saw a series of four context priming scenarios to demonstrate the behavior of the dispenser; we used the same context priming scenarios from Expt.~3.
+
+After observing the dispenser, participants were instructed to help Cubert's friend, Dot, understand Cubert's statements about the boxes he moved. To do so, they saw an utterance and rated potential paraphrases on a sliding scale; the paraphrases were either distributive (with ``each'') or collective (with ``together''). Participants provided paraphrases endorsements for each of the adjectives in Table \ref{dimensional-adjs}. We arrived at the set of adjectives in Table \ref{dimensional-adjs} by extracting every unique adjective appearing in an ``A A N" NP from the Penn Treebank subset of the Switchboard corpus; there were 350 unique adjectives. Then, adjectives were independently coded according to semantic classes from the literature \citep[e.g.,][]{dixon1982}. Among this set there were 24 unique dimensional adjectives; to those 24 we added the weight adjective \emph{heavy}.
+
+Participants completed 25 trials in a random order. For the analyses reported below we included data from the 51 participants who indicated that their native language was English.
+
+\begin{table}
+	\centering
+	\caption{Adjectives, modified dimensions, and valences tested in Expt.~4.}
+	\label{dimensional-adjs}
+\begin{tabular}{lll} \toprule
+ 	\textsc{adjective}	&	\textsc{dimension}	&	\textsc{valence} \\ \midrule
+	full				&	capacity			&	positive	\\
+	deep				&	depth				&	positive	\\
+	flat				&	height				&	negative	\\
+	low					&	height				& 	negative	\\
+	short				&	height				&	negative	\\
+	high				&	height				&	positive	\\
+	tall				&	height				&	positive	\\
+	lengthy				&	length				&	positive	\\
+	long				&	length				&	positive	\\	
+	little				&	size				&	negative	\\		
+	mini				&	size				&	negative	\\		
+	slight				&	size				&	negative	\\
+	small				&	size				&	negative	\\
+	tiny				&	size				&	negative	\\		
+	big					&	size				&	positive	\\
+	huge				&	size				&	positive	\\
+	humongous			&	size				&	positive	\\
+	large				&	size				&	positive	\\
+ 	heavy				&	weight				&	positive	\\
+	narrow				&	width				&	negative	\\
+	skinny				&	width				&	negative	\\
+	thin				&	width				&	negative	\\
+	fat					&	width				&	positive	\\
+	thick				&	width				&	positive	\\
+	wide				&	width				&	positive	\\ \bottomrule
+	\end{tabular}
+	\end{table}
+
+
+\subsection{Results}
+
+
+
+
+
+%Next, we formalize the role of context in this choice of interpretation using a Bayesian Rational Speech-Act model \citep{frankgoodman2012,lassitergoodman2013}. Noisy (i.e., more variable) interpretations are less useful because they require more coordination between speakers and listeners; they are therefore less likely. Similarly, listeners are less likely to assume interpretations for which speakers lack knowledge.
 
 \section{Modeling plural predication}
 \label{model}
