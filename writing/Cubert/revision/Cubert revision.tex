@@ -796,7 +796,18 @@ Participants completed 25 trials in a random order. For the analyses reported be
 
 \subsection{Results}
 
+Fig.\ \ref{resultsexpt4} displays the collective paraphrase endorsement ratings averaged across all trials with bootstrapped 95\% confidence intervals; higher rates of endorsement for the collective paraphrase signal greater rates of collective interpretation. We grouped data by the dimension modified as well as its valence.
 
+%\ndg{our predictions really are about effect of manipulations on predicates separately, and we don't care much about predicate directly.... so how about doing three separate regressions, one for each predicate? this should be easier to interpret. equivalently we could leave out the main effect predictors for scenario and context, leaving only the interaction terms with predicate. }
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1.05\linewidth]{plots/expt4.eps} 
+	\vspace{-20pt}
+	\caption{Paraphrase endorsement rate averaged across all trials in Expt.~3.}\label{resultsexpt4}
+\end{figure}
+
+For each dimension, we fit a linear regression model predicting collective endorsement ratings by \textsc{context} (``random'' vs.~``regular'') and \textsc{trial} order; for those dimensions with both positive and negative adjectives, models additionally included the \textsc{valence} predictory and the interaction between \textsc{context} and \textsc{valence}.\footnote{All reported results hold if instead we look at normalized collective paraphrase endorsement ratings (i.e., the difference between collective and distributive endorsements for each trial), given the strong negative correlation between the two endorsement ratings ($r=-XXX$).} The full regression models appear in \ref{expt4results}.
 
 
 

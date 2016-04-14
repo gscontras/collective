@@ -6,7 +6,7 @@ library(dplyr)
 
 source("../analysis/helpers.R")
 
-# setwd("~/Documents/git/cocolab/collective/experiments/13-dimensional/Submiterator-master")
+ setwd("~/Documents/git/cocolab/collective/experiments/13-dimensional/Submiterator-master")
 # 
 # a = read.csv("../analysis/adjectives.csv",header=T)
 # 
@@ -97,22 +97,26 @@ d_plot
 #ggsave("../analysis/dimension.pdf")
 
 dim_val_s = bootsSummary(data=d_raw, measurevar="response", groupvars=c("sentence_type","context","dimension","valence"))
+dim_val_s$valence <- factor(dim_val_s$valence,labels=c("negative","positive"))
+
 dv_plot <- ggplot(dim_val_s, aes(x=context,y=response,fill=factor(sentence_type,labels=c("collective","distributive")))) +
   #  geom_bar(alpha=1/2,stat="identity",position=position_dodge()) +
   geom_bar(stat="identity",position=position_dodge()) +
   geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=context, width=0.1),position=position_dodge(width=0.9))+
-  ylab("endorsement (out of 1)\n")+
-  ylim(0,1)+
+  ylab("endorsement (out of 1)")+
+  scale_y_continuous(limits=c(0,1),breaks=seq(0,1, by = .25),labels=c("0","","","","1"))+
+  #ylim(0,1)+
   xlab("\n variability of context") +
   labs(fill="paraphrase")+
   scale_fill_manual(values=c("red", "blue"))+
-  facet_grid(dimension~valence) + 
-  theme_bw()
+  facet_grid(valence~dimension ) + 
+  theme_bw() +
+  theme(legend.position="bottom")
 dv_plot
-#ggsave("../analysis/dimension-valence.pdf",width=4.8,height=5.6)
+ggsave("../analysis/expt4.png",width=8.35,height=3.3)
 
 
-# transform data
+ # transform data
 d_tran = dcast(data=d_raw, workerid + utterance + context +dimension + valence + slide_number ~ sentence_type, value.var="response",mean)
 d_tran$diff = d_tran$dist - d_tran$coll
 
@@ -141,8 +145,12 @@ height = d_tran[d_tran$dimension=="height",]
 height_c = cbind(height, myCenter(height[,c("context","valence")]))
 height_m = glm(coll~ ccontext*cvalence+slide_number, data=height_c)
 summary(height_m) #.
+height_m = glm(coll~ ccontext+slide_number, data=height_c[height_c$valence=="pos",])
+summary(height_m) #*
 height_m = glm(diff~ ccontext*cvalence+slide_number, data=height_c)
 summary(height_m) #.
+height_m = glm(diff~ ccontext+slide_number, data=height_c[height_c$valence=="pos",])
+summary(height_m) #*
 
 length = d_tran[d_tran$dimension=="length",]
 length_c = cbind(length, myCenter(length[,c("context","valence")]))
@@ -155,8 +163,12 @@ size = d_tran[d_tran$dimension=="size",]
 size_c = cbind(size, myCenter(size[,c("context","valence")]))
 size_m = glm(coll~ ccontext*cvalence+slide_number, data=size_c)
 summary(size_m) #*
+size_m = glm(coll~ ccontext+slide_number, data=size_c[size_c$valence=="pos",])
+summary(size_m) #*
 size_m = glm(diff~ ccontext*cvalence+slide_number, data=size_c)
 summary(size_m) #.
+size_m = glm(diff~ ccontext+slide_number, data=size_c[size_c$valence=="pos",])
+summary(size_m) #*
 
 weight = d_tran[d_tran$dimension=="weight",]
 weight_c = cbind(weight, myCenter(weight[,c("context","valence")]))
@@ -169,7 +181,11 @@ width = d_tran[d_tran$dimension=="width",]
 width_c = cbind(width, myCenter(width[,c("context","valence")]))
 width_m = glm(coll~ ccontext*cvalence+slide_number, data=width_c)
 summary(width_m) #*
+width_m = glm(coll~ ccontext+slide_number, data=width_c[width_c$valence=="neg",])
+summary(width_m) #**
 width_m = glm(diff~ ccontext*cvalence+slide_number, data=width_c)
+summary(width_m) #**
+width_m = glm(diff~ ccontext+slide_number, data=width_c[width_c$valence=="neg",])
 summary(width_m) #**
 
 
