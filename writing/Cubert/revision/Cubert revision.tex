@@ -807,12 +807,12 @@ Fig.\ \ref{resultsexpt4} displays the collective paraphrase endorsement ratings 
 	\caption{Paraphrase endorsement rate averaged across all trials in Expt.~4.}\label{resultsexpt4}
 \end{figure}
 
-For each dimension, we fit a linear regression model predicting collective endorsement ratings by \textsc{context} (``random'' vs.~``regular'') and \textsc{trial} order; for those dimensions with both positive and negative adjectives (i.e., height, size, and width), models additionally included the \textsc{valence} predictor and the interaction between \textsc{context} and \textsc{valence}.\footnote{All reported results hold if instead we look at normalized collective paraphrase endorsement ratings (i.e., the difference between collective and distributive endorsements for each trial), given the strong negative correlation between the two endorsement ratings ($r=-0.49$).} The full regression models appear in \ref{resultsexpt4}.
+For each dimension, we fit a linear regression model predicting collective endorsement ratings by \textsc{context} (``random'' vs.~``regular'') and \textsc{trial} order; for those dimensions with both positive and negative adjectives (i.e., height, size, and width), models additionally included the \textsc{valence} predictor and the interaction between \textsc{context} and \textsc{valence}.\footnote{All reported results hold if instead we look at normalized collective paraphrase endorsement ratings (i.e., the difference between collective and distributive endorsements for each trial), given the strong negative correlation between the two endorsement ratings ($r=-0.49$).} The full regression models appear in \ref{expt4results}.
 
-We begin with a look at the dimensions with only positive-valence instances. For \textbf{capacity} adjectives, the model found a marginally significant effect of context ($\beta$ = 0.16, $SE$ = 0.08, $t$ = 1.95, p $<$ 0.06), such that regular contexts tended to have more collective interpretations than did random contexts. There was no significant effect of context for \textbf{depth} ($\beta$ = 0.07, $SE$ = 0.09 $t$ = 0.85, p $<$ 0.40), \textbf{length} ($\beta$ = 0.01, $SE$ = 0.06, $t$ = 0.15, p $<$ 0.89), or \textbf{weight} ($\beta$ = -0.04, $SE$ = 0.07, $t$ = -0.51, p $<$ 0.62) adjectives.
+We begin with a look at the dimensions with only positive-valence instances. For \textbf{capacity} adjectives, the model found a marginally significant effect of \textsc{context} ($\beta$ = 0.16, $SE$ = 0.08, $t$ = 1.95, p $<$ 0.06), such that regular contexts tended to have more collective interpretations than did random contexts. There was no significant effect of \textsc{context} for \textbf{depth} ($\beta$ = 0.07, $SE$ = 0.09 $t$ = 0.85, p $<$ 0.40), \textbf{length} ($\beta$ = 0.01, $SE$ = 0.06, $t$ = 0.15, p $<$ 0.89), or \textbf{weight} ($\beta$ = -0.04, $SE$ = 0.07, $t$ = -0.51, p $<$ 0.62) adjectives.
 
-We turn next to those dimensions with both negative- and positive-valence instances. For \textbf{height} adjectives, the model found a main effect of valence ($\beta$ = 0.21, $SE$ = 0.08, $t$ = 2.77, p $<$ 0.01), such that 
-
+We turn next to those dimensions with both negative- and positive-valence instances. For \textbf{height} adjectives, the model found a main effect of valence ($\beta$ = 0.28, $SE$ = 0.04, $t$ = 7.82, p $<$ 0.01), such that positive-valence height adjectives received more collective interpretations than negative-valence height adjectives. The model also found a marginally significant interaction between \textsc{context} and \textsc{valence} ($\beta$ = 0.13, $SE$ = 0.07, $t$ = 1.82, p $<$ 0.07). A post-hoc analysis revealed that this interaction was driven by a significant effect of \textsc{context} within the positive-valence height adjectives ($\beta$ = 0.12, $SE$ = 0.06, $t$ = 2.11, p $<$ 0.05): regular contexts yielded more collective interpretations. For \textbf{size} adjectives, the model found a main effect of valence ($\beta$ = 0.20, $SE$ = 0.03, $t$ = 7.60, p $<$ 0.01), such that positive-valence height adjectives received more collective interpretations than negative-valence height adjectives. The model also found a significant interaction between \textsc{context} and \textsc{valence} ($\beta$ = 0.13, $SE$ = 0.05, $t$ = 1.82, p $<$ 0.05). A post-hoc analysis revealed that this interaction was driven by a significant effect of \textsc{context} within the positive-valence size adjectives ($\beta$ = 0.10, $SE$ = 0.04, $t$ = 2.21, p $<$ 0.05): regular contexts yielded more collective interpretations.
+For \textbf{width} adjectives, the model found a significant interaction between \textsc{context} and \textsc{valence} ($\beta$ = -0.14, $SE$ = 0.07, $t$ = -2.02, p $<$ 0.05). A post-hoc analysis revealed that this interaction was driven by a significant effect of \textsc{context} within the \emph{negative}-valence width adjectives ($\beta$ = 0.13, $SE$ = 0.05, $t$ = 2.66, p $<$ 0.01): regular contexts yielded more collective interpretations.
 
 
 %Next, we formalize the role of context in this choice of interpretation using a Bayesian Rational Speech-Act model \citep{frankgoodman2012,lassitergoodman2013}. Noisy (i.e., more variable) interpretations are less useful because they require more coordination between speakers and listeners; they are therefore less likely. Similarly, listeners are less likely to assume interpretations for which speakers lack knowledge.
@@ -1341,7 +1341,7 @@ Table \ref{expt2banalysis} presents model coefficients for the full mixed linear
 	\end{tabular}
 \end{table}
 
-\section{Full mixed effects linear regression model from Expt.~3}\label{expt3results}
+\section{Full linear regression models from Expt.~3}\label{expt3results}
 
 Table \ref{expt3analysis} presents model coefficients for the full linear regression models used in the analysis of Expt.~3. For each predicate, the models predict collective endorsement ratings from fixed effects for context, scenario, trial, and the interaction between context and scenario. The fixed effects predictors were centered before analysis.
 
@@ -1371,6 +1371,64 @@ Table \ref{expt3analysis} presents model coefficients for the full linear regres
 		\bottomrule
 	\end{tabular}
 \end{table}
+
+
+
+\section{Full linear regression models from Expt.~4}\label{expt4results}
+
+Tables \ref{expt4analysisa} and \ref{expt4analysisa} present model coefficients for the full linear regression models used in the analysis of Expt.~4. For each dimension, the models predict collective endorsement ratings from fixed effects for context and trial; for those dimensions with both positive- and negative-valence adjectives, the models also included fixed effects of valence and the interaction between valence and context. The fixed effects predictors were centered before analysis.
+
+\begin{table}[htb] 
+	\renewcommand\thetable{D.1}
+	\centering \caption{Full linear regression models from the positive-valence dimension analyses of Expt.~4.} \label{expt4analysisa}
+	\begin{tabular}{lrrrr}\toprule
+		&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
+		\emph{\textbf{capacity}} \\
+		Intercept 		& 	0.38 	&	0.08	&	4.61	&	\textbf{$<$0.01} \\
+		Context			&	0.16	&   0.08	&	1.95	&	\textbf{$<$0.06} \\
+		Trial			&	0.00	&   0.01	&	0.75	&	0.46 \\\hline
+		\emph{\textbf{depth}}\\
+		Intercept 		& 	0.58 	&	0.08	&	7.27	&	\textbf{$<$0.01} \\
+		Context			&	0.07	&   0.09	&	0.85	&	0.40\\
+		Trial			&	-0.01	&   0.01	&	-1.71	&	0.09 \\\hline
+		\emph{\textbf{length}}\\
+		Intercept 		& 	0.47 	&	0.07	&	7.07	&	\textbf{$<$0.01} \\
+		Context			&	0.01	&   0.06	&	0.15	&	0.89 \\
+		Trial			&	0.00	&   0.00	&	0.28	&	0.78 \\ \hline
+		\emph{\textbf{weight}}\\
+		Intercept 		& 	0.78 	&	0.08	&	10.05	&	\textbf{$<$0.01} \\
+		Context			&	-0.04	&   0.07	&	-0.51	&	0.62 \\
+		Trial			&	-0.01	&   0.01	&	-1.86	&	\textbf{$<$0.07} \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[htb] 
+	\renewcommand\thetable{D.1}
+	\centering \caption{Full linear regression models from the multi-valence dimension analyses of Expt.~4.} \label{expt4analysisb}
+	\begin{tabular}{lrrrr}\toprule
+		&	Coef $\beta$	&	SE($\beta$)	&	\multicolumn{1}{c}{ \textbf{t}}	&	\multicolumn{1}{c}{$p$}\\ \midrule
+		\emph{\textbf{height}}\\
+		Intercept 		& 	0.44 	&	0.04	&	11.53	&	\textbf{$<$0.01} \\
+		Context			&	0.04	&   0.04	&	1.12	&	0.26 \\
+		Valence			&	0.28	&   0.04	&	7.82	&	\textbf{$<$0.01} \\
+		Trial			&	0.00	&   0.00	&	0.30	&	0.76 \\
+		Context:Valence	&	0.13	&   0.07	&	1.82	&	\textbf{$<$0.07} \\ \hline
+		\emph{\textbf{size}}\\
+		Intercept 		& 	0.42 	&	0.03	&	15.52	&	\textbf{$<$0.01} \\
+		Context			&	0.03	&   0.03	&	0.94	&	0.35 \\
+		Valence			&	0.20	&   0.03	&	7.60	&	\textbf{$<$0.01} \\
+		Trial			&	-0.00	&   0.00	&	-0.16	&	0.87 \\
+		Context:Valence	&	0.13	&   0.05	&	2.39	&	\textbf{$<$0.05} \\ \hline
+		\emph{\textbf{width}}\\
+		Intercept 		& 	0.45 	&	0.03	&	12.95	&	\textbf{$<$0.01} \\
+		Context			&	0.06	&   0.03	&	1.74	&	0.08 \\
+		Valence			&	0.06	&   0.03	&	1.79	&	0.07 \\
+		Trial			&	-0.00	&   0.00	&	-0.98	&	0.33 \\
+		Context:Valence	&	-0.14	&   0.07	&	-2.02	&	\textbf{$<$0.05} \\ \bottomrule
+	\end{tabular}
+\end{table}
+
 
 \section*{References}
 
