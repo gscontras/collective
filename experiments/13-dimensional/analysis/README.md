@@ -44,6 +44,17 @@
 		slide_number      0.0007324  0.0024124   0.304   0.7617    
 		ccontext:cvalence 0.1323044  0.0726366   1.821   0.0697 . 
 		
+		glm(formula = coll ~ ccontext + slide_number, data = height_c[height_c$valence == 
+		    "pos", ])
+		Deviance Residuals: 
+		     Min        1Q    Median        3Q       Max  
+		-0.67735  -0.18598   0.05952   0.23688   0.47762  
+		Coefficients:
+		             Estimate Std. Error t value Pr(>|t|)    
+		(Intercept)  0.547362   0.060641   9.026 1.45e-14 ***
+		ccontext     0.119899   0.056935   2.106   0.0377 *  
+		slide_number 0.005422   0.003887   1.395   0.1661  
+		
 * **length** adjectives: context does not matter
 
 		glm(formula = coll ~ ccontext + slide_number, data = length_c)
@@ -69,6 +80,17 @@
 		cvalence           0.2027708  0.0266868   7.598 1.73e-13 ***
 		slide_number      -0.0003053  0.0018877  -0.162   0.8716    
 		ccontext:cvalence  0.1287033  0.0537717   2.394   0.0171 * 
+
+		glm(formula = coll ~ ccontext + slide_number, data = size_c[size_c$valence == 
+		    "pos", ])
+		Deviance Residuals: 
+		     Min        1Q    Median        3Q       Max  
+		-0.57510  -0.25229   0.05509   0.24927   0.52369  
+		Coefficients:
+		               Estimate Std. Error t value Pr(>|t|)    
+		(Intercept)   0.5342830  0.0429608  12.437   <2e-16 ***
+		ccontext      0.0962121  0.0436279   2.205   0.0286 *  
+		slide_number -0.0006437  0.0029830  -0.216   0.8294 
 		
 * **weight** adjectives: context does not matter
 
@@ -95,6 +117,17 @@
 		cvalence           0.060187   0.033552   1.794   0.0738 .  
 		slide_number      -0.002211   0.002254  -0.981   0.3274    
 		ccontext:cvalence -0.135879   0.067395  -2.016   0.0447 *  
+
+		glm(formula = coll ~ ccontext + slide_number, data = width_c[width_c$valence == 
+		    "neg", ])
+		Deviance Residuals: 
+		     Min        1Q    Median        3Q       Max  
+		-0.46007  -0.23232  -0.04082   0.23851   0.62666  
+		Coefficients:
+		              Estimate Std. Error t value Pr(>|t|)    
+		(Intercept)   0.415867   0.048355   8.600 9.81e-15 ***
+		ccontext      0.126729   0.047570   2.664  0.00856 ** 
+		slide_number -0.001850   0.003062  -0.604  0.54667  
 
 * 25 adjectives and their dimensions and valences
 	
