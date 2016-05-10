@@ -217,7 +217,7 @@ var pluralPredication = function(numberObjects,
   var speakerBelief = cache(function(state,speakerKnows) {
     return Enumerate(function() {
       var obs = function(s) {
-//         return speakerKnows ? s : listAdd(s) 
+        // return speakerKnows ? s : listAdd(s) 
         return speakerKnows ? s : listAgg(s) 
       }
       var bState = statePrior(numberObjects)
@@ -281,28 +281,28 @@ var pluralPredication = function(numberObjects,
 
 
 
-// console.log(pluralPredication(2,"no",false,"ambiguous-pos"))
-// console.log(pluralPredication(2,"no",true,"ambiguous-pos"))
+console.log(pluralPredication(2,"no",false,"ambiguous-pos"))
+console.log(pluralPredication(2,"no",true,"ambiguous-pos"))
 
-// console.log(pluralPredication(2,"low",false,"ambiguous-pos"))
-// console.log(pluralPredication(2,"low",true,"ambiguous-pos"))
+console.log(pluralPredication(2,"low",false,"ambiguous-pos"))
+console.log(pluralPredication(2,"low",true,"ambiguous-pos"))
 
-// console.log(pluralPredication(2,"mid",false,"ambiguous-pos"))
-// console.log(pluralPredication(2,"mid",true,"ambiguous-pos"))
+console.log(pluralPredication(2,"mid",false,"ambiguous-pos"))
+console.log(pluralPredication(2,"mid",true,"ambiguous-pos"))
 
 // console.log(pluralPredication(2,"high",false,"ambiguous-pos"))
 // console.log(pluralPredication(2,"high",true,"ambiguous-pos"))
 
 
 
-console.log(pluralPredication(2,"no",false,"ambiguous-neg"))
-console.log(pluralPredication(2,"no",true,"ambiguous-neg"))
+// console.log(pluralPredication(2,"no",false,"ambiguous-neg"))
+// console.log(pluralPredication(2,"no",true,"ambiguous-neg"))
 
-console.log(pluralPredication(2,"low",false,"ambiguous-neg"))
-console.log(pluralPredication(2,"low",true,"ambiguous-neg"))
+// console.log(pluralPredication(2,"low",false,"ambiguous-neg"))
+// console.log(pluralPredication(2,"low",true,"ambiguous-neg"))
 
-console.log(pluralPredication(2,"mid",false,"ambiguous-neg"))
-console.log(pluralPredication(2,"mid",true,"ambiguous-neg"))
+// console.log(pluralPredication(2,"mid",false,"ambiguous-neg"))
+// console.log(pluralPredication(2,"mid",true,"ambiguous-neg"))
 
 // console.log(pluralPredication(2,"high",false,"ambiguous-neg"))
 // console.log(pluralPredication(2,"high",true,"ambiguous-neg"))
