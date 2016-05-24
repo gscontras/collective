@@ -44,7 +44,7 @@ raw_plot <- ggplot(raw_s, aes(x=context,y=response,fill=factor(sentence_type,lab
   xlab("\n variability of context") +
   labs(fill="paraphrase")+
   scale_fill_manual(values=c("red", "blue"))+
-  facet_wrap(~ utterance) + 
+  facet_grid(valence ~ dimension+utterance) + 
   theme_bw()
 raw_plot
 #ggsave("../analysis/predicates.pdf",height=5)

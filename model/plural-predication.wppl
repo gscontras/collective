@@ -64,9 +64,9 @@ var pluralPredication = function(numberObjects,
                     "ambiguous-pos",
                     "each-pos",
                     "together-pos",
-                    "ambiguous-neg",
-                    "each-neg",
-                    "together-neg"
+                    // "ambiguous-neg",
+                    // "each-neg",
+                    // "together-neg"
                    ];
 
   var cost = function(utt) {
@@ -75,9 +75,9 @@ var pluralPredication = function(numberObjects,
         return  utt == "each-pos" ? 2 :
         utt == "together-pos" ? 2 :
         utt == "ambiguous-pos" ? 1 : 
-        utt == "each-neg" ? 3 :
-        utt == "together-neg" ? 3 :
-        utt == "ambiguous-neg" ? 2 : 
+        utt == "each-neg" ? 2 :
+        utt == "together-neg" ? 2 :
+        utt == "ambiguous-neg" ? 1 : 
         0
   }
 
@@ -87,7 +87,7 @@ var pluralPredication = function(numberObjects,
     }, utterances))];
   };
 
-  var objects = [1,2,3,4];
+  var objects = [1,3,4];
 
   var objectPrior = function() {
     uniformDraw(objects);
@@ -105,8 +105,8 @@ var pluralPredication = function(numberObjects,
   }
 
   // x > theta
-  var distThetasPos = [0, 1, 2, 3];  
-  var collThetasPos = [1, 2, 3, 4, 5, 6, 7];
+  var distThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];  
+  var collThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   // var collThetasPos = [2, 3, 4, 5, 6, 7, 8];
   // var distThetasPos = function() {
   //   return objectPrior()-1
@@ -116,9 +116,9 @@ var pluralPredication = function(numberObjects,
   // }
 
   // // x < theta
-  var distThetasNeg = [2, 3, 4, 5];
+  var distThetasNeg = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
   // var collThetasNeg = [3, 4, 5, 6, 7];
-  var collThetasNeg = [3, 4, 5, 6, 7, 8, 9];
+  var collThetasNeg = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
   // var distThetasNeg = function() {
   //   return objectPrior()+1
   // }
@@ -138,20 +138,22 @@ var pluralPredication = function(numberObjects,
   var collInterpretationPos = function(state, collTheta,noise) {
     var weight = 1 - (0.5 * (1 + erf((collTheta - listAdd(state)) / 
                                      (noise * Math.sqrt(2)))))
-    return flip(weight)
+    return weight == 0 ? flip(weight+0.01) : weight == 1 ? flip(weight-0.01) : flip(weight)
+    // return flip(weight)
   }
   var distInterpretationPos = function(state, distTheta) {
-    return all(function(x){x > distTheta}, state) //? flip(0.9999) : flip(0.0001)
+    return all(function(x){x > distTheta}, state) ? flip(0.9999) : flip(0.0001)
   }
 
   // x < theta
   var collInterpretationNeg = function(state, collTheta,noise) {
     var weight = 1 - (0.5 * (1 + erf((listAdd(state) - collTheta) / 
                                      (noise * Math.sqrt(2)))))
-    return flip(weight)
+    return weight == 0 ? flip(weight+0.01) : weight == 1 ? flip(weight-0.01) : flip(weight)
+    // return flip(weight)
   }
   var distInterpretationNeg = function(state, distTheta) {
-    return all(function(x){x < distTheta}, state) //? flip(0.9999) : flip(0.0001)
+    return all(function(x){x < distTheta}, state) ? flip(0.9999) : flip(0.0001)
   }
 
   var meaning = function(utt,state,distThetaPos,collThetaPos,distThetaNeg,collThetaNeg,isCollective,noise) {
@@ -245,32 +247,32 @@ var pluralPredication = function(numberObjects,
 
 
 
-// console.log(pluralPredication(2,"no",false,"ambiguous-pos"))
-// console.log(pluralPredication(2,"no",true,"ambiguous-pos"))
+console.log(pluralPredication(3,"no",false,"ambiguous-pos"))
+console.log(pluralPredication(3,"no",true,"ambiguous-pos"))
 
-// console.log(pluralPredication(2,"low",false,"ambiguous-pos"))
-// console.log(pluralPredication(2,"low",true,"ambiguous-pos"))
+console.log(pluralPredication(3,"low",false,"ambiguous-pos"))
+console.log(pluralPredication(3,"low",true,"ambiguous-pos"))
 
-// console.log(pluralPredication(2,"mid",false,"ambiguous-pos"))
-// console.log(pluralPredication(2,"mid",true,"ambiguous-pos"))
+console.log(pluralPredication(3,"mid",false,"ambiguous-pos"))
+console.log(pluralPredication(3,"mid",true,"ambiguous-pos"))
 
-// console.log(pluralPredication(2,"high",false,"ambiguous-pos"))
-// console.log(pluralPredication(2,"high",true,"ambiguous-pos"))
+console.log(pluralPredication(3,"high",false,"ambiguous-pos"))
+console.log(pluralPredication(3,"high",true,"ambiguous-pos"))
 
 
 
-// console.log(pluralPredication(2,"no",false,"ambiguous-neg"))
-// console.log(pluralPredication(2,"no",true,"ambiguous-neg"))
+// console.log(pluralPredication(3,"no",false,"ambiguous-neg"))
+// console.log(pluralPredication(3,"no",true,"ambiguous-neg"))
 
 // console.log(pluralPredication(3,"low",false,"ambiguous-neg"))
-// console.log(pluralPredication(2,"low",true,"ambiguous-neg"))
-
+// console.log(pluralPredication(3,"low",true,"ambiguous-neg"))
 
 // console.log(pluralPredication(3,"mid",false,"ambiguous-neg"))
-// console.log(pluralPredication(2,"mid",true,"ambiguous-neg"))
+// console.log(pluralPredication(3,"mid",true,"ambiguous-neg"))
 
 // console.log(pluralPredication(3,"high",false,"ambiguous-neg"))
-// console.log(pluralPredication(2,"high",true,"ambiguous-neg"))
+// console.log(pluralPredication(3,"high",true,"ambiguous-neg"))
+
 
 // print(pluralPredication(3,"no",false,"ambiguous-pos"))
 // print(pluralPredication(3,"no",true,"ambiguous-pos"))

@@ -69,12 +69,12 @@ var pluralPredication = function(numberObjects,
   //                                  ) {  
 
   var utterances = ["null",
-                    // "ambiguous-pos",
-                    // "each-pos",
-                    // "together-pos",
-                    "ambiguous-neg",
-                    "each-neg",
-                    "together-neg"
+                    "ambiguous-pos",
+                    "each-pos",
+                    "together-pos",
+                    // "ambiguous-neg",
+                    // "each-neg",
+                    // "together-neg"
                    ];
 
   var cost = function(utt) {
@@ -83,9 +83,9 @@ var pluralPredication = function(numberObjects,
     return  utt == "each-pos" ? 2 :
     utt == "together-pos" ? 2 :
     utt == "ambiguous-pos" ? 1 : 
-    utt == "each-neg" ? 2 :
-    utt == "together-neg" ? 2 :
-    utt == "ambiguous-neg" ? 1 : 
+    utt == "each-neg" ? 3 :
+    utt == "together-neg" ? 3 :
+    utt == "ambiguous-neg" ? 2 : 
     0
   }
 
@@ -119,6 +119,8 @@ var pluralPredication = function(numberObjects,
   // }
   var funPrior = function() {
     // return collectiveNoise == "no" ? uniformDraw(["all"]) :
+    // uniformDraw(["one","all"])
+    // return collectiveNoise == "no" ? uniformDraw(["all"]) :
     // collectiveNoise == "low" ? uniformDraw(["three123","three124","three134","three234","all"]) :
     // collectiveNoise == "mid" ? uniformDraw(["two12","two13","two14","two23","two24","two34","three123","three124","three134","three234","all"]) :
     // uniformDraw(["one","two1","three","all"])
@@ -138,16 +140,16 @@ var pluralPredication = function(numberObjects,
   var listAgg = function(x,noise) {
     var fun = funPrior(noise)
     return fun == "one" ? getMaxOfArray(x) : 
-    fun == "two12" ? sum([first(x),second(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x)]) : getMaxOfArray(x) :
-    fun == "two13" ? sum([first(x),third(x)]) >= getMaxOfArray(x) ? sum([first(x),third(x)]) : getMaxOfArray(x) :
-    fun == "two14" ? sum([first(x),fourth(x)]) >= getMaxOfArray(x) ? sum([first(x),fourth(x)]) : getMaxOfArray(x) :
-    fun == "two23" ? sum([second(x),third(x)]) >= getMaxOfArray(x) ? sum([second(x),third(x)]) : getMaxOfArray(x) :
-    fun == "two24" ? sum([second(x),fourth(x)]) >= getMaxOfArray(x) ? sum([second(x),fourth(x)]) : getMaxOfArray(x) :
-    fun == "two34" ? sum([third(x),fourth(x)]) >= getMaxOfArray(x) ? sum([third(x),fourth(x)]) : getMaxOfArray(x) :
-    fun == "three123" ? sum([first(x),second(x),third(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x),third(x)]) : getMaxOfArray(x) :
-    fun == "three124" ? sum([first(x),second(x),fourth(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x),fourth(x)]) : getMaxOfArray(x) :
-    fun == "three134" ? sum([first(x),third(x),fourth(x)]) >= getMaxOfArray(x) ? sum([first(x),third(x),fourth(x)]) : getMaxOfArray(x) :
-    fun == "three234" ? sum([second(x),third(x),fourth(x)]) >= getMaxOfArray(x) ? sum([second(x),third(x),fourth(x)]) : getMaxOfArray(x) :
+    // fun == "two12" ? sum([first(x),second(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x)]) : getMaxOfArray(x) :
+    // fun == "two13" ? sum([first(x),third(x)]) >= getMaxOfArray(x) ? sum([first(x),third(x)]) : getMaxOfArray(x) :
+    // fun == "two14" ? sum([first(x),fourth(x)]) >= getMaxOfArray(x) ? sum([first(x),fourth(x)]) : getMaxOfArray(x) :
+    // fun == "two23" ? sum([second(x),third(x)]) >= getMaxOfArray(x) ? sum([second(x),third(x)]) : getMaxOfArray(x) :
+    // fun == "two24" ? sum([second(x),fourth(x)]) >= getMaxOfArray(x) ? sum([second(x),fourth(x)]) : getMaxOfArray(x) :
+    // fun == "two34" ? sum([third(x),fourth(x)]) >= getMaxOfArray(x) ? sum([third(x),fourth(x)]) : getMaxOfArray(x) :
+    // fun == "three123" ? sum([first(x),second(x),third(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x),third(x)]) : getMaxOfArray(x) :
+    // fun == "three124" ? sum([first(x),second(x),fourth(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x),fourth(x)]) : getMaxOfArray(x) :
+    // fun == "three134" ? sum([first(x),third(x),fourth(x)]) >= getMaxOfArray(x) ? sum([first(x),third(x),fourth(x)]) : getMaxOfArray(x) :
+    // fun == "three234" ? sum([second(x),third(x),fourth(x)]) >= getMaxOfArray(x) ? sum([second(x),third(x),fourth(x)]) : getMaxOfArray(x) :
     fun == "two1" ? sum([first(x),second(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x)]) : getMaxOfArray(x) :
     fun == "two2" ? sum([second(x),third(x)]) >= getMaxOfArray(x) ? sum([second(x),third(x)]) : getMaxOfArray(x) : 
     fun == "onethree" ? sum([first(x),third(x)]) >= getMaxOfArray(x) ? sum([first(x),third(x)]) : getMaxOfArray(x) : 
@@ -156,9 +158,10 @@ var pluralPredication = function(numberObjects,
 
   // x > theta
   // var distThetasPos = [0, 1, 2]; 
+  // var distThetasPos = [3, 4, 5];  
+  // var collThetasPos = [9, 10, 11, 12, 13, 14, 15]; 
   var distThetasPos = [1, 2, 3];  
-  // var collThetasPos = [1, 2, 3, 4, 5, 6, 7, 8];
-  var collThetasPos = [3, 4, 5, 6, 7, 8, 9];
+  var collThetasPos = [3, 4, 5, 6, 7, 8, 9]; 
   // var distThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8];  
   // var collThetasPos = [0, 1, 2, 3, 4, 5, 6, 7];
   // var collThetasPos = [2, 3, 4, 5, 6, 7, 8];
@@ -170,10 +173,9 @@ var pluralPredication = function(numberObjects,
   // }
 
   // // x < theta
-  var distThetasNeg = [1, 2, 3];
-  // var distThetasNeg = [1, 2, 3];
-  // var collThetasNeg = [3, 4, 5, 6, 7];
-  var collThetasNeg = [3, 4, 5, 6, 7, 8, 9];
+  // var distThetasNeg = [2, 3, 4];
+  var distThetasNeg = [3, 4, 5];  
+  var collThetasNeg = [9, 10, 11, 12, 13, 14, 15]; 
   // var distThetasNeg = [0, 1, 2, 3, 4, 5, 6, 7];
   // var collThetasNeg = [0, 1, 2, 3, 4, 5, 6, 7];
   // var collThetasNeg = [3, 4, 5, 6, 7];
@@ -324,31 +326,31 @@ var pluralPredication = function(numberObjects,
 // console.log(pluralPredication(3,"high",false,"ambiguous-pos"))
 // console.log(pluralPredication(3,"high",true,"ambiguous-pos"))
 
-// console.log(pluralPredication(4,"no",false,"ambiguous-pos"))
-// console.log(pluralPredication(4,"no",true,"ambiguous-pos"))
+console.log(pluralPredication(3,"no",false,"ambiguous-pos"))
+console.log(pluralPredication(3,"no",true,"ambiguous-pos"))
 
-// console.log(pluralPredication(4,"low",false,"ambiguous-pos"))
-// console.log(pluralPredication(4,"low",true,"ambiguous-pos"))
+console.log(pluralPredication(3,"low",false,"ambiguous-pos"))
+console.log(pluralPredication(3,"low",true,"ambiguous-pos"))
 
-// console.log(pluralPredication(4,"mid",false,"ambiguous-pos"))
-// console.log(pluralPredication(4,"mid",true,"ambiguous-pos"))
+console.log(pluralPredication(3,"mid",false,"ambiguous-pos"))
+console.log(pluralPredication(3,"mid",true,"ambiguous-pos"))
 
 // console.log(pluralPredication(4,"high",false,"ambiguous-pos"))
 // console.log(pluralPredication(4,"high",true,"ambiguous-pos"))
 
 
 
-console.log(pluralPredication(3,"no",false,"ambiguous-neg"))
-console.log(pluralPredication(3,"no",true,"ambiguous-neg"))
+// console.log(pluralPredication(3,"no",false,"ambiguous-neg"))
+// console.log(pluralPredication(3,"no",true,"ambiguous-neg"))
 
-console.log(pluralPredication(3,"low",false,"ambiguous-neg"))
-console.log(pluralPredication(3,"low",true,"ambiguous-neg"))
+// console.log(pluralPredication(3,"low",false,"ambiguous-neg"))
+// console.log(pluralPredication(3,"low",true,"ambiguous-neg"))
 
-console.log(pluralPredication(3,"mid",false,"ambiguous-neg"))
-console.log(pluralPredication(3,"mid",true,"ambiguous-neg"))
+// console.log(pluralPredication(3,"mid",false,"ambiguous-neg"))
+// console.log(pluralPredication(3,"mid",true,"ambiguous-neg"))
 
-console.log(pluralPredication(3,"high",false,"ambiguous-neg"))
-console.log(pluralPredication(3,"high",true,"ambiguous-neg"))
+// console.log(pluralPredication(3,"high",false,"ambiguous-neg"))
+// console.log(pluralPredication(3,"high",true,"ambiguous-neg"))
 
 
 
