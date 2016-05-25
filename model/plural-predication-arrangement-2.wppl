@@ -117,7 +117,7 @@ var pluralPredication = function(numberObjects,
   //   noise == "low" ? uniformDraw(["max","sum"]) :
   //   uniformDraw(["min","max","sum"])
   // }
-  var funPrior = function() {
+  var funPrior = function(collectiveNoise) {
     // return collectiveNoise == "no" ? uniformDraw(["all"]) :
     // uniformDraw(["one","all"])
     // return collectiveNoise == "no" ? uniformDraw(["all"]) :
@@ -160,8 +160,8 @@ var pluralPredication = function(numberObjects,
   // var distThetasPos = [0, 1, 2]; 
   // var distThetasPos = [3, 4, 5];  
   // var collThetasPos = [9, 10, 11, 12, 13, 14, 15]; 
-  var distThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];  
-  var collThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; 
+  var distThetasPos = [0, 1, 2, 3];  
+  var collThetasPos = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; 
   // var distThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8];  
   // var collThetasPos = [0, 1, 2, 3, 4, 5, 6, 7];
   // var collThetasPos = [2, 3, 4, 5, 6, 7, 8];
@@ -174,8 +174,8 @@ var pluralPredication = function(numberObjects,
 
   // // x < theta
   // var distThetasNeg = [2, 3, 4];
-  var distThetasNeg = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];  
-  var collThetasNeg = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]; 
+  var distThetasNeg = [2, 3, 4, 5];  
+  var collThetasNeg = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13]; 
   // var distThetasNeg = [0, 1, 2, 3, 4, 5, 6, 7];
   // var collThetasNeg = [0, 1, 2, 3, 4, 5, 6, 7];
   // var collThetasNeg = [3, 4, 5, 6, 7];
@@ -326,8 +326,8 @@ var pluralPredication = function(numberObjects,
 // console.log(pluralPredication(3,"high",false,"ambiguous-pos"))
 // console.log(pluralPredication(3,"high",true,"ambiguous-pos"))
 
-// console.log(pluralPredication(3,"no",false,"ambiguous-pos"))
-// console.log(pluralPredication(3,"no",true,"ambiguous-pos"))
+console.log(pluralPredication(3,"no",false,"ambiguous-pos"))
+console.log(pluralPredication(3,"no",true,"ambiguous-pos"))
 
 // console.log(pluralPredication(3,"low",false,"ambiguous-pos"))
 // console.log(pluralPredication(3,"low",true,"ambiguous-pos"))
@@ -335,8 +335,8 @@ var pluralPredication = function(numberObjects,
 // console.log(pluralPredication(3,"mid",false,"ambiguous-pos"))
 // console.log(pluralPredication(3,"mid",true,"ambiguous-pos"))
 
-console.log(pluralPredication(3,"high",false,"ambiguous-pos"))
-console.log(pluralPredication(3,"high",true,"ambiguous-pos"))
+// console.log(pluralPredication(3,"high",false,"ambiguous-pos"))
+// console.log(pluralPredication(3,"high",true,"ambiguous-pos"))
 
 
 
