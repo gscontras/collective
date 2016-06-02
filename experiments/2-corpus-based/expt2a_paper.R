@@ -69,8 +69,8 @@ ggplot(a_sent_corr, aes(x=dist,y=coll)) +
 sentence_s = bootsSummary(data=a_sent_casted, measurevar="coll", groupvars=c("sentence","animate"))
 sentence_s$sentence <- factor(sentence_s$sentence,ordered=is.ordered(sentence_s$sentence))
 sentence_plot <- ggplot(sentence_s, aes(x=reorder(sentence,coll,mean),y=coll)) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(sentence,coll,mean), width=0.1),position=position_dodge(width=0.9))+
+  geom_bar(stat="identity",position=position_dodge(),fill="gray40") +
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(sentence,coll,mean), width=0.1),position=position_dodge(width=0.9),color="black")+
   #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
   ylab("collective endorsement\n") +
   xlab("\nsentence")+
@@ -79,7 +79,7 @@ sentence_plot <- ggplot(sentence_s, aes(x=reorder(sentence,coll,mean),y=coll)) +
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1,size=7))
 sentence_plot
 
-#ggsave('results/sentence_plot2.pdf',width=6.3,height=3.5)
+#ggsave('results/sentence_plot2.png',width=6.3,height=3.5)
 
 a_sent_casted$sentence <- factor(a_sent_casted$sentence,ordered=is.ordered(a_sent_casted$sentence))
 violin_plot <- ggplot(a_sent_casted, aes(x=reorder(sentence,coll,mean),y=coll)) +
@@ -126,15 +126,23 @@ n_pred_plot
 #ggsave('results/noun_pred_plot2.pdf',width=5.9,height=4)
 
 p_n$noun <- factor(p_n$noun,ordered=is.ordered(p_n$noun))
+data_summary <- function(x) {
+  m <- mean(x)
+  ymin = m-as.numeric(ci.low(x))
+  ymax = m+as.numeric(ci.high(x))
+  return(c(y=m,ymin=ymin,ymax=ymax))
+}
 n_pred_violin <- ggplot(p_n, aes(x=reorder(noun,coll,mean),y=coll)) +
   #geom_bar(stat="identity",position=position_dodge()) +
   #geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,coll,mean), width=0.1),position=position_dodge(width=0.9))+
   #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
   geom_violin(fill="black")+
-  stat_summary(fun.y=mean, geom="point", size=3, color="red")+
+  #geom_boxplot(width=0.1,color="white")+
+  #stat_summary(fun.y=mean, geom="point", shape=4, size=3, color="white")+
+  stat_summary(fun.data=data_summary,color="white",fill="red",shape=18,size=.5)+
   ylab("collective endorsement\n") +
   xlab("\nsubject noun")+
-  ylim(0,1) +
+  #ylim(0,1) +
   theme_bw()+
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1)) +
   facet_wrap(~predicate,nrow=2,scales="free_x")

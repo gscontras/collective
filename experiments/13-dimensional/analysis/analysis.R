@@ -53,12 +53,18 @@ dv_plot
 #ggsave("../analysis/expt4.png",width=8.35,height=3.3)
 
 d_raw$valence <- factor(d_raw$valence,labels=c("negative","positive"))
+data_summary <- function(x) {
+  m <- mean(x)
+  ymin = m-as.numeric(ci.low(x))
+  ymax = m+as.numeric(ci.high(x))
+  return(c(y=m,ymin=ymin,ymax=ymax))
+}
 dv_violin <- ggplot(d_raw, aes(x=context,y=response,fill=factor(sentence_type,labels=c("collective","distributive")))) +
   #  geom_bar(alpha=1/2,stat="identity",position=position_dodge()) +
   #geom_bar(stat="identity",position=position_dodge()) +
   #geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=context, width=0.1),position=position_dodge(width=0.9))+
   geom_violin()+
-  stat_summary(fun.y=mean, geom="point", size=3, color="black",position=position_dodge(width=0.9))+
+  stat_summary(fun.data=data_summary,color="white",shape=18,size=.5,position=position_dodge(width=0.9))+
   ylab("endorsement (out of 1)")+
   scale_y_continuous(limits=c(0,1),breaks=seq(0,1, by = .25),labels=c("0","","","","1"))+
   #ylim(0,1)+

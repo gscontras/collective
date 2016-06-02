@@ -519,16 +519,16 @@ Scale endpoints corresponded to whether the paraphrase was ``definitely'' or ``d
 Of the original 40 most frequent sentences, participants indicated that they ``made sense'' 95\% of the time. Of the novel sentences, participants indicated that they ``made sense'' 67\% of the time.
 To avoid possible confusion that nonsensical interpretations might introduce, in the analyses reported below we only look at responses to utterances that participants said made sense. %\ndg{why?}
 
-We begin with a look at the range of collective endorsement ratings.\footnote{A look at distributive endorsement ratings, or normalized collective ratings (i.e., the difference between collective and distributive ratings) reveals similar patterns of results, owing to the high negative correlation between distributive and collective endorsement ratings ($r=-0.78$).} Fig.~\ref{sentence-coll} plots average collective endorsement ratings for each of the 40 most frequent sentences. Descriptively, we see a wide range of ratings, spanning from approximately 25\%  to 85\% endorsement; participants appear to be comfortable using the full scale. An important observation about the distribution of ratings in Fig.~\ref{sentence-coll} is its relatively smooth gradient: we fail to find clear groupings of predicates, such that they behave in one way or another with respect to collective interpretations. Stubbornly distributive \emph{small} indeed occurs toward the low end of collective endorsement ratings, but not markedly so.
+We begin with a look at the range of collective endorsement ratings.\footnote{A look at distributive endorsement ratings, or normalized collective ratings (i.e., the difference between collective and distributive ratings) reveals similar patterns of results, owing to the high negative correlation between distributive and collective endorsement ratings ($r=-0.78$).} Fig.~\ref{sentence-coll} plots average collective endorsement ratings for each of the 40 most frequent sentences with bootstrapped 95\% confidence intervals. Descriptively, we see a wide range of ratings, spanning from approximately 25\%  to 85\% endorsement; participants appear to be comfortable using the full scale. An important observation about the distribution of ratings in Fig.~\ref{sentence-coll} is its relatively smooth gradient: we fail to find clear groupings of predicates, such that they behave in one way or another with respect to collective interpretations. Stubbornly distributive \emph{small} indeed occurs toward the low end of collective endorsement ratings, but not markedly so.
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=1.04\linewidth]{plots/sentence_plot_violin.eps}
+	\includegraphics[width=1.04\linewidth]{plots/sentence_plot2.eps}
 	\vspace{-20pt}
 	\caption{Collective paraphrase endorsement rates for different noun-predicate combinations in Expt.~2a (i.e., for different sentences).} \label{sentence-coll}
 \end{figure}
 
-There are 8 predicates that occur with multiple nouns in our small corpus; we plot their average collective endorsement ratings in Fig.~\ref{noun-pred-coll}.
+There are 8 predicates that occur with multiple nouns in our small corpus. We plot their collective endorsement ratings in Fig.~\ref{noun-pred-coll}, shifting to violin plots to give a better picture of the ratings distribution. The plots also include mean collective endorsement ratings and bootstrapped 95\% confidence intervals.
 %
 %
 For at least 3 out of these 8 predicates, rates of collective endorsement differ significantly by subject noun (\emph{bright}, \emph{closed}, \emph{small}; see \ref{2-stats} for details). We draw the reader's attention to the case of stubbornly distributive \emph{small} (bottom right of Fig.~\ref{noun-pred-coll}). 
@@ -543,7 +543,7 @@ This analysis relies on the chance occurrence of multiple subject nouns in our s
 	\centering
 	\includegraphics[width=.95\linewidth]{plots/noun_pred_plot_violin.eps}
 	%\vspace{0pt}
-	\caption{Collective paraphrase endorsement rates for different subject nouns grouped by predicate (Expt.~2a).} \label{noun-pred-coll}
+	\caption{Collective paraphrase endorsement ratings for different subject nouns grouped by predicate (Expt.~2a).} \label{noun-pred-coll}
 \end{figure}
 
 
@@ -586,7 +586,7 @@ We again look only at responses to the original most frequent utterances that pa
 
 %\ndg{here, but also in other expts, should do some analysis of the distributive paraphrase... it's weird to just leave it out. if it is truly redundant with the collective measure, how about quantifying that? ie. report their correlation or such.}
 
-Fig.~\ref{bhtcoll} plots average collective endorsement ratings for each of the three predicates grouped by their subjects.\footnote{As in Expt.~2a, distributive endorsement ratings provide redundant information, owing to their high negative correlation with the collective ratings ($r=-.98$).}
+Fig.~\ref{bhtcoll} plots collective endorsement ratings for each of the three predicates grouped by their subjects.\footnote{As in Expt.~2a, distributive endorsement ratings provide redundant information, owing to their high negative correlation with the collective ratings ($r=-.98$).}
 %
 %
 To compare the predicates with each other, we fit a linear mixed effects model predicting collective endorsement by predicate, with random intercepts for participants and nouns, and random slopes for participants. The predicate predictor was dummy coded with \emph{heavy} as the reference level. There were main effects for both contrasts, such that \emph{big} ($\beta=-0.22$, $SE=0.07$, $t=-3.24$, $p<0.01$) and \emph{tall} ($\beta=-0.20$, $SE=0.06$, $t=-3.20$, $p<0.01$) led to lower rates of collective endorsement than \emph{heavy}. 
@@ -598,7 +598,7 @@ We might take the split in behavior between \emph{heavy} on the one hand and \em
 	\centering
 	\includegraphics[width=.85\linewidth]{plots/bht_plot_violin.eps}
 	\vspace{0pt}
-	\caption{Collective paraphrase endorsement rates for different nouns serving as the subject to the predicates \emph{big}, \emph{heavy}, and \emph{tall} (Expt.~2b).} \label{bhtcoll}
+	\caption{Collective paraphrase endorsement ratings for different nouns serving as the subject to the predicates \emph{big}, \emph{heavy}, and \emph{tall} (Expt.~2b).} \label{bhtcoll}
 \end{figure}
 
 %\ndg{it's not clear to me that the ensuing are the most useful analyses to do... we want to know how judgements vary by noun. it is relevant to know if any nouns differ within predicate, and also whether the ranges of the predicates overlap....}
@@ -712,7 +712,7 @@ After observing the dispenser in action via the context  scenarios, participants
 
 \subsection{Results}
 
-Fig.\ \ref{resultsexpt2} displays the raw paraphrase endorsement ratings averaged across all trials with bootstrapped 95\% confidence intervals. For the purpose of analysis, we analyze responses to the collective paraphrases (i.e., the red bars in Fig.~\ref{resultsexpt2}); higher rates of endorsement for the collective paraphrase signal greater rates of collective interpretation. %calculated the difference between collective and distributive paraphrase endorsement ratings for each trial; Fig.~\ref{normresultsexpt2} presents these difference scores, where greater values of the difference score signal greater rates of collective paraphrase endorsement.
+Fig.\ \ref{resultsexpt2} displays violin plots of the raw paraphrase endorsement ratings, with mean endorsement ratings and bootstrapped 95\% confidence intervals. For the purpose of analysis, we analyze responses to the collective paraphrases (i.e., the red bars in Fig.~\ref{resultsexpt2}); higher rates of endorsement for the collective paraphrase signal greater rates of collective interpretation. %calculated the difference between collective and distributive paraphrase endorsement ratings for each trial; Fig.~\ref{normresultsexpt2} presents these difference scores, where greater values of the difference score signal greater rates of collective paraphrase endorsement.
 First note the qualitative effects of our two manipulations: collective interpretations do appear to be greater for \emph{tall} and \emph{big} in the ``regular'' conditions, and greater for \emph{heavy} in the ``move'' conditions.
 
 %\ndg{our predictions really are about effect of manipulations on predicates separately, and we don't care much about predicate directly.... so how about doing three separate regressions, one for each predicate? this should be easier to interpret. equivalently we could leave out the main effect predictors for scenario and context, leaving only the interaction terms with predicate. }
@@ -721,7 +721,7 @@ First note the qualitative effects of our two manipulations: collective interpre
 	\centering
 	\includegraphics[width=\linewidth]{plots/expt3-violin.eps} 
 	\vspace{-20pt}
-	\caption{Paraphrase endorsement rate averaged across all trials in Expt.~3.}\label{resultsexpt2}
+	\caption{Paraphrase endorsement ratings from Expt.~3.}\label{resultsexpt2}
 \end{figure}
 
 For each predicate, we fit a linear regression model predicting collective endorsement ratings by \textsc{context} (``random'' vs.~``regular''),
@@ -803,7 +803,7 @@ Participants completed 25 trials in a random order, one trial for each adjective
 
 \subsection{Results}
 
-Fig.\ \ref{resultsexpt4} displays the paraphrase endorsement ratings averaged across all trials with bootstrapped 95\% confidence intervals; higher paraphrase endorsement ratings indicate greater rates of the relevant interpretation. We grouped data by the dimension modified, together with adjective polarity.
+Fig.\ \ref{resultsexpt4} displays the paraphrase endorsement ratings with means and bootstrapped 95\% confidence intervals; higher paraphrase endorsement ratings indicate greater rates of the relevant interpretation. We grouped data by the dimension modified, together with adjective polarity.
 
 %\ndg{our predictions really are about effect of manipulations on predicates separately, and we don't care much about predicate directly.... so how about doing three separate regressions, one for each predicate? this should be easier to interpret. equivalently we could leave out the main effect predictors for scenario and context, leaving only the interaction terms with predicate. }
 
@@ -811,7 +811,7 @@ Fig.\ \ref{resultsexpt4} displays the paraphrase endorsement ratings averaged ac
 	\centering
 	\includegraphics[width=1.05\linewidth]{plots/expt4-violin.eps} 
 	\vspace{-35pt}
-	\caption{Paraphrase endorsement rate averaged across all trials in Expt.~4.}\label{resultsexpt4}
+	\caption{Paraphrase endorsement ratings from Expt.~4.}\label{resultsexpt4}
 \end{figure}
 
 For each dimension, we fit a linear regression model predicting collective endorsement ratings by \textsc{context} (``random'' vs.~``regular'') and \textsc{trial} order; for those dimensions with both positive and negative adjectives (i.e., the height, size, and width dimensions), models additionally included the \textsc{polarity} predictor and the interaction between \textsc{context} and \textsc{polarity}.\footnote{All reported results hold if instead we look at normalized collective paraphrase endorsement ratings (i.e., the difference between collective and distributive endorsements for each trial), given the strong negative correlation between the two endorsement ratings ($r=-0.49$). The single exception is the marginally significant effect of \textsc{context} for the capacity adjective \emph{full}, which holds marginally for the collective endorsement ratings but not for the normalized ratings. We return to this point below.} The full regression models appear in \ref{expt4results}.
