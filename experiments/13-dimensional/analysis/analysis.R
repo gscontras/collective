@@ -34,6 +34,44 @@ d_raw = read.csv("../analysis/combined-data.csv",header=T)
 
 ## plots
 
+dim_val_s = bootsSummary(data=d_raw, measurevar="response", groupvars=c("sentence_type","context","dimension","valence"))
+dim_val_s$valence <- factor(dim_val_s$valence,labels=c("negative","positive"))
+dv_plot <- ggplot(dim_val_s, aes(x=context,y=response,fill=factor(sentence_type,labels=c("collective","distributive")))) +
+  #  geom_bar(alpha=1/2,stat="identity",position=position_dodge()) +
+  geom_bar(stat="identity",position=position_dodge()) +
+  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=context, width=0.1),position=position_dodge(width=0.9))+
+  ylab("endorsement (out of 1)")+
+  scale_y_continuous(limits=c(0,1),breaks=seq(0,1, by = .25),labels=c("0","","","","1"))+
+  #ylim(0,1)+
+  xlab("\n variability of context") +
+  labs(fill="paraphrase")+
+  scale_fill_manual(values=c("red", "blue"))+
+  facet_grid(valence~dimension ) + 
+  theme_bw() +
+  theme(legend.position="bottom")
+dv_plot
+#ggsave("../analysis/expt4.png",width=8.35,height=3.3)
+
+d_raw$valence <- factor(d_raw$valence,labels=c("negative","positive"))
+dv_violin <- ggplot(d_raw, aes(x=context,y=response,fill=factor(sentence_type,labels=c("collective","distributive")))) +
+  #  geom_bar(alpha=1/2,stat="identity",position=position_dodge()) +
+  #geom_bar(stat="identity",position=position_dodge()) +
+  #geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=context, width=0.1),position=position_dodge(width=0.9))+
+  geom_violin()+
+  stat_summary(fun.y=mean, geom="point", size=3, color="black",position=position_dodge(width=0.9))+
+  ylab("endorsement (out of 1)")+
+  scale_y_continuous(limits=c(0,1),breaks=seq(0,1, by = .25),labels=c("0","","","","1"))+
+  #ylim(0,1)+
+  xlab("\n variability of context") +
+  labs(fill="paraphrase")+
+  scale_fill_manual(values=c("red", "blue"))+
+  facet_grid(valence~dimension ) + 
+  theme_bw() +
+  theme(legend.position="bottom")
+dv_violin
+#ggsave("../analysis/expt4-violin.png",width=8.35,height=3.3)
+
+
 raw_s = bootsSummary(data=d_raw, measurevar="response", groupvars=c("sentence_type","context","utterance","dimension","valence"))
 raw_plot <- ggplot(raw_s, aes(x=context,y=response,fill=factor(sentence_type,labels=c("collective","distributive")))) +
   #  geom_bar(alpha=1/2,stat="identity",position=position_dodge()) +
@@ -96,24 +134,7 @@ d_plot <- ggplot(dimension_s, aes(x=context,y=response,fill=factor(sentence_type
 d_plot
 #ggsave("../analysis/dimension.pdf")
 
-dim_val_s = bootsSummary(data=d_raw, measurevar="response", groupvars=c("sentence_type","context","dimension","valence"))
-dim_val_s$valence <- factor(dim_val_s$valence,labels=c("negative","positive"))
 
-dv_plot <- ggplot(dim_val_s, aes(x=context,y=response,fill=factor(sentence_type,labels=c("collective","distributive")))) +
-  #  geom_bar(alpha=1/2,stat="identity",position=position_dodge()) +
-  geom_bar(stat="identity",position=position_dodge()) +
-  geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=context, width=0.1),position=position_dodge(width=0.9))+
-  ylab("endorsement (out of 1)")+
-  scale_y_continuous(limits=c(0,1),breaks=seq(0,1, by = .25),labels=c("0","","","","1"))+
-  #ylim(0,1)+
-  xlab("\n variability of context") +
-  labs(fill="paraphrase")+
-  scale_fill_manual(values=c("red", "blue"))+
-  facet_grid(valence~dimension ) + 
-  theme_bw() +
-  theme(legend.position="bottom")
-dv_plot
-ggsave("../analysis/expt4.png",width=8.35,height=3.3)
 
 
  # transform data

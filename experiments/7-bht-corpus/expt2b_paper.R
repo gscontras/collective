@@ -5,6 +5,7 @@ library(coin)
 library(ggplot2)
 library(reshape2)
 library(gridExtra)
+library(hydroGOF)
 
 setwd("~/Documents/git/CoCoLab/collective/experiments/7-bht-corpus/")
 
@@ -97,6 +98,29 @@ all_plot <- ggplot(all_s, aes(x=reorder(noun,coll,mean),y=coll)) +
   facet_wrap(~predicate,ncol=3,scale="free_x")
 all_plot
 #ggsave("results/bht_plot2.pdf",width=6,height=2.7)
+
+#a_sent_casted$noun <- factor(a_sent_casted$noun,ordered=is.ordered(a_sent_casted$noun))
+#a_sent_casted$noun <- factor(a_sent_casted$noun,levels=a_sent_casted[order(a_sent_casted$coll),"noun"])
+#mtcars3$carb <-factor(mtcars2$carb, levels=ag_mtcars[order(ag_mtcars$mpg), "carb"])
+a_sent_casted$noun <- factor(a_sent_casted$noun,levels=c("houses","children","boys","rooms","waves","men","loads","trees","lids","bags","windows","buildings","offspring","plants"))
+#violin_plot <- ggplot(a_sent_casted, aes(x=reorder(noun,coll,mean),y=coll)) +
+violin_plot <- ggplot(a_sent_casted, aes(x=noun,y=coll)) +
+  #geom_bar(stat="identity",position=position_dodge()) +
+  #geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,coll,mean), width=0.1),position=position_dodge(width=0.9))+
+  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
+  geom_violin(fill="black")+
+  stat_summary(fun.y=mean, geom="point", size=3, color="red")+
+  ylab("collective endorsement\n") +
+  xlab("\nsubject noun")+
+  #ylim(0,1) +  
+  theme_bw()+
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
+  facet_wrap(~predicate,scale="free_x")
+  #facet_grid(.~predicate,scale="free")
+violin_plot
+#ggsave("results/bht_plot_violin.png",width=6,height=2.7)
+
+
 
 ##test
 

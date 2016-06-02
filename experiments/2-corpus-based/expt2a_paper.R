@@ -4,6 +4,7 @@ library(lmerTest)
 library(coin)
 library(ggplot2)
 library(reshape2)
+library(hydroGOF)
 
 setwd("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/")
 
@@ -74,10 +75,28 @@ sentence_plot <- ggplot(sentence_s, aes(x=reorder(sentence,coll,mean),y=coll)) +
   ylab("collective endorsement\n") +
   xlab("\nsentence")+
   ylim(0,1) +
+  theme_bw()+
   theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1,size=7))
 sentence_plot
 
 #ggsave('results/sentence_plot2.pdf',width=6.3,height=3.5)
+
+a_sent_casted$sentence <- factor(a_sent_casted$sentence,ordered=is.ordered(a_sent_casted$sentence))
+violin_plot <- ggplot(a_sent_casted, aes(x=reorder(sentence,coll,mean),y=coll)) +
+  #geom_bar(stat="identity",position=position_dodge()) +
+  #geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(sentence,coll,mean), width=0.1),position=position_dodge(width=0.9))+
+  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
+  geom_violin(fill="black")+
+  stat_summary(fun.y=mean, geom="point", size=4, color="red")+
+  #geom_boxplot(width=0.1)+
+  ylab("collective endorsement\n") +
+  xlab("\nsentence")+
+  ylim(0,1) +
+  theme_bw()+
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1,size=7))
+violin_plot
+
+#ggsave('results/sentence_plot_violin.png',width=6.3,height=3.5)
 
 ## just predicates with multiple nouns
 
@@ -104,7 +123,25 @@ n_pred_plot <- ggplot(n_pred_s, aes(x=reorder(noun,coll,mean),y=coll)) +
   facet_wrap(~predicate,nrow=2,scales="free_x")
 n_pred_plot
 
-ggsave('results/noun_pred_plot2.pdf',width=5.9,height=4)
+#ggsave('results/noun_pred_plot2.pdf',width=5.9,height=4)
+
+p_n$noun <- factor(p_n$noun,ordered=is.ordered(p_n$noun))
+n_pred_violin <- ggplot(p_n, aes(x=reorder(noun,coll,mean),y=coll)) +
+  #geom_bar(stat="identity",position=position_dodge()) +
+  #geom_errorbar(aes(ymin=bootsci_low, ymax=bootsci_high, x=reorder(noun,coll,mean), width=0.1),position=position_dodge(width=0.9))+
+  #geom_text(size=2,alpha=.5,aes(label=noun),angle=45) +
+  geom_violin(fill="black")+
+  stat_summary(fun.y=mean, geom="point", size=3, color="red")+
+  ylab("collective endorsement\n") +
+  xlab("\nsubject noun")+
+  ylim(0,1) +
+  theme_bw()+
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1)) +
+  facet_wrap(~predicate,nrow=2,scales="free_x")
+n_pred_violin
+
+#ggsave('results/noun_pred_plot_violin.png',width=5.9,height=4)
+
 
 ######################################################
 ###### BERKELEY SLIDES PLOT
