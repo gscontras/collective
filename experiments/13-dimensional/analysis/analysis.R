@@ -386,3 +386,27 @@ wide_m = glm(coll~ ccontext, data=wide_c)
 summary(wide_m) #ns
 wide_m = glm(diff~ ccontext, data=wide_c)
 summary(wide_m) #ns
+
+
+
+
+
+##### analyze subject information
+
+num_round_dirs = 6 # problem with round 5
+sf = do.call(rbind, lapply(1:num_round_dirs, function(i) {
+   return (read.csv(paste(
+     'round', i, '/dimensional-subject_information.csv', sep='')) %>%
+     #'round', i, '/long-square-trials.csv', sep='')) %>%
+       mutate(workerid = (workerid + (i-1)*9)))}))
+sf = sf[sf$language!=""&sf$language!="Spanish"&sf$language!="Cantonese",]
+summary(sf)
+# mean age: 35; median age: 31
+table(sf$education)
+# 1       2         3         4 
+# 9 (18%) 16 (31%)  22 (43%)  4 (8%)
+table(sf$enjoyment)
+table(sf$asses)
+table(sf$gender)
+# female: 19 (37%); male: 32 (63%)
+# reward: $0.50

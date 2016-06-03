@@ -191,3 +191,21 @@ tthm = rbind(tt,hm)
 aggregate(coll~predicate,data=tthm,mean)
 thm = lmer(coll~predicate+(1|workerid),data=tthm)
 summary(thm)
+
+
+
+
+### analyze subject information
+s = read.table("~/Documents/git/CoCoLab/collective/experiments/7-bht-corpus/Submiterator-master/bht-corpus-subject_information.tsv",sep="\t",header=T)
+s <- s[s$workerid!=16&s$workerid!=17&s$workerid!=18&s$workerid!=27,]
+length(unique(s$workerid)) # n=26
+summary(s)
+# mean age: 41; median age: 40
+table(s$education)
+# 1       2         3         4 
+# 1 (4%)  6 (23%)  16 (62%)  3 (12%)
+table(s$enjoyment)
+table(s$asses)
+table(s$gender)
+# female: 21 (81%); male: 5 (19%)
+# reward: $0.3

@@ -429,3 +429,19 @@ u_noun_word_plot <- ggplot(u_noun_casted, aes(x=coll,y=dist,color=animate)) +
 
 ggsave(filename='unattested_noun_word_plot.png',plot=u_noun_word_plot,width=9, height=8)
 
+
+
+### analyze subject information
+s = read.table("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/Submiterator-master/2-corpus-based-subject_information.tsv",sep="\t",header=T)
+s <- s[s$workerid!=8&s$workerid!=20&s$workerid!=30&s$workerid!=47&s$workerid!=73,]
+length(unique(s$workerid)) # n=85
+summary(s)
+# mean age: 36; median age: 31
+table(s$education)
+# -1      0       1       2         3         4 
+# 2 (2%)  3 (4%)  4 (5%) 24 (28%)  36 (42%)  16 (19%)
+table(s$enjoyment)
+table(s$asses)
+table(s$gender)
+# female: 42 (49%); male: 43 (51%)
+# reward: $0.3
