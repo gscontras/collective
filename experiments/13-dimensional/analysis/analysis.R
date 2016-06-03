@@ -75,7 +75,7 @@ dv_violin <- ggplot(d_raw, aes(x=context,y=response,fill=factor(sentence_type,la
   theme_bw() +
   theme(legend.position="bottom")
 dv_violin
-#ggsave("../analysis/expt4-violin.png",width=8.35,height=3.3)
+#ggsave("../analysis/expt4-violin.png",width=8.35,height=4)
 
 
 raw_s = bootsSummary(data=d_raw, measurevar="response", groupvars=c("sentence_type","context","utterance","dimension","valence"))
