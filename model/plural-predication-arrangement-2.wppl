@@ -239,7 +239,9 @@ var pluralPredication = function(numberObjects,
   var alpha = 7
 
   var literal = cache(function(utterance,distThetaPos,collThetaPos,distThetaNeg,collThetaNeg,isCollective) {
-    return Enumerate(function() {
+    return Infer(
+      {method: "enumerate"},
+      function() {
       var state = statePrior(numberObjects);
       var noise = collectiveNoise
       condition(meaning(utterance,state,distThetaPos,collThetaPos,distThetaNeg,collThetaNeg,isCollective,noise));
@@ -248,7 +250,9 @@ var pluralPredication = function(numberObjects,
   });
 
   var speakerBelief = cache(function(state,speakerKnows) {
-    return Enumerate(function() {
+    return Infer(
+      {method: "enumerate"},
+      function() {
       var obs = function(s) {
         return speakerKnows ? s : sum(s) 
         // return speakerKnows ? s : listAgg(s) 
@@ -260,7 +264,9 @@ var pluralPredication = function(numberObjects,
   })
 
   var speaker = cache(function(state,distThetaPos,collThetaPos,distThetaNeg,collThetaNeg,isCollective,speakerKnows) {
-    return Enumerate(function() {
+    return Infer(
+      {method: "enumerate"},
+      function() {
       var utterance = utterancePrior()
       var bDist = speakerBelief(state,speakerKnows)
       var lDist = literal(utterance,distThetaPos,collThetaPos,distThetaNeg,collThetaNeg,isCollective)
@@ -277,7 +283,9 @@ var pluralPredication = function(numberObjects,
   });
 
   var listener = cache(function(utterance,speakerKnows) {
-    return Enumerate(function() {
+    return Infer(
+      {method: "enumerate"},
+      function() {
       var state = statePrior(numberObjects);
       var isCollective = flip(0.5)
       var distThetaPos = thetaPrior(distThetasPos);
@@ -297,7 +305,9 @@ var pluralPredication = function(numberObjects,
   });
 
   var speaker2 = cache(function(state,speakerKnows) {
-    return Enumerate(function() {
+    return Infer(
+      {method: "enumerate"},
+      function() {
       var utterance = utterancePrior()
       var bDist = speakerBelief(state,speakerKnows)
       factor(

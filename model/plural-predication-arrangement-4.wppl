@@ -34,6 +34,12 @@ var getMinOfArray = function(numArray) {
   return Math.min.apply(null, numArray);
 }
 
+// // check array identity
+// var arraysEqual = function(a1,a2) {
+//   var arr1 = sort(a1)
+//   var arr2 = sort(a2)
+//   return JSON.stringify(arr1)==JSON.stringify(arr2);
+// }
 // check array identity
 var arraysEqual = function(a1,a2) {
   return JSON.stringify(a1)==JSON.stringify(a2);
@@ -94,7 +100,7 @@ var pluralPredication = function(numberObjects,
     }, utterances))];
   };
 
-  var objects = [1,4,5];
+  var objects = [1,2,3,4];
 
   var objectPrior = function() {
     uniformDraw(objects);
@@ -107,6 +113,7 @@ var pluralPredication = function(numberObjects,
     } else {
       var newObj = objectPrior()
       var newState = stateSoFar.concat([newObj])
+      // return sort(statePrior(nObjLeft - 1,newState))
       return statePrior(nObjLeft - 1,newState)
     }
   }
@@ -114,26 +121,25 @@ var pluralPredication = function(numberObjects,
   var arrangementPrior = function(collectiveNoise) {
     // return collectiveNoise == "no" ? uniformDraw(["all"]) :
     // collectiveNoise == "low" ? uniformDraw(["three123","three124","three134","three234","all"]) :
-    // collectiveNoise == "mid" ? uniformDraw(["two12","two13","two14","two23","two24","two34","three123","three124","three134","three234","all"]) :
-    // uniformDraw(["one","two1","three","all"])
+    // uniformDraw(["two12","two13","two14","two23","two24","two34","three123","three124","three134","three234","all"])
     return collectiveNoise == "no" ? uniformDraw(["three"]) :
-    collectiveNoise == "low" ? uniformDraw(["three","two1"]) :
-    collectiveNoise == "mid" ? uniformDraw(["three","two1","two2"]) :
+    collectiveNoise == "low" ? uniformDraw(["three","two2"]) :
+    collectiveNoise == "mid" ? uniformDraw(["three","two2","onethree"]) :
     uniformDraw(["three","two1","two2","onethree"])
   }
 
   var listAgg = function(x,arrangement) {
     return arrangement == "one" ? getMaxOfArray(x) : 
-    // fun == "two12" ? sum([first(x),second(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x)]) : getMaxOfArray(x) :
-    // fun == "two13" ? sum([first(x),third(x)]) >= getMaxOfArray(x) ? sum([first(x),third(x)]) : getMaxOfArray(x) :
-    // fun == "two14" ? sum([first(x),fourth(x)]) >= getMaxOfArray(x) ? sum([first(x),fourth(x)]) : getMaxOfArray(x) :
-    // fun == "two23" ? sum([second(x),third(x)]) >= getMaxOfArray(x) ? sum([second(x),third(x)]) : getMaxOfArray(x) :
-    // fun == "two24" ? sum([second(x),fourth(x)]) >= getMaxOfArray(x) ? sum([second(x),fourth(x)]) : getMaxOfArray(x) :
-    // fun == "two34" ? sum([third(x),fourth(x)]) >= getMaxOfArray(x) ? sum([third(x),fourth(x)]) : getMaxOfArray(x) :
-    // fun == "three123" ? sum([first(x),second(x),third(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x),third(x)]) : getMaxOfArray(x) :
-    // fun == "three124" ? sum([first(x),second(x),fourth(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x),fourth(x)]) : getMaxOfArray(x) :
-    // fun == "three134" ? sum([first(x),third(x),fourth(x)]) >= getMaxOfArray(x) ? sum([first(x),third(x),fourth(x)]) : getMaxOfArray(x) :
-    // fun == "three234" ? sum([second(x),third(x),fourth(x)]) >= getMaxOfArray(x) ? sum([second(x),third(x),fourth(x)]) : getMaxOfArray(x) :
+    // arrangement == "two12" ? sum([first(x),second(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x)]) : getMaxOfArray(x) :
+    // arrangement == "two13" ? sum([first(x),third(x)]) >= getMaxOfArray(x) ? sum([first(x),third(x)]) : getMaxOfArray(x) :
+    // arrangement == "two14" ? sum([first(x),fourth(x)]) >= getMaxOfArray(x) ? sum([first(x),fourth(x)]) : getMaxOfArray(x) :
+    // arrangement == "two23" ? sum([second(x),third(x)]) >= getMaxOfArray(x) ? sum([second(x),third(x)]) : getMaxOfArray(x) :
+    // arrangement == "two24" ? sum([second(x),fourth(x)]) >= getMaxOfArray(x) ? sum([second(x),fourth(x)]) : getMaxOfArray(x) :
+    // arrangement == "two34" ? sum([third(x),fourth(x)]) >= getMaxOfArray(x) ? sum([third(x),fourth(x)]) : getMaxOfArray(x) :
+    // arrangement == "three123" ? sum([first(x),second(x),third(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x),third(x)]) : getMaxOfArray(x) :
+    // arrangement == "three124" ? sum([first(x),second(x),fourth(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x),fourth(x)]) : getMaxOfArray(x) :
+    // arrangement == "three134" ? sum([first(x),third(x),fourth(x)]) >= getMaxOfArray(x) ? sum([first(x),third(x),fourth(x)]) : getMaxOfArray(x) :
+    // arrangement == "three234" ? sum([second(x),third(x),fourth(x)]) >= getMaxOfArray(x) ? sum([second(x),third(x),fourth(x)]) : getMaxOfArray(x) :
     arrangement == "two1" ? sum([first(x),second(x)]) >= getMaxOfArray(x) ? sum([first(x),second(x)]) : getMaxOfArray(x) :
     arrangement == "two2" ? sum([second(x),third(x)]) >= getMaxOfArray(x) ? sum([second(x),third(x)]) : getMaxOfArray(x) : 
     arrangement == "onethree" ? sum([first(x),third(x)]) >= getMaxOfArray(x) ? sum([first(x),third(x)]) : getMaxOfArray(x) : 
@@ -151,13 +157,33 @@ var pluralPredication = function(numberObjects,
 
 
   // x > theta
-  var distThetasPos = [0, 1, 2, 3, 4];  
-  var collThetasPos = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; 
+  // var distThetasPos = [1];  
+  // var collThetasPos = [1]; 
+  // var distThetasPos = [1,2,3];
+  // var collThetasPos = [7,8,9,10,11, 12, 13, 14, 15]; 
+  var distThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  var collThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  // var distThetasPos = function() {
+  //   return objectPrior()-1
+  // }
+  // var collThetasPos = function() {
+  //   return sample(stateArrange(statePrior(numberObjects),collectiveNoise))-1
+  // }
 
 
   // // x < theta
-  var distThetasNeg = [2, 3, 4, 5, 6];  
-  var collThetasNeg = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]; 
+  var distThetasNeg = [1];
+  var collThetasNeg = [1];
+  // var distThetasNeg = [5,6,7,8];  
+  // var collThetasNeg = [13,14,15,16,17,18,19,20,21,22]; 
+  // var distThetasNeg = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];  
+  // var collThetasNeg = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+  // var distThetasNeg = function() {
+  //   return objectPrior()+1
+  // }
+  // var collThetasNeg = function() {
+  //   return sample(stateArrange(statePrior(numberObjects),collectiveNoise))+1
+  // }
 
 
   var thetaPrior = function(thetas) {
@@ -196,7 +222,7 @@ var pluralPredication = function(numberObjects,
     true
   }
 
-  var alpha = 7
+  var alpha = 25
 
   var literal = cache(function(utterance,distThetaPos,collThetaPos,distThetaNeg,collThetaNeg,isCollective) {
     return Infer(
@@ -215,7 +241,7 @@ var pluralPredication = function(numberObjects,
       function() {
       var obs = function(s) {
         return speakerKnows ? s : sum(s) 
-        // return speakerKnows ? s : listAgg(s) 
+        // return speakerKnows ? s : sample(stateArrange(state,collectiveNoise));
       }
       var bState = statePrior(numberObjects)
       condition(arraysEqual(obs(bState),obs(state)))
@@ -246,8 +272,12 @@ var pluralPredication = function(numberObjects,
       var isCollective = flip(0.5)
       var distThetaPos = thetaPrior(distThetasPos);
       var collThetaPos = thetaPrior(collThetasPos);
+      // var distThetaPos = distThetasPos();
+      // var collThetaPos = collThetasPos();
       var distThetaNeg = thetaPrior(distThetasNeg);
       var collThetaNeg = thetaPrior(collThetasNeg);
+      // var distThetaNeg = distThetasNeg();
+      // var collThetaNeg = collThetasNeg();
       factor(
         speaker(state,distThetaPos,collThetaPos,distThetaNeg,collThetaNeg,isCollective,speakerKnows).score([],utterance) 
       );
@@ -278,11 +308,11 @@ var pluralPredication = function(numberObjects,
 }
 
 
-// console.log(pluralPredication(3,"no","ambiguous-pos"))
+console.log(pluralPredication(3,"no","ambiguous-pos"))
 
-// console.log(pluralPredication(3,"low","ambiguous-pos"))
+console.log(pluralPredication(3,"low","ambiguous-pos"))
 
-// console.log(pluralPredication(3,"mid","ambiguous-pos"))
+console.log(pluralPredication(3,"mid","ambiguous-pos"))
 
 console.log(pluralPredication(3,"high","ambiguous-pos"))
 
