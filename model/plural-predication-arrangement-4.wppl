@@ -48,7 +48,7 @@ var arraysEqual = function(a1,a2) {
 // get ERP probabilities
 var erpProbs = function(ERP,support) {
   var scores = function(val) {
-    return Math.exp(ERP.score([],val))
+    return Math.exp(ERP.score(val))
   }
   return map(scores,support)
 }
@@ -62,16 +62,16 @@ var KL = function(P,Q) {
 }
 
 
-var pluralPredication = function(numberObjects,
-                                  collectiveNoise,
-                                  thingSaid
-                                 ) {
+// var pluralPredication = function(numberObjects,
+//                                   collectiveNoise,
+//                                   thingSaid
+//                                  ) {
 
-  // var pluralPredication = function(numberObjects,
-  //                                   collectiveNoise,
-  //                                   knowledge,
-  //                                   plurality
-  //                                  ) {  
+  var pluralPredication = function(numberObjects,
+                                    collectiveNoise,
+                                    knowledge,
+                                    plurality
+                                   ) {  
 
   var utterances = ["null",
                     "ambiguous-pos",
@@ -100,7 +100,7 @@ var pluralPredication = function(numberObjects,
     }, utterances))];
   };
 
-  var objects = [1,2,3,4];
+  var objects = [1,3,4];
 
   var objectPrior = function() {
     uniformDraw(objects);
@@ -123,8 +123,8 @@ var pluralPredication = function(numberObjects,
     // collectiveNoise == "low" ? uniformDraw(["three123","three124","three134","three234","all"]) :
     // uniformDraw(["two12","two13","two14","two23","two24","two34","three123","three124","three134","three234","all"])
     return collectiveNoise == "no" ? uniformDraw(["three"]) :
-    collectiveNoise == "low" ? uniformDraw(["three","two2"]) :
-    collectiveNoise == "mid" ? uniformDraw(["three","two2","onethree"]) :
+    collectiveNoise == "low" ? uniformDraw(["three","two1"]) :
+    collectiveNoise == "mid" ? uniformDraw(["three","two1","two2"]) :
     uniformDraw(["three","two1","two2","onethree"])
   }
 
@@ -159,10 +159,10 @@ var pluralPredication = function(numberObjects,
   // x > theta
   // var distThetasPos = [1];  
   // var collThetasPos = [1]; 
-  // var distThetasPos = [1,2,3];
-  // var collThetasPos = [7,8,9,10,11, 12, 13, 14, 15]; 
-  var distThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-  var collThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  var distThetasPos = [0,1,2,3]
+  var collThetasPos = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  // var distThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  // var collThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   // var distThetasPos = function() {
   //   return objectPrior()-1
   // }
@@ -222,7 +222,7 @@ var pluralPredication = function(numberObjects,
     true
   }
 
-  var alpha = 25
+  var alpha = 7
 
   var literal = cache(function(utterance,distThetaPos,collThetaPos,distThetaNeg,collThetaNeg,isCollective) {
     return Infer(
@@ -279,7 +279,7 @@ var pluralPredication = function(numberObjects,
       // var distThetaNeg = distThetasNeg();
       // var collThetaNeg = collThetasNeg();
       factor(
-        speaker(state,distThetaPos,collThetaPos,distThetaNeg,collThetaNeg,isCollective,speakerKnows).score([],utterance) 
+        speaker(state,distThetaPos,collThetaPos,distThetaNeg,collThetaNeg,isCollective,speakerKnows).score(utterance) 
       );
       //       return state
       return isCollective
@@ -293,28 +293,28 @@ var pluralPredication = function(numberObjects,
       var utterance = utterancePrior()
       var bDist = speakerBelief(state,speakerKnows)
       factor(
-        listener(utterance,speakerKnows).score([],sample(bDist))
+        listener(utterance,speakerKnows).score(sample(bDist))
       );
       return utterance
     }) 
   })
 
-  return ["partial knowledge", 
-          listener(thingSaid,false).hist,
-          "full knowledge",
-          listener(thingSaid,true).hist]
+  // return ["partial knowledge", 
+  //         listener(thingSaid,false),
+  //         "full knowledge",
+  //         listener(thingSaid,true)]
 
-  //   return speaker2(plurality,knowledge)
+    return speaker2(plurality,knowledge)
 }
 
 
-console.log(pluralPredication(3,"no","ambiguous-pos"))
+// console.log(pluralPredication(3,"no","ambiguous-pos"))
 
-console.log(pluralPredication(3,"low","ambiguous-pos"))
+// console.log(pluralPredication(3,"low","ambiguous-pos"))
 
-console.log(pluralPredication(3,"mid","ambiguous-pos"))
+// console.log(pluralPredication(3,"mid","ambiguous-pos"))
 
-console.log(pluralPredication(3,"high","ambiguous-pos"))
+// console.log(pluralPredication(3,"high","ambiguous-pos"))
 
 
 
@@ -326,3 +326,5 @@ console.log(pluralPredication(3,"high","ambiguous-pos"))
 
 // console.log(pluralPredication(3,"high","ambiguous-neg"))
 
+
+console.log(pluralPredication(3,.99,true,[3,3,3]))

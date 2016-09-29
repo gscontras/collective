@@ -1,18 +1,4 @@
-// error function
-var erf = function(x) {
-  var a1 =  0.254829592;
-  var a2 = -0.284496736;
-  var a3 =  1.421413741;
-  var a4 = -1.453152027;
-  var a5 =  1.061405429;
-  var p  =  0.3275911;
-  var sign = x < 0 ? -1 : 1
-  var z = Math.abs(x);
-  var t = 1.0/(1.0 + p*z);
-  var y = 1.0 - (((((a5*t + a4)*t) + a3)*t + a2)*t + a1)*t*Math.exp(-z*z);
-  var answer = sign*y
-  return answer
-}
+//// helper functions
 
 // get a sublist from a list
 var sublist = function(xs, n) {
@@ -25,10 +11,6 @@ var sublist = function(xs, n) {
 
 var getMaxOfArray = function(numArray) {
   return Math.max.apply(null, numArray);
-}
-
-var getMinOfArray = function(numArray) {
-  return Math.min.apply(null, numArray);
 }
 
 // check array identity
@@ -53,6 +35,7 @@ var KL = function(P,Q) {
 }
 
 
+//// model wrapper
 var pluralPredication = function(numberObjects,
                                   collectiveNoise,
                                   thingSaid
@@ -68,14 +51,12 @@ var pluralPredication = function(numberObjects,
                     "ambiguous-pos",
                     "each-pos",
                     "together-pos",
-                    "ambiguous-neg",
-                    "each-neg",
-                    "together-neg"
+                    // "ambiguous-neg",
+                    // "each-neg",
+                    // "together-neg"
                    ];
 
   var cost = function(utt) {
-    // var words = utt.split(" ")
-    // return words.length
     return  utt == "each-pos" ? 2 :
     utt == "together-pos" ? 2 :
     utt == "ambiguous-pos" ? 1 : 
@@ -91,15 +72,17 @@ var pluralPredication = function(numberObjects,
     }, utterances))];
   };
 
-  // var objects = [1,2,3,4,5,6,7,8,9,10];
-  var objects = [1,2,3,4,5];
-  // var objects = [625,1200,2500,1600,1800,500,450,2200,600,900,200,400]
-  // var objects = [2,4,5,6,9,12,16,18,22,25]
-  // var objects = [1,3,4]
-  // var objects = [ // no repeats
-  //                 10,15,20,25,30,40,50,55,60
+  // var objects = [
+  //                 25, 25, 30, 40, 50, 50, 60, 20, // Set 1
+  //                 40, 40, 30, 60, 25, 20, 30, 15, // Set 2
+  //                 40, 55, 15, 40, 30, 30, 20, 10, // Set 3
+  //                 40, 40, 10, 60, 20, 20, 30, 20  // Set 4
   //               ]
-  
+  var objects = [ // no repeats
+                  10,15,20,25,30,40,50,55,60
+                ]
+
+
   var objectPrior = function() {
     uniformDraw(objects);
   }
@@ -111,17 +94,9 @@ var pluralPredication = function(numberObjects,
     } else {
       var newObj = objectPrior()
       var newState = stateSoFar.concat([newObj])
-      return sort(statePrior(nObjLeft - 1,newState))
-      // return statePrior(nObjLeft - 1,newState)
+      return sort(statePrior(nObjLeft - 1,newState)) // sorted states
     }
   }
-
-  // var statePrior = function(nObjLeft,stateSoFar) {
-  //   return uniformDraw([[625,1200,2500,1200],
-  //                       [1600,1800,500,450],
-  //                       [2200,600,900,200],
-  //                       [1600,600,400,600]]);
-  // }
 
   var collStateCheckPos = cache(function(state,noise,theta) {
     return Infer(
@@ -129,7 +104,7 @@ var pluralPredication = function(numberObjects,
       function() {
       var n = binomial(noise,(state.length-1)) + 1; // subset size
       var arrangement = sublist(state,n);
-      var collState = sum(arrangement) //> getMaxOfArray(state) ? sum(arrangement) : getMaxOfArray(state);
+      var collState = sum(arrangement) > getMaxOfArray(state) ? sum(arrangement) : getMaxOfArray(state);
       return(collState>theta)
     });
   });
@@ -140,27 +115,11 @@ var pluralPredication = function(numberObjects,
       function() {
       var n = binomial(noise,(state.length-1)) + 1; // subset size
       var arrangement = sublist(state,n);
-      var collState = sum(arrangement) //> getMaxOfArray(state) ? sum(arrangement) : getMaxOfArray(state);
+      var collState = sum(arrangement) > getMaxOfArray(state) ? sum(arrangement) : getMaxOfArray(state);
       return(collState<theta)
     });
   });
 
-
-
-  // x > theta
-  // var distThetasPos = [1];  
-  // var collThetasPos = [1]; 
-  // var distThetasPos = [1,2,3,4,5,6,7,8,9,10];
-  // var distThetasPos = [3,4,5,6,7,8,9,10];
-  // var collThetasPos = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-  // var collThetasPos = cache(function() { // non-uniform coll-theta dist
-  //   return Infer(
-  //     {method: "enumerate"},
-  //     function() {
-  //       var collState = statePrior(numberObjects)
-  //       return sum(collState)
-  //     });
-  // });
   var collThetas_support = cache(function() {
     return Infer(
       {method: "enumerate"},
@@ -172,43 +131,10 @@ var pluralPredication = function(numberObjects,
   var collThetas = function() {
     return uniformDraw(collThetas_support().support())
   }
-  // var collThetasPos = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  // var collThetasPos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-  // var distThetasPos = [1,2,3];
-  // var collThetasPos = [7,8,9,10,11, 12, 13, 14, 15]; 
-  // var distThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-  // var collThetasPos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-  // var distThetasPos = function() {
-  //   return objectPrior()-1
-  // }
-  // var collThetasPos = function() {
-  //   return sample(stateArrange(statePrior(numberObjects),collectiveNoise))-1
-  // }
-
-
-  // // x < theta
-  // var distThetasNeg = [1];
-  // var collThetasNeg = [1];
-  var distThetasNeg = [1, 2, 3, 4, 5]
-  var collThetasNeg = [2, 3, 4, 5, 6, 7, 8, 9, 10];
-  // var distThetasNeg = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];  
-  // var collThetasNeg = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-  // var distThetasNeg = function() {
-  //   return objectPrior()+1
-  // }
-  // var collThetasNeg = function() {
-  //   return sample(stateArrange(statePrior(numberObjects),collectiveNoise))+1
-  // }
-
-
-  var thetaPrior = function(thetas) {
-    uniformDraw(thetas) 
-  }
 
   // x > theta
   var collInterpretationPos = function(state, collTheta, noise) {
     var weight = Math.exp(collStateCheckPos(state,noise,collTheta).score(true));
-    // return flip(weight)
     return weight == 0 ? flip(0.01) : weight == 1 ? flip(0.99) : flip(weight)
   }
   var distInterpretationPos = function(state, distTheta) {
@@ -218,7 +144,6 @@ var pluralPredication = function(numberObjects,
   // x < theta
   var collInterpretationNeg = function(state, collTheta, noise) {
     var weight = Math.exp(collStateCheckNeg(state,noise,collTheta).score(true));
-    // return flip(weight)
     return weight == 0 ? flip(0.01) : weight == 1 ? flip(0.99) : flip(weight)
   }
   var distInterpretationNeg = function(state, distTheta) {
@@ -258,7 +183,6 @@ var pluralPredication = function(numberObjects,
       function() {
       var obs = function(s) {
         return speakerKnows ? s : sum(s) 
-        // return speakerKnows ? s : sample(stateArrange(state,collectiveNoise));
       }
       var bState = statePrior(numberObjects)
       condition(arraysEqual(obs(bState),obs(state)))
@@ -287,24 +211,16 @@ var pluralPredication = function(numberObjects,
       function() {
       var state = statePrior(numberObjects);
       var isCollective = flip(0.5)
-      // var distThetaPos = thetaPrior(distThetasPos);
-      // var collThetaPos = thetaPrior(collThetasPos);
       var distThetaPos = objectPrior();
       var collThetaPos = collThetas();
-      // var distThetaPos = 5
-      // var collThetaPos = 11
-      // var distThetaNeg = thetaPrior(distThetasNeg);
-      // var collThetaNeg = thetaPrior(collThetasNeg);
-      // var distThetaNeg = 5
-      // var collThetaNeg = 11
-      var distThetaNeg = objectPrior();
-      var collThetaNeg = collThetas();
+      var distThetaNeg = 1 // neg theta irrelevant
+      var collThetaNeg = 1 // neg theta irrelevant
+      // var distThetaNeg = objectPrior();
+      // var collThetaNeg = collThetas();
       factor(
         speaker(state,distThetaPos,collThetaPos,distThetaNeg,collThetaNeg,isCollective,speakerKnows).score(utterance) 
       );
-      // return state
-      // return isCollective
-      return [isCollective,distThetaPos,collThetaPos]
+      return isCollective
     });
   });
 

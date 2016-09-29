@@ -38,7 +38,8 @@ var KL = function(P,Q) {
 
 var pluralPredication = function(numberObjects,
                                   collectiveNoise,
-                                  thingSaid
+                                  thingSaid,
+                                  distThetaPos
                                  ) {
 
   // var pluralPredication = function(numberObjects,
@@ -134,8 +135,8 @@ var pluralPredication = function(numberObjects,
   }
 
   var noiseVariance = collectiveNoise == "no" ? 0.01 :
-  collectiveNoise == "low" ? 4 :
-  collectiveNoise == "mid" ? 8 : 12
+  collectiveNoise == "low" ? 1 :
+  collectiveNoise == "mid" ? 2 : 3
 
   // x > theta
   var collInterpretationPos = function(state, collTheta,noise) {
@@ -173,7 +174,7 @@ var pluralPredication = function(numberObjects,
     true
   }
 
-  var alpha = 15
+  var alpha = 7
 
   var literal = cache(function(utterance,distThetaPos,collThetaPos,distThetaNeg,collThetaNeg,isCollective) {
     return Infer(
@@ -224,10 +225,8 @@ var pluralPredication = function(numberObjects,
       function() {
       var state = statePrior(numberObjects);
       var isCollective = flip(0.5)
-      var distThetaPos = thetaPrior(distThetasPos);
+      // var distThetaPos = thetaPrior(distThetasPos);
       var collThetaPos = thetaPrior(collThetasPos);
-      // var distThetaPos = 1
-      // var collThetaPos = 1
       // var distThetaNeg = thetaPrior(distThetasNeg);
       // var collThetaNeg = thetaPrior(collThetasNeg);
       // var distThetaPos = objectPrior();
@@ -273,8 +272,9 @@ var pluralPredication = function(numberObjects,
 var noise_from_R = my_data[0].noise
 var number_of_objects = my_data[0].nobjects
 var thing_said = my_data[0].utterance
+var distThetaPos_from_R = my_data[0].disttheta
 
-pluralPredication(number_of_objects,noise_from_R,thing_said)
+pluralPredication(number_of_objects,noise_from_R,thing_said,distThetaPos_from_R)
 
 // console.log(pluralPredication(3,"no","ambiguous-pos"))
 // console.log(pluralPredication(3,"low","ambiguous-pos"))
