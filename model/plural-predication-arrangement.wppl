@@ -61,7 +61,8 @@ var pluralPredication = function(numberObjects,
     return categorical([3,2,1,1],utterances)
   };
 
-  var objects = [2,3,4]
+  //   var objects = [2,3,4] // works
+  var objects = [2,4,5,6,9,12,16,18,22,25] // actual sized from expt
 
   var objectPrior = function() {
     uniformDraw(objects);
@@ -92,7 +93,8 @@ var pluralPredication = function(numberObjects,
 
   // threshold priors
   var distThetaPrior = function(){return objectPrior()};  
-  var collThetaPrior = function(){return uniformDraw([2,4,6,8,10,12])};
+  //   var collThetaPrior = function(){return uniformDraw([2,4,6,8,10,12])};
+  var collThetaPrior = function(){return uniformDraw([52,42,60,38,66,61,24,9,68,29])} // random 10 from possible collective sizes
 
   // x > theta
   var collInterpretationPos = function(state, collTheta, noise) {
