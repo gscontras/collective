@@ -53,13 +53,12 @@ var pluralPredication = function(numberObjects,
     "together-pos"
   ];
 
-  // ambiguous utterance twice as likely
+  // null > ambiguous > unambiguous 
   var utterancePrior = function() {
     return categorical([3,2,1,1],utterances)
   };
 
   // possible object sizes
-  //   var objects = [3,4];
   var objects = [2,3,4];
   var objectPrior = function() {
     uniformDraw(objects);
@@ -79,25 +78,34 @@ var pluralPredication = function(numberObjects,
 
   // threshold priors
   var distThetaPrior = function(){return objectPrior()};  
-  //   var collThetaPrior = function(){return uniformDraw([9,10,11,12])};
-  var collThetaPrior = function(){return uniformDraw([6,7,8,9,10,11,12])};
+  var collThetaPrior = function(){return uniformDraw([2,4,6,8,10,12])};
 
   // noise variance
   var noiseVariance = collectiveNoise == "no" ? 0.01 :
-  collectiveNoise == "low" ? 0.75 :
-  collectiveNoise == "mid" ? 1.75 : 2.75
+  collectiveNoise == "low" ? 1 :
+  collectiveNoise == "mid" ? 2 : 3
 
   // x > theta interpretations
   var collInterpretationPos = function(state, collTheta,noise) {
     var weight = 1 - (0.5 * (1 + erf((collTheta - sum(state)) / 
                                      (noise * Math.sqrt(2)))))
-    return flip(weight)
+    return weight == 0 ? flip(0.01) : weight == 1 ? flip(0.99) : flip(weight)
   }
 
   var distInterpretationPos = function(state, distTheta) {
-    //     return all(function(x){x >= distTheta}, state) ? true : false
     return all(function(x){x >= distTheta}, state) ? flip(0.99) : flip(0.01)
   }
+  
+//   // x < theta interpretations
+//   var collInterpretationPos = function(state, collTheta,noise) {
+//     var weight = 1 - (0.5 * (1 + erf((sum(state) - collTheta) / 
+//                                      (noise * Math.sqrt(2)))))
+//     return weight == 0 ? flip(0.01) : weight == 1 ? flip(0.99) : flip(weight)
+//   }
+
+//   var distInterpretationPos = function(state, distTheta) {
+//     return all(function(x){x <= distTheta}, state) ? flip(0.99) : flip(0.01)
+//   }
 
   // meaning function
   var meaning = function(utt,state,distThetaPos,collThetaPos,isCollective,noise) {
@@ -108,7 +116,7 @@ var pluralPredication = function(numberObjects,
     distInterpretationPos(state,distThetaPos)
   }
 
-  var alpha = 11
+  var alpha = 10
 
   var literal = cache(function(utterance,distThetaPos,collThetaPos,isCollective) {
     Infer({method:"enumerate"}, function(){
