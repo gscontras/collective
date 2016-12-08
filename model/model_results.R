@@ -6,6 +6,48 @@ setwd("~/Documents/git/cocolab/collective/model/")
 ###################################
 
 
+### unfit plots
+setwd("~/Documents/git/cocolab/collective/model/")
+
+d = read.csv("model_results-revised.csv",header=T)
+head(d)
+d = na.omit(d)
+
+d$noise <-factor(d$noise,levels=c("high","mid",'low','no'))
+#d$k <-factor(d$knowledge,labels=c("partial","full"))
+d$numobjs <- factor(d$numobjs)
+d$p <- as.numeric(as.character(d$p))
+d$k = "sum"
+d[d$knowledge=="TRUE",]$k = "full"
+head(d)
+d$noise <-factor(d$noise,levels=c("no","low",'mid','high'))
+d$noise <-factor(d$noise,labels=c("no\n(\u03c3=0.01)","low\n(\u03c3=1)",'mid\n(\u03c3=2)','high\n(\u03c3=3)'))
+
+# check effect direction for inferred thetas
+
+p <- ggplot(d[d$collective=="TRUE",],aes(x=noise,y=p)) +
+  geom_bar(stat='identity',position=position_dodge(),aes(fill=k)) +
+  ylab("probability of\ncollective interpretation\n") +
+  xlab("\ncollective interpretation noise")+
+  labs(fill="speaker\nknowledge\naccess")+
+  scale_fill_manual(values=c("red", "blue"))+
+  theme(axis.text.x = element_text(size=10,angle=0))+
+  ylim(0,0.8)+
+  theme_bw()
+#facet_grid(dist_theta~coll_theta)
+p
+
+setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/revision/plots/")
+
+#ggsave("model-results-revised.png",height=3)
+
+
+
+
+
+
+
+
 ## INFERRED THETAS
 
 
@@ -53,57 +95,13 @@ state <- ggplot(t,aes(x=state,y=p,fill=noise)) +
   theme(axis.text.x = element_text(size=15,angle=90))+
   facet_grid(knowledge~.)
 state
-ggsave("plots/plural-predication-state.pdf",height=5,width=40,limitsize=FALSE)
+#ggsave("plots/plural-predication-state.pdf",height=5,width=40,limitsize=FALSE)
 
 
 
 
 
 
-
-### unfit plots
-setwd("~/Documents/git/cocolab/collective/model/")
-
-d = read.csv("plural-predication-sum.csv",header=F)
-#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","p")
-colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","p")
-#colnames(d) <- c("noise","numobjs","knowledge","collective","obj1","obj2","obj3","obj4","p")
-head(d)
-
-
-d$noise <-factor(d$noise,levels=c("high","mid",'low','no'))
-#d$k <-factor(d$knowledge,labels=c("partial","full"))
-d$numobjs <- factor(d$numobjs)
-#d$state = paste(d$obj1,d$obj2)
-d$state = paste(d$obj1,d$obj2,d$obj3)
-#d$state = paste(d$obj1,d$obj2,d$obj3,d$obj4)
-d$state <- factor(d$state)
-#d$KL <- factor(d$KL)
-d$p <- as.numeric(as.character(d$p))
-d$k = "sum"
-d[d$knowledge=="true",]$k = "full"
-head(d)
-d$noise <-factor(d$noise,levels=c("no","low",'mid','high'))
-d$noise <-factor(d$noise,labels=c("no\n(\u03c3=0.01)","low\n(\u03c3=0.75)",'mid\n(\u03c3=1)','high\n(\u03c3=1.25)'))
-
-# check effect direction for inferred thetas
-
-agg <- aggregate(p~noise*k,d[d$collective=="true",],sum)
-
-p <- ggplot(agg,aes(x=noise,y=p)) +
-  geom_bar(stat='identity',position=position_dodge(),aes(fill=k)) +
-  ylab("probability of\ncollective interpretation\n") +
-  xlab("\ncollective interpretation noise")+
-  labs(fill="speaker\nknowledge\naccess")+
-  scale_fill_manual(values=c("red", "blue"))+
-  theme(axis.text.x = element_text(size=10,angle=0))+
-  theme_bw()
-#facet_grid(dist_theta~coll_theta)
-p
-
-setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
-
-ggsave("model-results-sum.png",height=3)
 
 
 ## general plots
@@ -152,7 +150,7 @@ p
 
 setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
 
-ggsave("model-results-add.png",width=6,height=2.7)
+#ggsave("model-results-add.png",width=6,height=2.7)
 
 
 
@@ -215,7 +213,7 @@ all_plot
 
 setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
 
-ggsave("model-big-tall.pdf",height=2.7)
+#ggsave("model-big-tall.pdf",height=2.7)
 
 
 
@@ -278,7 +276,7 @@ all_plot
 
 setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
 
-ggsave("model-heavy.pdf",height=2.7,width=4)
+#ggsave("model-heavy.pdf",height=2.7,width=4)
 
 
 
@@ -311,4 +309,4 @@ all_plot <- ggplot(all, aes(x=context,y=response,fill=data)) +
 all_plot
 
 setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
-ggsave("model_all_new.pdf",width=6,height=2.7)
+#ggsave("model_all_new.pdf",width=6,height=2.7)
