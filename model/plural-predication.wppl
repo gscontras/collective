@@ -78,7 +78,7 @@ var pluralPredication = function(numberObjects,
 
   // threshold priors
   var distThetaPrior = function(){return objectPrior()};  
-  var collThetaPrior = function(){return uniformDraw([2,4,6,8,10,12])};
+  var collThetaPrior = function(){return uniformDraw([2,3,4,5,6,7,8,9,10,11,12])};
 
   // noise variance
   var noiseVariance = collectiveNoise == "no" ? 0.01 :
