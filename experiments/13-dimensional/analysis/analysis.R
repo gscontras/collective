@@ -399,14 +399,14 @@ sf = do.call(rbind, lapply(1:num_round_dirs, function(i) {
      'round', i, '/dimensional-subject_information.csv', sep='')) %>%
      #'round', i, '/long-square-trials.csv', sep='')) %>%
        mutate(workerid = (workerid + (i-1)*9)))}))
-sf = sf[sf$language!=""&sf$language!="Spanish"&sf$language!="Cantonese",]
+#sf = sf[sf$language!=""&sf$language!="Spanish"&sf$language!="Cantonese",]
 summary(sf)
 # mean age: 35; median age: 31
 table(sf$education)
-# 1       2         3         4 
-# 9 (18%) 16 (31%)  22 (43%)  4 (8%)
+# -1      1       2         3         4 
+#  1      9 (18%) 17 (31%)  23 (43%)  4 (8%)
 table(sf$enjoyment)
 table(sf$asses)
 table(sf$gender)
-# female: 19 (37%); male: 32 (63%)
+# female: 21 (37%); male: 32 (63%)
 # reward: $0.50

@@ -220,14 +220,14 @@ ggsave("bigtallmodel.pdf",height=3)
 
 ### analyze subject information
 s = read.table("~/Dropbox/CoCoLab/CollectivePredication/Experiment/Persistence.v10.everything/experiment_persistence.v10-master/Submiterator-master/persistence.v10-subject_information.tsv",sep="\t",header=T)
-s = s[s$language!="Spanish "&s$language!="spanish"&s$language!="Russian",]
+#s = s[s$language!="Spanish "&s$language!="spanish"&s$language!="Russian",]
 summary(s)
 # mean age: 32; median age: 29
 table(s$education)
 # 1       2         3         4 
-# 7 (9%) 32 (42%)  31 (40%)  7 (9%)
+# 8 (9%) 34 (42%)  31 (40%)  7 (9%)
 table(s$enjoyment)
 table(s$asses)
 table(s$gender)
-# female: 24 (31%); male: 53 (69%)
+# female: 26 (31%); male: 54 (69%)
 # reward: $0.25
