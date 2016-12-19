@@ -1041,11 +1041,11 @@ The plural predication is both ambiguous ($v$) and vague ($\theta_{c}$, $\theta_
 
 To generate predictions, we need to fix various parameter settings within the model; we aim to make the simplest choices possible, focussing on qualitative predictions.\footnote{The full model is viewable online at \url{http://forestdb.org/models/plural-predication.html}.} %\ndg{note: update code to most clearly reflect final model description.}}
 %Here we fill in more details of these settings, with the caveat that the qualitative model results presented below are robust to a broad range of parameter settings; the specific values we give here are used merely to demonstrate the general behavior and success of the model.\footnote{XXX specifics about the range of parameter settings that are possible, and the settings that are not.\label{parameter}}
-Each state, $s$, consists of three objects, each of which has degree $2$, $3$, or $4$. The prior on states $P(s)$ was taken to be uniform. The distributive threshold $\theta_d$ was uniformly $2$, $3$, or $4$ (the possible object degrees). The collective threshold $\theta_c$ was uniformly drawn from the possible individual and total degrees, $\{2, 3, 4, 5, 6, 7, 8, 9,10,11,12\}$. %\ndg{should really be uniform, not state prior.}
+Each state, $s$, consists of three objects, each of which has degree $2$, $3$, or $4$---these degrees correspond to object size, weight, or height. The prior on states $P(s)$ was taken to be uniform. The distributive threshold $\theta_d$ was uniformly $2$, $3$, or $4$ (the possible object degrees). The collective threshold $\theta_c$ was uniformly drawn from the possible individual and total degrees, $\{2, 3, 4, 5, 6, 7, 8, 9,10,11,12\}$. %\ndg{should really be uniform, not state prior.}
 %ranged over state degrees (i.e., 6, 7 8), and was drawn uniformly from the state prior.
 %The priors on state $P(s)$ and on thresholds $P(\theta_d,\theta_c)$ are taken to be uniform. \ndg{check}
 We take $P(v)$ to be Bernoulli with a single free parameter (i.e., the prior bias toward collective interpretations); this parameter was set to $0.8$. 
-We take the cost $C(u)$ to be $2$ for the ambiguous utterance and $3$ for both of the unambiguous utterances---a reasonable assumption from the point of view of production, given that unambiguous utterances contain an extra word (i.e., \emph{each} or \emph{together}). We also include a null utterance with cost 1; the null utterance corresponds to saying nothing at all and signaling the listener to rely wholly on prior beliefs. The parameter $\alpha > 0$ controls the speaker's optimality; we set $\alpha$ to $10$. 
+We take the cost $C(u)$ to be $2$ for the ambiguous utterance and $3$ for both of the unambiguous utterances---a reasonable assumption from the point of view of production, given that unambiguous utterances contain an extra word (i.e., the ``surface-level'' interpretation cues \emph{each} or \emph{together}; \citealp{syrettmusolino2016}). We also include a null utterance with cost 1; the null utterance corresponds to saying nothing at all and signaling the listener to rely wholly on prior beliefs. The parameter $\alpha > 0$ controls the speaker's optimality; we set $\alpha$ to $10$. 
 Importantly, the qualitative patterns reported below are robust to changes in these parameters and assumptions.
 
 %\ndg{what about alpha?}
@@ -1450,6 +1450,27 @@ Tables \ref{expt4analysisa} and \ref{expt4analysisa} present model coefficients 
 	\end{tabular}
 \end{table}
 
+\section{Materials from Experiment 2}\label{expt2sentences}
+
+Tables \ref{expt2amaterials} and \ref{expt2bmaterials} present the full set of attested sentences used in Expts. 2a and 2b, respectively.
+
+\begin{table}[htb]
+	\renewcommand\thetable{E.1}
+	\centering \caption{Full set of attested sentences from Expt.~2a.} 
+	\label{expt2amaterials}
+\begin{tabular}{cl|cl}\toprule
+item	& 	sentence		& item & sentence		\\ \midrule						1	&	The	windows	were	dark	&	21	&	The	men	were	guilty	\\2	&	The	windows	were	open	&	22	&	The	items	were	unreasonable	\\3	&	The	walls	were	bare	&	23	&	The	injuries	were	consistent	\\4	&	The	walls	were	white	&	24	&	The	guests	were	due	\\5	&	The	streets	were	full	&	25	&	The	gates	were	open	\\6	&	The	streets	were	quiet	&	26	&	The	facts	were	similar	\\7	&	The	shops	were	closed	&	27	&	The	eyes	were	bright	\\8	&	The	shares	were	unchanged	&	28	&	The	eyes	were	open	\\9	&	The	rooms	were	small	&	29	&	The	doors	were	closed	\\10	&	The	roads	were	busy	&	30	&	The	doors	were	open	\\11	&	The	results	were	encouraging	&	31	&	The	dogs	were	quiet	\\12	&	The	results	were	disappointing	&	32	&	The	defendants	were	liable	\\13	&	The	results	were	gratifying	&	33	&	The	defendants	were	guilty	\\14	&	The	pubs	were	full	&	34	&	The	curtains	were	open	\\15	&	The	pubs	were	open	&	35	&	The	conditions	were	appalling	\\16	&	The	people	were	friendly	&	36	&	The	conditions	were	difficult	\\17	&	The	papers	were	full	&	37	&	The	colors	were	bright	\\18	&	The	omens	were	good	&	38	&	The	classes	were	small	\\19	&	The	numbers	were	small	&	39	&	The	children	were	small	\\20	&	The	natives	were	friendly	&	40	&	The	children	were	young	\\ \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htb]
+	\renewcommand\thetable{E.2}
+	\centering \caption{Full set of attested sentences from Expt.~2b.} 
+	\label{expt2bmaterials}
+\begin{tabular}{cl}\toprule
+item	& 	sentence				\\ \midrule1	&	The	houses	were	big	\\2	&	The	waves	were	big	\\3	&	The	rooms	were	big	\\4	&	The	boys	were	big	\\5	&	The	children	were	big	\\6	&	The	trees	were	heavy	\\7	&	The	men	were	heavy	\\8	&	The	loads	were	heavy	\\9	&	The	lids	were	heavy	\\10	&	The	bags	were	heavy	\\11	&	The	trees	were	tall	\\12	&	The	offspring	were	tall	\\13	&	The	buildings	were	tall	\\14	&	The	windows	were	tall	\\15	&	The	plants	were	tall	\\ \bottomrule
+\end{tabular}
+\end{table}
 
 \section*{References}
 
