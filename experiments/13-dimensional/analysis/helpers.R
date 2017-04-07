@@ -116,7 +116,8 @@ theme_blackDisplay <- function(base_size = 12, base_family = "Helvetica") {
     rect =               element_rect(fill = "black", colour = "black", size = 0.5, linetype = 1),
     text =               element_text(family = base_family, face = "plain",
                                       colour = "white", size = base_size,
-                                      hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9),
+                                      hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9,
+                                      margin = margin(), debug = FALSE),
     axis.text =          element_text(size = 30, colour = "white"),
     strip.text =         element_text(size = 30, colour = "white"),
     
@@ -128,7 +129,7 @@ theme_blackDisplay <- function(base_size = 12, base_family = "Helvetica") {
     axis.title.x =       element_text(vjust = 1),
     axis.title.y =       element_text(angle = 90),
     axis.ticks.length =  unit(0.3, "lines"),
-    axis.ticks.margin =  unit(0.5, "lines"),
+    #axis.ticks.margin =  unit(0.5, "lines"),
     
     legend.background =  element_rect(colour = "black"),
     legend.margin =      unit(0.2, "cm"),
