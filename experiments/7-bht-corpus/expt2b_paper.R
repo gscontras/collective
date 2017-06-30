@@ -7,18 +7,30 @@ library(reshape2)
 library(gridExtra)
 library(hydroGOF)
 
-setwd("~/Documents/git/CoCoLab/collective/experiments/7-bht-corpus/")
+setwd("~/git/collective/experiments/7-bht-corpus/")
 
 sub = read.table("Submiterator-master/bht-corpus-subject_information.tsv",sep="\t",header=T)
 sub
 
 d = read.table("Submiterator-master/bht-corpus-trials.tsv",sep="\t",header=T)
 
+d$language = s$language[match(d$workerid,s$workerid)]
+
 #only native English
 d <- d[d$workerid!=16&d$workerid!=17&d$workerid!=18&d$workerid!=27,]
 
-# sense rates
-d = d[!is.na(d$sense),]
+
+# trim to just those sentences that make sense
+
+d = d[!is.na(d$sense)&d$sense=="Yes",]
+
+# just attested sentences
+
+a = d[d$attested=="True",]
+
+#save for archiving
+#write.csv(a,"~/git/collective/writing/Cubert/revision2/data/expt2b.csv")
+
 
 table(d$sense,d$attested)
 # unattested: 87% make sense

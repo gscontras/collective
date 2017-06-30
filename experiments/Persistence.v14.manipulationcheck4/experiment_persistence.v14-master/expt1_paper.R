@@ -4,14 +4,19 @@ library(lmerTest)
 library(coin)
 library(ggplot2)
 
-setwd("~/Documents/git/CoCoLab/collective/writing/Cubert/plots/")
+setwd("~/git/collective/writing/Cubert/plots/")
 
 
 
-d = read.table("~/Dropbox/CoCoLab/CollectivePredication/Experiment/Persistence.v14.manipulationcheck4/experiment_persistence.v14-master/Submiterator-master/persistence.v14-trials.tsv",sep="\t",header=T)
+d = read.table("~/git/collective/experiments/Persistence.v14.manipulationcheck4/experiment_persistence.v14-master/Submiterator-master/persistence.v14-trials.tsv",sep="\t",header=T)
 
-s = read.table("~/Dropbox/CoCoLab/CollectivePredication/Experiment/Persistence.v14.manipulationcheck4/experiment_persistence.v14-master/Submiterator-master/persistence.v14-subject_information.tsv",sep="\t",header=T)
+s = read.table("~/git/collective/experiments/Persistence.v14.manipulationcheck4/experiment_persistence.v14-master/Submiterator-master/persistence.v14-subject_information.tsv",sep="\t",header=T)
 summary(s)
+
+d$language = s$language[match(d$workerid,s$workerid)]
+
+#save for archiving
+#write.csv(d,"~/git/collective/writing/Cubert/revision2/data/expt1.csv")
 
 d$coll = 0
 d[d$choice =="coll_list",]$coll = 1

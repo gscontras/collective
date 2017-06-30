@@ -6,17 +6,33 @@ library(ggplot2)
 library(reshape2)
 library(hydroGOF)
 
-setwd("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/")
+setwd("~/git/collective/experiments/2-corpus-based/")
 
-sub = read.table("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/Submiterator-master/2-corpus-based-subject_information.tsv",sep="\t",header=T)
+sub = read.table("~/git/collective/experiments/2-corpus-based/Submiterator-master/2-corpus-based-subject_information.tsv",sep="\t",header=T)
 sub
 
-d = read.table("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/Submiterator-master/2-corpus-based-trials.tsv",sep="\t",header=T)
+d = read.table("~/git/collective/experiments/2-corpus-based/Submiterator-master/2-corpus-based-trials.tsv",sep="\t",header=T)
+
+
+s = read.csv("~/git/collective/experiments/2-corpus-based/bnc.sentences.csv",header=T)
+
+d$language = sub$language[match(d$workerid,sub$workerid)]
 
 #only native English
 d <- d[d$workerid!=8&d$workerid!=20&d$workerid!=30&d$workerid!=47&d$workerid!=73,]
 
-s = read.csv("~/Documents/git/CoCoLab/collective/experiments/2-corpus-based/bnc.sentences.csv",header=T)
+# trim to just those sentences that make sense
+
+d = d[!is.na(d$sense)&d$sense=="Yes",]
+
+# just attested sentences
+
+a = d[d$attested=="True",]
+
+#save for archiving
+#write.csv(a,"~/git/collective/writing/Cubert/revision2/data/expt2a.csv")
+
+
 
 # counts and raw values
 

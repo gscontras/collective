@@ -4,9 +4,11 @@ library(hydroGOF)
 library(tidyr)
 library(dplyr)
 
-source("../analysis/helpers.R")
 
- setwd("~/Documents/git/cocolab/collective/experiments/13-dimensional/Submiterator-master")
+
+setwd("~/git/collective/experiments/13-dimensional/Submiterator-master")
+
+source("../analysis/helpers.R")
 # 
 # a = read.csv("../analysis/adjectives.csv",header=T)
 # 

@@ -19,6 +19,10 @@ summary(d)
 d = d[d$language!="Spanish "&d$language!="spanish"&d$language!="Russian",]
 summary(d)
 unique(d$workerid) ## 77 participants
+
+#save for archiving
+#write.csv(d,"~/git/collective/writing/Cubert/revision2/data/expt3.csv")
+
   
 # counts and raw values
 
