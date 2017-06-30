@@ -6,12 +6,12 @@ library(ggplot2)
 library(grid)
 library(hydroGOF)
 
-setwd("~/Dropbox/CoCoLab/CollectivePredication/Experiment/Persistence.v10.everything/experiment_persistence.v10-master/")
+setwd("~/git/collective/experiments/Persistence.v10.everything/experiment_persistence.v10-master/")
 source("analysis/helpers.R")
 
-d = read.csv("~/Dropbox/CoCoLab/CollectivePredication/Experiment/Persistence.v10.everything/experiment_persistence.v10-master/Submiterator-master/persistence.v10-trials.order.csv",header=T)
+d = read.csv("~/git/collective/experiments/Persistence.v10.everything/experiment_persistence.v10-master/Submiterator-master/persistence.v10-trials.order.csv",header=T)
 
-s = read.table("~/Dropbox/CoCoLab/CollectivePredication/Experiment/Persistence.v10.everything/experiment_persistence.v10-master/Submiterator-master/persistence.v10-subject_information.tsv",sep="\t",header=T)
+s = read.table("~/git/collective/experiments/Persistence.v10.everything/experiment_persistence.v10-master/Submiterator-master/persistence.v10-subject_information.tsv",sep="\t",header=T)
 head(s)
 summary(s)
 d$language = s$language[match(d$workerid,s$workerid)]
