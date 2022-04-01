@@ -168,16 +168,16 @@ var pluralPredication = function(numberObjects,
 }
 
 
-print(pluralPredication(3,"no",true,"ambiguous-pos"))
-print(pluralPredication(3,"no",false,"ambiguous-pos"))
+viz.hist(pluralPredication(3,"no",true,"ambiguous-pos"))
+// print(pluralPredication(3,"no",false,"ambiguous-pos"))
 
-print(pluralPredication(3,"low",true,"ambiguous-pos"))
-print(pluralPredication(3,"low",false,"ambiguous-pos"))
+// print(pluralPredication(3,"low",true,"ambiguous-pos"))
+// print(pluralPredication(3,"low",false,"ambiguous-pos"))
 
-print(pluralPredication(3,"mid",true,"ambiguous-pos"))
-print(pluralPredication(3,"mid",false,"ambiguous-pos"))
+// print(pluralPredication(3,"mid",true,"ambiguous-pos"))
+// print(pluralPredication(3,"mid",false,"ambiguous-pos"))
 
-print(pluralPredication(3,"high",true,"ambiguous-pos"))
-print(pluralPredication(3,"high",false,"ambiguous-pos"))
+// print(pluralPredication(3,"high",true,"ambiguous-pos"))
+// print(pluralPredication(3,"high",false,"ambiguous-pos"))
 
 
